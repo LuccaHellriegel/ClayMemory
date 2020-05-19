@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+
+type GridSlotElementProps = {
+	content: any;
+};
+
+function GridSlotElement(props: GridSlotElementProps) {
+	return <div className="GridSlotElement">{props.content}</div>;
+}
+
+type GridColumnSlotProps = {
+	elements: GridSlotElementProps[];
+};
+
+function GridColumnSlot(props: GridColumnSlotProps) {
+	const elements = props.elements.map((element) => <GridSlotElement content={element.content}></GridSlotElement>);
+
+	return <div className="GridColumnSlot">{elements}</div>;
+}
+
+type GridColumnProps = {
+	slots: GridColumnSlotProps[];
+};
+
+function GridColumn(props: GridColumnProps) {
+	const slots = props.slots.map((slot) => <GridColumnSlot elements={slot.elements}></GridColumnSlot>);
+
+	return <div className="GridColumn">{slots}</div>;
+}
+
+type GridLayoutProps = { columns: GridColumnProps[] };
+
+function GridLayout(props: GridLayoutProps) {
+	const columns = props.columns.map((column) => <GridColumn slots={column.slots}></GridColumn>);
+
+	return <div className="GridLayout">{columns}</div>;
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const gridColumnProps = {
+		slots: [{ elements: [{ content: "A" }, { content: "A" }] }, { elements: [{ content: "A" }] }],
+	};
+	const gridLayoutProps = { columns: [gridColumnProps, gridColumnProps] };
+	return GridLayout(gridLayoutProps);
 }
 
 export default App;

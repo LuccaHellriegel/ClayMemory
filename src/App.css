@@ -1,38 +1,20 @@
-.App {
-  text-align: center;
+.GridLayout {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(2, 1fr);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.GridColumn {
+	display: grid;
+	gap: 1rem;
+	grid-template-rows: repeat(2, 1fr);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.GridColumnSlot {
+	border: 5px solid #000;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.GridSlotElement {
+	font-size: 40pt;
+	border: 5px solid rgb(104, 25, 25);
 }
