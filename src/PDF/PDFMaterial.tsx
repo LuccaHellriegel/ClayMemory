@@ -1,15 +1,17 @@
 import "./PDFMaterial.css";
-import "./css/grid-styles.css";
-import "./css/resizable-styles.css";
 import React, { useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import { connect } from "react-redux";
 import { withSize } from "react-sizeme";
-import { eleSize } from "../reducers";
-import { MaterialUploadContainer } from "./MaterialUpload";
+import { MaterialUploadContainer } from "../PDFUpload/MaterialUpload";
+import "./AnnotationLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+//TODO: weird behavior if Link is the end of the page (and the sentence continues in the next page)
+//Solution: if link big as page, then remove it
 function PDFMaterial({ file }: { file: File }) {
+	console.log("Rendering PDFMaterial");
+
 	const [numPages, setNumPages] = useState(0);
 	const [pageNumber, setPageNumber] = useState(1);
 
@@ -69,6 +71,13 @@ function PDFMaterial({ file }: { file: File }) {
 	);
 }
 
+export const ELE_SIZE = "ELE_SIZE";
+
+function eleSize(size: { width: number; height: number }) {
+	console.log("here");
+	return { size, type: ELE_SIZE };
+}
+
 function mapStateToProps(state: any) {
 	return { file: state.file };
 }
@@ -83,5 +92,5 @@ function mapDispatchToProps(dispatch: any) {
 	};
 }
 
-const PDFMaterialWithSize = withSize({ monitorHeight: true })(PDFMaterial);
+const PDFMaterialWithSize = withSize({ monitorHeight: true, noPlaceholder: true })(PDFMaterial);
 export const PDFMaterialContainer = connect(mapStateToProps, mapDispatchToProps)(PDFMaterialWithSize);
