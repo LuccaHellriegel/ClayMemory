@@ -1,9 +1,9 @@
-import "./PDFMaterial.css";
+import "./PDF.css";
 import React, { useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import { connect } from "react-redux";
 import { withSize } from "react-sizeme";
-import { MaterialUploadContainer } from "../PDFUpload/MaterialUpload";
+import { MaterialUploadContainer } from "./PDFUpload/PDFUpload";
 import "./AnnotationLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
