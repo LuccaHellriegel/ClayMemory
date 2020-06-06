@@ -45,7 +45,7 @@ function printSelection(dispatcher: any) {
 	// 	// }
 	// 	const text = selection.toString().replace(/[\r\n\t]/g, "");
 	// 	dispatcher(selectionAction(text));
-	// 	console.log(text);
+	// 	//console.log(text);
 	// }
 }
 

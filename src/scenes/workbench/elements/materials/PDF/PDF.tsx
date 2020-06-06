@@ -10,7 +10,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 //TODO: weird behavior if Link is the end of the page (and the sentence continues in the next page)
 //Solution: if link big as page, then remove it
 function PDFMaterial({ file }: { file: File }) {
-	console.log("Rendering PDFMaterial");
+	//console.log("Rendering PDFMaterial");
 
 	const [numPages, setNumPages] = useState(0);
 	const [pageNumber, setPageNumber] = useState(1);
@@ -74,7 +74,7 @@ function PDFMaterial({ file }: { file: File }) {
 export const ELE_SIZE = "ELE_SIZE";
 
 function eleSize(size: { width: number; height: number }) {
-	console.log("here");
+	//console.log("here");
 	return { size, type: ELE_SIZE };
 }
 
