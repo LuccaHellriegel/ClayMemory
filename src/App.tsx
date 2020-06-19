@@ -1,8 +1,8 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import { ELE_SIZE } from "./scenes/workbench/workbench-grid/elements/materials/PDF/PDF";
-import { FILE } from "./scenes/workbench/workbench-grid/elements/materials/PDF/PDFUpload/PDFUpload";
+import { ELE_SIZE } from "./scenes/workbench/elements/materials/PDF/PDF";
+import { FILE } from "./scenes/workbench/elements/materials/PDF/PDFUpload/PDFUpload";
 import { EXTRACTION_MENU_LEFTCLICK } from "./scenes/workbench/extraction-menu/menu/ExtractionMenuActions";
 import { Workbench } from "./scenes/workbench/Workbench";
 import { GridSetup } from "./scenes/workbench/workbench-grid/WorkbenchGrid";

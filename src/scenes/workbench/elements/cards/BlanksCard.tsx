@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { Editor } from "../../../../../components/Editor";
+import { Editor } from "../../../../components/Editor";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import React from "react";
 
