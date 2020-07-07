@@ -6,8 +6,8 @@ import { pdf } from "./components/PDFUpload/PDFUploadActionsReducers";
 import { pdfRenderStatus } from "./components/Reader/ReaderActionsReducers";
 import { pageData } from "./components/PageDataCollector/PageDataCollectorActionsReducers";
 import { PageDataCollectorContainer } from "./components/PageDataCollector/PageDataCollector";
-import { section } from "./components/Selector/SelectorActionsReducers";
-import { SelectorContainer } from "./components/Selector/Selector";
+import { section } from "./components/SectionControl/SectionControlActionsReducers";
+import { SectionControlContainer } from "./components/SectionControl/SectionControl";
 
 // const initialState: { workbenchGrid: GridSetup } = {
 // 	workbenchGrid: {
@@ -36,7 +36,7 @@ export function App() {
 	return (
 		<Provider store={store}>
 			<PageDataCollectorContainer></PageDataCollectorContainer>
-			<SelectorContainer></SelectorContainer>
+			<SectionControlContainer></SectionControlContainer>
 			<ReaderScene></ReaderScene>
 		</Provider>
 	);

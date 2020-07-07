@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
-import { sectionUpdate } from "./SelectorActionsReducers";
+import { sectionUpdate } from "./SectionControlActionsReducers";
 import { useEventListener } from "../../useEventListener";
 
 //TODO: remove maxIndex?
 export type Section = { curIndex: number; maxIndex?: number };
 
-function Selector({
+function SectionControl({
 	sectionChange,
 	section,
 	spanGroups,
@@ -39,4 +39,4 @@ function mapStateToProps(state: any) {
 	return {};
 }
 
-export const SelectorContainer = connect(mapStateToProps, { sectionChange: sectionUpdate })(Selector);
+export const SectionControlContainer = connect(mapStateToProps, { sectionChange: sectionUpdate })(SectionControl);

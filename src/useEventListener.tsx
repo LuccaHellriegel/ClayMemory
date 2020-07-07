@@ -1,5 +1,6 @@
 import { useRef, useEffect, MutableRefObject } from "react";
 
+// only global eventListener for now
 export const useEventListener = (eventName: string, handler: any) => {
 	const savedHandler: MutableRefObject<Function> = useRef(() => {});
 
@@ -13,5 +14,5 @@ export const useEventListener = (eventName: string, handler: any) => {
 		return () => {
 			document.removeEventListener(eventName, eventListener);
 		};
-	}, [eventName, document]);
+	}, [eventName]);
 };

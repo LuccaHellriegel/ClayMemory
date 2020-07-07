@@ -1,4 +1,4 @@
-import { Section } from "./Selector";
+import { Section } from "./SectionControl";
 
 export const SECTION_UPDATE = "SECTION_UPDATE";
 
