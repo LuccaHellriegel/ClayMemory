@@ -1,35 +1,40 @@
 import { connect } from "react-redux";
-import { section, sectionUpdate } from "./SelectorActionsReducers";
+import { sectionUpdate } from "./SelectorActionsReducers";
 import { useEventListener } from "../../useEventListener";
 
+//TODO: remove maxIndex?
 export type Section = { curIndex: number; maxIndex?: number };
 
 function Selector({
 	sectionChange,
 	section,
+	spanGroups,
 }: {
 	section: Section;
 	sectionChange: (oldSection: Section, sectionIndex: number) => void;
+	spanGroups: HTMLSpanElement[][];
 }) {
 	useEventListener("keydown", (event: KeyboardEvent) => {
 		if (event.key === "ArrowDown") {
 			event.preventDefault();
-			sectionChange(section, section.curIndex + 1);
+			let newIndex = section.curIndex + 1;
+			if (newIndex === spanGroups.length) newIndex = 0;
+			sectionChange(section, newIndex);
+		}
+		if (event.key === "ArrowUp") {
+			event.preventDefault();
+			let newIndex = section.curIndex - 1;
+			//TODO: Page-Focus needs to change too?
+			if (newIndex === -1) newIndex = spanGroups.length - 1;
+			sectionChange(section, newIndex);
 		}
 	});
-
-	//TODO: listen to keydown
-	// if (!section) {
-	// 	// default section
-	// 	sectionChange({ maxIndex });
-	// }
-
 	return null;
 }
 
 function mapStateToProps(state: any) {
 	if (state.pageData) {
-		return { section: state.section }; //, spanGroups: state.pageData.spanGroups };
+		return { section: state.section, spanGroups: state.pageData.spanGroups };
 	}
 	return {};
 }
