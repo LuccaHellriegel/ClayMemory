@@ -7,25 +7,6 @@ import { QACardContainer } from "../elements/cards/QACard";
 import { BlanksCardContainer } from "../elements/cards/BlanksCard";
 import { WorkbenchSlot } from "./slot/WorkbenchSlot";
 
-const WorkbenchRow = ({ children, rowsPerBench = 2 }: any) => {
-	//default is 2 rows per Bench, (2x2 grid)
-	const height = 100 / rowsPerBench + "%";
-
-	return (
-		<Grid
-			item
-			container
-			spacing={2}
-			direction="row"
-			justify="space-evenly"
-			alignItems="stretch"
-			style={{ height, width: "100%" }}
-		>
-			{children}
-		</Grid>
-	);
-};
-
 type GridMaterialType = "PDF";
 
 function gridMaterialToJSX(girdMaterial: GridMaterialType) {
@@ -86,6 +67,25 @@ export type GridSetup = {
 	slot2: GridSlotSetup;
 	slot3: GridSlotSetup;
 	slot4: GridSlotSetup;
+};
+
+const WorkbenchRow = ({ children, rowsPerBench = 2 }: any) => {
+	//default is 2 rows per Bench, (2x2 grid)
+	const height = 100 / rowsPerBench + "%";
+
+	return (
+		<Grid
+			item
+			container
+			spacing={2}
+			direction="row"
+			justify="space-evenly"
+			alignItems="stretch"
+			style={{ height, width: "100%" }}
+		>
+			{children}
+		</Grid>
+	);
 };
 
 export function WorkbenchGrid({ workbenchGrid }: { workbenchGrid: GridSetup }) {

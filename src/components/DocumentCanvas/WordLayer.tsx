@@ -1,0 +1,33 @@
+import React from "react";
+import { Layer } from "react-konva";
+import { spanToWordRanges } from "../../services/RangeService";
+import { LayerConfig } from "konva/types/Layer";
+import { BoundingRectRect } from "./BoundingRectRect";
+
+export function WordLayer({ spans, ...props }: { spans: HTMLSpanElement[] } & LayerConfig) {
+	const wordRanges = spans.map((span) => spanToWordRanges(span)).flat();
+	// TODO: Make React-ly solution for getting this here?
+	// assumes there is only one document
+	const container = document.querySelector("div.react-pdf__Document");
+
+	if (container) {
+		const containerRect = container.getBoundingClientRect();
+
+		return (
+			<Layer {...props}>
+				{wordRanges.map((range) => (
+					<BoundingRectRect
+						xOffset={containerRect.x}
+						yOffset={containerRect.y}
+						boundingRect={range.getBoundingClientRect()}
+						shadowBlur={5}
+						stroke={"green"}
+						opacity={0.3}
+					></BoundingRectRect>
+				))}
+			</Layer>
+		);
+	}
+
+	return null;
+}
