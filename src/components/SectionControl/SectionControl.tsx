@@ -2,16 +2,15 @@ import { connect } from "react-redux";
 import { sectionUpdate } from "./SectionControlActionsReducers";
 import { useEventListener } from "../../useEventListener";
 
-//TODO: remove maxIndex?
-export type Section = { curIndex: number; maxIndex?: number };
+export type SectionData = { curIndex: number; updateAllowed: boolean };
 
 function SectionControl({
 	sectionChange,
 	section,
 	spanGroups,
 }: {
-	section: Section;
-	sectionChange: (oldSection: Section, sectionIndex: number) => void;
+	section: SectionData;
+	sectionChange: (oldSection: SectionData, sectionIndex: number) => void;
 	spanGroups: HTMLSpanElement[][];
 }) {
 	useEventListener("keydown", (event: KeyboardEvent) => {
@@ -33,7 +32,8 @@ function SectionControl({
 }
 
 function mapStateToProps(state: any) {
-	if (state.pageData) {
+	console.log(state.pageData);
+	if (state.pageData.spanGroups) {
 		return { section: state.section, spanGroups: state.pageData.spanGroups };
 	}
 	return {};

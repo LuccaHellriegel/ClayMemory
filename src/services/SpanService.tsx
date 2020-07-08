@@ -1,15 +1,18 @@
-export const PAGE_DATA = "PAGE_DATA";
-
-type SpanDataGroups = { spanGroups: HTMLSpanElement[][]; boundingRectGroups: DOMRect[][] };
+export type SpanDataGroups = { spanGroups: HTMLSpanElement[][]; boundingRectGroups: DOMRect[][] };
 
 //TODO: what about spans in same line or nearly same line? (Abschlussarbeit-Anmeldung PDF as example)
-function getSpanDataGroups(container: HTMLDivElement): SpanDataGroups {
+export function getSpanDataGroups(container: HTMLDivElement): SpanDataGroups | null {
 	const spanGroups: HTMLSpanElement[][] = [];
 	const boundingRectGroups: DOMRect[][] = [];
 
 	// assumes all spans inside the document are relevant (potentially multiple pages)
 	const spans = Array.from(container.querySelectorAll("span"));
-	if (spans.length === 0) return { spanGroups, boundingRectGroups };
+	console.log(
+		spans.length,
+		container.children.length,
+		document.querySelector("div.react-pdf__Page__textContent")?.children.length
+	);
+	if (spans.length === 0) return null;
 
 	const boundingRects = spans.map((span) => span.getBoundingClientRect());
 
@@ -39,16 +42,3 @@ function getSpanDataGroups(container: HTMLDivElement): SpanDataGroups {
 
 	return { spanGroups, boundingRectGroups };
 }
-
-export function pageDataAction(container: HTMLDivElement) {
-	return { type: PAGE_DATA, pageData: getSpanDataGroups(container) };
-}
-
-export const pageData = (state = null, { type, pageData }: { type: string; pageData?: SpanDataGroups }) => {
-	switch (type) {
-		case PAGE_DATA:
-			return pageData;
-		default:
-			return state;
-	}
-};

@@ -13,6 +13,13 @@ export function WordLayer({ spans, ...props }: { spans: HTMLSpanElement[] } & La
 	if (container) {
 		const containerRect = container.getBoundingClientRect();
 
+		let count = 0;
+		let increase = () => {
+			let curCount = count;
+			count++;
+			return curCount;
+		};
+
 		return (
 			<Layer {...props}>
 				{wordRanges.map((range) => (
@@ -23,6 +30,7 @@ export function WordLayer({ spans, ...props }: { spans: HTMLSpanElement[] } & La
 						shadowBlur={5}
 						stroke={"green"}
 						opacity={0.3}
+						key={increase()}
 					></BoundingRectRect>
 				))}
 			</Layer>

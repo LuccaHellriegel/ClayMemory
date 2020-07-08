@@ -5,7 +5,7 @@ export function spanToWordRanges(span: HTMLSpanElement) {
 
 	if (textContent) {
 		const possiblyWords = textContent.split(" ");
-		console.log(possiblyWords, textContent);
+		//console.log(possiblyWords, textContent);
 
 		let startOffset = 0;
 		let endOffset = 0;

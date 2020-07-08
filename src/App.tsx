@@ -1,13 +1,14 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import { ReaderScene } from "./components/ReaderScene";
 import { pdf } from "./components/PDFUpload/PDFUploadActionsReducers";
-import { pdfRenderStatus } from "./components/Reader/ReaderActionsReducers";
-import { pageData } from "./components/PageDataCollector/PageDataCollectorActionsReducers";
-import { PageDataCollectorContainer } from "./components/PageDataCollector/PageDataCollector";
 import { section } from "./components/SectionControl/SectionControlActionsReducers";
 import { SectionControlContainer } from "./components/SectionControl/SectionControl";
+import { page } from "./components/ReaderControl/ReaderControlActionsReducers";
+import { numPages, pageData } from "./components/Reader/ReaderActionsReducers";
+import thunk from "redux-thunk";
 
 // const initialState: { workbenchGrid: GridSetup } = {
 // 	workbenchGrid: {
@@ -25,17 +26,12 @@ import { SectionControlContainer } from "./components/SectionControl/SectionCont
 // 	},
 // };
 
-const rootReducer = combineReducers({ pdf, pdfRenderStatus, pageData, section });
-
-const store = createStore(
-	rootReducer,
-	(window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-);
+const rootReducer = combineReducers({ pdf, pageData, section, page, numPages });
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 export function App() {
 	return (
 		<Provider store={store}>
-			<PageDataCollectorContainer></PageDataCollectorContainer>
 			<SectionControlContainer></SectionControlContainer>
 			<ReaderScene></ReaderScene>
 		</Provider>

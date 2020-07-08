@@ -1,7 +1,10 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import { ReaderContainer } from "./Reader/Reader";
+import { PDFDocumentContainer } from "./Reader/Reader";
 import { withSize } from "react-sizeme";
+import { PDFUploadContainer } from "./PDFUpload/PDFUpload";
+import { DocumentCanvasContainer } from "./DocumentCanvas/DocumentCanvas";
+import { ReaderControlContainer } from "./ReaderControl/ReaderControl";
 
 function ReaderSceneGridColumn({ children }: any) {
 	return (
@@ -10,8 +13,6 @@ function ReaderSceneGridColumn({ children }: any) {
 			style={{
 				height: "100%",
 				outline: "solid red",
-				//overflowY: "scroll",
-				//overflowX: "scroll",
 			}}
 		>
 			{children}
@@ -20,19 +21,18 @@ function ReaderSceneGridColumn({ children }: any) {
 }
 
 function ReaderSceneMaterialColumn({ size }: any) {
-	console.log(size);
 	return (
 		<Grid
 			item
 			style={{
 				width: "60%",
-				//height: "100%",
 				outline: "solid red",
-				// overflowY: "scroll",
-				// overflowX: "scroll",
 			}}
 		>
-			<ReaderContainer parentSize={size}></ReaderContainer>
+			<DocumentCanvasContainer></DocumentCanvasContainer>
+			<PDFDocumentContainer parentSize={size}></PDFDocumentContainer>
+			<PDFUploadContainer></PDFUploadContainer>
+			<ReaderControlContainer></ReaderControlContainer>
 		</Grid>
 	);
 }
