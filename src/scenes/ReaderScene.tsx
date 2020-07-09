@@ -1,10 +1,10 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import { PDFDocumentContainer } from "./Reader/Reader";
+import { PDFDocumentContainer } from "../components/Reader/Reader";
 import { withSize } from "react-sizeme";
-import { PDFUploadContainer } from "./PDFUpload/PDFUpload";
-import { DocumentCanvasContainer } from "./DocumentCanvas/DocumentCanvas";
-import { ReaderControlContainer } from "./ReaderControl/ReaderControl";
+import { PDFUploadContainer } from "../components/PDFUpload/PDFUpload";
+import { DocumentCanvasContainer } from "../components/DocumentCanvas/DocumentCanvas";
+import { ReaderControlContainer } from "../components/ReaderControl/ReaderControl";
 
 function ReaderSceneGridColumn({ children }: any) {
 	return (

@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { ReaderScene } from "./components/ReaderScene";
+import { ReaderScene } from "./scenes/ReaderScene";
 import { pdf } from "./components/PDFUpload/PDFUploadActionsReducers";
 import { section } from "./components/SectionControl/SectionControlActionsReducers";
 import { SectionControlContainer } from "./components/SectionControl/SectionControl";
