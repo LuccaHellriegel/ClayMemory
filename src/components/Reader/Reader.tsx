@@ -23,31 +23,29 @@ const options = {
 };
 
 function PDFDocument({
-	PDF,
+	pdf,
 	parentSize,
 	pageDataAction,
 	pageDataActionAsync,
 	pdfLoaded,
 	page,
 }: {
-	PDF: File;
+	pdf: File;
 	parentSize: any;
 	pageDataAction: (pageData: PageDataType) => void;
 	pageDataActionAsync: (container: HTMLDivElement) => void;
 	pdfLoaded: (numPages: number) => void;
 	page: number;
 }) {
-	//TODO: Control / numPages
-
 	return (
 		<Document
-			file={PDF}
+			file={pdf}
 			options={options}
 			onLoadSuccess={({ numPages }) => {
 				pdfLoaded(numPages);
 			}}
 		>
-			{PDF && (
+			{pdf && (
 				<Page
 					width={parentSize.width}
 					pageNumber={page}
@@ -55,11 +53,10 @@ function PDFDocument({
 						const container = document.querySelector("div.react-pdf__Document");
 						if (container) {
 							const dataGroups = getSpanDataGroups(container as HTMLDivElement);
-							// from MutationObserver experiments, we know that the text-layer is not guaranteed to be rendered on render "success"
-							if (!dataGroups) {
-								pageDataActionAsync(container as HTMLDivElement);
-							} else {
+							if (dataGroups) {
 								pageDataAction({ ...dataGroups, time: Date.now() });
+							} else {
+								pageDataActionAsync(container as HTMLDivElement);
 							}
 						} else {
 							throw "No container found!";
@@ -73,7 +70,7 @@ function PDFDocument({
 }
 
 function mapStateToProps(state: any) {
-	return { PDF: state.pdf, page: state.page };
+	return { pdf: state.pdf, page: state.page };
 }
 
 export const PDFDocumentContainer = connect(mapStateToProps, { pageDataAction, pageDataActionAsync, pdfLoaded })(

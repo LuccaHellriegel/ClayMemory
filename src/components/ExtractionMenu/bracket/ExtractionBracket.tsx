@@ -1,7 +1,9 @@
 import { selectionTextData } from "../../../services/SelectionService/SelectionService";
 import React from "react";
+import { connect } from "react-redux";
+import { clickBracket } from "./ExtractionBracketActionsReducers";
 
-export function ExtractionBracket({ children, click }: any) {
+function ExtractionBracket({ children, click }: any) {
 	const handleClick = (event: any) => {
 		event.preventDefault();
 
@@ -9,7 +11,6 @@ export function ExtractionBracket({ children, click }: any) {
 
 		const data = selectionTextData(selection);
 
-		//console.log("click");
 		console.log(data?.word);
 		console.log(data?.sentence);
 		console.log(
@@ -21,9 +22,7 @@ export function ExtractionBracket({ children, click }: any) {
 				}, "")
 		);
 
-		//TODO: how about w s a as selecting the text? + arrows, double click to immediately select word and
-		//TODO alternative navigation by just arrows (the open editor in the slot is automatically chosen)
-		// need to capture all the text/nodes before the menu is opened because of the invisible
+		// need to capture all the text/nodes before the menu is opened because of the invisible div
 		click({
 			mouseX: event.clientX,
 			mouseY: event.clientY,
@@ -37,3 +36,5 @@ export function ExtractionBracket({ children, click }: any) {
 		</div>
 	);
 }
+
+export const ExtractionBracketContainer = connect(() => {}, { click: clickBracket })(ExtractionBracket);

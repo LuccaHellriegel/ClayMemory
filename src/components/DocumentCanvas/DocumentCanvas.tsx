@@ -7,8 +7,6 @@ import { WordLayer } from "./WordLayer";
 
 export function DocumentCanvas({ spans }: { spans?: HTMLSpanElement[] }) {
 	//zIndex is Ordering of canvases
-
-	//console.log(spans);
 	return (
 		<Stage
 			width={window.innerWidth}
@@ -22,7 +20,6 @@ export function DocumentCanvas({ spans }: { spans?: HTMLSpanElement[] }) {
 
 function mapStateToProps(state: any) {
 	if (state.pageData.spanGroups) {
-		console.log(state.pageData, state.section);
 		return { spans: state.pageData.spanGroups[state.section.curIndex] };
 	}
 	return {};
