@@ -2,7 +2,12 @@ import React from "react";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import NestedMenuItem from "material-ui-nested-menu-item";
-import { GridSetup, GridSlotSetup, GridElementSetup, GridElementType } from "../../workbench-grid/WorkbenchGrid";
+import {
+	GridSetup,
+	GridSlotSetup,
+	GridElementSetup,
+	GridElementType,
+} from "../../../scenes/workbench/workbench-grid/WorkbenchGrid";
 
 // TODO: to goal or to new one!
 function goalMenu(slotElements: GridElementSetup[], goal: GridElementType) {

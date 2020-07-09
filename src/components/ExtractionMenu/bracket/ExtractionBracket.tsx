@@ -1,4 +1,4 @@
-import { selectionTextData } from "../../../../services/SelectionService/SelectionService";
+import { selectionTextData } from "../../../services/SelectionService/SelectionService";
 import React from "react";
 
 export function ExtractionBracket({ children, click }: any) {
