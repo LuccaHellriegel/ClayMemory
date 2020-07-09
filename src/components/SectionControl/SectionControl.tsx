@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { sectionUpdate } from "./SectionControlActionsReducers";
-import { useEventListener } from "../../useEventListener";
+import { useEventListener } from "../../hooks/useEventListener";
 
 export type SectionData = { curIndex: number; updateAllowed: boolean };
 
