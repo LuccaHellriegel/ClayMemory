@@ -4,8 +4,8 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { ReaderScene } from "./scenes/ReaderScene";
 import { pdf } from "./components/PDFUpload/PDFUploadActionsReducers";
-import { section } from "./components/SectionControl/SectionControlActionsReducers";
-import { SectionControlContainer } from "./components/SectionControl/SectionControl";
+import { section } from "./components/Control/ControlActionsReducers";
+import { ControlContainer } from "./components/Control/Control";
 import { page } from "./components/ReaderControl/ReaderControlActionsReducers";
 import { numPages, pageData } from "./components/Reader/ReaderActionsReducers";
 import thunk from "redux-thunk";
@@ -32,7 +32,7 @@ const store = createStore(rootReducer, enhancer);
 export function App() {
 	return (
 		<Provider store={store}>
-			<SectionControlContainer></SectionControlContainer>
+			<ControlContainer></ControlContainer>
 			<ReaderScene></ReaderScene>
 		</Provider>
 	);

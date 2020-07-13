@@ -1,4 +1,4 @@
-import { SectionData } from "./SectionControl";
+import { SectionData } from "./Control";
 import { PAGE_DATA } from "../Reader/ReaderActionsReducers";
 import { PAGE_UPDATE } from "../ReaderControl/ReaderControlActionsReducers";
 
