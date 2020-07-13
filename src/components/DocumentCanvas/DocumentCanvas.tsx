@@ -10,7 +10,7 @@ export function DocumentCanvas({ spans }: { spans?: HTMLSpanElement[] }) {
 	return (
 		<Stage
 			width={window.innerWidth}
-			height={window.innerHeight}
+			height={document.documentElement.scrollHeight}
 			style={{ position: "absolute", pointerEvents: "none", zIndex: 100000 }}
 		>
 			{spans && <WordLayer spans={spans}></WordLayer>}
