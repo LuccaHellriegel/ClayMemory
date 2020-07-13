@@ -25,7 +25,7 @@ function ReaderSceneMaterialColumn({ size }: any) {
 		<Grid
 			item
 			style={{
-				width: "60%",
+				width: "100%",
 				outline: "solid red",
 			}}
 		>
@@ -42,11 +42,11 @@ const ReaderSceneMaterialColumnWithSize = withSize({ monitorHeight: true, noPlac
 );
 
 export function ReaderScene() {
+	// <ReaderSceneGridColumn>Bluä</ReaderSceneGridColumn>
+
 	return (
 		<Grid container justify="space-around" direction="row">
-			<ReaderSceneGridColumn>Bluä</ReaderSceneGridColumn>
 			<ReaderSceneMaterialColumnWithSize></ReaderSceneMaterialColumnWithSize>
-			<ReaderSceneGridColumn>Bluä</ReaderSceneGridColumn>
 		</Grid>
 	);
 }

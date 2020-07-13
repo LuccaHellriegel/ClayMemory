@@ -2,10 +2,18 @@ import React from "react";
 import { Stage } from "react-konva";
 import { connect } from "react-redux";
 import { WordLayer } from "./WordLayer";
+import { SectionSelectionState } from "../Control/ControlActionsReducers";
 
-//TODO: resize event!
+const freeColor = "green";
+const lockedColor = "red";
 
-export function DocumentCanvas({ spans }: { spans?: HTMLSpanElement[] }) {
+function DocumentCanvas({
+	spans,
+	selectionState,
+}: {
+	spans?: HTMLSpanElement[];
+	selectionState: SectionSelectionState;
+}) {
 	//zIndex is Ordering of canvases
 	return (
 		<Stage
@@ -13,14 +21,14 @@ export function DocumentCanvas({ spans }: { spans?: HTMLSpanElement[] }) {
 			height={document.documentElement.scrollHeight}
 			style={{ position: "absolute", pointerEvents: "none", zIndex: 100000 }}
 		>
-			{spans && <WordLayer spans={spans}></WordLayer>}
+			{spans && <WordLayer spans={spans} color={selectionState === "free" ? freeColor : lockedColor}></WordLayer>}
 		</Stage>
 	);
 }
 
 function mapStateToProps(state: any) {
 	if (state.pageData.spanGroups) {
-		return { spans: state.pageData.spanGroups[state.section.curIndex] };
+		return { spans: state.pageData.spanGroups[state.section.curIndex], selectionState: state.section.selectionState };
 	}
 	return {};
 }
