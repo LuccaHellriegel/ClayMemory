@@ -1,14 +1,12 @@
 import { connect } from "react-redux";
-import { SectionSelectionState, control } from "./ControlActionsReducers";
+import { keyboardControl } from "./ControlActionsReducers";
 import { useEventListener } from "../../hooks/useEventListener";
 
-export type SectionData = { curIndex: number; updateAllowed: boolean; selectionState: SectionSelectionState };
-
-function Control({ control }: { control: (event: KeyboardEvent) => void }) {
-	useEventListener("keydown", control);
+function Control({ keyboardControl }: { keyboardControl: (event: KeyboardEvent) => void }) {
+	useEventListener("keydown", keyboardControl);
 	return null;
 }
 
 export const ControlContainer = connect(() => {}, {
-	control,
+	keyboardControl,
 })(Control);

@@ -4,7 +4,7 @@ import { spanToWordRanges } from "../../services/RangeService";
 import { LayerConfig } from "konva/types/Layer";
 import { BoundingRectRect } from "./BoundingRectRect";
 
-export function WordLayer({ spans, color, ...props }: { spans: HTMLSpanElement[] } & LayerConfig) {
+export function WordLayer({ spans, color, selectionGroup, ...props }: { spans: HTMLSpanElement[] } & LayerConfig) {
 	const wordRanges = spans.map((span) => spanToWordRanges(span)).flat();
 	// TODO: Make React-ly solution for getting this here?
 	// assumes there is only one document
@@ -15,6 +15,8 @@ export function WordLayer({ spans, color, ...props }: { spans: HTMLSpanElement[]
 		spans[0].scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
 		const containerRect = container.getBoundingClientRect();
 
+		const flatSelectionGroup = selectionGroup.flat();
+
 		let count = 0;
 		let increase = () => {
 			let curCount = count;
@@ -24,17 +26,19 @@ export function WordLayer({ spans, color, ...props }: { spans: HTMLSpanElement[]
 
 		return (
 			<Layer {...props}>
-				{wordRanges.map((range) => (
-					<BoundingRectRect
-						xOffset={containerRect.x}
-						yOffset={containerRect.y}
-						boundingRect={range.getBoundingClientRect()}
-						shadowBlur={5}
-						stroke={color}
-						opacity={0.3}
-						key={increase()}
-					></BoundingRectRect>
-				))}
+				{wordRanges.map((range, index) =>
+					flatSelectionGroup[index] === 1 ? (
+						<BoundingRectRect
+							xOffset={containerRect.x}
+							yOffset={containerRect.y}
+							boundingRect={range.getBoundingClientRect()}
+							shadowBlur={5}
+							stroke={color}
+							opacity={0.3}
+							key={increase()}
+						></BoundingRectRect>
+					) : null
+				)}
 			</Layer>
 		);
 	}

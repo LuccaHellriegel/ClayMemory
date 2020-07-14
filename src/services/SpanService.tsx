@@ -1,4 +1,11 @@
-export type SpanDataGroups = { spanGroups: HTMLSpanElement[][]; boundingRectGroups: DOMRect[][] };
+import { spanToWordRanges } from "./RangeService";
+
+export type SpanDataGroups = {
+	spanGroups: HTMLSpanElement[][];
+	boundingRectGroups: DOMRect[][];
+	wordGroups: Range[][][];
+	selectionGroups: (1 | 0)[][][];
+};
 
 //TODO: what about spans in same line or nearly same line? (Abschlussarbeit-Anmeldung PDF as example)
 export function getSpanDataGroups(container: HTMLDivElement): SpanDataGroups | null {
@@ -7,17 +14,13 @@ export function getSpanDataGroups(container: HTMLDivElement): SpanDataGroups | n
 
 	// assumes all spans inside the document are relevant (potentially multiple pages)
 	const spans = Array.from(container.querySelectorAll("span"));
-	console.log(
-		spans.length,
-		container.children.length,
-		document.querySelector("div.react-pdf__Page__textContent")?.children.length
-	);
 	if (spans.length === 0) return null;
 
 	const boundingRects = spans.map((span) => span.getBoundingClientRect());
 
 	spanGroups.push([spans[0]]);
 	boundingRectGroups.push([boundingRects[0]]);
+
 	let prevRect = boundingRects[0];
 	let prevHeight = prevRect.bottom - prevRect.y;
 
@@ -40,5 +43,13 @@ export function getSpanDataGroups(container: HTMLDivElement): SpanDataGroups | n
 		prevHeight = curRect.bottom - curRect.y;
 	}
 
-	return { spanGroups, boundingRectGroups };
+	const wordGroups = spanGroups.map((group) => group.map((span) => spanToWordRanges(span)));
+	const selectionGroups: (1 | 0)[][][] = wordGroups.map((group) => group.map((words) => words.map((_) => 1)));
+
+	return {
+		spanGroups,
+		boundingRectGroups,
+		wordGroups,
+		selectionGroups,
+	};
 }

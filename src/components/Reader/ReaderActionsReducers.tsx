@@ -1,5 +1,6 @@
 import { SpanDataGroups, getSpanDataGroups } from "../../services/SpanService";
 import { Dispatch } from "redux";
+import { SELECTION_UPDATE } from "../Control/ControlActionsReducers";
 
 export const PDF_LOADED = "PDF_LOADED";
 
@@ -70,6 +71,8 @@ export const pageData = (
 			const dataIsNewer = pageData.time > state.time;
 			if (dataIsNewer) return pageData;
 			return state;
+		case SELECTION_UPDATE:
+			return { ...state, selectionGroups: pageData.selectionGroups };
 		default:
 			return state;
 	}
