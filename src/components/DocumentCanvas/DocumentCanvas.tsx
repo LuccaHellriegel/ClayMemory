@@ -11,16 +11,17 @@ function DocumentCanvas({
 	spans,
 	selectionState,
 	selectionGroup,
+	parentSize,
 }: {
 	spans?: HTMLSpanElement[];
 	selectionState: SectionSelectionState;
 	selectionGroup: (0 | 1)[][];
+	parentSize: { width: number };
 }) {
 	//zIndex is Ordering of canvases
-	console.log(selectionGroup);
 	return (
 		<Stage
-			width={window.innerWidth}
+			width={parentSize.width}
 			height={document.documentElement.scrollHeight}
 			style={{ position: "absolute", pointerEvents: "none", zIndex: 100000 }}
 		>

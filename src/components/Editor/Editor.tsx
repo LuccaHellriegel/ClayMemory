@@ -4,7 +4,7 @@ import React from "react";
 
 export const Editor = ({
 	content = "",
-	config = { readonly: false, width: "100%" },
+	config = { readonly: false, width: "10" },
 	onBlur = (newContent: any) => console.log(newContent),
 }: any) => {
 	const editor = useRef(null);

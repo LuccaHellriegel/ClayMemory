@@ -5,6 +5,8 @@ import { withSize } from "react-sizeme";
 import { PDFUploadContainer } from "../components/PDFUpload/PDFUpload";
 import { DocumentCanvasContainer } from "../components/DocumentCanvas/DocumentCanvas";
 import { ReaderControlContainer } from "../components/ReaderControl/ReaderControl";
+import Paper from "@material-ui/core/Paper";
+import { CardRiverContainer } from "../components/CardRiver/CardRiver";
 
 function ReaderSceneGridColumn({ children }: any) {
 	return (
@@ -12,10 +14,9 @@ function ReaderSceneGridColumn({ children }: any) {
 			item
 			style={{
 				height: "100%",
-				outline: "solid red",
 			}}
 		>
-			{children}
+			<Paper elevation={3}>{children}</Paper>
 		</Grid>
 	);
 }
@@ -25,14 +26,15 @@ function ReaderSceneMaterialColumn({ size }: any) {
 		<Grid
 			item
 			style={{
-				width: "100%",
-				outline: "solid red",
+				width: "60%",
 			}}
 		>
-			<DocumentCanvasContainer></DocumentCanvasContainer>
-			<PDFDocumentContainer parentSize={size}></PDFDocumentContainer>
-			<PDFUploadContainer></PDFUploadContainer>
-			<ReaderControlContainer></ReaderControlContainer>
+			<Paper elevation={3}>
+				<DocumentCanvasContainer parentSize={size}></DocumentCanvasContainer>
+				<PDFDocumentContainer parentSize={size}></PDFDocumentContainer>
+				<PDFUploadContainer></PDFUploadContainer>
+				<ReaderControlContainer></ReaderControlContainer>
+			</Paper>
 		</Grid>
 	);
 }
@@ -42,11 +44,17 @@ const ReaderSceneMaterialColumnWithSize = withSize({ monitorHeight: true, noPlac
 );
 
 export function ReaderScene() {
-	// <ReaderSceneGridColumn>Bluä</ReaderSceneGridColumn>
-
 	return (
-		<Grid container justify="space-around" direction="row">
-			<ReaderSceneMaterialColumnWithSize></ReaderSceneMaterialColumnWithSize>
-		</Grid>
+		<div>
+			<Grid container justify="space-around" direction="row" alignItems="stretch">
+				<ReaderSceneGridColumn>
+					<CardRiverContainer index={0}></CardRiverContainer>
+				</ReaderSceneGridColumn>
+				<ReaderSceneMaterialColumnWithSize></ReaderSceneMaterialColumnWithSize>
+				<ReaderSceneGridColumn>
+					<CardRiverContainer index={1}></CardRiverContainer>
+				</ReaderSceneGridColumn>
+			</Grid>
+		</div>
 	);
 }

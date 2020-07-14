@@ -9,6 +9,7 @@ import { ControlContainer } from "./components/Control/Control";
 import { page } from "./components/ReaderControl/ReaderControlActionsReducers";
 import { numPages, pageData } from "./components/Reader/ReaderActionsReducers";
 import thunk from "redux-thunk";
+import { cardRiverState } from "./components/CardRiver/CardRiverActionsReducers";
 
 const stateSanitizer = (state: any) => {
 	let newState = state.pdf ? { ...state, pdf: "PDF_FILE_IS_HERE" } : state;
@@ -26,7 +27,7 @@ const stateSanitizer = (state: any) => {
 const composeEnhancers = composeWithDevTools({ stateSanitizer });
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
-const rootReducer = combineReducers({ pdf, pageData, section, page, numPages });
+const rootReducer = combineReducers({ pdf, pageData, section, page, numPages, cardRiverState });
 const store = createStore(rootReducer, enhancer);
 
 export function App() {

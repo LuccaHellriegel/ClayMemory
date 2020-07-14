@@ -26,6 +26,16 @@ export function WordLayer({ spans, color, selectionGroup, ...props }: { spans: H
 
 		return (
 			<Layer {...props}>
+				<BoundingRectRect
+					xOffset={0}
+					yOffset={0}
+					boundingRect={{ x: 0, y: 0, width: 100, bottom: 100 } as DOMRect}
+					shadowBlur={5}
+					stroke={"blue"}
+					opacity={1}
+					key={increase()}
+				></BoundingRectRect>
+
 				{wordRanges.map((range, index) =>
 					flatSelectionGroup[index] === 1 ? (
 						<BoundingRectRect
