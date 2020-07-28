@@ -1,12 +1,8 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import { PDFDocumentContainer } from "../components/Reader/Reader";
 import { withSize } from "react-sizeme";
-import { PDFUploadContainer } from "../components/PDFUpload/PDFUpload";
-import { DocumentCanvasContainer } from "../components/DocumentCanvas/DocumentCanvas";
-import { ReaderControlContainer } from "../components/ReaderControl/ReaderControl";
 import Paper from "@material-ui/core/Paper";
-import { CardRiverContainer } from "../components/CardRiver/CardRiver";
+import modules from "../modules";
 
 function ReaderSceneGridColumn({ children }: any) {
 	return (
@@ -30,10 +26,14 @@ function ReaderSceneMaterialColumn({ size }: any) {
 			}}
 		>
 			<Paper elevation={3}>
-				<DocumentCanvasContainer parentSize={size}></DocumentCanvasContainer>
-				<PDFDocumentContainer parentSize={size}></PDFDocumentContainer>
-				<PDFUploadContainer></PDFUploadContainer>
-				<ReaderControlContainer></ReaderControlContainer>
+				<modules.material.select.components.default.DocumentCanvasContainer
+					parentSize={size}
+				></modules.material.select.components.default.DocumentCanvasContainer>
+				<modules.material.display.components.default.PDFDocumentContainer
+					parentSize={size}
+				></modules.material.display.components.default.PDFDocumentContainer>
+				<modules.material.display.components.default.PDFUploadContainer></modules.material.display.components.default.PDFUploadContainer>
+				<modules.material.navigate.components.default.PageControlBarContainer></modules.material.navigate.components.default.PageControlBarContainer>
 			</Paper>
 		</Grid>
 	);
@@ -46,13 +46,19 @@ const ReaderSceneMaterialColumnWithSize = withSize({ monitorHeight: true, noPlac
 export function ReaderScene() {
 	return (
 		<div>
+			<modules.control.components.default.ControlContainer></modules.control.components.default.ControlContainer>
+			<modules.cards.creation.components.default.ContextMenuContainer></modules.cards.creation.components.default.ContextMenuContainer>
 			<Grid container justify="space-around" direction="row" alignItems="stretch">
 				<ReaderSceneGridColumn>
-					<CardRiverContainer index={0}></CardRiverContainer>
+					<modules.cards.river.components.default.CardRiverContainer
+						index={0}
+					></modules.cards.river.components.default.CardRiverContainer>
 				</ReaderSceneGridColumn>
 				<ReaderSceneMaterialColumnWithSize></ReaderSceneMaterialColumnWithSize>
 				<ReaderSceneGridColumn>
-					<CardRiverContainer index={1}></CardRiverContainer>
+					<modules.cards.river.components.default.CardRiverContainer
+						index={1}
+					></modules.cards.river.components.default.CardRiverContainer>
 				</ReaderSceneGridColumn>
 			</Grid>
 		</div>
