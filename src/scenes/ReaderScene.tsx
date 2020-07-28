@@ -47,7 +47,6 @@ export function ReaderScene() {
 	return (
 		<div>
 			<modules.control.components.default.ControlContainer></modules.control.components.default.ControlContainer>
-			<modules.cards.creation.components.default.ContextMenuContainer></modules.cards.creation.components.default.ContextMenuContainer>
 			<Grid container justify="space-around" direction="row" alignItems="stretch">
 				<ReaderSceneGridColumn>
 					<modules.cards.river.components.default.CardRiverContainer
@@ -61,6 +60,7 @@ export function ReaderScene() {
 					></modules.cards.river.components.default.CardRiverContainer>
 				</ReaderSceneGridColumn>
 			</Grid>
+			<modules.cards.creation.components.default.ContextMenuContainer></modules.cards.creation.components.default.ContextMenuContainer>
 		</div>
 	);
 }

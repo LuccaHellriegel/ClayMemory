@@ -9,7 +9,6 @@ export const getPDF = createSelector(getAll, (state: DisplayData) => {
 });
 
 export const getRenderCritialData = createSelector(getAll, (state: DisplayData) => {
-	console.log(state);
 	return { pdf: state.pdf, currentPage: state.currentPage };
 });
 

@@ -3,7 +3,7 @@ import { toggleContextMenuFocus } from "../../actions";
 
 export const contextMenuControl = (key: string, event: KeyboardEvent, dispatch: any) => {
 	switch (key) {
-		case "Enter":
+		case "t":
 			event.preventDefault();
 			dispatch(cards.creation.actions.toggleContextMenu());
 			dispatch(toggleContextMenuFocus());

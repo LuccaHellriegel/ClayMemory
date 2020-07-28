@@ -1,9 +1,9 @@
-import React from "react";
+import React, { RefObject } from "react";
 import Menu from "@material-ui/core/Menu";
 import NestedMenuItem from "material-ui-nested-menu-item";
 import { MenuItem, Divider } from "@material-ui/core";
 import { connect } from "react-redux";
-import { getContextMenuFillData } from "../selectors";
+import { getContextMenuInitData } from "../selectors";
 import analyze from "../../../material/analyze";
 
 // Reminder: need to capture all the text/nodes before the menu is opened because of the invisible div
@@ -14,9 +14,18 @@ import analyze from "../../../material/analyze";
 
 // TODO: use existing/open cards as possible targets
 
-function ContextMenu({ boundingRectGroup, state }: { boundingRectGroup?: DOMRect[]; state?: boolean }) {
+function ContextMenu({
+	boundingRectGroup,
+	state,
+	menuRef,
+}: {
+	boundingRectGroup?: DOMRect[];
+	state?: boolean;
+	menuRef?: RefObject<any>;
+}) {
 	return boundingRectGroup && state !== undefined ? (
 		<Menu
+			ref={menuRef}
 			keepMounted
 			open={state}
 			anchorReference="anchorPosition"
@@ -40,6 +49,6 @@ function ContextMenu({ boundingRectGroup, state }: { boundingRectGroup?: DOMRect
 
 //MuiList-root MuiMenu-list MuiList-padding
 
-export const ContextMenuContainer = connect(analyze.utils.createDataConditionalSelector(getContextMenuFillData))(
+export const ContextMenuContainer = connect(analyze.utils.createDataConditionalSelector(getContextMenuInitData))(
 	ContextMenu
 );
