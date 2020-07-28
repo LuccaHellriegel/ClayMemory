@@ -2,6 +2,12 @@
 	"name": "rem",
 	"version": "0.1.0",
 	"private": true,
+	"devDependencies": {
+		"@types/react-grid-layout": "^0.17.1",
+		"@types/react-pdf": "^4.0.5",
+		"@types/react-redux": "^7.1.9",
+		"dependency-cruiser": "^9.9.3"
+	},
 	"dependencies": {
 		"@material-ui/core": "^4.11.0",
 		"@material-ui/icons": "^4.9.1",
@@ -38,7 +44,8 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"graph": "npx depcruise --exclude '^(node_modules)' --output-type dot src/index.tsx | dot -T svg > mingraph.svg"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -54,10 +61,5 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
-	},
-	"devDependencies": {
-		"@types/react-grid-layout": "^0.17.1",
-		"@types/react-pdf": "^4.0.5",
-		"@types/react-redux": "^7.1.9"
 	}
 }
