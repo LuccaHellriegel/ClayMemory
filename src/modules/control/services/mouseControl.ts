@@ -1,12 +1,12 @@
 import { Dispatch } from "redux";
-import cards from "../../cards";
+import creation from "../../cards/creation";
 
 export const mouseControl = (event: MouseEvent) => {
 	return (dispatch: Dispatch, getState: Function) => {
-		const clickOutSideOfMenu = !cards.creation.utils.contextMenuContainsTargetNode(getState(), event);
+		const clickOutSideOfMenu = !creation.utils.contextMenuContainsTargetNode(getState(), event);
 
 		if (clickOutSideOfMenu) {
-			dispatch(cards.creation.actions.closeContextMenu());
+			dispatch(creation.actions.closeContextMenu());
 		}
 	};
 };

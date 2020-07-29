@@ -1,5 +1,3 @@
 import { DocumentCanvasContainer } from "./DocumentCanvas";
 
-export default {
-	DocumentCanvasContainer,
-};
+export { DocumentCanvasContainer };

@@ -1,3 +1,3 @@
 import { CardRiverContainer } from "./CardRiver";
 
-export default { CardRiverContainer };
+export { CardRiverContainer };

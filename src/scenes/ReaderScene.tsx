@@ -2,7 +2,12 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { withSize } from "react-sizeme";
 import Paper from "@material-ui/core/Paper";
-import modules from "../modules";
+import select from "../modules/material/select";
+import display from "../modules/material/display";
+import navigate from "../modules/material/navigate";
+import control from "../modules/control";
+import river from "../modules/cards/river";
+import creation from "../modules/cards/creation";
 
 function ReaderSceneGridColumn({ children }: any) {
 	return (
@@ -26,14 +31,10 @@ function ReaderSceneMaterialColumn({ size }: any) {
 			}}
 		>
 			<Paper elevation={3}>
-				<modules.material.select.components.default.DocumentCanvasContainer
-					parentSize={size}
-				></modules.material.select.components.default.DocumentCanvasContainer>
-				<modules.material.display.components.default.PDFDocumentContainer
-					parentSize={size}
-				></modules.material.display.components.default.PDFDocumentContainer>
-				<modules.material.display.components.default.PDFUploadContainer></modules.material.display.components.default.PDFUploadContainer>
-				<modules.material.navigate.components.default.PageControlBarContainer></modules.material.navigate.components.default.PageControlBarContainer>
+				<select.components.DocumentCanvasContainer parentSize={size}></select.components.DocumentCanvasContainer>
+				<display.components.PDFDocumentContainer parentSize={size}></display.components.PDFDocumentContainer>
+				<display.components.PDFUploadContainer></display.components.PDFUploadContainer>
+				<navigate.components.PageControlBarContainer></navigate.components.PageControlBarContainer>
 			</Paper>
 		</Grid>
 	);
@@ -46,21 +47,17 @@ const ReaderSceneMaterialColumnWithSize = withSize({ monitorHeight: true, noPlac
 export function ReaderScene() {
 	return (
 		<div>
-			<modules.control.components.default.ControlContainer></modules.control.components.default.ControlContainer>
+			<control.components.ControlContainer></control.components.ControlContainer>
 			<Grid container justify="space-around" direction="row" alignItems="stretch">
 				<ReaderSceneGridColumn>
-					<modules.cards.river.components.default.CardRiverContainer
-						index={0}
-					></modules.cards.river.components.default.CardRiverContainer>
+					<river.components.CardRiverContainer index={0}></river.components.CardRiverContainer>
 				</ReaderSceneGridColumn>
 				<ReaderSceneMaterialColumnWithSize></ReaderSceneMaterialColumnWithSize>
 				<ReaderSceneGridColumn>
-					<modules.cards.river.components.default.CardRiverContainer
-						index={1}
-					></modules.cards.river.components.default.CardRiverContainer>
+					<river.components.CardRiverContainer index={1}></river.components.CardRiverContainer>
 				</ReaderSceneGridColumn>
 			</Grid>
-			<modules.cards.creation.components.default.ContextMenuContainer></modules.cards.creation.components.default.ContextMenuContainer>
+			<creation.components.ContextMenuContainer></creation.components.ContextMenuContainer>
 		</div>
 	);
 }

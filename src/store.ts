@@ -3,15 +3,20 @@ import { applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { combineReducers } from "redux";
-import modules from "./modules";
+import control from "./modules/control";
+import creation from "./modules/cards/creation";
+import river from "./modules/cards/river";
+import analyze from "./modules/material/analyze";
+import display from "./modules/material/display";
+import select from "./modules/material/select";
 
 const rootReducer = combineReducers({
-	[modules.control.constants.NAME]: modules.control.reducer,
-	[modules.cards.creation.constants.NAME]: modules.cards.creation.reducer,
-	[modules.cards.river.constants.NAME]: modules.cards.river.reducer,
-	[modules.material.analyze.constants.NAME]: modules.material.analyze.reducer,
-	[modules.material.display.constants.NAME]: modules.material.display.reducer,
-	[modules.material.select.constants.NAME]: modules.material.select.reducer,
+	[control.constants.NAME]: control.reducer,
+	[creation.constants.NAME]: creation.reducer,
+	[river.constants.NAME]: river.reducer,
+	[analyze.constants.NAME]: analyze.reducer,
+	[display.constants.NAME]: display.reducer,
+	[select.constants.NAME]: select.reducer,
 });
 
 const stateSanitizer = (state: any) => {

@@ -1,3 +1,3 @@
 import { ControlContainer } from "./Control";
 
-export default { ControlContainer };
+export { ControlContainer };

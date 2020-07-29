@@ -1,5 +1,3 @@
 import { PageControlBarContainer } from "./PageControlBar";
 
-export default {
-	PageControlBarContainer,
-};
+export { PageControlBarContainer };

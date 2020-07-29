@@ -1,7 +1,7 @@
 import { NAME } from "./constants";
 import { createSelector } from "reselect";
-import material from "../../material";
 import { CreationData } from "./model";
+import select from "../../material/select";
 
 export const getAll = (state: any) => state[NAME];
 
@@ -10,7 +10,7 @@ export const getContextMenuState = createSelector(getAll, (state: CreationData) 
 export const getContextMenuRef = createSelector(getAll, (state: CreationData) => state.menuRef);
 
 export const getContextMenuInitData = createSelector(
-	material.select.selectors.getCurrentBoundingRectGroup,
+	select.selectors.getCurrentBoundingRectGroup,
 	getContextMenuState,
 	getContextMenuRef,
 	(boundingRectGroup, state, menuRef) => {
