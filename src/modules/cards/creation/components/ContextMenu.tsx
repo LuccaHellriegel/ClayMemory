@@ -15,9 +15,9 @@ import { incrementer } from "../../../../shared/utils";
 
 //TODO: maybe pre-calculate on changing layout?
 
-const NewQACard = () => <MenuItem>New: Q-A</MenuItem>;
-const NewClozeCard = () => <MenuItem>New: Cloze</MenuItem>;
-const NewNoteCard = () => <MenuItem>New: Note</MenuItem>;
+const NewQACard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q-A</MenuItem>;
+const NewClozeCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Cloze</MenuItem>;
+const NewNoteCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Note</MenuItem>;
 
 const CardConfigItem = ({
 	cardConfig,
@@ -111,9 +111,21 @@ function ContextMenu({
 				))}
 			{riverTwoIsInUse && <Divider />}
 
-			<NewQACard></NewQACard>
-			<NewClozeCard></NewClozeCard>
-			<NewNoteCard></NewNoteCard>
+			<NewQACard
+				onClick={() => {
+					dispatchRiverOne("Q-A");
+				}}
+			></NewQACard>
+			<NewClozeCard
+				onClick={() => {
+					dispatchRiverOne("Cloze");
+				}}
+			></NewClozeCard>
+			<NewNoteCard
+				onClick={() => {
+					dispatchRiverOne("Note");
+				}}
+			></NewNoteCard>
 		</Menu>
 	) : null;
 }

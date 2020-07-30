@@ -11,7 +11,7 @@ import { incrementer } from "../../../../shared/utils";
 
 const BaseCard = ({ title, children }: { title: string; children: any }) => {
 	return (
-		<Accordion>
+		<Accordion defaultExpanded={true}>
 			<AccordionSummary>{title}</AccordionSummary>
 			<AccordionDetails>{children}</AccordionDetails>
 		</Accordion>
@@ -68,7 +68,7 @@ const Card = ({ config }: { config: CardConfig }) => {
 const CardRiver = ({ index, riverMakeUps }: { index: number; riverMakeUps?: RiverMakeUp[] }) => {
 	const increment = incrementer();
 	return riverMakeUps ? (
-		<Accordion>
+		<Accordion defaultExpanded={true}>
 			<AccordionSummary>CardRiver</AccordionSummary>
 			<AccordionDetails>
 				<Grid container direction="column" spacing={2} justify="center" alignItems="stretch">

@@ -1,7 +1,7 @@
 import { CardRiverState, CardPayload } from "./model";
 import * as t from "./actionTypes";
 
-const intialState: CardRiverState = { riverMakeUps: [[{ cardIndex: 0, type: "Note", content: "" }]] };
+const intialState: CardRiverState = { riverMakeUps: [] };
 
 const cardRiverState = (state = intialState, { type, payload }: { type: string; payload: CardPayload }) => {
 	let newState;
@@ -10,7 +10,10 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 			// manual deepish copy
 			newState = { ...state };
 			newState.riverMakeUps = [...state.riverMakeUps];
+			if (newState.riverMakeUps[payload.index] === undefined) newState.riverMakeUps[payload.index] = [];
 			newState.riverMakeUps[payload.index] = [...newState.riverMakeUps[payload.index], payload.card];
+			newState.riverMakeUps[payload.index][newState.riverMakeUps[payload.index].length - 1].cardIndex =
+				newState.riverMakeUps[payload.index].length - 1;
 			return newState;
 		case t.CARD_RIVER_UPDATE:
 			// manual deepish copy

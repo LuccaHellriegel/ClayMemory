@@ -1,6 +1,8 @@
 export type CardType = "Note" | "Q-A" | "Cloze";
 
-type CardContent = string | { q: string; a: string };
+export type QACardContent = { q: string; a: string };
+
+export type CardContent = string | QACardContent;
 
 export type CardConfig = { cardIndex?: number; type: CardType; content: CardContent };
 
