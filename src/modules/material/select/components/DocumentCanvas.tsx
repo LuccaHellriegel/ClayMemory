@@ -27,7 +27,7 @@ function DocumentCanvas({
 		<Stage
 			width={parentSize.width}
 			height={document.documentElement.scrollHeight}
-			style={{ position: "absolute", pointerEvents: "none", zIndex: 100000 }}
+			style={{ position: "absolute", pointerEvents: "none", zIndex: 1 }}
 		>
 			{spanGroup && wordRangeGroup && (
 				<WordLayer

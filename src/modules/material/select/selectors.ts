@@ -35,6 +35,19 @@ export const getCurrentWordRangeGroup = createSelector(
 	(wordRangeGroups, sectionIndex) => wordRangeGroups[sectionIndex]
 );
 
+export const getCurrentSelectedWordRanges = createSelector(
+	getCurrentSelectionGroup,
+	getCurrentWordRangeGroup,
+	(selectionGroup, wordRangeGroup) =>
+		wordRangeGroup.flatMap((rangeArr, lineIndex) =>
+			rangeArr.filter((_, index) => selectionGroup[lineIndex][index] === 1)
+		)
+);
+
+export const getCurrentSelectedString = createSelector(getCurrentSelectedWordRanges, (rangeArr) =>
+	rangeArr.map((range) => range.toString()).join(" ")
+);
+
 export const getOverlayRelevantData = createSelector(
 	getCurrentSpanGroup,
 	getCurrentSelectionGroup,

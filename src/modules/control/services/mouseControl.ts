@@ -1,12 +1,17 @@
 import { Dispatch } from "redux";
 import creation from "../../cards/creation";
+import { toggleContextMenuFocus } from "../actions";
 
 export const mouseControl = (event: MouseEvent) => {
-	return (dispatch: Dispatch, getState: Function) => {
-		const clickOutSideOfMenu = !creation.utils.contextMenuContainsTargetNode(getState(), event);
+	return (dispatch: any, getState: Function) => {
+		const state = getState();
+		const contextMenuState = creation.selectors.getContextMenuState(state);
+		if (contextMenuState) {
+			const clickOutSideOfMenu = !creation.utils.contextMenuContainsTargetNode(state, event);
 
-		if (clickOutSideOfMenu) {
-			dispatch(creation.actions.closeContextMenu());
+			if (clickOutSideOfMenu) {
+				dispatch(toggleContextMenuFocus());
+			}
 		}
 	};
 };

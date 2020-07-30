@@ -3,6 +3,7 @@ import { ControlFocus } from "./model";
 import { Dispatch } from "redux";
 import { getFocus } from "./selectors";
 import analyze from "../material/analyze";
+import creation from "../cards/creation";
 
 export const updateFocus = (focus: ControlFocus) => {
 	return { type: t.FOCUS_UPDATE, payload: focus };
@@ -16,6 +17,7 @@ export const toggleContextMenuFocus = () => {
 			switch (currentFocus) {
 				case "CONTEXT_MENU":
 					dispatch(updateFocus("SELECTION"));
+					dispatch(creation.actions.closeContextMenu());
 					break;
 				case "SELECTION":
 					dispatch(updateFocus("CONTEXT_MENU"));

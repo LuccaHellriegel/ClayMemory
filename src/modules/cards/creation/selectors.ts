@@ -2,6 +2,7 @@ import { NAME } from "./constants";
 import { createSelector } from "reselect";
 import { CreationData } from "./model";
 import select from "../../material/select";
+import river from "../river";
 
 export const getAll = (state: any) => state[NAME];
 
@@ -13,7 +14,8 @@ export const getContextMenuInitData = createSelector(
 	select.selectors.getCurrentBoundingRectGroup,
 	getContextMenuState,
 	getContextMenuRef,
-	(boundingRectGroup, state, menuRef) => {
-		return { boundingRectGroup, state, menuRef };
+	river.selectors.getRiverMakeUps,
+	(boundingRectGroup, state, menuRef, riverMakeUps) => {
+		return { boundingRectGroup, state, menuRef, riverMakeUps };
 	}
 );

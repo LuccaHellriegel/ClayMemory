@@ -5,7 +5,7 @@ import { pdfjs, Document, Page } from "react-pdf";
 import { connect } from "react-redux";
 import { materialLoaded, materialRendered } from "../../actions";
 import { getRenderCritialData } from "../../selectors";
-import { captureMaterialData } from "../../../analyze/actions";
+import analyze from "../../../analyze";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function removeTextLayerOffset() {
@@ -64,5 +64,5 @@ function PDFDocument({
 export const PDFDocumentContainer = connect(getRenderCritialData, {
 	materialRendered,
 	materialLoaded,
-	captureMaterialData,
+	captureMaterialData: analyze.actions.captureMaterialData,
 })(PDFDocument);
