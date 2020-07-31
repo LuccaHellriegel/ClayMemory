@@ -1,13 +1,25 @@
 import { MaterialGroupData } from "../model";
 import { spanToWordRanges } from "./spanToWordRanges";
 
+export const sortSpansByBoundingRect = (spans: HTMLSpanElement[], boundingRects: DOMRect[]) => {
+	let joined = spans.map((span, index) => [span, boundingRects[index]]);
+	joined = joined.sort((arr, arr2) => {
+		return (arr[1] as DOMRect).y - (arr2[1] as DOMRect).y;
+	});
+	return [joined.map((arr) => arr[0] as HTMLSpanElement), joined.map((arr) => arr[1] as DOMRect)];
+};
+
 //TODO: what about spans in same line or nearly same line? (Abschlussarbeit-Anmeldung PDF as example)
 export function materialGroupData(container: HTMLDivElement): MaterialGroupData | null {
 	// assumes all spans inside the document are relevant (potentially multiple pages)
-	const spans = Array.from(container.querySelectorAll("span"));
+	let spans = Array.from(container.querySelectorAll("span"));
 	if (spans.length === 0) return null;
 
-	const boundingRects = spans.map((span) => span.getBoundingClientRect());
+	let boundingRects = spans.map((span) => span.getBoundingClientRect());
+
+	const [sortedSpans, sortedBoundingRects] = sortSpansByBoundingRect(spans, boundingRects);
+	spans = sortedSpans as HTMLSpanElement[];
+	boundingRects = sortedBoundingRects as DOMRect[];
 
 	const materialSpanGroups: HTMLSpanElement[][] = [[spans[0]]];
 	const materialBoundingRectGroups: DOMRect[][] = [[boundingRects[0]]];
