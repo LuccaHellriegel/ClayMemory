@@ -1,5 +1,5 @@
 import { toggleContextMenuFocus } from "../../actions";
-import creation from "../../../cards/creation";
+import creation from "../../../creation";
 
 export const contextMenuControl = (key: string, event: KeyboardEvent, dispatch: any) => {
 	switch (key) {

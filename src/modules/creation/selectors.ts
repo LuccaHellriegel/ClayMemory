@@ -1,7 +1,7 @@
 import { NAME } from "./constants";
 import { createSelector } from "reselect";
 import { CreationData } from "./model";
-import select from "../../material/select";
+import select from "../select";
 import river from "../river";
 
 export const getAll = (state: any) => state[NAME];

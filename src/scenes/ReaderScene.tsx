@@ -2,12 +2,12 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { withSize } from "react-sizeme";
 import Paper from "@material-ui/core/Paper";
-import select from "../modules/material/select";
-import display from "../modules/material/display";
-import navigate from "../modules/material/navigate";
+import select from "../modules/select";
+import display from "../modules/display";
+import navigate from "../modules/navigate";
 import control from "../modules/control";
-import river from "../modules/cards/river";
-import creation from "../modules/cards/creation";
+import river from "../modules/river";
+import creation from "../modules/creation";
 
 function ReaderSceneGridColumn({ children }: any) {
 	return (

@@ -3,7 +3,7 @@ import { Layer } from "react-konva";
 import { LayerConfig } from "konva/types/Layer";
 import { RectConfig } from "konva/types/shapes/Rect";
 import { Rect } from "react-konva";
-import { incrementer } from "../../../../shared/utils";
+import { incrementer } from "../../../shared/utils";
 
 function BoundingRectRect({
 	xOffset = 0,
@@ -24,6 +24,18 @@ function BoundingRectRect({
 			{...props}
 		/>
 	);
+}
+
+{
+	/* <BoundingRectRect
+xOffset={0}
+yOffset={0}
+boundingRect={{ x: 0, y: 0, width: 100, bottom: 100 } as DOMRect}
+shadowBlur={5}
+stroke={"blue"}
+opacity={1}
+key={increment()}
+></BoundingRectRect> */
 }
 
 export function WordLayer({
@@ -48,16 +60,6 @@ export function WordLayer({
 
 		return (
 			<Layer {...props}>
-				<BoundingRectRect
-					xOffset={0}
-					yOffset={0}
-					boundingRect={{ x: 0, y: 0, width: 100, bottom: 100 } as DOMRect}
-					shadowBlur={5}
-					stroke={"blue"}
-					opacity={1}
-					key={increment()}
-				></BoundingRectRect>
-
 				{flatWordRanges.map((range, index) =>
 					flatSelectionGroup[index] === 1 ? (
 						<BoundingRectRect

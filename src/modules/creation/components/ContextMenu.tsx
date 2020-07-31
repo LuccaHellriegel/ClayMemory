@@ -4,10 +4,10 @@ import NestedMenuItem from "material-ui-nested-menu-item";
 import { MenuItem, Divider } from "@material-ui/core";
 import { connect, useDispatch } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
-import analyze from "../../../material/analyze";
+import analyze from "../../analyze";
 import { CardConfig, RiverMakeUp, CardType } from "../../river/model";
 import { triggerSelectionGrab } from "../actions";
-import { incrementer } from "../../../../shared/utils";
+import { incrementer } from "../../../shared/utils";
 
 // Reminder: need to capture all the text/nodes before the menu is opened because of the invisible div
 // it is necessary to close on right-click, because menu renders invisible diff that makes selection impossible

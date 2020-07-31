@@ -7,7 +7,7 @@ import { TextareaAutosize } from "@material-ui/core";
 import { connect } from "react-redux";
 import { CardConfig, RiverMakeUp } from "../model";
 import { getAll } from "../selectors";
-import { incrementer } from "../../../../shared/utils";
+import { incrementer } from "../../../shared/utils";
 
 const BaseCard = ({ title, children }: { title: string; children: any }) => {
 	return (

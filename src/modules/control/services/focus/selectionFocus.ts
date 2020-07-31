@@ -1,5 +1,5 @@
-import display from "../../../material/display";
-import select from "../../../material/select";
+import display from "../../../display";
+import select from "../../../select";
 
 export const pageControl = (key: string, event: KeyboardEvent, dispatch: any) => {
 	switch (key) {

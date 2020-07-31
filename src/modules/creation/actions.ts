@@ -1,7 +1,7 @@
 import * as t from "./actionTypes";
 import { Dispatch } from "redux";
-import analyze from "../../material/analyze";
-import select from "../../material/select";
+import analyze from "../analyze";
+import select from "../select";
 import river from "../river";
 import { CardType, CardConfig, CardContent, QACardContent } from "../river/model";
 

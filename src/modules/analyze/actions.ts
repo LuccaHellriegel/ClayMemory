@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { tryInterval } from "../../../shared/utils";
+import { tryInterval } from "../../shared/utils";
 import { materialGroupData } from "./services/SpanService";
 import * as t from "./actionTypes";
 import { MaterialData } from "./model";

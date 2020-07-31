@@ -4,11 +4,11 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { combineReducers } from "redux";
 import control from "./modules/control";
-import creation from "./modules/cards/creation";
-import river from "./modules/cards/river";
-import analyze from "./modules/material/analyze";
-import display from "./modules/material/display";
-import select from "./modules/material/select";
+import creation from "./modules/creation";
+import river from "./modules/river";
+import analyze from "./modules/analyze";
+import display from "./modules/display";
+import select from "./modules/select";
 
 const rootReducer = combineReducers({
 	[control.constants.NAME]: control.reducer,

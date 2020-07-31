@@ -2,8 +2,8 @@ import * as t from "./actionTypes";
 import { ControlFocus } from "./model";
 import { Dispatch } from "redux";
 import { getFocus } from "./selectors";
-import analyze from "../material/analyze";
-import creation from "../cards/creation";
+import analyze from "../analyze";
+import creation from "../creation";
 
 export const updateFocus = (focus: ControlFocus) => {
 	return { type: t.FOCUS_UPDATE, payload: focus };
