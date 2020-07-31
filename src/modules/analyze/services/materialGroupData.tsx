@@ -1,10 +1,18 @@
 import { MaterialGroupData } from "../model";
 import { spanToWordRanges } from "./spanToWordRanges";
 
-export const sortSpansByBoundingRect = (spans: HTMLSpanElement[], boundingRects: DOMRect[]) => {
+export const sortSpansByBoundingRectY = (spans: HTMLSpanElement[], boundingRects: DOMRect[]) => {
 	let joined = spans.map((span, index) => [span, boundingRects[index]]);
 	joined = joined.sort((arr, arr2) => {
 		return (arr[1] as DOMRect).y - (arr2[1] as DOMRect).y;
+	});
+	return [joined.map((arr) => arr[0] as HTMLSpanElement), joined.map((arr) => arr[1] as DOMRect)];
+};
+
+export const sortSpansByBoundingRectX = (spans: HTMLSpanElement[], boundingRects: DOMRect[]) => {
+	let joined = spans.map((span, index) => [span, boundingRects[index]]);
+	joined = joined.sort((arr, arr2) => {
+		return (arr[1] as DOMRect).x - (arr2[1] as DOMRect).x;
 	});
 	return [joined.map((arr) => arr[0] as HTMLSpanElement), joined.map((arr) => arr[1] as DOMRect)];
 };
@@ -17,12 +25,12 @@ export function materialGroupData(container: HTMLDivElement): MaterialGroupData 
 
 	let boundingRects = spans.map((span) => span.getBoundingClientRect());
 
-	const [sortedSpans, sortedBoundingRects] = sortSpansByBoundingRect(spans, boundingRects);
+	const [sortedSpans, sortedBoundingRects] = sortSpansByBoundingRectY(spans, boundingRects);
 	spans = sortedSpans as HTMLSpanElement[];
 	boundingRects = sortedBoundingRects as DOMRect[];
 
-	const materialSpanGroups: HTMLSpanElement[][] = [[spans[0]]];
-	const materialBoundingRectGroups: DOMRect[][] = [[boundingRects[0]]];
+	let materialSpanGroups: HTMLSpanElement[][] = [[spans[0]]];
+	let materialBoundingRectGroups: DOMRect[][] = [[boundingRects[0]]];
 
 	let prevRect = boundingRects[0];
 	let prevHeight = prevRect.bottom - prevRect.y;
@@ -46,6 +54,20 @@ export function materialGroupData(container: HTMLDivElement): MaterialGroupData 
 		prevRect = curRect;
 		prevHeight = curRect.bottom - curRect.y;
 	}
+
+	const tempSpanGroups = [];
+	const tempBoundingRectGroups = [];
+
+	for (let index = 0; index < materialSpanGroups.length; index++) {
+		const spanGroup = materialSpanGroups[index];
+		const boundingRectGroup = materialBoundingRectGroups[index];
+		const [sortedSpanGroup, sortedBoundingRectGroup] = sortSpansByBoundingRectX(spanGroup, boundingRectGroup);
+		tempSpanGroups.push(sortedSpanGroup);
+		tempBoundingRectGroups.push(sortedBoundingRectGroup);
+	}
+
+	materialSpanGroups = tempSpanGroups as HTMLSpanElement[][];
+	materialBoundingRectGroups = tempBoundingRectGroups as DOMRect[][];
 
 	const materialWordGroups = materialSpanGroups.map((group) => group.map((span) => spanToWordRanges(span)));
 
