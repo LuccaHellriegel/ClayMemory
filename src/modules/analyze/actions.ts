@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { tryInterval } from "../../shared/utils";
-import { materialGroupData } from "./services/SpanService";
+import { materialGroupData } from "./services/materialGroupData";
 import * as t from "./actionTypes";
 import { MaterialData } from "./model";
 import { getTimeStamp, getWordSelectionGroups } from "./selectors";
