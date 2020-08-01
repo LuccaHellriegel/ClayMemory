@@ -18,9 +18,12 @@ export const sortExpandedSpansAccordingToX = (expandedSpans: ExpandedSpan[]) =>
 export const sortExpandedSpansAccordingToY = (expandedSpans: ExpandedSpan[]) =>
 	expandedSpans.sort((exSpan, exSpan2) => exSpan.rect.y - exSpan2.rect.y);
 
-export type ExpandedSpanComparator = (expandSpan: ExpandedSpan, expandSpan2: ExpandedSpan) => boolean;
+export type ExpandedSpanGroupingComparator = (expandSpan: ExpandedSpan, expandSpan2: ExpandedSpan) => boolean;
 
-export const groupExpandedSpans = (expandedSpans: ExpandedSpan[], groupingComparator: ExpandedSpanComparator) => {
+export const groupExpandedSpans = (
+	expandedSpans: ExpandedSpan[],
+	groupingComparator: ExpandedSpanGroupingComparator
+) => {
 	// depends on the spans being sorted according to grouping
 
 	let previousSpan = expandedSpans[0];
@@ -28,6 +31,7 @@ export const groupExpandedSpans = (expandedSpans: ExpandedSpan[], groupingCompar
 
 	for (let index = 1; index < expandedSpans.length; index++) {
 		const currentSpan = expandedSpans[index];
+		//new group
 		if (groupingComparator(previousSpan, currentSpan)) groups.push([]);
 		groups[groups.length - 1].push(currentSpan);
 		previousSpan = currentSpan;
