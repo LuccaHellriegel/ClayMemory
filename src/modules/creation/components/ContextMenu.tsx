@@ -9,12 +9,6 @@ import { CardConfig, RiverMakeUp, CardType } from "../../river/model";
 import { triggerSelectionGrab } from "../actions";
 import { incrementer } from "../../../shared/utils";
 
-// Reminder: need to capture all the text/nodes before the menu is opened because of the invisible div
-// it is necessary to close on right-click, because menu renders invisible diff that makes selection impossible
-// Source: https://stackoverflow.com/questions/61456322/how-do-you-close-the-material-ui-context-menu-without-displaying-the-default-co
-
-//TODO: maybe pre-calculate on changing layout?
-
 const NewQACard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q-A</MenuItem>;
 const NewClozeCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Cloze</MenuItem>;
 const NewNoteCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Note</MenuItem>;
@@ -27,7 +21,6 @@ const CardConfigItem = ({
 	cardConfig: CardConfig;
 	onClick: (event?: any) => void;
 }) => {
-	console.log(cardConfig.type);
 	switch (cardConfig.type) {
 		case "Q-A":
 			return (
@@ -70,10 +63,8 @@ function ContextMenu({
 }) {
 	const dispatch = useDispatch();
 	const dispatchRiverOne = partialRiverDispatch(0, dispatch);
-	const dispatchRiverTwo = partialRiverDispatch(1, dispatch);
 
 	const riverOneIsInUse = riverMakeUps && riverMakeUps[0];
-	const riverTwoIsInUse = riverMakeUps && riverMakeUps[1];
 
 	const increment = incrementer();
 
@@ -97,19 +88,6 @@ function ContextMenu({
 					></CardConfigItem>
 				))}
 			{riverOneIsInUse && <Divider />}
-
-			{state &&
-				riverTwoIsInUse &&
-				(riverMakeUps as RiverMakeUp[])[1].map((cardConfig) => (
-					<CardConfigItem
-						cardConfig={cardConfig}
-						onClick={() => {
-							dispatchRiverTwo(cardConfig.type, cardConfig.cardIndex);
-						}}
-						key={increment()}
-					></CardConfigItem>
-				))}
-			{riverTwoIsInUse && <Divider />}
 
 			<NewQACard
 				onClick={() => {

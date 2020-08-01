@@ -53,9 +53,6 @@ export function ReaderScene() {
 					<river.components.CardRiverContainer index={0}></river.components.CardRiverContainer>
 				</ReaderSceneGridColumn>
 				<ReaderSceneMaterialColumnWithSize></ReaderSceneMaterialColumnWithSize>
-				<ReaderSceneGridColumn>
-					<river.components.CardRiverContainer index={1}></river.components.CardRiverContainer>
-				</ReaderSceneGridColumn>
 			</Grid>
 			<creation.components.ContextMenuContainer></creation.components.ContextMenuContainer>
 		</div>
