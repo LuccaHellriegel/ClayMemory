@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import React from "react";
 import { TextareaAutosize } from "@material-ui/core";
 import { connect } from "react-redux";
-import { CardConfig, RiverMakeUp } from "../model";
+import { CardConfig, RiverMakeUps } from "../model";
 import { getAll } from "../selectors";
 import { incrementer } from "../../../shared/utils";
 
@@ -65,19 +65,18 @@ const Card = ({ config }: { config: CardConfig }) => {
 	}
 };
 
-const CardRiver = ({ index, riverMakeUps }: { index: number; riverMakeUps?: RiverMakeUp[] }) => {
+const CardRiver = ({ id, riverMakeUps }: { id: string; riverMakeUps?: RiverMakeUps }) => {
 	const increment = incrementer();
 	return riverMakeUps ? (
 		<Accordion defaultExpanded={true}>
 			<AccordionSummary>CardRiver</AccordionSummary>
 			<AccordionDetails>
 				<Grid container direction="column" spacing={2} justify="center" alignItems="stretch">
-					{riverMakeUps[index] &&
-						riverMakeUps[index].map((card) => (
-							<Grid item key={increment()}>
-								<Card config={card} key={increment()}></Card>
-							</Grid>
-						))}
+					{riverMakeUps[id].cards.map((card) => (
+						<Grid item key={increment()}>
+							<Card config={card} key={increment()}></Card>
+						</Grid>
+					))}
 				</Grid>
 			</AccordionDetails>
 		</Accordion>

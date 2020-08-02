@@ -40,6 +40,8 @@ export const materialGroupData = (container: HTMLDivElement): MaterialGroupData 
 		group.map((words) => words.map((_) => 1))
 	);
 
+	console.log(JSON.stringify(materialBoundingRectGroups[2]));
+
 	return {
 		materialSpanGroups,
 		materialBoundingRectGroups,

@@ -36,25 +36,25 @@ const selectedStringToContent = (str: string, type: CardType, currentCard?: Card
 	}
 };
 
-export const triggerSelectionGrab = (riverIndex: number, type: CardType, cardIndex?: number) => {
+export const triggerSelectionGrab = (riverIndex: string, type: CardType, cardIndex?: number) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const selectedString = select.selectors.getCurrentSelectedString(getState());
 
 		if (cardIndex !== undefined) {
 			const state = getState();
 
-			const currentCard = river.selectors.getRiverMakeUps(state)[riverIndex][cardIndex];
+			const currentCard = river.selectors.getRiverMakeUps(state)[riverIndex].cards[cardIndex];
 			const newContent = selectedStringToContent(selectedString, type, currentCard);
 
 			dispatch(
 				river.actions.cardRiverUpdate({
-					index: riverIndex,
+					id: riverIndex,
 					card: { cardIndex, content: newContent, type },
 				})
 			);
 		} else {
 			const newContent = selectedStringToContent(selectedString, type);
-			dispatch(river.actions.cardRiverPush({ index: riverIndex, card: { content: newContent, type } }));
+			dispatch(river.actions.cardRiverPush({ id: riverIndex, card: { content: newContent, type } }));
 		}
 
 		dispatch(closeContextMenu());

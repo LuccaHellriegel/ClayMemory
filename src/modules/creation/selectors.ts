@@ -14,7 +14,7 @@ export const getContextMenuInitData = createSelector(
 	select.selectors.getCurrentBoundingRectGroup,
 	getContextMenuState,
 	getContextMenuRef,
-	river.selectors.getRiverMakeUps,
+	river.selectors.getActiveRiverMakeUps,
 	(boundingRectGroup, state, menuRef, riverMakeUps) => {
 		return { boundingRectGroup, state, menuRef, riverMakeUps };
 	}

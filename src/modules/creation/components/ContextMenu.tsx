@@ -8,6 +8,7 @@ import { CardConfig, RiverMakeUp, CardType } from "../../river/model";
 import { triggerSelectionGrab } from "../actions";
 import { incrementer } from "../../../shared/utils";
 import { DataGuardHOC } from "../../analyze/components";
+import river from "../../river";
 
 const NewQACard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q-A</MenuItem>;
 const NewClozeCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Cloze</MenuItem>;
@@ -44,7 +45,7 @@ const CardConfigItem = ({
 	}
 };
 
-const partialRiverDispatch = (riverIndex: number, dispatch: any) => {
+const partialRiverDispatch = (riverIndex: string, dispatch: any) => {
 	return (type: CardType, cardIndex?: number) => {
 		dispatch(triggerSelectionGrab(riverIndex, type, cardIndex));
 	};
@@ -62,11 +63,7 @@ function ContextMenu({
 	riverMakeUps: RiverMakeUp[];
 }) {
 	const dispatch = useDispatch();
-	const dispatchRiverOne = partialRiverDispatch(0, dispatch);
-
-	console.log(riverMakeUps);
-
-	const riverOneIsInUse = riverMakeUps[0];
+	const dispatchRiverOne = partialRiverDispatch(river.constants.RiverMakeUpID, dispatch);
 
 	const increment = incrementer();
 
@@ -78,17 +75,16 @@ function ContextMenu({
 			anchorReference="anchorPosition"
 			anchorPosition={state ? { top: boundingRectGroup[0].y, left: boundingRectGroup[0].x } : undefined}
 		>
-			{riverOneIsInUse &&
-				riverMakeUps[0].map((cardConfig) => (
-					<CardConfigItem
-						cardConfig={cardConfig}
-						onClick={() => {
-							dispatchRiverOne(cardConfig.type, cardConfig.cardIndex);
-						}}
-						key={increment()}
-					></CardConfigItem>
-				))}
-			{riverOneIsInUse && <Divider />}
+			{riverMakeUps[0].cards.map((cardConfig) => (
+				<CardConfigItem
+					cardConfig={cardConfig}
+					onClick={() => {
+						dispatchRiverOne(cardConfig.type, cardConfig.cardIndex);
+					}}
+					key={increment()}
+				></CardConfigItem>
+			))}
+			{riverMakeUps[0].cards.length > 0 && <Divider />}
 
 			<NewQACard
 				onClick={() => {
