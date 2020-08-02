@@ -7,7 +7,6 @@ export type CardContent = string | QACardContent;
 export type CardConfig = { cardIndex?: number; type: CardType; content: CardContent };
 
 export type RiverMakeUp = { id: string; cards: CardConfig[]; active: boolean };
-//export type RiverMakeUp = CardConfig[];
 
 export type RiverMakeUps = { [id: string]: RiverMakeUp };
 
