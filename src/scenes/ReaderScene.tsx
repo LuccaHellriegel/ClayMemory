@@ -14,6 +14,7 @@ function ReaderSceneGridColumn({ children }: any) {
 		<Grid
 			item
 			style={{
+				width: "38%",
 				height: "100%",
 			}}
 		>

@@ -7,7 +7,7 @@ import { CardType, CardConfig, CardContent, QACardContent } from "../river/model
 
 export const toggleContextMenu = () => {
 	return (dispatch: Dispatch, getState: Function) => {
-		if (analyze.utils.getDataExists(getState())) dispatch({ type: t.TOGGLE_CONTEXT_MENU });
+		if (analyze.selectors.getDataExists(getState())) dispatch({ type: t.TOGGLE_CONTEXT_MENU });
 	};
 };
 

@@ -2,12 +2,12 @@ import React, { RefObject } from "react";
 import Menu from "@material-ui/core/Menu";
 import NestedMenuItem from "material-ui-nested-menu-item";
 import { MenuItem, Divider } from "@material-ui/core";
-import { connect, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
-import analyze from "../../analyze";
 import { CardConfig, RiverMakeUp, CardType } from "../../river/model";
 import { triggerSelectionGrab } from "../actions";
 import { incrementer } from "../../../shared/utils";
+import { DataGuardHOC } from "../../analyze/components";
 
 const NewQACard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q-A</MenuItem>;
 const NewClozeCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Cloze</MenuItem>;
@@ -56,19 +56,21 @@ function ContextMenu({
 	menuRef,
 	riverMakeUps,
 }: {
-	boundingRectGroup?: DOMRect[];
-	state?: boolean;
-	menuRef?: RefObject<any>;
-	riverMakeUps?: RiverMakeUp[];
+	boundingRectGroup: DOMRect[];
+	state: boolean;
+	menuRef: RefObject<any>;
+	riverMakeUps: RiverMakeUp[];
 }) {
 	const dispatch = useDispatch();
 	const dispatchRiverOne = partialRiverDispatch(0, dispatch);
 
-	const riverOneIsInUse = riverMakeUps && riverMakeUps[0];
+	console.log(riverMakeUps);
+
+	const riverOneIsInUse = riverMakeUps[0];
 
 	const increment = incrementer();
 
-	return boundingRectGroup && state !== undefined ? (
+	return (
 		<Menu
 			ref={menuRef}
 			keepMounted
@@ -76,9 +78,8 @@ function ContextMenu({
 			anchorReference="anchorPosition"
 			anchorPosition={state ? { top: boundingRectGroup[0].y, left: boundingRectGroup[0].x } : undefined}
 		>
-			{state &&
-				riverOneIsInUse &&
-				(riverMakeUps as RiverMakeUp[])[0].map((cardConfig) => (
+			{riverOneIsInUse &&
+				riverMakeUps[0].map((cardConfig) => (
 					<CardConfigItem
 						cardConfig={cardConfig}
 						onClick={() => {
@@ -105,9 +106,7 @@ function ContextMenu({
 				}}
 			></NewNoteCard>
 		</Menu>
-	) : null;
+	);
 }
 
-export const ContextMenuContainer = connect(analyze.utils.createDataConditionalSelector(getContextMenuInitData))(
-	ContextMenu
-);
+export const ContextMenuContainer = DataGuardHOC(ContextMenu, getContextMenuInitData);

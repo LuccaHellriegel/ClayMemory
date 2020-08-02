@@ -1,7 +1,7 @@
 import { CardRiverState, CardPayload } from "./model";
 import * as t from "./actionTypes";
 
-const intialState: CardRiverState = { riverMakeUps: [] };
+const intialState: CardRiverState = { riverMakeUps: [[]] };
 
 const cardRiverState = (state = intialState, { type, payload }: { type: string; payload: CardPayload }) => {
 	let newState;

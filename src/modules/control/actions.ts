@@ -12,7 +12,7 @@ export const updateFocus = (focus: ControlFocus) => {
 export const toggleContextMenuFocus = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
-		if (analyze.utils.getDataExists(state)) {
+		if (analyze.selectors.getDataExists(state)) {
 			const currentFocus = getFocus(getState());
 			switch (currentFocus) {
 				case "CONTEXT_MENU":
