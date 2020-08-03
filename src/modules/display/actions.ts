@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { Dispatch } from "redux";
 import * as t from "./actionTypes";
-import { DisplayStatus, PageUpdate } from "./model";
+import { DisplayStatus, PageMove } from "./model";
 import { getPageControlData } from "./selectors";
 
 export const materialUploaded = (event: ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +30,7 @@ const pageCorrections = {
 	REMOVE: (newPage: number, totalPages: number) => (newPage === 0 ? totalPages : newPage),
 };
 
-export const movePage = (type: PageUpdate) => {
+export const movePage = (type: PageMove) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const { currentPage, totalPages } = getPageControlData(getState());
 		if (totalPages) {

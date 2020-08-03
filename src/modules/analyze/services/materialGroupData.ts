@@ -8,7 +8,7 @@ import {
 	ExpandedSpan,
 	splitExpandedSpans,
 } from "./span";
-import { isDistHigherThanFirstHeight } from "./rect";
+import { isDistHigherThanFirstHeight } from "../../../shared/rect";
 
 const groupExpandedSpansAccordingToHeightDiff = (expandedSpans: ExpandedSpan[]) =>
 	groupExpandedSpans(expandedSpans, (exSpan, expSpan2) => isDistHigherThanFirstHeight(exSpan.rect, expSpan2.rect));
@@ -39,8 +39,6 @@ export const materialGroupData = (container: HTMLDivElement): MaterialGroupData 
 	const materialWordSelectionGroups: (1 | 0)[][][] = materialWordGroups.map((group) =>
 		group.map((words) => words.map((_) => 1))
 	);
-
-	console.log(JSON.stringify(materialBoundingRectGroups[2]));
 
 	return {
 		materialSpanGroups,

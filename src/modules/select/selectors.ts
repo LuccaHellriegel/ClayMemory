@@ -2,6 +2,7 @@ import { NAME } from "./constants";
 import { SelectionData } from "./model";
 import { createSelector } from "reselect";
 import analyze from "../analyze";
+import display from "../display";
 
 export const getAll = (state: any) => state[NAME];
 
@@ -53,7 +54,8 @@ export const getOverlayRelevantData = createSelector(
 	getCurrentSelectionGroup,
 	getCurrentWordRangeGroup,
 	getSectionMovementState,
-	(spanGroup, selectionGroup, wordRangeGroup, movementState) => {
-		return { spanGroup, selectionGroup, wordRangeGroup, movementState };
+	display.selectors.getDocumentRef,
+	(spanGroup, selectionGroup, wordRangeGroup, movementState, documentRef) => {
+		return { spanGroup, selectionGroup, wordRangeGroup, movementState, documentRef };
 	}
 );

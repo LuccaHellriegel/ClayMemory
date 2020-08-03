@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useLayoutEffect, useState, RefObject } from "react";
 import { Stage } from "react-konva";
 import { WordLayer } from "./WordLayer";
 import { getOverlayRelevantData } from "../selectors";
 import { SectionMovementState } from "../model";
 import analyze from "../../analyze";
+import { rectHeight } from "../../../shared/rect";
 
 const freeColor = "green";
 const lockedColor = "red";
@@ -14,20 +15,25 @@ function DocumentCanvas({
 	selectionGroup,
 	wordRangeGroup,
 	parentSize,
+	documentRef,
 }: {
 	spanGroup: HTMLSpanElement[];
 	movementState: SectionMovementState;
 	selectionGroup: (0 | 1)[][];
 	wordRangeGroup: Range[][];
 	parentSize: { width: number };
+	documentRef: RefObject<any>;
 }) {
-	//zIndex is Ordering of canvases
+	const [height, setHeight] = useState(1);
+
+	useLayoutEffect(() => {
+		if (documentRef.current) {
+			setHeight(rectHeight((documentRef.current as HTMLDivElement).getBoundingClientRect()));
+		}
+	}, [documentRef.current]);
+
 	return (
-		<Stage
-			width={parentSize.width}
-			height={document.documentElement.scrollHeight}
-			style={{ position: "absolute", pointerEvents: "none", zIndex: 1 }}
-		>
+		<Stage width={parentSize.width} height={height} style={{ position: "absolute", pointerEvents: "none", zIndex: 1 }}>
 			<WordLayer
 				spanGroup={spanGroup}
 				color={movementState === "FREE" ? freeColor : lockedColor}

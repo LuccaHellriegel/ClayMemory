@@ -9,7 +9,7 @@ export const getPDF = createSelector(getAll, (state: DisplayData) => {
 });
 
 export const getRenderCritialData = createSelector(getAll, (state: DisplayData) => {
-	return { pdf: state.pdf, currentPage: state.currentPage };
+	return { pdf: state.pdf, currentPage: state.currentPage, documentRef: state.documentRef };
 });
 
 export const getTotalPages = createSelector(getAll, (state: DisplayData) => state.totalPages);
@@ -23,3 +23,5 @@ export const getPageControlData = createSelector(
 		return { currentPage, totalPages };
 	}
 );
+
+export const getDocumentRef = createSelector(getAll, (state: DisplayData) => state.documentRef);

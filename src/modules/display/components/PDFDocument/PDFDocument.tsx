@@ -1,6 +1,6 @@
 import "./PDFDocument.css";
 import "./AnnotationLayer.css";
-import React from "react";
+import React, { RefObject } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import { connect } from "react-redux";
 import { materialLoaded, materialRendered } from "../../actions";
@@ -30,6 +30,7 @@ function PDFDocument({
 	materialRendered,
 	materialLoaded,
 	captureMaterialData,
+	documentRef,
 }: {
 	parentSize: any;
 	pdf: File | undefined;
@@ -37,6 +38,7 @@ function PDFDocument({
 	materialRendered: Function;
 	materialLoaded: (numPages: number) => void;
 	captureMaterialData: Function;
+	documentRef: RefObject<any>;
 }) {
 	return (
 		<Document
@@ -45,6 +47,7 @@ function PDFDocument({
 			onLoadSuccess={({ numPages }) => {
 				materialLoaded(numPages);
 			}}
+			inputRef={documentRef}
 		>
 			{pdf && (
 				<Page

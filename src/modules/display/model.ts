@@ -1,3 +1,5 @@
+import { RefObject } from "react";
+
 export type DisplayStatus = "NONE" | "RENDERED";
 
 export type DisplayData = {
@@ -5,6 +7,7 @@ export type DisplayData = {
 	displayStatus: DisplayStatus;
 	currentPage: number;
 	totalPages?: number;
+	documentRef: RefObject<HTMLDivElement>;
 };
 
-export type PageUpdate = "PREVIOUS" | "NEXT" | "SET";
+export type PageMove = "PREVIOUS" | "NEXT";
