@@ -2,8 +2,8 @@ import "./PDFDocument.css";
 import "./AnnotationLayer.css";
 import React, { RefObject } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
-import { connect } from "react-redux";
-import { materialLoaded, materialRendered } from "../../actions";
+import { connect, useDispatch } from "react-redux";
+import { materialLoaded, materialRendered, setPage } from "../../actions";
 import { getRenderCritialData } from "../../selectors";
 import analyze from "../../../analyze";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -40,6 +40,8 @@ function PDFDocument({
 	captureMaterialData: Function;
 	documentRef: RefObject<any>;
 }) {
+	const dispatch = useDispatch();
+
 	return (
 		<Document
 			file={pdf}
@@ -48,6 +50,9 @@ function PDFDocument({
 				materialLoaded(numPages);
 			}}
 			inputRef={documentRef}
+			onItemClick={({ pageNumber }) => {
+				dispatch(setPage(parseInt(pageNumber)));
+			}}
 		>
 			{pdf && (
 				<Page

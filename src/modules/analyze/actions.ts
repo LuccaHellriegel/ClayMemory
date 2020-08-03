@@ -6,8 +6,7 @@ import { MaterialData } from "./model";
 import { getTimeStamp, getWordSelectionGroups } from "./selectors";
 import { RefObject } from "react";
 
-// from MutationObserver experiments,
-// we know that the text-layer is not guaranteed to be rendered on render "success",
+// text-layer is not really guaranteed to be rendered on render "success",
 // so we use this ugly "try ten times" approach
 export function captureMaterialData(documentRef: RefObject<any>) {
 	return (dispatch: Dispatch, getState: Function) => {
