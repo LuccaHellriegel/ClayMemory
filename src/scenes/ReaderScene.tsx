@@ -8,6 +8,7 @@ import navigate from "../modules/navigate";
 import control from "../modules/control";
 import river from "../modules/river";
 import creation from "../modules/creation";
+import { Divider } from "@material-ui/core";
 
 function ReaderSceneGridColumn({ children }: any) {
 	return (
@@ -32,10 +33,11 @@ function ReaderSceneMaterialColumn({ size }: any) {
 			}}
 		>
 			<Paper elevation={3}>
+				<navigate.components.PageControlBarContainer></navigate.components.PageControlBarContainer>
+				<Divider></Divider>
 				<select.components.DocumentCanvasContainer parentSize={size}></select.components.DocumentCanvasContainer>
 				<display.components.PDFDocumentContainer parentSize={size}></display.components.PDFDocumentContainer>
 				<display.components.PDFUploadContainer></display.components.PDFUploadContainer>
-				<navigate.components.PageControlBarContainer></navigate.components.PageControlBarContainer>
 			</Paper>
 		</Grid>
 	);

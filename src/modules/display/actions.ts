@@ -20,25 +20,30 @@ export const materialRendered = (): { type: string; payload: DisplayStatus } => 
 	return { type: t.DISPLAY_STATUS, payload: "RENDERED" };
 };
 
-export const updatePage = (type: PageUpdate) => {
+// assumes outside validation/correction
+export const setPage = (page: number) => {
+	return { type: t.PAGE_UPDATE, payload: page };
+};
+
+const pageCorrections = {
+	ADD: (newPage: number, totalPages: number) => (newPage === totalPages + 1 ? 1 : newPage),
+	REMOVE: (newPage: number, totalPages: number) => (newPage === 0 ? totalPages : newPage),
+};
+
+export const movePage = (type: PageUpdate) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const { currentPage, totalPages } = getPageControlData(getState());
 		if (totalPages) {
-			let newPage;
 			switch (type) {
 				case "NEXT":
-					newPage = currentPage + 1;
-					if (newPage === totalPages + 1) newPage = 1;
-					dispatch({ type: t.PAGE_UPDATE, payload: newPage });
+					dispatch({ type: t.PAGE_UPDATE, payload: pageCorrections["ADD"](currentPage + 1, totalPages) });
 					break;
 				case "PREVIOUS":
-					newPage = currentPage - 1;
-					if (newPage === 0) newPage = totalPages;
-					dispatch({ type: t.PAGE_UPDATE, payload: newPage });
+					dispatch({ type: t.PAGE_UPDATE, payload: pageCorrections["REMOVE"](currentPage - 1, totalPages) });
 					break;
 			}
 		}
 	};
 };
-export const nextPage = () => updatePage("NEXT");
-export const previousPage = () => updatePage("PREVIOUS");
+export const nextPage = () => movePage("NEXT");
+export const previousPage = () => movePage("PREVIOUS");

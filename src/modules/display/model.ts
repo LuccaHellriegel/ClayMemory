@@ -7,4 +7,4 @@ export type DisplayData = {
 	totalPages?: number;
 };
 
-export type PageUpdate = "PREVIOUS" | "NEXT";
+export type PageUpdate = "PREVIOUS" | "NEXT" | "SET";
