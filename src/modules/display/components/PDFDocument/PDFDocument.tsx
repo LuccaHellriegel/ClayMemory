@@ -56,7 +56,7 @@ function PDFDocument({
 					onRenderSuccess={() => {
 						removeTextLayerOffset();
 						materialRendered();
-						captureMaterialData();
+						captureMaterialData(documentRef);
 					}}
 				/>
 			)}
