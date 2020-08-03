@@ -24,6 +24,8 @@ export const triggerSelectionGrab = (
 	cardIndex?: number
 ) => {
 	return (dispatch: Dispatch, getState: Function) => {
+		dispatch(closeContextMenu());
+
 		//TODO
 		const updateType = "REPLACE";
 
@@ -47,7 +49,5 @@ export const triggerSelectionGrab = (
 			const config = selectedStringToConfig(selectedString, type, creationType, updateType);
 			dispatch(river.actions.cardRiverPush({ id: riverIndex, card: config }));
 		}
-
-		dispatch(closeContextMenu());
 	};
 };

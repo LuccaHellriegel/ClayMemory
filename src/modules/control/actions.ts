@@ -16,8 +16,8 @@ export const toggleContextMenuFocus = () => {
 			const currentFocus = getFocus(getState());
 			switch (currentFocus) {
 				case "CONTEXT_MENU":
-					dispatch(updateFocus("SELECTION"));
 					dispatch(creation.actions.closeContextMenu());
+					dispatch(updateFocus("SELECTION"));
 					break;
 				case "SELECTION":
 					dispatch(updateFocus("CONTEXT_MENU"));

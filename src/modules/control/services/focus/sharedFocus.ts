@@ -7,8 +7,6 @@ export const contextMenuControl = (key: string, event: KeyboardEvent, dispatch: 
 			event.preventDefault();
 			dispatch(creation.actions.toggleContextMenu());
 			dispatch(toggleContextMenuFocus());
-			//dispatch(sectionSelectionState(section));
-			//dispatch(cardRiverUpdate(0, cardRiverState, { type: "Note", content: "Test" }));
 			break;
 	}
 };

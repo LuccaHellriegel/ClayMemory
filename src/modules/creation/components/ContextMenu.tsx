@@ -77,6 +77,9 @@ function ContextMenu({
 
 	const increment = incrementer();
 
+	// need to check for state before rendering MenuItems,
+	// otherwise it shows up for a split-second when switching the menu off after adding to the river
+	// weird Race Condition even if I dispatch closeContextMenu first?
 	return (
 		<Menu
 			ref={menuRef}
@@ -85,10 +88,11 @@ function ContextMenu({
 			anchorReference="anchorPosition"
 			anchorPosition={state ? { top: boundingRectGroup[0].y, left: boundingRectGroup[0].x } : undefined}
 		>
-			{riverMakeUps[0].cards.map((cardConfig) => (
-				<CardConfigItem cardConfig={cardConfig} dispatchRiver={dispatchRiverOne} key={increment()}></CardConfigItem>
-			))}
-			{riverMakeUps[0].cards.length > 0 && <Divider />}
+			{state &&
+				riverMakeUps[0].cards.map((cardConfig) => (
+					<CardConfigItem cardConfig={cardConfig} dispatchRiver={dispatchRiverOne} key={increment()}></CardConfigItem>
+				))}
+			{state && riverMakeUps[0].cards.length > 0 && <Divider />}
 
 			<NewQACard
 				onClick={() => {
