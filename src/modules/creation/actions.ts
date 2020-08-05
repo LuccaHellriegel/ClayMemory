@@ -17,7 +17,7 @@ export const closeContextMenu = () => {
 };
 
 export const triggerSelectionGrab = (
-	riverIndex: string,
+	riverID: string,
 	type: CardType,
 	creationType: CreationType,
 	cardIndex?: number
@@ -35,18 +35,18 @@ export const triggerSelectionGrab = (
 		if (isUpdate) {
 			const state = getState();
 
-			const currentCard = river.selectors.getRiverMakeUps(state)[riverIndex].cards[cardIndex as number];
+			const currentCard = river.selectors.getRiverMakeUps(state)[riverID].cards[cardIndex as number];
 			const config = cards.services.selectedStringToConfig(selectedString, type, creationType, updateType, currentCard);
 
 			dispatch(
 				river.actions.cardRiverUpdate({
-					id: riverIndex,
+					riverID,
 					card: config,
 				})
 			);
 		} else {
 			const config = cards.services.selectedStringToConfig(selectedString, type, creationType, updateType);
-			dispatch(river.actions.cardRiverPush({ id: riverIndex, card: config }));
+			dispatch(river.actions.cardRiverPush({ riverID, card: config }));
 		}
 	};
 };

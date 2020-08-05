@@ -31,15 +31,15 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 	switch (type) {
 		case t.CARD_RIVER_PUSH:
 			newState = copyToNewObjects(state);
-			let currentCards = newState.riverMakeUps[payload.id].cards;
+			let currentCards = newState.riverMakeUps[payload.riverID].cards;
 			currentCards = [...currentCards, payload.card];
 			currentCards[currentCards.length - 1].cardIndex = currentCards.length - 1;
-			newState.riverMakeUps[payload.id].cards = currentCards;
+			newState.riverMakeUps[payload.riverID].cards = currentCards;
 			return newState;
 		case t.CARD_RIVER_UPDATE:
 			newState = copyToNewObjects(state);
-			newState.riverMakeUps[payload.id] = { ...newState.riverMakeUps[payload.id] };
-			newState.riverMakeUps[payload.id].cards[payload.card.cardIndex as number] = payload.card;
+			newState.riverMakeUps[payload.riverID] = { ...newState.riverMakeUps[payload.riverID] };
+			newState.riverMakeUps[payload.riverID].cards[payload.card.cardIndex as number] = payload.card;
 			return newState;
 		default:
 			return state;

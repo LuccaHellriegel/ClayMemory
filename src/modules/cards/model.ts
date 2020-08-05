@@ -6,7 +6,7 @@ export type CardContent = string | QACardContent;
 
 export type CardConfig = { cardIndex?: number; type: CardType; content: CardContent };
 
-export type CardPayload = { id: string; card: CardConfig };
+export type CardPayload = { riverID: string; card: CardConfig };
 
 export type UpdateType = "REPLACE" | "APPEND";
 

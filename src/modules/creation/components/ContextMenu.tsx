@@ -71,9 +71,9 @@ const CardConfigItem = ({
 	}
 };
 
-const partialRiverDispatch = (riverIndex: string, dispatch: any) => {
+const partialRiverDispatch = (riverID: string, dispatch: any) => {
 	return (type: CardType, creationType: CreationType, cardIndex?: number) => {
-		dispatch(triggerSelectionGrab(riverIndex, type, creationType, cardIndex));
+		dispatch(triggerSelectionGrab(riverID, type, creationType, cardIndex));
 	};
 };
 
