@@ -9,6 +9,7 @@ import river from "./modules/river";
 import analyze from "./modules/analyze";
 import display from "./modules/display";
 import select from "./modules/select";
+import cards from "./modules/cards";
 
 const rootReducer = combineReducers({
 	[control.constants.NAME]: control.reducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
 	[analyze.constants.NAME]: analyze.reducer,
 	[display.constants.NAME]: display.reducer,
 	[select.constants.NAME]: select.reducer,
+	[cards.constants.NAME]: cards.reducer,
 });
 
 const stateSanitizer = (state: any) => {

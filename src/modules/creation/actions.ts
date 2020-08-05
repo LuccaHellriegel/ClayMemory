@@ -2,7 +2,6 @@ import * as t from "./actionTypes";
 import { Dispatch } from "redux";
 import analyze from "../analyze";
 import select from "../select";
-import river from "../river";
 import { CardType, CreationType } from "../cards/model";
 import cards from "../cards";
 
@@ -17,7 +16,7 @@ export const closeContextMenu = () => {
 };
 
 export const triggerSelectionGrab = (riverID: string, type: CardType, creationType: CreationType, cardID?: string) => {
-	return (dispatch: Dispatch, getState: Function) => {
+	return (dispatch: Function, getState: Function) => {
 		dispatch(closeContextMenu());
 
 		//TODO
@@ -29,7 +28,7 @@ export const triggerSelectionGrab = (riverID: string, type: CardType, creationTy
 		if (isUpdate) {
 			const state = getState();
 
-			const currentCard = river.selectors.getCards(state)[cardID as string];
+			const currentCard = cards.selectors.getCards(state)[cardID as string];
 			const config = cards.services.selectedStringToConfig(selectedString, type, creationType, updateType, currentCard);
 
 			dispatch(

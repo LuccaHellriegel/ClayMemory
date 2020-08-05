@@ -2,6 +2,7 @@ import { NAME } from "./constants";
 import { createSelector } from "reselect";
 import { CardRiverState, RiverMakeUps, RiverCards } from "./model";
 import { CardConfig } from "../cards/model";
+import cards from "../cards";
 
 export const getAll = (state: any) => state[NAME];
 
@@ -16,8 +17,6 @@ export const getActiveRiverMakeUps = createSelector(getRiverMakeUps, getActiveRi
 	}, {} as RiverMakeUps)
 );
 
-export const getCards = createSelector(getAll, (state: CardRiverState) => state.cards);
-
 export const getActiveRiversCardIDs = createSelector(getActiveRiverMakeUps, (makeUps) =>
 	Object.keys(makeUps).reduce((prev, makeUpID) => {
 		prev[makeUpID] = makeUps[makeUpID].cardIDs;
@@ -25,12 +24,15 @@ export const getActiveRiversCardIDs = createSelector(getActiveRiverMakeUps, (mak
 	}, {} as { [riverID: string]: string[] })
 );
 
-export const getActiveRiverCards = createSelector(getActiveRiversCardIDs, getCards, (makeUpCardIDs, cards) =>
-	Object.keys(makeUpCardIDs).reduce((prev, makeUpID) => {
-		prev[makeUpID] = makeUpCardIDs[makeUpID].reduce((prev, id) => {
-			prev[id] = cards[id];
+export const getActiveRiverCards = createSelector(
+	getActiveRiversCardIDs,
+	cards.selectors.getCards,
+	(makeUpCardIDs, cards) =>
+		Object.keys(makeUpCardIDs).reduce((prev, makeUpID) => {
+			prev[makeUpID] = makeUpCardIDs[makeUpID].reduce((prev, id) => {
+				prev[id] = cards[id];
+				return prev;
+			}, {} as { [cardID: string]: CardConfig });
 			return prev;
-		}, {} as { [cardID: string]: CardConfig });
-		return prev;
-	}, {} as RiverCards)
+		}, {} as RiverCards)
 );
