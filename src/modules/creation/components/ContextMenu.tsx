@@ -4,7 +4,7 @@ import NestedMenuItem from "material-ui-nested-menu-item";
 import { MenuItem, Divider } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
-import { RiverMakeUp, RiverCards } from "../../river/model";
+import { RiverCards } from "../../river/model";
 import { triggerSelectionGrab } from "../actions";
 import { incrementer } from "../../../shared/utils";
 import { DataGuardHOC } from "../../analyze/components";

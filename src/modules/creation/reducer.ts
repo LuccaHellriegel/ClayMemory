@@ -16,6 +16,7 @@ const creationData = (state = initialState, { type, payload }: { type: string; p
 			//TODO: reliance on order of refs and coupling to the fact that a new card was pushed
 			// no support for multiple rivers
 			if ((payload as CardPayload).card.type === "Q-A") return { ...state, qaRefs: [...state.qaRefs, createRef()] };
+			return state;
 		default:
 			return state;
 	}

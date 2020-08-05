@@ -11,6 +11,7 @@ const controlData = (state = initialState, { type, payload }: { type: string; pa
 		case creation.actionTypes.CLOSE_CONTEXT_MENU:
 			const notClosedByControl = state.focus === "CONTEXT_MENU";
 			if (notClosedByControl) return { ...state, focus: "SELECTION" };
+			return state;
 		default:
 			return state;
 	}
