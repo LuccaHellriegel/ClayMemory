@@ -8,7 +8,7 @@ export const HybridCardField = ({
 	...rest
 }: {
 	storeValue?: string;
-	saveChanges?: (value: string) => void;
+	saveChanges: (value: string) => void;
 	style: any;
 } & TextFieldProps) => {
 	const [state, setState] = useState({ storeValue, mutableValue: storeValue });
@@ -28,7 +28,7 @@ export const HybridCardField = ({
 				setState({ ...state, mutableValue: submittedValue });
 			}}
 			onBlur={(event: any) => {
-				//saveChanges(event.target.value);
+				saveChanges(event.target.value);
 			}}
 			style={style}
 			{...rest}

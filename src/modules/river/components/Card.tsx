@@ -1,12 +1,21 @@
 import Grid from "@material-ui/core/Grid";
 import React from "react";
 import { HybridCardField } from "./HybridCardField";
-import { QACardContent, CardConfig } from "../../cards/model";
+import { CardConfig, QACardContent } from "../../cards/model";
+import { useDispatch } from "react-redux";
+import cards from "../../cards";
 
-const NoteCard = ({ content }: { content: string }) => {
+type CardProps = { config: CardConfig; riverID: string };
+
+const NoteCard = ({ config, riverID }: CardProps) => {
+	const dispatch = useDispatch();
+
 	return (
 		<HybridCardField
-			storeValue={content}
+			saveChanges={(value) => {
+				dispatch(cards.actions.updateCardContent(value, config.cardID, "NOTE", "REPLACE", riverID));
+			}}
+			storeValue={config.content as string}
 			fullWidth
 			label="Note"
 			variant="filled"
@@ -16,12 +25,17 @@ const NoteCard = ({ content }: { content: string }) => {
 	);
 };
 
-const QACard = ({ content }: { content: QACardContent }) => {
+const QACard = ({ config, riverID }: CardProps) => {
+	const dispatch = useDispatch();
+
 	return (
 		<Grid container direction="column" spacing={1}>
 			<Grid item>
 				<HybridCardField
-					storeValue={content.q}
+					saveChanges={(value) => {
+						dispatch(cards.actions.updateCardContent(value, config.cardID, "Q", "REPLACE", riverID));
+					}}
+					storeValue={(config.content as QACardContent).q}
 					fullWidth
 					label={"Question"}
 					variant="filled"
@@ -31,7 +45,10 @@ const QACard = ({ content }: { content: QACardContent }) => {
 			</Grid>
 			<Grid item>
 				<HybridCardField
-					storeValue={content.a}
+					saveChanges={(value) => {
+						dispatch(cards.actions.updateCardContent(value, config.cardID, "A", "REPLACE", riverID));
+					}}
+					storeValue={(config.content as QACardContent).a}
 					fullWidth
 					label={"Answer"}
 					variant="filled"
@@ -43,11 +60,11 @@ const QACard = ({ content }: { content: QACardContent }) => {
 	);
 };
 
-export const Card = ({ config }: { config: CardConfig }) => {
+export const Card = ({ config, riverID }: CardProps) => {
 	switch (config.type) {
 		case "Note":
-			return <NoteCard content={config.content as string}></NoteCard>;
+			return <NoteCard config={config} riverID={riverID}></NoteCard>;
 		case "Q-A":
-			return <QACard content={config.content as { q: string; a: string }}></QACard>;
+			return <QACard config={config} riverID={riverID}></QACard>;
 	}
 };

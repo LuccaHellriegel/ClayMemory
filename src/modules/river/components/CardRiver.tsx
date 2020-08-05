@@ -17,11 +17,11 @@ const GridDivider = () => (
 	</Grid>
 );
 
-const toCardGridItemsWithDividers = (cards: CardConfig[], increment: () => number) => {
+const toCardGridItemsWithDividers = (cards: CardConfig[], riverID: string, increment: () => number) => {
 	return cards.reduce((prev, currentCard, index, arr) => {
 		prev.push(
 			<Grid item key={increment()}>
-				<Card config={currentCard} key={increment()}></Card>
+				<Card config={currentCard} riverID={riverID} key={increment()}></Card>
 			</Grid>
 		);
 
@@ -38,7 +38,7 @@ const CardRiver = ({ riverID, riverCards }: { riverID: string; riverCards?: Rive
 			<AccordionSummary>CardRiver</AccordionSummary>
 			<AccordionDetails>
 				<Grid container direction="column" spacing={2} justify="center" alignItems="stretch">
-					{toCardGridItemsWithDividers(Object.values(riverCards[riverID]), increment)}
+					{toCardGridItemsWithDividers(Object.values(riverCards[riverID]), riverID, increment)}
 				</Grid>
 			</AccordionDetails>
 		</Accordion>
