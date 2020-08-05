@@ -1,8 +1,7 @@
 import Grid from "@material-ui/core/Grid";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { CardConfig, QACardContent } from "../model";
 import { HybridCardField } from "./HybridCardField";
+import { QACardContent, CardConfig } from "../../cards/model";
 
 const NoteCard = ({ content }: { content: string }) => {
 	return (
@@ -45,8 +44,6 @@ const QACard = ({ content }: { content: QACardContent }) => {
 };
 
 export const Card = ({ config }: { config: CardConfig }) => {
-	const dispatch = useDispatch();
-
 	switch (config.type) {
 		case "Note":
 			return <NoteCard content={config.content as string}></NoteCard>;

@@ -1,10 +1,4 @@
-export type CardType = "Note" | "Q-A";
-
-export type QACardContent = { q: string; a: string };
-
-export type CardContent = string | QACardContent;
-
-export type CardConfig = { cardIndex?: number; type: CardType; content: CardContent };
+import { CardConfig } from "../cards/model";
 
 export type RiverMakeUp = { id: string; cards: CardConfig[]; active: boolean };
 
@@ -15,5 +9,3 @@ export type CardRiverState = {
 	activeRiverMakeUpIDs: string[];
 	lastIndex: number;
 };
-
-export type CardPayload = { id: string; card: CardConfig };

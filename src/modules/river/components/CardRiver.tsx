@@ -5,10 +5,11 @@ import Grid from "@material-ui/core/Grid";
 import React from "react";
 import { Divider } from "@material-ui/core";
 import { connect } from "react-redux";
-import { CardConfig, RiverMakeUps } from "../model";
+import { RiverMakeUps } from "../model";
 import { getAll } from "../selectors";
 import { incrementer } from "../../../shared/utils";
 import { Card } from "./Card";
+import { CardConfig } from "../../cards/model";
 
 const GridDivider = () => (
 	<Grid item>
