@@ -9,6 +9,12 @@ export const updateFocus = (focus: ControlFocus) => {
 	return { type: t.FOCUS_UPDATE, payload: focus };
 };
 
+export const tryUpdateFocus = (focus: ControlFocus) => {
+	return (dispatch: Dispatch, getState: Function) => {
+		if (getFocus(getState()) !== focus) dispatch(updateFocus(focus));
+	};
+};
+
 export const toggleContextMenuFocus = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
