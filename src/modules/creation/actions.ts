@@ -26,20 +26,9 @@ export const triggerSelectionGrab = (riverID: string, type: CardType, creationTy
 		const isUpdate = cardID !== undefined;
 
 		if (isUpdate) {
-			const state = getState();
-
-			const currentCard = cards.selectors.getCards(state)[cardID as string];
-			const config = cards.services.selectedStringToConfig(selectedString, type, creationType, updateType, currentCard);
-
-			dispatch(
-				cards.actions.cardUpdate({
-					riverID,
-					card: config,
-				})
-			);
+			dispatch(cards.actions.updateCardContent(selectedString, cardID as string, creationType, updateType, riverID));
 		} else {
-			const config = cards.services.selectedStringToConfig(selectedString, type, creationType, updateType);
-			dispatch(cards.actions.cardPush({ riverID, card: config }));
+			dispatch(cards.actions.pushCardContent(selectedString, creationType, updateType, riverID, type));
 		}
 	};
 };

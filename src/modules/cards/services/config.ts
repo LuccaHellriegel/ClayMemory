@@ -35,14 +35,14 @@ const creationFunctions: {
 	},
 };
 
-export const selectedStringToConfig = (
-	selectedStr: string,
+export const contentStringToConfig = (
+	contentStr: string,
 	type: CardType,
 	creationType: CreationType,
 	updateType: UpdateType,
 	currentCard?: CardPayloadConfig
 ): CardPayloadConfig => {
-	const partialUpdateFunction = createPartialUpdateContentStrFunction(updateType, selectedStr);
+	const partialUpdateFunction = createPartialUpdateContentStrFunction(updateType, contentStr);
 	const isCardUpdate = !!currentCard;
 	return isCardUpdate
 		? creationFunctions[creationType](currentCard as CardPayloadConfig, partialUpdateFunction)

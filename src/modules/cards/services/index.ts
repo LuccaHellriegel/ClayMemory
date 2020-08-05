@@ -1,3 +1,3 @@
-import { selectedStringToConfig } from "./selectedStringToConfig";
+import { contentStringToConfig } from "./config";
 
-export { selectedStringToConfig };
+export { contentStringToConfig as selectedStringToConfig };
