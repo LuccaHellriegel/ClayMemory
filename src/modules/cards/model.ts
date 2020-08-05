@@ -4,7 +4,7 @@ export type QACardContent = { q: string; a: string };
 
 export type CardContent = string | QACardContent;
 
-export type CardConfig = { cardIndex?: number; type: CardType; content: CardContent };
+export type CardConfig = { cardID?: number; type: CardType; content: CardContent };
 
 export type CardPayload = { riverID: string; card: CardConfig };
 

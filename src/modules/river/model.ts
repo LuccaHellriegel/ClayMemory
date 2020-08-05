@@ -4,6 +4,8 @@ export type RiverMakeUp = { riverID: string; cards: CardConfig[]; active: boolea
 
 export type RiverMakeUps = { [riverID: string]: RiverMakeUp };
 
+export type Cards = { [cardID: string]: CardConfig };
+
 export type CardRiverState = {
 	riverMakeUps: RiverMakeUps;
 	activeRiverMakeUpIDs: string[];

@@ -17,14 +17,14 @@ const NewNoteCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Note<
 const SingleOptionItem = ({ cardConfig, dispatchRiver }: { cardConfig: CardConfig; dispatchRiver: dispatchRiver }) => (
 	<MenuItem
 		onClick={() => {
-			dispatchRiver(cardConfig.type, "NOTE", cardConfig.cardIndex);
+			dispatchRiver(cardConfig.type, "NOTE", cardConfig.cardID);
 		}}
 	>
 		{cardConfig.type}
 	</MenuItem>
 );
 
-type dispatchRiver = (type: CardType, creationType: CreationType, cardIndex?: number | undefined) => void;
+type dispatchRiver = (type: CardType, creationType: CreationType, cardID?: number | undefined) => void;
 
 const QAOptionItem = ({
 	cardConfig,
@@ -39,14 +39,14 @@ const QAOptionItem = ({
 		<MenuItem
 			ref={qaRef}
 			onClick={() => {
-				dispatchRiver("Q-A", "Q", cardConfig.cardIndex);
+				dispatchRiver("Q-A", "Q", cardConfig.cardID);
 			}}
 		>
 			Q
 		</MenuItem>
 		<MenuItem
 			onClick={() => {
-				dispatchRiver("Q-A", "A", cardConfig.cardIndex);
+				dispatchRiver("Q-A", "A", cardConfig.cardID);
 			}}
 		>
 			A
@@ -72,8 +72,8 @@ const CardConfigItem = ({
 };
 
 const partialRiverDispatch = (riverID: string, dispatch: any) => {
-	return (type: CardType, creationType: CreationType, cardIndex?: number) => {
-		dispatch(triggerSelectionGrab(riverID, type, creationType, cardIndex));
+	return (type: CardType, creationType: CreationType, cardID?: number) => {
+		dispatch(triggerSelectionGrab(riverID, type, creationType, cardID));
 	};
 };
 

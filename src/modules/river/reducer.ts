@@ -7,9 +7,9 @@ const intialState: CardRiverState = {
 		RiverMakeUp1: {
 			riverID: "RiverMakeUp1",
 			cards: [
-				{ cardIndex: 0, type: "Q-A", content: { q: "Was ist der Sinn des Lebens?", a: "42" } },
-				{ cardIndex: 1, type: "Q-A", content: { q: "Welches Layout macht mehr Sinn?", a: "??" } },
-				{ cardIndex: 2, type: "Note", content: "Note here" },
+				{ cardID: 0, type: "Q-A", content: { q: "Was ist der Sinn des Lebens?", a: "42" } },
+				{ cardID: 1, type: "Q-A", content: { q: "Welches Layout macht mehr Sinn?", a: "??" } },
+				{ cardID: 2, type: "Note", content: "Note here" },
 			],
 			active: true,
 		},
@@ -33,13 +33,13 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 			newState = copyToNewObjects(state);
 			let currentCards = newState.riverMakeUps[payload.riverID].cards;
 			currentCards = [...currentCards, payload.card];
-			currentCards[currentCards.length - 1].cardIndex = currentCards.length - 1;
+			currentCards[currentCards.length - 1].cardID = currentCards.length - 1;
 			newState.riverMakeUps[payload.riverID].cards = currentCards;
 			return newState;
 		case t.CARD_RIVER_UPDATE:
 			newState = copyToNewObjects(state);
 			newState.riverMakeUps[payload.riverID] = { ...newState.riverMakeUps[payload.riverID] };
-			newState.riverMakeUps[payload.riverID].cards[payload.card.cardIndex as number] = payload.card;
+			newState.riverMakeUps[payload.riverID].cards[payload.card.cardID as number] = payload.card;
 			return newState;
 		default:
 			return state;
