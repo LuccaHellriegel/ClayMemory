@@ -4,12 +4,12 @@ import NestedMenuItem from "material-ui-nested-menu-item";
 import { MenuItem, Divider } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
-import { CardConfig, RiverMakeUp, CardType } from "../../river/model";
+import { RiverMakeUp } from "../../river/model";
 import { triggerSelectionGrab } from "../actions";
 import { incrementer } from "../../../shared/utils";
 import { DataGuardHOC } from "../../analyze/components";
 import river from "../../river";
-import { CreationType } from "../model";
+import { CardConfig, CardType, CreationType } from "../../cards/model";
 
 const NewQACard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q-A</MenuItem>;
 const NewNoteCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Note</MenuItem>;

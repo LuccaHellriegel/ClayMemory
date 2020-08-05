@@ -3,9 +3,8 @@ import { Dispatch } from "redux";
 import analyze from "../analyze";
 import select from "../select";
 import river from "../river";
-import { CardType } from "../river/model";
 import { selectedStringToConfig } from "./services/selectedStringToConfig";
-import { CreationType } from "./model";
+import { CardType, CreationType } from "../cards/model";
 
 export const toggleContextMenu = () => {
 	return (dispatch: Dispatch, getState: Function) => {

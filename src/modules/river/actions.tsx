@@ -1,5 +1,5 @@
 import * as t from "./actionTypes";
-import { CardPayload } from "./model";
+import { CardPayload } from "../cards/model";
 
 export const cardRiverPush = (card: CardPayload) => {
 	return { type: t.CARD_RIVER_PUSH, payload: card };

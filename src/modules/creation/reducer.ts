@@ -2,7 +2,7 @@ import * as t from "./actionTypes";
 import { CreationData } from "./model";
 import { createRef } from "react";
 import river from "../river";
-import { CardPayload } from "../river/model";
+import { CardPayload } from "../cards/model";
 
 const initialState: CreationData = { open: false, menuRef: createRef(), qaRefs: [createRef(), createRef()] };
 

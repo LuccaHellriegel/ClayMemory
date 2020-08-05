@@ -1,5 +1,6 @@
-import { CardRiverState, CardPayload } from "./model";
+import { CardRiverState } from "./model";
 import * as t from "./actionTypes";
+import { CardPayload } from "../cards/model";
 
 const intialState: CardRiverState = {
 	riverMakeUps: {
