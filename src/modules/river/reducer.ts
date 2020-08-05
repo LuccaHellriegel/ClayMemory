@@ -8,6 +8,7 @@ const intialState: CardRiverState = {
 			cards: [
 				{ cardIndex: 0, type: "Q-A", content: { q: "Was ist der Sinn des Lebens?", a: "42" } },
 				{ cardIndex: 1, type: "Q-A", content: { q: "Welches Layout macht mehr Sinn?", a: "??" } },
+				{ cardIndex: 2, type: "Note", content: "Note here" },
 			],
 			active: true,
 		},

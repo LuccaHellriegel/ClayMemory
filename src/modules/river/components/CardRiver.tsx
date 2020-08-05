@@ -8,41 +8,45 @@ import { connect } from "react-redux";
 import { CardConfig, RiverMakeUps } from "../model";
 import { getAll } from "../selectors";
 import { incrementer } from "../../../shared/utils";
-
-const BaseCard = ({ title, children }: { title: string; children: any }) => {
-	return (
-		<div>
-			{title}
-			<br />
-			{children}
-		</div>
-	);
-};
+import { HybridCardField } from "./HybridCardField";
 
 const NoteCard = ({ content }: { content: string }) => {
 	return (
-		<BaseCard title={"Note"}>
-			<TextField value={content} type="filled"></TextField>
-		</BaseCard>
-	);
-};
-
-const NamedItemField = ({ name, content }: { name: string; content: string }) => {
-	return (
-		<Grid item>
-			<TextField label={name} value={content} type="filled"></TextField>
-		</Grid>
+		<TextField
+			fullWidth
+			label="Note"
+			value={content}
+			variant="filled"
+			style={{ backgroundColor: "#CBF3F0" }}
+			InputLabelProps={{ style: { color: "#000000" } }}
+		></TextField>
 	);
 };
 
 const QACard = ({ content }: { content: { q: string; a: string } }) => {
 	return (
-		<BaseCard title={"Q-A"}>
-			<Grid container direction="column">
-				<NamedItemField name={"Question"} content={content.q}></NamedItemField>
-				<NamedItemField name={"Answer"} content={content.a}></NamedItemField>
+		<Grid container direction="column" spacing={1}>
+			<Grid item>
+				<TextField
+					fullWidth
+					label={"Question"}
+					value={content.q}
+					variant="filled"
+					style={{ backgroundColor: "#FFBF69" }}
+					InputLabelProps={{ style: { color: "#000000" } }}
+				></TextField>
 			</Grid>
-		</BaseCard>
+			<Grid item>
+				<TextField
+					fullWidth
+					label={"Answer"}
+					value={content.a}
+					variant="filled"
+					style={{ backgroundColor: "#2EC4B6" }}
+					InputLabelProps={{ style: { color: "#000000" } }}
+				></TextField>
+			</Grid>
+		</Grid>
 	);
 };
 
@@ -61,6 +65,20 @@ const GridDivider = ({ key }: { key: number | string }) => (
 	</Grid>
 );
 
+const toCardGridItemsWithDividers = (cards: CardConfig[], increment: () => number) => {
+	return cards.reduce((prev, currentCard, index, arr) => {
+		prev.push(
+			<Grid item key={increment()}>
+				<Card config={currentCard} key={increment()}></Card>
+			</Grid>
+		);
+
+		const notLastCard = index < arr.length - 1;
+		if (notLastCard) prev.push(<GridDivider key={increment()}></GridDivider>);
+		return prev;
+	}, [] as any[]);
+};
+
 const CardRiver = ({ id, riverMakeUps }: { id: string; riverMakeUps?: RiverMakeUps }) => {
 	const increment = incrementer();
 	return riverMakeUps ? (
@@ -68,15 +86,7 @@ const CardRiver = ({ id, riverMakeUps }: { id: string; riverMakeUps?: RiverMakeU
 			<AccordionSummary>CardRiver</AccordionSummary>
 			<AccordionDetails>
 				<Grid container direction="column" spacing={2} justify="center" alignItems="stretch">
-					{riverMakeUps[id].cards.reduce((prev, currentCard, index, arr) => {
-						prev.push(
-							<Grid item key={increment()}>
-								<Card config={currentCard} key={increment()}></Card>
-							</Grid>
-						);
-						if (index < arr.length - 1) prev.push(<GridDivider key={increment()}></GridDivider>);
-						return prev;
-					}, [] as any[])}
+					{toCardGridItemsWithDividers(riverMakeUps[id].cards, increment)}
 				</Grid>
 			</AccordionDetails>
 		</Accordion>
