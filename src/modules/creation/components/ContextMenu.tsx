@@ -7,9 +7,9 @@ import { getContextMenuInitData } from "../selectors";
 import { RiverCards } from "../../river/model";
 import { triggerSelectionGrab } from "../actions";
 import { incrementer } from "../../../shared/utils";
-import { DataGuardHOC } from "../../analyze/components";
 import river from "../../river";
 import { CardConfig, CardType, CreationType } from "../../cards/model";
+import analyze from "../../analyze";
 
 const NewQACard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q-A</MenuItem>;
 const NewNoteCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Note</MenuItem>;
@@ -132,4 +132,4 @@ function ContextMenu({
 	);
 }
 
-export const ContextMenuContainer = DataGuardHOC(ContextMenu, getContextMenuInitData);
+export const ContextMenuContainer = analyze.components.DataGuardHOC(ContextMenu, getContextMenuInitData);

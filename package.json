@@ -45,7 +45,10 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"graph": "npx depcruise --exclude '^(node_modules)' --output-type dot src/index.tsx | dot -T svg > mingraph.svg"
+		"graph": "npx depcruise --config ./.dependency-cruiser.js --output-type dot src/index.tsx | dot -T svg > dependency-graph.svg",
+		"archi": "npx depcruise --config ./.dependency-cruiser.js --output-type archi src/index.tsx | dot -T svg > module-dependency-graph.svg",
+		"deps": "npx depcruise --config ./.dependency-cruiser.js src",
+		"viz": "npm run graph & npm run archi"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
