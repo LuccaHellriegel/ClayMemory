@@ -1,6 +1,6 @@
 import { CardRiverState } from "./model";
-import * as t from "./actionTypes";
 import { CardPayload } from "../cards/model";
+import cards from "../cards";
 
 const intialState: CardRiverState = {
 	cards: {
@@ -26,9 +26,9 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 	let cardID;
 	let riverMakeUp;
 	let riverMakeUps;
-	let cards;
+	let cardObj;
 	switch (type) {
-		case t.CARD_RIVER_PUSH:
+		case cards.actionTypes.CARD_PUSH:
 			cardID = createCardID(state.lastCardIDNumber);
 			const lastCardIDNumber = state.lastCardIDNumber + 1;
 
@@ -39,16 +39,16 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 			riverMakeUps = { ...state.riverMakeUps };
 			riverMakeUps[payload.riverID] = riverMakeUp;
 
-			cards = { ...state.cards };
-			cards[cardID] = { ...payload.card, cardID };
+			cardObj = { ...state.cards };
+			cardObj[cardID] = { ...payload.card, cardID };
 
-			return { ...state, cards, riverMakeUps: riverMakeUps, lastCardIDNumber };
-		case t.CARD_RIVER_UPDATE:
+			return { ...state, cards: cardObj, riverMakeUps: riverMakeUps, lastCardIDNumber };
+		case cards.actionTypes.CARD_UPDATE:
 			cardID = payload.card.cardID as string;
-			cards = { ...state.cards };
-			cards[cardID] = payload.card;
+			cardObj = { ...state.cards };
+			cardObj[cardID] = payload.card;
 
-			return { ...state, cards };
+			return { ...state, cards: cardObj };
 		default:
 			return state;
 	}
