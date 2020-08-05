@@ -3,8 +3,8 @@ import { Dispatch } from "redux";
 import analyze from "../analyze";
 import select from "../select";
 import river from "../river";
-import { selectedStringToConfig } from "./services/selectedStringToConfig";
 import { CardType, CreationType } from "../cards/model";
+import cards from "../cards";
 
 export const toggleContextMenu = () => {
 	return (dispatch: Dispatch, getState: Function) => {
@@ -36,7 +36,7 @@ export const triggerSelectionGrab = (
 			const state = getState();
 
 			const currentCard = river.selectors.getRiverMakeUps(state)[riverIndex].cards[cardIndex as number];
-			const config = selectedStringToConfig(selectedString, type, creationType, updateType, currentCard);
+			const config = cards.services.selectedStringToConfig(selectedString, type, creationType, updateType, currentCard);
 
 			dispatch(
 				river.actions.cardRiverUpdate({
@@ -45,7 +45,7 @@ export const triggerSelectionGrab = (
 				})
 			);
 		} else {
-			const config = selectedStringToConfig(selectedString, type, creationType, updateType);
+			const config = cards.services.selectedStringToConfig(selectedString, type, creationType, updateType);
 			dispatch(river.actions.cardRiverPush({ id: riverIndex, card: config }));
 		}
 	};

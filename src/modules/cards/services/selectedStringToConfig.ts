@@ -1,4 +1,4 @@
-import { UpdateType, CardConfig, CreationType, QACardContent, CardType } from "../../cards/model";
+import { UpdateType, CardConfig, CreationType, QACardContent, CardType } from "../model";
 
 type updateContentStrFunction = (oldStr: string, newStr: string) => string;
 
