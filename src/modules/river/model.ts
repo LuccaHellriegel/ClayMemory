@@ -1,4 +1,4 @@
-export type CardType = "Note" | "Q-A" | "Cloze";
+export type CardType = "Note" | "Q-A";
 
 export type QACardContent = { q: string; a: string };
 

@@ -2,7 +2,16 @@ import { CardRiverState, CardPayload } from "./model";
 import * as t from "./actionTypes";
 
 const intialState: CardRiverState = {
-	riverMakeUps: { RiverMakeUp1: { id: "RiverMakeUp1", cards: [], active: true } },
+	riverMakeUps: {
+		RiverMakeUp1: {
+			id: "RiverMakeUp1",
+			cards: [
+				{ cardIndex: 0, type: "Q-A", content: { q: "Was ist der Sinn des Lebens?", a: "42" } },
+				{ cardIndex: 1, type: "Q-A", content: { q: "Welches Layout macht mehr Sinn?", a: "??" } },
+			],
+			active: true,
+		},
+	},
 	activeRiverMakeUpIDs: ["RiverMakeUp1"],
 	lastIndex: 1,
 };

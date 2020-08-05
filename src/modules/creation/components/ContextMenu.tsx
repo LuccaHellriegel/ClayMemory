@@ -12,13 +12,12 @@ import river from "../../river";
 import { CreationType } from "../model";
 
 const NewQACard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q-A</MenuItem>;
-const NewClozeCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Cloze</MenuItem>;
 const NewNoteCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Note</MenuItem>;
 
 const SingleOptionItem = ({ cardConfig, dispatchRiver }: { cardConfig: CardConfig; dispatchRiver: dispatchRiver }) => (
 	<MenuItem
 		onClick={() => {
-			dispatchRiver(cardConfig.type, cardConfig.type === "Note" ? "NOTE" : "CLOZE", cardConfig.cardIndex);
+			dispatchRiver(cardConfig.type, "NOTE", cardConfig.cardIndex);
 		}}
 	>
 		{cardConfig.type}
@@ -99,11 +98,6 @@ function ContextMenu({
 					dispatchRiverOne("Q-A", "Q");
 				}}
 			></NewQACard>
-			<NewClozeCard
-				onClick={() => {
-					dispatchRiverOne("Cloze", "CLOZE");
-				}}
-			></NewClozeCard>
 			<NewNoteCard
 				onClick={() => {
 					dispatchRiverOne("Note", "NOTE");

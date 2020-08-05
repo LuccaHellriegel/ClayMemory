@@ -6,4 +6,4 @@ export type CreationData = ContextMenuState;
 
 export type UpdateType = "REPLACE" | "APPEND";
 
-export type CreationType = "NOTE" | "CLOZE" | "Q" | "A";
+export type CreationType = "NOTE" | "Q" | "A";

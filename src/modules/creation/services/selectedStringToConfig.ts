@@ -23,7 +23,6 @@ const creationFunctions: {
 	[key in CreationType]: creationFunction;
 } = {
 	NOTE: defaultCreationFunction,
-	CLOZE: defaultCreationFunction,
 	Q: (oldConfig, partialUpdateFunction) => {
 		const content = oldConfig.content as QACardContent;
 		return { ...oldConfig, content: { ...content, q: partialUpdateFunction(content.q) } };

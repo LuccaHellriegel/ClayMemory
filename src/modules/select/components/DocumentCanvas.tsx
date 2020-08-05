@@ -30,7 +30,7 @@ function DocumentCanvas({
 		if (documentRef.current) {
 			setHeight(rectHeight((documentRef.current as HTMLDivElement).getBoundingClientRect()));
 		}
-	}, [documentRef.current]);
+	}, [documentRef]);
 
 	return (
 		<Stage width={parentSize.width} height={height} style={{ position: "absolute", pointerEvents: "none", zIndex: 1 }}>
