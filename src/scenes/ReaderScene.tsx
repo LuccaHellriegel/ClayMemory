@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { withSize } from "react-sizeme";
 import Paper from "@material-ui/core/Paper";
@@ -9,6 +9,7 @@ import control from "../modules/control";
 import river from "../modules/river";
 import creation from "../modules/creation";
 import { Divider } from "@material-ui/core";
+import { useDispatch } from "react-redux";
 
 function ReaderSceneGridColumn({ children }: any) {
 	return (
@@ -25,14 +26,25 @@ function ReaderSceneGridColumn({ children }: any) {
 }
 
 function ReaderSceneMaterialColumn({ size }: any) {
+	const dispatch = useDispatch();
+
+	const [elevation, setElevation] = useState(3);
+
 	return (
 		<Grid
 			item
 			style={{
 				width: "60%",
 			}}
+			onMouseEnter={() => {
+				dispatch(control.actions.tryUpdateFocus("SELECTION"));
+				setElevation(20);
+			}}
+			onMouseLeave={() => {
+				setElevation(3);
+			}}
 		>
-			<Paper elevation={3}>
+			<Paper elevation={elevation}>
 				<navigate.components.PageControlBarContainer></navigate.components.PageControlBarContainer>
 				<Divider></Divider>
 				<select.components.DocumentCanvasContainer parentSize={size}></select.components.DocumentCanvasContainer>

@@ -2,7 +2,7 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Grid from "@material-ui/core/Grid";
-import React from "react";
+import React, { useState } from "react";
 import { Divider } from "@material-ui/core";
 import { connect } from "react-redux";
 import { CardRiverState, RiverCards } from "../model";
@@ -33,8 +33,19 @@ const toCardGridItemsWithDividers = (cards: CardConfig[], riverID: string, incre
 
 const CardRiver = ({ riverID, riverCards }: { riverID: string; riverCards?: RiverCards }) => {
 	const increment = incrementer();
+	const [elevation, setElevation] = useState(3);
+
 	return riverCards ? (
-		<Accordion defaultExpanded={true}>
+		<Accordion
+			defaultExpanded={true}
+			onMouseEnter={() => {
+				setElevation(20);
+			}}
+			onMouseLeave={() => {
+				setElevation(3);
+			}}
+			elevation={elevation}
+		>
 			<AccordionSummary>CardRiver</AccordionSummary>
 			<AccordionDetails>
 				<Grid container direction="column" spacing={2} justify="center" alignItems="stretch">
