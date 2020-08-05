@@ -3,44 +3,52 @@ import * as t from "./actionTypes";
 import { CardPayload } from "../cards/model";
 
 const intialState: CardRiverState = {
+	cards: {
+		"0": { cardID: "0", type: "Q-A", content: { q: "Was ist der Sinn des Lebens?", a: "42" } },
+		"1": { cardID: "1", type: "Q-A", content: { q: "Welches Layout macht mehr Sinn?", a: "??" } },
+		"2": { cardID: "2", type: "Note", content: "Note here" },
+	},
 	riverMakeUps: {
 		RiverMakeUp1: {
 			riverID: "RiverMakeUp1",
-			cards: [
-				{ cardID: 0, type: "Q-A", content: { q: "Was ist der Sinn des Lebens?", a: "42" } },
-				{ cardID: 1, type: "Q-A", content: { q: "Welches Layout macht mehr Sinn?", a: "??" } },
-				{ cardID: 2, type: "Note", content: "Note here" },
-			],
+			cardIDs: ["0", "1", "2"],
 			active: true,
 		},
 	},
 	activeRiverMakeUpIDs: ["RiverMakeUp1"],
-	lastIndex: 1,
+	lastRiverIDNumber: 1,
+	lastCardIDNumber: 2,
 };
 
-const copyToNewObjects = (state: CardRiverState) => {
-	// manual deepish copy
-	let newState = { ...state };
-	// if we want to modify riverMakeUps, we need to create a new object
-	newState.riverMakeUps = { ...state.riverMakeUps };
-	return newState;
-};
+const createCardID = (lastCardIDNumber: number) => (lastCardIDNumber + 1).toString();
 
 const cardRiverState = (state = intialState, { type, payload }: { type: string; payload: CardPayload }) => {
-	let newState;
+	let cardID;
+	let riverMakeUp;
+	let riverMakeUps;
+	let cards;
 	switch (type) {
 		case t.CARD_RIVER_PUSH:
-			newState = copyToNewObjects(state);
-			let currentCards = newState.riverMakeUps[payload.riverID].cards;
-			currentCards = [...currentCards, payload.card];
-			currentCards[currentCards.length - 1].cardID = currentCards.length - 1;
-			newState.riverMakeUps[payload.riverID].cards = currentCards;
-			return newState;
+			cardID = createCardID(state.lastCardIDNumber);
+			const lastCardIDNumber = state.lastCardIDNumber + 1;
+
+			riverMakeUp = {
+				...state.riverMakeUps[payload.riverID],
+				cardIDs: [...state.riverMakeUps[payload.riverID].cardIDs, cardID],
+			};
+			riverMakeUps = { ...state.riverMakeUps };
+			riverMakeUps[payload.riverID] = riverMakeUp;
+
+			cards = { ...state.cards };
+			cards[cardID] = { ...payload.card, cardID };
+
+			return { ...state, cards, riverMakeUps: riverMakeUps, lastCardIDNumber };
 		case t.CARD_RIVER_UPDATE:
-			newState = copyToNewObjects(state);
-			newState.riverMakeUps[payload.riverID] = { ...newState.riverMakeUps[payload.riverID] };
-			newState.riverMakeUps[payload.riverID].cards[payload.card.cardID as number] = payload.card;
-			return newState;
+			cardID = payload.card.cardID as string;
+			cards = { ...state.cards };
+			cards[cardID] = payload.card;
+
+			return { ...state, cards };
 		default:
 			return state;
 	}

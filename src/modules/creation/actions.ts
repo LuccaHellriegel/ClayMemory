@@ -16,7 +16,7 @@ export const closeContextMenu = () => {
 	return { type: t.CLOSE_CONTEXT_MENU };
 };
 
-export const triggerSelectionGrab = (riverID: string, type: CardType, creationType: CreationType, cardID?: number) => {
+export const triggerSelectionGrab = (riverID: string, type: CardType, creationType: CreationType, cardID?: string) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		dispatch(closeContextMenu());
 
@@ -24,13 +24,12 @@ export const triggerSelectionGrab = (riverID: string, type: CardType, creationTy
 		const updateType = "REPLACE";
 
 		const selectedString = select.selectors.getCurrentSelectedString(getState());
-
 		const isUpdate = cardID !== undefined;
 
 		if (isUpdate) {
 			const state = getState();
 
-			const currentCard = river.selectors.getRiverMakeUps(state)[riverID].cards[cardID as number];
+			const currentCard = river.selectors.getActiveRiverCards(state)[riverID][cardID as string];
 			const config = cards.services.selectedStringToConfig(selectedString, type, creationType, updateType, currentCard);
 
 			dispatch(

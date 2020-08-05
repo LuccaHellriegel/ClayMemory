@@ -53,7 +53,9 @@ export function ReaderScene() {
 			<control.components.ControlContainer></control.components.ControlContainer>
 			<Grid container justify="space-around" direction="row" alignItems="stretch">
 				<ReaderSceneGridColumn>
-					<river.components.CardRiverContainer id={river.constants.RiverMakeUpID}></river.components.CardRiverContainer>
+					<river.components.CardRiverContainer
+						riverID={river.constants.RiverMakeUpID}
+					></river.components.CardRiverContainer>
 				</ReaderSceneGridColumn>
 				<ReaderSceneMaterialColumnWithSize></ReaderSceneMaterialColumnWithSize>
 			</Grid>

@@ -5,8 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import React from "react";
 import { Divider } from "@material-ui/core";
 import { connect } from "react-redux";
-import { RiverMakeUps } from "../model";
-import { getAll } from "../selectors";
+import { CardRiverState, RiverCards } from "../model";
+import { getActiveRiverCards } from "../selectors";
 import { incrementer } from "../../../shared/utils";
 import { Card } from "./Card";
 import { CardConfig } from "../../cards/model";
@@ -31,18 +31,22 @@ const toCardGridItemsWithDividers = (cards: CardConfig[], increment: () => numbe
 	}, [] as any[]);
 };
 
-const CardRiver = ({ id, riverMakeUps }: { id: string; riverMakeUps?: RiverMakeUps }) => {
+const CardRiver = ({ riverID, riverCards }: { riverID: string; riverCards?: RiverCards }) => {
 	const increment = incrementer();
-	return riverMakeUps ? (
+	return riverCards ? (
 		<Accordion defaultExpanded={true}>
 			<AccordionSummary>CardRiver</AccordionSummary>
 			<AccordionDetails>
 				<Grid container direction="column" spacing={2} justify="center" alignItems="stretch">
-					{toCardGridItemsWithDividers(riverMakeUps[id].cards, increment)}
+					{toCardGridItemsWithDividers(Object.values(riverCards[riverID]), increment)}
 				</Grid>
 			</AccordionDetails>
 		</Accordion>
 	) : null;
 };
 
-export const CardRiverContainer = connect(getAll)(CardRiver);
+export const CardRiverContainer = connect((state: CardRiverState) => {
+	return {
+		riverCards: getActiveRiverCards(state),
+	};
+})(CardRiver);

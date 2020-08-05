@@ -4,7 +4,7 @@ import NestedMenuItem from "material-ui-nested-menu-item";
 import { MenuItem, Divider } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
-import { RiverMakeUp } from "../../river/model";
+import { RiverMakeUp, RiverCards } from "../../river/model";
 import { triggerSelectionGrab } from "../actions";
 import { incrementer } from "../../../shared/utils";
 import { DataGuardHOC } from "../../analyze/components";
@@ -24,7 +24,7 @@ const SingleOptionItem = ({ cardConfig, dispatchRiver }: { cardConfig: CardConfi
 	</MenuItem>
 );
 
-type dispatchRiver = (type: CardType, creationType: CreationType, cardID?: number | undefined) => void;
+type dispatchRiver = (type: CardType, creationType: CreationType, cardID?: string | undefined) => void;
 
 const QAOptionItem = ({
 	cardConfig,
@@ -72,7 +72,7 @@ const CardConfigItem = ({
 };
 
 const partialRiverDispatch = (riverID: string, dispatch: any) => {
-	return (type: CardType, creationType: CreationType, cardID?: number) => {
+	return (type: CardType, creationType: CreationType, cardID?: string) => {
 		dispatch(triggerSelectionGrab(riverID, type, creationType, cardID));
 	};
 };
@@ -82,13 +82,13 @@ function ContextMenu({
 	state,
 	menuRef,
 	qaRefs,
-	riverMakeUps,
+	riverCards,
 }: {
 	boundingRectGroup: DOMRect[];
 	state: boolean;
 	menuRef: RefObject<any>;
 	qaRefs: RefObject<any>[];
-	riverMakeUps: RiverMakeUp[];
+	riverCards: RiverCards;
 }) {
 	const dispatch = useDispatch();
 	const dispatchRiverOne = partialRiverDispatch(river.constants.RiverMakeUpID, dispatch);
@@ -108,7 +108,7 @@ function ContextMenu({
 			anchorPosition={state ? { top: boundingRectGroup[0].y, left: boundingRectGroup[0].x } : undefined}
 		>
 			{state &&
-				riverMakeUps[0].cards.map((cardConfig) => (
+				Object.values(riverCards["RiverMakeUp1"]).map((cardConfig) => (
 					<CardConfigItem
 						cardConfig={cardConfig}
 						dispatchRiver={dispatchRiverOne}
@@ -116,7 +116,7 @@ function ContextMenu({
 						qaRef={cardConfig.type === "Q-A" ? qaRefs[qaRefIndex()] : undefined}
 					></CardConfigItem>
 				))}
-			{state && riverMakeUps[0].cards.length > 0 && <Divider />}
+			{state && Object.values(riverCards["RiverMakeUp1"]).length > 0 && <Divider />}
 
 			<NewQACard
 				onClick={() => {
