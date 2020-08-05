@@ -26,9 +26,18 @@ const SingleOptionItem = ({ cardConfig, dispatchRiver }: { cardConfig: CardConfi
 
 type dispatchRiver = (type: CardType, creationType: CreationType, cardIndex?: number | undefined) => void;
 
-const QAOptionItem = ({ cardConfig, dispatchRiver }: { cardConfig: CardConfig; dispatchRiver: dispatchRiver }) => (
+const QAOptionItem = ({
+	cardConfig,
+	dispatchRiver,
+	qaRef,
+}: {
+	cardConfig: CardConfig;
+	dispatchRiver: dispatchRiver;
+	qaRef: RefObject<any> | undefined;
+}) => (
 	<NestedMenuItem label="Q-A" parentMenuOpen={true}>
 		<MenuItem
+			ref={qaRef}
 			onClick={() => {
 				dispatchRiver("Q-A", "Q", cardConfig.cardIndex);
 			}}
@@ -45,10 +54,18 @@ const QAOptionItem = ({ cardConfig, dispatchRiver }: { cardConfig: CardConfig; d
 	</NestedMenuItem>
 );
 
-const CardConfigItem = ({ cardConfig, dispatchRiver }: { cardConfig: CardConfig; dispatchRiver: dispatchRiver }) => {
+const CardConfigItem = ({
+	cardConfig,
+	dispatchRiver,
+	qaRef,
+}: {
+	cardConfig: CardConfig;
+	dispatchRiver: dispatchRiver;
+	qaRef?: RefObject<any>;
+}) => {
 	switch (cardConfig.type) {
 		case "Q-A":
-			return <QAOptionItem cardConfig={cardConfig} dispatchRiver={dispatchRiver}></QAOptionItem>;
+			return <QAOptionItem cardConfig={cardConfig} dispatchRiver={dispatchRiver} qaRef={qaRef}></QAOptionItem>;
 		default:
 			return <SingleOptionItem cardConfig={cardConfig} dispatchRiver={dispatchRiver}></SingleOptionItem>;
 	}
@@ -64,17 +81,20 @@ function ContextMenu({
 	boundingRectGroup,
 	state,
 	menuRef,
+	qaRefs,
 	riverMakeUps,
 }: {
 	boundingRectGroup: DOMRect[];
 	state: boolean;
 	menuRef: RefObject<any>;
+	qaRefs: RefObject<any>[];
 	riverMakeUps: RiverMakeUp[];
 }) {
 	const dispatch = useDispatch();
 	const dispatchRiverOne = partialRiverDispatch(river.constants.RiverMakeUpID, dispatch);
 
 	const increment = incrementer();
+	const qaRefIndex = incrementer();
 
 	// need to check for state before rendering MenuItems,
 	// otherwise it shows up for a split-second when switching the menu off after adding to the river
@@ -89,7 +109,12 @@ function ContextMenu({
 		>
 			{state &&
 				riverMakeUps[0].cards.map((cardConfig) => (
-					<CardConfigItem cardConfig={cardConfig} dispatchRiver={dispatchRiverOne} key={increment()}></CardConfigItem>
+					<CardConfigItem
+						cardConfig={cardConfig}
+						dispatchRiver={dispatchRiverOne}
+						key={increment()}
+						qaRef={cardConfig.type === "Q-A" ? qaRefs[qaRefIndex()] : undefined}
+					></CardConfigItem>
 				))}
 			{state && riverMakeUps[0].cards.length > 0 && <Divider />}
 
