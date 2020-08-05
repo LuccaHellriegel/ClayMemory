@@ -5,7 +5,7 @@ import { CardPayload } from "../cards/model";
 const intialState: CardRiverState = {
 	riverMakeUps: {
 		RiverMakeUp1: {
-			id: "RiverMakeUp1",
+			riverID: "RiverMakeUp1",
 			cards: [
 				{ cardIndex: 0, type: "Q-A", content: { q: "Was ist der Sinn des Lebens?", a: "42" } },
 				{ cardIndex: 1, type: "Q-A", content: { q: "Welches Layout macht mehr Sinn?", a: "??" } },

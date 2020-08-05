@@ -1,8 +1,8 @@
 import { CardConfig } from "../cards/model";
 
-export type RiverMakeUp = { id: string; cards: CardConfig[]; active: boolean };
+export type RiverMakeUp = { riverID: string; cards: CardConfig[]; active: boolean };
 
-export type RiverMakeUps = { [id: string]: RiverMakeUp };
+export type RiverMakeUps = { [riverID: string]: RiverMakeUp };
 
 export type CardRiverState = {
 	riverMakeUps: RiverMakeUps;
