@@ -8,8 +8,6 @@ export type Cards = { [cardID: string]: CardConfig };
 
 export type CardRiverState = {
 	riverMakeUps: RiverMakeUps;
-	activeRiverMakeUpIDs: string[];
+	activeRiverMakeUpID: string;
 	lastRiverIDNumber: number;
 };
-
-export type RiverCards = { [riverID: string]: { [cardID: string]: CardConfig } };

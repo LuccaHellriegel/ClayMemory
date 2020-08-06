@@ -10,7 +10,7 @@ const intialState: CardRiverState = {
 			active: true,
 		},
 	},
-	activeRiverMakeUpIDs: ["RiverMakeUp1"],
+	activeRiverMakeUpID: "RiverMakeUp1",
 	lastRiverIDNumber: 1,
 };
 

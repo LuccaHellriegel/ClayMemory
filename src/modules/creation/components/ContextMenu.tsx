@@ -2,9 +2,8 @@ import React, { RefObject } from "react";
 import Menu from "@material-ui/core/Menu";
 import NestedMenuItem from "material-ui-nested-menu-item";
 import { MenuItem, Divider } from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
-import { RiverCards } from "../../river/model";
 import { triggerSelectionGrab } from "../actions";
 import { incrementer } from "../../../shared/utils";
 import river from "../../river";
@@ -88,10 +87,11 @@ function ContextMenu({
 	state: boolean;
 	menuRef: RefObject<any>;
 	qaRefs: RefObject<any>[];
-	riverCards: RiverCards;
+	riverCards: CardConfig[];
 }) {
 	const dispatch = useDispatch();
-	const dispatchRiverOne = partialRiverDispatch(river.constants.RiverMakeUpID, dispatch);
+	const riverID = useSelector(river.selectors.getActiveRiverMakeUpID);
+	const dispatchRiverOne = partialRiverDispatch(riverID, dispatch);
 
 	const increment = incrementer();
 	const qaRefIndex = incrementer();
@@ -108,7 +108,7 @@ function ContextMenu({
 			anchorPosition={state ? { top: boundingRectGroup[0].y, left: boundingRectGroup[0].x } : undefined}
 		>
 			{state &&
-				Object.values(riverCards["RiverMakeUp1"]).map((cardConfig) => (
+				riverCards.map((cardConfig) => (
 					<CardConfigItem
 						cardConfig={cardConfig}
 						dispatchRiver={dispatchRiverOne}
@@ -116,7 +116,7 @@ function ContextMenu({
 						qaRef={cardConfig.type === "Q-A" ? qaRefs[qaRefIndex()] : undefined}
 					></CardConfigItem>
 				))}
-			{state && Object.values(riverCards["RiverMakeUp1"]).length > 0 && <Divider />}
+			{state && riverCards.length > 0 && <Divider />}
 
 			<NewQACard
 				onClick={() => {
