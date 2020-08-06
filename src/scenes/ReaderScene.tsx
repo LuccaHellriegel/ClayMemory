@@ -11,7 +11,7 @@ import focus from "../modules/focus";
 import { Divider } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 
-function ReaderSceneGridColumn({ children }: any) {
+const ReaderSceneRiverColumn = () => {
 	return (
 		<Grid
 			item
@@ -19,10 +19,12 @@ function ReaderSceneGridColumn({ children }: any) {
 				width: "38%",
 			}}
 		>
-			<Paper elevation={3}>{children}</Paper>
+			<Paper elevation={3}>
+				<river.components.CardRiver></river.components.CardRiver>
+			</Paper>
 		</Grid>
 	);
-}
+};
 
 function ReaderSceneMaterialColumn({ size }: any) {
 	const dispatch = useDispatch();
@@ -71,12 +73,7 @@ export function ReaderScene() {
 
 				<Grid item>
 					<Grid container justify="space-around" direction="row" alignItems="stretch">
-						{showRiver && (
-							<ReaderSceneGridColumn>
-								<river.components.CardRiver></river.components.CardRiver>
-							</ReaderSceneGridColumn>
-						)}
-
+						{showRiver && <ReaderSceneRiverColumn></ReaderSceneRiverColumn>}
 						{showMaterial && <ReaderSceneMaterialColumnWithSize></ReaderSceneMaterialColumnWithSize>}
 					</Grid>
 				</Grid>

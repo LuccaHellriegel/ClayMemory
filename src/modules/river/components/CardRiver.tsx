@@ -2,7 +2,7 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Grid from "@material-ui/core/Grid";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Divider } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { getActiveRiverCards, getActiveRiverMakeUpID } from "../selectors";
@@ -16,7 +16,9 @@ const GridDivider = () => (
 	</Grid>
 );
 
-const toCardGridItemsWithDividers = (cards: CardConfig[], riverID: string, increment: () => number) => {
+const toCardGridItemsWithDividers = (cards: CardConfig[], riverID: string) => {
+	const increment = incrementer();
+
 	return cards.reduce((prev, currentCard, index, arr) => {
 		prev.push(
 			<Grid item key={increment()}>
@@ -31,10 +33,11 @@ const toCardGridItemsWithDividers = (cards: CardConfig[], riverID: string, incre
 };
 
 export const CardRiver = () => {
-	const increment = incrementer();
 	const [elevation, setElevation] = useState(3);
 	const riverID = useSelector(getActiveRiverMakeUpID);
 	const riverCards = useSelector(getActiveRiverCards);
+
+	const gridItems = useMemo(() => toCardGridItemsWithDividers(riverCards, riverID), [riverCards, riverID]);
 
 	return riverCards ? (
 		<Accordion
@@ -50,7 +53,7 @@ export const CardRiver = () => {
 			<AccordionSummary>CardRiver</AccordionSummary>
 			<AccordionDetails>
 				<Grid container direction="column" spacing={2} justify="center" alignItems="stretch">
-					{toCardGridItemsWithDividers(riverCards, riverID, increment)}
+					{gridItems}
 				</Grid>
 			</AccordionDetails>
 		</Accordion>
