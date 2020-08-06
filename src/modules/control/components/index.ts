@@ -1,3 +1,4 @@
 import { ControlContainer } from "./Control";
+import { ControlBar } from "./ControlBar";
 
-export { ControlContainer };
+export { ControlContainer, ControlBar };

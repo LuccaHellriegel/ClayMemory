@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 import { Dispatch } from "redux";
 import * as t from "./actionTypes";
 import { DisplayStatus, PageMove } from "./model";
-import { getPageControlData } from "./selectors";
+import { getPageControlData, getDisplayState } from "./selectors";
 
 export const materialUploaded = (event: ChangeEvent<HTMLInputElement>) => {
 	return (dispatch: Dispatch) => {
@@ -17,7 +17,7 @@ export const materialLoaded = (totalPages: number) => {
 };
 
 export const materialRendered = (): { type: string; payload: DisplayStatus } => {
-	return { type: t.DISPLAY_STATUS, payload: "RENDERED" };
+	return { type: t.DISPLAY_STATUS, payload: "SHOW" };
 };
 
 // assumes outside validation/correction
@@ -47,3 +47,11 @@ export const movePage = (type: PageMove) => {
 };
 export const nextPage = () => movePage("NEXT");
 export const previousPage = () => movePage("PREVIOUS");
+
+export const toggleDisplayState = () => {
+	return (dispatch: Dispatch, getState: Function) => {
+		const displayState = getDisplayState(getState()) === "SHOW" ? "HIDE" : "SHOW";
+
+		dispatch({ type: t.DISPLAY_STATUS, payload: displayState });
+	};
+};

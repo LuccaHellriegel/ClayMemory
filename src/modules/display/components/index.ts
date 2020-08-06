@@ -1,5 +1,7 @@
 import { PDFDocumentContainer } from "./PDFDocument/PDFDocument";
 import { PDFUploadContainer } from "./PDFUpload";
-import { NavigationBarContainer } from "./NavigationBar/NavigationBar";
+import { NextButton, PreviousButton } from "./NavigationButtons";
+import { ShowMaterialButton } from "./ShowMaterialButton";
+import { PageChooser } from "./PageChooser/PageChooser";
 
-export { PDFDocumentContainer, PDFUploadContainer, NavigationBarContainer };
+export { PDFDocumentContainer, PDFUploadContainer, PageChooser, NextButton, PreviousButton, ShowMaterialButton };

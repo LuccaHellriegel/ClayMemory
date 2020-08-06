@@ -1,6 +1,6 @@
 "use strict";
 
-import { validatePageChoice } from "./NavigationBar";
+import { validatePageChoice } from "./PageChooser";
 
 test("incorrect input for page choice", () => {
 	expect(validatePageChoice("", 10)).toBe(false);

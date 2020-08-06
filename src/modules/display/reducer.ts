@@ -1,8 +1,8 @@
 import * as t from "./actionTypes";
-import type { DisplayData } from "./model";
+import type { DisplayData, DisplayStatus } from "./model";
 import { createRef } from "react";
 
-const initialState: DisplayData = { displayStatus: "NONE", currentPage: 1, documentRef: createRef() };
+const initialState: DisplayData = { displayStatus: "SHOW", currentPage: 1, documentRef: createRef() };
 
 const displayData = (state = initialState, { type, payload }: { type: string; payload: any }): DisplayData => {
 	switch (type) {
@@ -12,6 +12,8 @@ const displayData = (state = initialState, { type, payload }: { type: string; pa
 			return { ...state, totalPages: payload as number };
 		case t.PAGE_UPDATE:
 			return { ...state, currentPage: payload as number };
+		case t.DISPLAY_STATUS:
+			return { ...state, displayStatus: payload as DisplayStatus };
 		default:
 			return state;
 	}

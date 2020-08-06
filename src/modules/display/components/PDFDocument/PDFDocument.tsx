@@ -6,6 +6,7 @@ import { connect, useDispatch } from "react-redux";
 import { materialLoaded, materialRendered, setPage } from "../../actions";
 import { getRenderCritialData } from "../../selectors";
 import analyze from "../../../analyze";
+import { DisplayStatus } from "../../model";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function removeTextLayerOffset() {
@@ -31,6 +32,7 @@ function PDFDocument({
 	materialLoaded,
 	captureMaterialData,
 	documentRef,
+	displayStatus,
 }: {
 	parentSize: any;
 	pdf: File | undefined;
@@ -39,6 +41,7 @@ function PDFDocument({
 	materialLoaded: (numPages: number) => void;
 	captureMaterialData: Function;
 	documentRef: RefObject<any>;
+	displayStatus: DisplayStatus;
 }) {
 	const dispatch = useDispatch();
 
@@ -54,7 +57,7 @@ function PDFDocument({
 				dispatch(setPage(parseInt(pageNumber)));
 			}}
 		>
-			{pdf && (
+			{pdf && displayStatus === "SHOW" && (
 				<Page
 					width={parentSize.width}
 					pageNumber={currentPage}

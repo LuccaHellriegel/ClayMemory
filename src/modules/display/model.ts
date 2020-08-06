@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 
-export type DisplayStatus = "NONE" | "RENDERED";
+export type DisplayStatus = "SHOW" | "HIDE";
 
 export type DisplayData = {
 	pdf?: File;

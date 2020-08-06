@@ -8,7 +8,7 @@ import control from "../modules/control";
 import river from "../modules/river";
 import creation from "../modules/creation";
 import focus from "../modules/focus";
-import { Divider } from "@material-ui/core";
+import { Divider, AppBar } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
 function ReaderSceneGridColumn({ children }: any) {
@@ -63,7 +63,7 @@ export function ReaderScene() {
 			<control.components.ControlContainer></control.components.ControlContainer>
 			<Grid container justify="center" direction="column" alignItems="stretch" spacing={1}>
 				<Grid item>
-					<display.components.NavigationBarContainer></display.components.NavigationBarContainer>
+					<control.components.ControlBar></control.components.ControlBar>
 				</Grid>
 
 				<Grid item>
