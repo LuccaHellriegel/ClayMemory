@@ -13,7 +13,6 @@ export const getRenderCritialData = createSelector(getAll, (state: DisplayData) 
 		pdf: state.pdf,
 		currentPage: state.currentPage,
 		documentRef: state.documentRef,
-		displayStatus: state.displayStatus,
 	};
 });
 
@@ -31,4 +30,6 @@ export const getPageControlData = createSelector(
 
 export const getDocumentRef = createSelector(getAll, (state: DisplayData) => state.documentRef);
 
-export const getDisplayState = createSelector(getAll, (state: DisplayData) => state.displayStatus);
+export const getDisplayStatus = createSelector(getAll, (state: DisplayData) => state.displayStatus);
+
+export const displayStatusIsShow = createSelector(getDisplayStatus, (status) => status === "SHOW");

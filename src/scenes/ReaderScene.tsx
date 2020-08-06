@@ -9,7 +9,7 @@ import river from "../modules/river";
 import creation from "../modules/creation";
 import focus from "../modules/focus";
 import { Divider } from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function ReaderSceneGridColumn({ children }: any) {
 	return (
@@ -58,6 +58,9 @@ const ReaderSceneMaterialColumnWithSize = withSize({ monitorHeight: true, noPlac
 );
 
 export function ReaderScene() {
+	// TODO: use memoize to make re-showing faster, this is wasteful right now
+	const showMaterial = useSelector(display.selectors.displayStatusIsShow);
+	const showRiver = useSelector(river.selectors.riverShowStateIsShow);
 	return (
 		<div>
 			<control.components.ControlContainer></control.components.ControlContainer>
@@ -68,10 +71,13 @@ export function ReaderScene() {
 
 				<Grid item>
 					<Grid container justify="space-around" direction="row" alignItems="stretch">
-						<ReaderSceneGridColumn>
-							<river.components.CardRiver></river.components.CardRiver>
-						</ReaderSceneGridColumn>
-						<ReaderSceneMaterialColumnWithSize></ReaderSceneMaterialColumnWithSize>
+						{showRiver && (
+							<ReaderSceneGridColumn>
+								<river.components.CardRiver></river.components.CardRiver>
+							</ReaderSceneGridColumn>
+						)}
+
+						{showMaterial && <ReaderSceneMaterialColumnWithSize></ReaderSceneMaterialColumnWithSize>}
 					</Grid>
 				</Grid>
 			</Grid>

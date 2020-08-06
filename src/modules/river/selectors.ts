@@ -22,3 +22,7 @@ export const getActiveRiverCards = createSelector(
 	cards.selectors.getCards,
 	(makeUpCardIDs, cards) => makeUpCardIDs.map((id) => cards[id])
 );
+
+export const getRiverShowState = createSelector(getAll, (state: CardRiverState) => state.riverShowState);
+
+export const riverShowStateIsShow = createSelector(getRiverShowState, (state) => state === "SHOW");

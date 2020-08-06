@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 import { Dispatch } from "redux";
 import * as t from "./actionTypes";
 import { DisplayStatus, PageMove } from "./model";
-import { getPageControlData, getDisplayState } from "./selectors";
+import { getPageControlData, getDisplayStatus } from "./selectors";
 
 export const materialUploaded = (event: ChangeEvent<HTMLInputElement>) => {
 	return (dispatch: Dispatch) => {
@@ -50,7 +50,7 @@ export const previousPage = () => movePage("PREVIOUS");
 
 export const toggleDisplayState = () => {
 	return (dispatch: Dispatch, getState: Function) => {
-		const displayState = getDisplayState(getState()) === "SHOW" ? "HIDE" : "SHOW";
+		const displayState = getDisplayStatus(getState()) === "SHOW" ? "HIDE" : "SHOW";
 
 		dispatch({ type: t.DISPLAY_STATUS, payload: displayState });
 	};

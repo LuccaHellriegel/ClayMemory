@@ -6,8 +6,11 @@ export type RiverMakeUps = { [riverID: string]: RiverMakeUp };
 
 export type Cards = { [cardID: string]: CardConfig };
 
+export type RiverShowState = "SHOW" | "HIDE";
+
 export type CardRiverState = {
 	riverMakeUps: RiverMakeUps;
 	activeRiverMakeUpID: string;
 	lastRiverIDNumber: number;
+	riverShowState: RiverShowState;
 };

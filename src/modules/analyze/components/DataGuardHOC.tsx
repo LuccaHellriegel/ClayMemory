@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { connect, ConnectedComponent } from "react-redux";
 import { Dispatch } from "redux";
 import { createDataConditionalSelector } from "../selectors";
-import { ShowHOC } from "../../../scenes/ShowHOC";
+import { ShowHOC } from "../../../shared/ShowHOC";
 
 export const DataGuardHOC = (
 	Component: FunctionComponent<any>,
