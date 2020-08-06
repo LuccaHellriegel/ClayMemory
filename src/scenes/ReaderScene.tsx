@@ -4,7 +4,6 @@ import { withSize } from "react-sizeme";
 import Paper from "@material-ui/core/Paper";
 import select from "../modules/select";
 import display from "../modules/display";
-import navigate from "../modules/navigate";
 import control from "../modules/control";
 import river from "../modules/river";
 import creation from "../modules/creation";
@@ -64,7 +63,7 @@ export function ReaderScene() {
 			<control.components.ControlContainer></control.components.ControlContainer>
 			<Grid container justify="center" direction="column" alignItems="stretch" spacing={1}>
 				<Grid item>
-					<navigate.components.PageControlBarContainer></navigate.components.PageControlBarContainer>
+					<display.components.NavigationBarContainer></display.components.NavigationBarContainer>
 				</Grid>
 
 				<Grid item>

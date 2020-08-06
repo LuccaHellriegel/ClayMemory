@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import display from "../../display";
 import { AppBar, Toolbar, IconButton, Typography, TextField } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import { setPage, nextPage, previousPage } from "../../actions";
+import { getPageControlData } from "../../selectors";
 
 const nonDigitRegEx = /(\D)/;
 
@@ -16,7 +17,7 @@ export const validatePageChoice = (possiblePage: string, totalPages: number) => 
 	return true;
 };
 
-function PageControlBar({
+function NavigationBar({
 	currentPage,
 	totalPages,
 	nextPage,
@@ -24,8 +25,8 @@ function PageControlBar({
 }: {
 	currentPage: number;
 	totalPages: number | undefined;
-	nextPage: (curPage: number, numbPages: number) => void;
-	previousPage: (curPage: number, numbPages: number) => void;
+	nextPage: () => void;
+	previousPage: () => void;
 }) {
 	const dispatch = useDispatch();
 	const [state, setState] = useState({
@@ -53,7 +54,7 @@ function PageControlBar({
 								event.preventDefault();
 								const submittedValue = (event.target as HTMLFormElement).value;
 								if (!state.error) {
-									dispatch(display.actions.setPage(parseInt(submittedValue)));
+									dispatch(setPage(parseInt(submittedValue)));
 								}
 							}
 						}}
@@ -73,7 +74,7 @@ function PageControlBar({
 				<IconButton
 					type="button"
 					onClick={() => {
-						previousPage(currentPage, totalPages);
+						previousPage();
 					}}
 				>
 					<ArrowBackIosIcon></ArrowBackIosIcon>
@@ -81,7 +82,7 @@ function PageControlBar({
 				<IconButton
 					type="button"
 					onClick={() => {
-						nextPage(currentPage, totalPages);
+						nextPage();
 					}}
 				>
 					<ArrowForwardIosIcon></ArrowForwardIosIcon>
@@ -90,7 +91,7 @@ function PageControlBar({
 		</AppBar>
 	) : null;
 }
-export const PageControlBarContainer = connect(display.selectors.getPageControlData, {
-	nextPage: display.actions.nextPage,
-	previousPage: display.actions.previousPage,
-})(PageControlBar);
+export const NavigationBarContainer = connect(getPageControlData, {
+	nextPage,
+	previousPage,
+})(NavigationBar);
