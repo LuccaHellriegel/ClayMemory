@@ -1,5 +1,5 @@
 import creation from "../../creation";
-import { toggleContextMenuFocus } from "../actions";
+import focus from "../../focus";
 
 export const mouseControl = (event: MouseEvent) => {
 	return (dispatch: any, getState: Function) => {
@@ -9,7 +9,8 @@ export const mouseControl = (event: MouseEvent) => {
 			const clickOutSideOfMenu = !creation.utils.contextMenuContainsTargetNode(state, event);
 
 			if (clickOutSideOfMenu) {
-				dispatch(toggleContextMenuFocus());
+				dispatch(focus.actions.toggleContextMenuFocus());
+				dispatch(creation.actions.toggleContextMenu());
 			}
 		}
 	};

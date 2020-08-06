@@ -3,7 +3,7 @@ import { applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { combineReducers } from "redux";
-import control from "./modules/control";
+import focus from "./modules/focus";
 import creation from "./modules/creation";
 import river from "./modules/river";
 import analyze from "./modules/analyze";
@@ -12,7 +12,7 @@ import select from "./modules/select";
 import cards from "./modules/cards";
 
 const rootReducer = combineReducers({
-	[control.constants.NAME]: control.reducer,
+	[focus.constants.NAME]: focus.reducer,
 	[creation.constants.NAME]: creation.reducer,
 	[river.constants.NAME]: river.reducer,
 	[analyze.constants.NAME]: analyze.reducer,

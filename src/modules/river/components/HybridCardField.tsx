@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextField, TextFieldProps } from "@material-ui/core";
-import control from "../../control";
+import focus from "../../focus";
 import { useDispatch } from "react-redux";
 
 export const HybridCardField = ({
@@ -25,7 +25,7 @@ export const HybridCardField = ({
 	return (
 		<TextField
 			onClick={() => {
-				dispatch(control.actions.tryUpdateFocus("EDITOR"));
+				dispatch(focus.actions.tryUpdateFocus("EDITOR"));
 			}}
 			variant="filled"
 			value={state.mutableValue}

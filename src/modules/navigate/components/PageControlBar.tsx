@@ -42,7 +42,7 @@ function PageControlBar({
 
 	return totalPages ? (
 		<AppBar position="static">
-			<Toolbar>
+			<Toolbar variant="dense">
 				<Typography variant="h6">
 					<TextField
 						type="text"

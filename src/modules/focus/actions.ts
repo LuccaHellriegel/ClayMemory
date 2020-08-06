@@ -1,15 +1,14 @@
 import * as t from "./actionTypes";
-import { ControlFocus } from "./model";
+import { UserFocus } from "./model";
 import { Dispatch } from "redux";
 import { getFocus } from "./selectors";
 import analyze from "../analyze";
-import creation from "../creation";
 
-export const updateFocus = (focus: ControlFocus) => {
+export const updateFocus = (focus: UserFocus) => {
 	return { type: t.FOCUS_UPDATE, payload: focus };
 };
 
-export const tryUpdateFocus = (focus: ControlFocus) => {
+export const tryUpdateFocus = (focus: UserFocus) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		if (getFocus(getState()) !== focus) dispatch(updateFocus(focus));
 	};
@@ -22,7 +21,6 @@ export const toggleContextMenuFocus = () => {
 			const currentFocus = getFocus(getState());
 			switch (currentFocus) {
 				case "CONTEXT_MENU":
-					dispatch(creation.actions.closeContextMenu());
 					dispatch(updateFocus("SELECTION"));
 					break;
 				case "SELECTION":

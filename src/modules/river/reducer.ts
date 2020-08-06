@@ -6,7 +6,7 @@ const intialState: CardRiverState = {
 	riverMakeUps: {
 		RiverMakeUp1: {
 			riverID: "RiverMakeUp1",
-			cardIDs: ["0", "1", "2"],
+			cardIDs: ["2", "0", "1"],
 			active: true,
 		},
 	},

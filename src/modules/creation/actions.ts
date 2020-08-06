@@ -1,13 +1,16 @@
 import * as t from "./actionTypes";
-import { Dispatch } from "redux";
 import analyze from "../analyze";
 import select from "../select";
 import { CardType, CreationType } from "../cards/model";
 import cards from "../cards";
+import focus from "../focus";
 
 export const toggleContextMenu = () => {
-	return (dispatch: Dispatch, getState: Function) => {
-		if (analyze.selectors.getDataExists(getState())) dispatch({ type: t.TOGGLE_CONTEXT_MENU });
+	return (dispatch: any, getState: Function) => {
+		if (analyze.selectors.getDataExists(getState())) {
+			dispatch({ type: t.TOGGLE_CONTEXT_MENU });
+			dispatch(focus.actions.toggleContextMenuFocus());
+		}
 	};
 };
 

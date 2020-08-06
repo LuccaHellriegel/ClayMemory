@@ -8,6 +8,7 @@ import navigate from "../modules/navigate";
 import control from "../modules/control";
 import river from "../modules/river";
 import creation from "../modules/creation";
+import focus from "../modules/focus";
 import { Divider } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
@@ -17,7 +18,6 @@ function ReaderSceneGridColumn({ children }: any) {
 			item
 			style={{
 				width: "38%",
-				height: "100%",
 			}}
 		>
 			<Paper elevation={3}>{children}</Paper>
@@ -37,7 +37,7 @@ function ReaderSceneMaterialColumn({ size }: any) {
 				width: "60%",
 			}}
 			onMouseEnter={() => {
-				dispatch(control.actions.tryUpdateFocus("SELECTION"));
+				dispatch(focus.actions.tryUpdateFocus("SELECTION"));
 				setElevation(20);
 			}}
 			onMouseLeave={() => {
@@ -45,7 +45,6 @@ function ReaderSceneMaterialColumn({ size }: any) {
 			}}
 		>
 			<Paper elevation={elevation}>
-				<navigate.components.PageControlBarContainer></navigate.components.PageControlBarContainer>
 				<Divider></Divider>
 				<select.components.DocumentCanvasContainer parentSize={size}></select.components.DocumentCanvasContainer>
 				<display.components.PDFDocumentContainer parentSize={size}></display.components.PDFDocumentContainer>
@@ -63,13 +62,21 @@ export function ReaderScene() {
 	return (
 		<div>
 			<control.components.ControlContainer></control.components.ControlContainer>
-			<Grid container justify="space-around" direction="row" alignItems="stretch">
-				<ReaderSceneGridColumn>
-					<river.components.CardRiverContainer
-						riverID={river.constants.RiverMakeUpID}
-					></river.components.CardRiverContainer>
-				</ReaderSceneGridColumn>
-				<ReaderSceneMaterialColumnWithSize></ReaderSceneMaterialColumnWithSize>
+			<Grid container justify="center" direction="column" alignItems="stretch" spacing={1}>
+				<Grid item>
+					<navigate.components.PageControlBarContainer></navigate.components.PageControlBarContainer>
+				</Grid>
+
+				<Grid item>
+					<Grid container justify="space-around" direction="row" alignItems="stretch">
+						<ReaderSceneGridColumn>
+							<river.components.CardRiverContainer
+								riverID={river.constants.RiverMakeUpID}
+							></river.components.CardRiverContainer>
+						</ReaderSceneGridColumn>
+						<ReaderSceneMaterialColumnWithSize></ReaderSceneMaterialColumnWithSize>
+					</Grid>
+				</Grid>
 			</Grid>
 			<creation.components.ContextMenuContainer></creation.components.ContextMenuContainer>
 		</div>

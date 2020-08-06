@@ -1,12 +1,12 @@
 import { Dispatch } from "redux";
-import { getFocus } from "../selectors";
 import { pageControl, sectionControl, selectionControl } from "./focus/selectionFocus";
 import { contextMenuControl } from "./focus/sharedFocus";
+import focus from "../../focus";
 
 export const keyboardControl = (event: KeyboardEvent) => {
 	return (dispatch: Dispatch | any, getState: Function) => {
-		const focus = getFocus(getState());
-		switch (focus) {
+		const userFocus = focus.selectors.getFocus(getState());
+		switch (userFocus) {
 			case "SELECTION":
 				pageControl(event.key, event, dispatch);
 				sectionControl(event.key, event, dispatch);
