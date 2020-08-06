@@ -9,9 +9,9 @@ export const ControlBar = () => {
 		<AppBar position="static">
 			<Toolbar variant="dense">
 				{totalPages && <display.components.PageChooser></display.components.PageChooser>}
-				{totalPages && <display.components.ShowMaterialButton></display.components.ShowMaterialButton>}
 				{totalPages && <display.components.PreviousButton></display.components.PreviousButton>}
 				{totalPages && <display.components.NextButton></display.components.NextButton>}
+				{totalPages && <display.components.ShowMaterialButton></display.components.ShowMaterialButton>}
 			</Toolbar>
 		</AppBar>
 	);

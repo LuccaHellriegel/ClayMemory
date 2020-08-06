@@ -8,7 +8,7 @@ import control from "../modules/control";
 import river from "../modules/river";
 import creation from "../modules/creation";
 import focus from "../modules/focus";
-import { Divider, AppBar } from "@material-ui/core";
+import { Divider } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
 function ReaderSceneGridColumn({ children }: any) {
