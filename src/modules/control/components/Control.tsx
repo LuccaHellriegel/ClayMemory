@@ -1,14 +1,20 @@
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { useEventListener } from "../hooks/useEventListener";
-import { keyboardControl } from "../services/keyboardControl";
-import { mouseControl } from "../services/mouseControl";
+import { keyDownControl } from "../services/keyboardControl";
+import { mouseDownControl, mouseUpControl } from "../services/mouseControl";
 
-function Control({ keyboardControl }: { keyboardControl: (event: KeyboardEvent) => void }) {
-	useEventListener("keydown", keyboardControl);
-	const dispatch = useDispatch();
-	useEventListener("mousedown", (event: MouseEvent) => {
-		dispatch(mouseControl(event));
-	});
+function Control({
+	keyDownControl,
+	mouseDownControl,
+	mouseUpControl,
+}: {
+	keyDownControl: (event: KeyboardEvent) => void;
+	mouseDownControl: (event: MouseEvent) => void;
+	mouseUpControl: (event: MouseEvent) => void;
+}) {
+	useEventListener("keydown", keyDownControl);
+	useEventListener("mousedown", mouseDownControl);
+	useEventListener("mouseup", mouseUpControl);
 	return null;
 }
 
@@ -17,6 +23,8 @@ export const ControlContainer = connect(
 		return {};
 	},
 	{
-		keyboardControl,
+		keyDownControl,
+		mouseDownControl,
+		mouseUpControl,
 	}
 )(Control);

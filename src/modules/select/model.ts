@@ -11,4 +11,5 @@ export type SelectionData = {
 	sectionUpdateAllowed: boolean;
 	sectionMovementState: SectionMovementState;
 	selectionType: SelectionType;
+	manuallySelectedString: string;
 };

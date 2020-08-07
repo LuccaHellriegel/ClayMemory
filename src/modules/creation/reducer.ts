@@ -12,6 +12,8 @@ const creationData = (state = initialState, { type, payload }: { type: string; p
 			return { ...state, open: !state.open };
 		case t.CLOSE_CONTEXT_MENU:
 			return { ...state, open: false };
+		case t.OPEN_CONTEXT_MENU:
+			return { ...state, open: true };
 		case cards.actionTypes.CARD_PUSH:
 			//TODO: reliance on order of refs and coupling to the fact that a new card was pushed
 			// no support for multiple rivers

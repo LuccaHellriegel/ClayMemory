@@ -54,3 +54,11 @@ export const updateSelectionType = (type: SelectionType) => {
 export const toggleSelectionType = () => (dispatch: Dispatch, getState: Function) => {
 	dispatch(updateSelectionType(getSelectionType(getState()) === "MOUSE" ? "SECTION" : "MOUSE"));
 };
+
+export const updateManuallySelectedString = (str: string) => {
+	return { type: t.SELECTED_STRING, payload: str };
+};
+
+export const resetManuallySelectedString = () => {
+	return updateManuallySelectedString("");
+};

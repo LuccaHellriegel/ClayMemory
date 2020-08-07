@@ -36,7 +36,7 @@ function DocumentCanvas({
 
 	return (
 		<Stage width={parentSize.width} height={height} style={{ position: "absolute", pointerEvents: "none", zIndex: 1 }}>
-			{
+			{documentRef.current && (
 				<WordLayer
 					showRects={showRects}
 					container={documentRef.current as HTMLDivElement}
@@ -45,7 +45,7 @@ function DocumentCanvas({
 					selectionGroup={selectionGroup}
 					wordRangeGroup={wordRangeGroup}
 				></WordLayer>
-			}
+			)}
 		</Stage>
 	);
 }

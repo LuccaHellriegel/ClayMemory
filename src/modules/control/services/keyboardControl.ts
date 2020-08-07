@@ -68,9 +68,10 @@ const focusDispatcherMap: { [focus in UserFocus]: KeyEventDispatcher } = {
 	SELECTION: selectionFocusDispatcher,
 	CONTEXT_MENU: contextMenuFocusDispatcher,
 	EDITOR: (event, dispatch) => {},
+	CONTROL: (event, dispatch) => {},
 };
 
-export const keyboardControl = (event: KeyboardEvent) => {
+export const keyDownControl = (event: KeyboardEvent) => {
 	return (dispatch: Dispatch | any, getState: Function) => {
 		const state = getState();
 		const userFocus = focus.selectors.getFocus(state);

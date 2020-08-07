@@ -45,8 +45,15 @@ export const getCurrentSelectedWordRanges = createSelector(
 		)
 );
 
-export const getCurrentSelectedString = createSelector(getCurrentSelectedWordRanges, (rangeArr) =>
-	rangeArr.map((range) => range.toString()).join(" ")
+export const getManuallySelectedString = createSelector(getAll, (state: SelectionData) => state.manuallySelectedString);
+
+const rangeArrToStr = (rangeArr: Range[]) => rangeArr.map((range) => range.toString()).join(" ");
+export const getCurrentRangeArrStr = createSelector(getCurrentSelectedWordRanges, rangeArrToStr);
+
+export const getCurrentSelectedString = createSelector(
+	getManuallySelectedString,
+	getCurrentRangeArrStr,
+	(str, rangeArrStr) => (str === "" ? rangeArrStr : str)
 );
 
 export const getSelectionType = createSelector(getAll, (state: SelectionData) => state.selectionType);

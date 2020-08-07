@@ -60,14 +60,21 @@ const ReaderSceneMaterialColumnWithSize = withSize({ monitorHeight: true, noPlac
 );
 
 export function ReaderScene() {
-	// TODO: use memoize to make re-showing faster, this is wasteful right now
+	const dispatch = useDispatch();
+
+	// TODO: use memoize to make re-showing of pdf faster, this is wasteful right now
 	const showMaterial = useSelector(display.selectors.displayStatusIsShow);
 	const showRiver = useSelector(river.selectors.riverShowStateIsShow);
 	return (
 		<div>
 			<control.components.ControlContainer></control.components.ControlContainer>
 			<Grid container justify="center" direction="column" alignItems="stretch" spacing={1}>
-				<Grid item>
+				<Grid
+					item
+					onMouseEnter={() => {
+						dispatch(focus.actions.tryUpdateFocus("CONTROL"));
+					}}
+				>
 					<control.components.ControlBar></control.components.ControlBar>
 				</Grid>
 

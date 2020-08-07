@@ -15,7 +15,21 @@ export const toggleContextMenu = () => {
 };
 
 export const closeContextMenu = () => {
-	return { type: t.CLOSE_CONTEXT_MENU };
+	return (dispatch: any, getState: Function) => {
+		if (analyze.selectors.getDataExists(getState())) {
+			dispatch({ type: t.CLOSE_CONTEXT_MENU });
+			dispatch(focus.actions.updateFocus("SELECTION"));
+		}
+	};
+};
+
+export const openContextMenu = () => {
+	return (dispatch: any, getState: Function) => {
+		if (analyze.selectors.getDataExists(getState())) {
+			dispatch({ type: t.OPEN_CONTEXT_MENU });
+			dispatch(focus.actions.updateFocus("SELECTION"));
+		}
+	};
 };
 
 export const triggerSelectionGrab = (riverID: string, type: CardType, creationType: CreationType, cardID?: string) => {

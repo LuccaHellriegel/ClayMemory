@@ -14,6 +14,7 @@ const initialState: SelectionData = {
 	sectionUpdateAllowed: false,
 	sectionMovementState: "FREE",
 	selectionType: "MOUSE",
+	manuallySelectedString: "",
 };
 
 const selectionData = (state = initialState, { type, payload }: { type: string; payload: any }): SelectionData => {
@@ -30,6 +31,8 @@ const selectionData = (state = initialState, { type, payload }: { type: string; 
 			return resetedSectionData;
 		case t.SELECTION_TYPE:
 			return { ...state, selectionType: payload as SelectionType };
+		case t.SELECTED_STRING:
+			return { ...state, manuallySelectedString: payload as string };
 		default:
 			return state;
 	}

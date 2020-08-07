@@ -1,2 +1,2 @@
-export type UserFocus = "SELECTION" | "CONTEXT_MENU" | "EDITOR";
+export type UserFocus = "SELECTION" | "CONTEXT_MENU" | "EDITOR" | "CONTROL";
 export type FocusState = { focus: UserFocus };
