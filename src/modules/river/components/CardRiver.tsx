@@ -10,6 +10,13 @@ import { incrementer } from "../../../shared/utils";
 import { Card } from "./Card";
 import { CardConfig } from "../../cards/model";
 
+//TODO: mark cards that are hovered over in the contextmenu, so that we see where the content would end up
+// canvas?
+
+//TODO: selection in CardRiver should stay highlighted when the contextMenu opens?
+
+//TODO: contextMenu as permant element, maybe sidebar? Selected String in ContextMenu to show what was selected?
+
 const GridDivider = () => (
 	<Grid item>
 		<Divider></Divider>

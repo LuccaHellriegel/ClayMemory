@@ -1,6 +1,7 @@
 {
 	"name": "rem",
 	"version": "0.1.0",
+	"homepage": "https://luccahellriegel.github.io/ClayMemory/public",
 	"private": true,
 	"devDependencies": {
 		"@types/react-grid-layout": "^0.17.1",
@@ -18,6 +19,7 @@
 		"@types/node": "^12.12.48",
 		"@types/react": "^16.9.41",
 		"@types/react-dom": "^16.9.8",
+		"gh-pages": "^3.1.0",
 		"jodit": "3.3.23",
 		"jodit-react": "1.0.42",
 		"konva": "^7.0.2",
@@ -42,6 +44,8 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
