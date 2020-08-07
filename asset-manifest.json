@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/ClayMemory/static/css/main.c123f778.chunk.css",
+    "main.js": "/ClayMemory/static/js/main.23cae690.chunk.js",
+    "main.js.map": "/ClayMemory/static/js/main.23cae690.chunk.js.map",
+    "runtime-main.js": "/ClayMemory/static/js/runtime-main.1c2a598d.js",
+    "runtime-main.js.map": "/ClayMemory/static/js/runtime-main.1c2a598d.js.map",
+    "static/js/2.7c629608.chunk.js": "/ClayMemory/static/js/2.7c629608.chunk.js",
+    "static/js/2.7c629608.chunk.js.map": "/ClayMemory/static/js/2.7c629608.chunk.js.map",
+    "index.html": "/ClayMemory/index.html",
+    "precache-manifest.fcde804eba2e29058b9f14cb759d7144.js": "/ClayMemory/precache-manifest.fcde804eba2e29058b9f14cb759d7144.js",
+    "service-worker.js": "/ClayMemory/service-worker.js",
+    "static/css/main.c123f778.chunk.css.map": "/ClayMemory/static/css/main.c123f778.chunk.css.map",
+    "static/js/2.7c629608.chunk.js.LICENSE.txt": "/ClayMemory/static/js/2.7c629608.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1c2a598d.js",
+    "static/js/2.7c629608.chunk.js",
+    "static/css/main.c123f778.chunk.css",
+    "static/js/main.23cae690.chunk.js"
+  ]
+}
