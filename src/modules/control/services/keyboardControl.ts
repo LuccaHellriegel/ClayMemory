@@ -7,12 +7,7 @@ import { UserFocus } from "../../focus/model";
 
 type KeyActionMap = { [key: string]: any };
 
-const pageControlKeyMap: KeyActionMap = {
-	ArrowLeft: display.actions.previousPage(),
-	ArrowRight: display.actions.nextPage(),
-};
-
-type KeyEventDispatcher = (event: KeyboardEvent, dispatch: any) => void;
+type KeyEventDispatcher = (event: KeyboardEvent, dispatch: any, state?: any) => void;
 
 const keyEventDispatcher = (keyMap: KeyActionMap) => (event: KeyboardEvent, dispatch: any) => {
 	const action = keyMap[event.key];
@@ -20,6 +15,11 @@ const keyEventDispatcher = (keyMap: KeyActionMap) => (event: KeyboardEvent, disp
 		event.preventDefault();
 		dispatch(action);
 	}
+};
+
+const pageControlKeyMap: KeyActionMap = {
+	ArrowLeft: display.actions.previousPage(),
+	ArrowRight: display.actions.nextPage(),
 };
 
 const sectionControlKeyMap: KeyActionMap = {
@@ -39,13 +39,27 @@ const contextMenuControlKeyMap: KeyActionMap = {
 	t: creation.actions.toggleContextMenu(),
 };
 
-const selectionFocusKeyMap = {
+const selectionFocusSectionKeyMap = {
 	...pageControlKeyMap,
+	...contextMenuControlKeyMap,
 	...sectionControlKeyMap,
 	...selectionControlKeyMap,
+};
+const selectionFocusSectionDispatcher = keyEventDispatcher(selectionFocusSectionKeyMap);
+
+const selectionFocusMouseKeyMap = {
+	...pageControlKeyMap,
 	...contextMenuControlKeyMap,
 };
-const selectionFocusDispatcher = keyEventDispatcher(selectionFocusKeyMap);
+const selectionFocusMouseDispatcher = keyEventDispatcher(selectionFocusMouseKeyMap);
+
+const selectionFocusDispatcher: KeyEventDispatcher = (event, dispatch, state) => {
+	if (select.selectors.selectionTypeIsSection(state)) {
+		selectionFocusSectionDispatcher(event, dispatch);
+	} else {
+		selectionFocusMouseDispatcher(event, dispatch);
+	}
+};
 
 const contextMenuFocusKeyMap = { ...contextMenuControlKeyMap };
 const contextMenuFocusDispatcher = keyEventDispatcher(contextMenuFocusKeyMap);
@@ -58,9 +72,10 @@ const focusDispatcherMap: { [focus in UserFocus]: KeyEventDispatcher } = {
 
 export const keyboardControl = (event: KeyboardEvent) => {
 	return (dispatch: Dispatch | any, getState: Function) => {
-		const userFocus = focus.selectors.getFocus(getState());
+		const state = getState();
+		const userFocus = focus.selectors.getFocus(state);
 		const dispatcher = focusDispatcherMap[userFocus];
 
-		dispatcher(event, dispatch);
+		dispatcher(event, dispatch, state);
 	};
 };
