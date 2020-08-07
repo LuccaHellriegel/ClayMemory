@@ -49,6 +49,10 @@ export const getCurrentSelectedString = createSelector(getCurrentSelectedWordRan
 	rangeArr.map((range) => range.toString()).join(" ")
 );
 
+export const getSelectionType = createSelector(getAll, (state: SelectionData) => state.selectionType);
+
+export const selectionTypeIsSection = createSelector(getSelectionType, (type) => type === "SECTION");
+
 export const getOverlayRelevantData = createSelector(
 	getCurrentSpanGroup,
 	getCurrentSelectionGroup,

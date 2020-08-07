@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useEffect } from "react";
 import { Layer } from "react-konva";
 import { LayerConfig } from "konva/types/Layer";
 import { RectConfig } from "konva/types/shapes/Rect";
@@ -26,54 +26,53 @@ function BoundingRectRect({
 	);
 }
 
-/* <BoundingRectRect
-xOffset={0}
-yOffset={0}
-boundingRect={{ x: 0, y: 0, width: 100, bottom: 100 } as DOMRect}
-shadowBlur={5}
-stroke={"blue"}
-opacity={1}
-key={increment()}
-></BoundingRectRect> */
+const wordRangesToRects = (flatWordRanges: Range[], flatSelectionGroup: any, containerRect: DOMRect, color: string) => {
+	let increment = incrementer();
+
+	return flatWordRanges
+		.map((range, index) =>
+			flatSelectionGroup[index] === 1 ? (
+				<BoundingRectRect
+					xOffset={containerRect.x}
+					yOffset={containerRect.y}
+					boundingRect={range.getBoundingClientRect()}
+					shadowBlur={5}
+					stroke={color}
+					opacity={0.3}
+					key={increment()}
+				></BoundingRectRect>
+			) : null
+		)
+		.filter((val) => val !== null);
+};
 
 export function WordLayer({
 	spanGroup,
 	wordRangeGroup,
 	color,
 	selectionGroup,
+	container,
+	showRects,
 	...props
-}: { spanGroup: HTMLSpanElement[]; wordRangeGroup: Range[][] } & LayerConfig) {
-	// TODO: Make React-ly solution for getting this here?
-	// assumes there is only one document
-	const container = document.querySelector("div.react-pdf__Document");
+}: {
+	spanGroup: HTMLSpanElement[];
+	wordRangeGroup: Range[][];
+	container: HTMLDivElement;
+	showRects: boolean;
+} & LayerConfig) {
+	// we want to be able to quickly show/hide the rects, so we need to memoize
+	// dependency is on the props (which stay the same if unchanged)
+	const boundingRectRects = useMemo(
+		() => wordRangesToRects(wordRangeGroup.flat(), selectionGroup.flat(), container.getBoundingClientRect(), color),
+		[selectionGroup, wordRangeGroup, container, color]
+	);
 
-	if (container) {
-		spanGroup[0].focus();
-		spanGroup[0].scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
-		const containerRect = container.getBoundingClientRect();
+	useEffect(() => {
+		if (showRects) {
+			spanGroup[0].focus();
+			spanGroup[0].scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+		}
+	}, [spanGroup, showRects]);
 
-		const flatSelectionGroup = selectionGroup.flat();
-		const flatWordRanges = wordRangeGroup.flat();
-		let increment = incrementer();
-
-		return (
-			<Layer {...props}>
-				{flatWordRanges.map((range, index) =>
-					flatSelectionGroup[index] === 1 ? (
-						<BoundingRectRect
-							xOffset={containerRect.x}
-							yOffset={containerRect.y}
-							boundingRect={range.getBoundingClientRect()}
-							shadowBlur={5}
-							stroke={color}
-							opacity={0.3}
-							key={increment()}
-						></BoundingRectRect>
-					) : null
-				)}
-			</Layer>
-		);
-	}
-
-	return null;
+	return <Layer {...props}>{showRects && boundingRectRects}</Layer>;
 }

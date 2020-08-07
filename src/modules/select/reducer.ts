@@ -1,4 +1,4 @@
-import { SelectionData } from "./model";
+import { SelectionData, SelectionType } from "./model";
 import * as t from "./actionTypes";
 import analyze from "../analyze";
 import display from "../display";
@@ -7,10 +7,13 @@ import display from "../display";
 
 //TODO: state per page
 
+//TODO: Second CardRiver, where you can choose the page! (for comparison)
+
 const initialState: SelectionData = {
 	sectionIndex: 1,
 	sectionUpdateAllowed: false,
 	sectionMovementState: "FREE",
+	selectionType: "MOUSE",
 };
 
 const selectionData = (state = initialState, { type, payload }: { type: string; payload: any }): SelectionData => {
@@ -25,6 +28,8 @@ const selectionData = (state = initialState, { type, payload }: { type: string; 
 		case analyze.actionTypes.MATERIAL_DATA:
 			const resetedSectionData = { ...state, sectionIndex: 0, sectionUpdateAllowed: true };
 			return resetedSectionData;
+		case t.SELECTION_TYPE:
+			return { ...state, selectionType: payload as SelectionType };
 		default:
 			return state;
 	}

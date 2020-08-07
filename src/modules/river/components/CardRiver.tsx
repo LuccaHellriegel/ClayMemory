@@ -37,6 +37,7 @@ export const CardRiver = () => {
 	const riverID = useSelector(getActiveRiverMakeUpID);
 	const riverCards = useSelector(getActiveRiverCards);
 
+	// this should only re-render if the store values change
 	const gridItems = useMemo(() => toCardGridItemsWithDividers(riverCards, riverID), [riverCards, riverID]);
 
 	return riverCards ? (

@@ -1,7 +1,7 @@
 import * as t from "./actionTypes";
 import { Dispatch } from "redux";
-import { getSectionMovementState, getUpdateAllowed, getSectionIndex } from "./selectors";
-import { SectionUpdateType, SelectionUpdateType } from "./model";
+import { getSectionMovementState, getUpdateAllowed, getSectionIndex, getSelectionType } from "./selectors";
+import { SectionUpdateType, SelectionUpdateType, SelectionType } from "./model";
 import analyze from "../analyze";
 import { updateSelectionGroup } from "./services/updateSelectionGroup";
 
@@ -45,4 +45,12 @@ export const updateSection = (updateType: SectionUpdateType) => {
 			}
 		}
 	};
+};
+
+export const updateSelectionType = (type: SelectionType) => {
+	return { type: t.SELECTION_TYPE, payload: type };
+};
+
+export const toggleSelectionType = () => (dispatch: Dispatch, getState: Function) => {
+	dispatch(updateSelectionType(getSelectionType(getState()) === "MOUSE" ? "SECTION" : "MOUSE"));
 };
