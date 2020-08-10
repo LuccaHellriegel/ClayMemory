@@ -10,6 +10,9 @@ import { ChildCardRiver } from "./ChildCardRiver";
 
 //TODO: contextMenu as permant element, maybe sidebar? Selected String in ContextMenu to show what was selected?
 
+//TODO: make butto where you can choose from the Card-field in the Card-River and then select what should go in there (reverse selection idea?)
+
+//TODO, one note card, new A, new Q, SummaryNotes, jump to section
 export const ActiveCardRiver = () => {
 	const riverID = useSelector(getActiveRiverMakeUpID);
 	const riverCards = useSelector(getActiveRiverCards);

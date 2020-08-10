@@ -5,6 +5,8 @@ import { CardConfig, QACardContent } from "../../cards/model";
 import { useDispatch } from "react-redux";
 import cards from "../../cards";
 
+//TODO: make full cards be not visible to the context menu by default (need to unmark them or sub-menu)
+
 type CardProps = { config: CardConfig; riverID: string };
 
 const NoteCard = ({ config, riverID }: CardProps) => {

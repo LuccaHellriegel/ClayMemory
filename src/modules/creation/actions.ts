@@ -29,8 +29,8 @@ export const triggerSelectionGrab = (riverID: string, type: CardType, creationTy
 	return (dispatch: Function, getState: Function) => {
 		dispatch(closeContextMenu());
 
-		//TODO
-		const updateType = "REPLACE";
+		//TODO: seems like a sensible default, make configurable?
+		const updateType = type === "Q-A" ? "REPLACE" : "APPEND";
 
 		const selectedString = select.selectors.getCurrentSelectedString(getState());
 		const isUpdate = cardID !== undefined;

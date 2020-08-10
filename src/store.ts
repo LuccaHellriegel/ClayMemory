@@ -1,3 +1,4 @@
+import { save, load } from "redux-localstorage-simple";
 import { createStore } from "redux";
 import { applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -34,6 +35,8 @@ const stateSanitizer = (state: any) => {
 };
 
 const composeEnhancers = composeWithDevTools({ stateSanitizer });
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const enhancer = composeEnhancers(
+	applyMiddleware(thunk, save({ debounce: 500, ignoreStates: [analyze.constants.NAME] }))
+);
 
-export const store = createStore(rootReducer, enhancer);
+export const store = createStore(rootReducer, load(), enhancer);
