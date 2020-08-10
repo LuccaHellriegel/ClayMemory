@@ -4,6 +4,7 @@ import { getSectionMovementState, getUpdateAllowed, getSectionIndex, getSelectio
 import { SectionUpdateType, SelectionUpdateType, SelectionType } from "./model";
 import analyze from "../analyze";
 import { updateSelectionGroup } from "./services/updateSelectionGroup";
+import display from "../display";
 
 export const updateSelection = (type: SelectionUpdateType) => {
 	return (dispatch: any, getState: Function) => {
@@ -51,8 +52,17 @@ export const updateSelectionType = (type: SelectionType) => {
 	return { type: t.SELECTION_TYPE, payload: type };
 };
 
-export const toggleSelectionType = () => (dispatch: Dispatch, getState: Function) => {
-	dispatch(updateSelectionType(getSelectionType(getState()) === "MOUSE" ? "SECTION" : "MOUSE"));
+export const toggleSelectionType = () => (dispatch: any, getState: Function) => {
+	const state = getState();
+	const selectionTypeIsNotSection = getSelectionType(state) === "MOUSE";
+
+	// on first turning on of Section-SelectionType we make sure to only then capture MaterialData
+	// this allows the whole section-system to be kept off
+	const hasData = analyze.selectors.getDataExists(state);
+	if (!hasData && selectionTypeIsNotSection)
+		dispatch(analyze.actions.captureMaterialData(display.selectors.getDocumentRef(state)));
+
+	dispatch(updateSelectionType(selectionTypeIsNotSection ? "SECTION" : "MOUSE"));
 };
 
 export const updateManuallySelectedString = (str: string) => {

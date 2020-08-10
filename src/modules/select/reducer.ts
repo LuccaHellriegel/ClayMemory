@@ -17,6 +17,13 @@ const initialState: SelectionData = {
 	manuallySelectedString: "",
 };
 
+const disableSectionUpdate = (state: SelectionData) => {
+	return { ...state, sectionUpdateAllowed: false };
+};
+const resetSectionSelection = (state: SelectionData) => {
+	return { ...state, sectionIndex: 0, sectionUpdateAllowed: true };
+};
+
 const selectionData = (state = initialState, { type, payload }: { type: string; payload: any }): SelectionData => {
 	switch (type) {
 		case t.SECTION_UPDATE:
@@ -24,11 +31,9 @@ const selectionData = (state = initialState, { type, payload }: { type: string; 
 		case t.SECTION_STATE:
 			return { ...state, sectionMovementState: state.sectionMovementState === "FREE" ? "LOCKED" : "FREE" };
 		case display.actionTypes.PAGE_UPDATE:
-			const disabledSectionData = { ...state, sectionUpdateAllowed: false };
-			return disabledSectionData;
+			return disableSectionUpdate(state);
 		case analyze.actionTypes.MATERIAL_DATA:
-			const resetedSectionData = { ...state, sectionIndex: 0, sectionUpdateAllowed: true };
-			return resetedSectionData;
+			return resetSectionSelection(state);
 		case t.SELECTION_TYPE:
 			return { ...state, selectionType: payload as SelectionType };
 		case t.SELECTED_STRING:

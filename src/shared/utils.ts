@@ -6,15 +6,3 @@ export const incrementer = () => {
 		return curCounter;
 	};
 };
-
-export const tryInterval = (tries: number, ms: number, func: () => boolean) => {
-	const increment = incrementer();
-	const timeout = setInterval(() => {
-		if (increment() > tries) {
-			clearInterval(timeout);
-			return;
-		}
-
-		if (func()) clearInterval(timeout);
-	}, ms);
-};

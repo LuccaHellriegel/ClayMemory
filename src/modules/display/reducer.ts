@@ -2,7 +2,11 @@ import * as t from "./actionTypes";
 import type { DisplayData, DisplayStatus } from "./model";
 import { createRef } from "react";
 
-const initialState: DisplayData = { displayStatus: "SHOW", currentPage: 1, documentRef: createRef() };
+const initialState: DisplayData = {
+	displayStatus: "SHOW",
+	currentPage: 1,
+	documentRef: createRef(),
+};
 
 const displayData = (state = initialState, { type, payload }: { type: string; payload: any }): DisplayData => {
 	switch (type) {

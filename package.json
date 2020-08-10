@@ -1,7 +1,7 @@
 {
 	"name": "rem",
 	"version": "0.1.0",
-	"homepage": "https://luccahellriegel.github.io/ClayMemory/public",
+	"homepage": "https://luccahellriegel.github.io/ClayMemory",
 	"private": true,
 	"devDependencies": {
 		"@types/react-grid-layout": "^0.17.1",

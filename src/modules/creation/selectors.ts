@@ -13,12 +13,12 @@ export const getContextMenuRef = createSelector(getAll, (state: CreationData) =>
 export const getContextMenuQARefs = createSelector(getAll, (state: CreationData) => state.qaRefs);
 
 export const getContextMenuInitData = createSelector(
-	select.selectors.getCurrentBoundingRectGroup,
+	select.selectors.getCurrentSelectionPosition,
 	getContextMenuState,
 	getContextMenuRef,
 	getContextMenuQARefs,
 	river.selectors.getActiveRiverCards,
-	(boundingRectGroup, state, menuRef, qaRefs, riverCards) => {
-		return { boundingRectGroup, state, menuRef, qaRefs, riverCards };
+	(position, state, menuRef, qaRefs, riverCards) => {
+		return { position, state, menuRef, qaRefs, riverCards };
 	}
 );

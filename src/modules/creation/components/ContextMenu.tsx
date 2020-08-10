@@ -77,13 +77,13 @@ const partialRiverDispatch = (riverID: string, dispatch: any) => {
 };
 
 function ContextMenu({
-	boundingRectGroup,
+	position,
 	state,
 	menuRef,
 	qaRefs,
 	riverCards,
 }: {
-	boundingRectGroup: DOMRect[];
+	position: { x: number; y: number };
 	state: boolean;
 	menuRef: RefObject<any>;
 	qaRefs: RefObject<any>[];
@@ -96,7 +96,7 @@ function ContextMenu({
 	const increment = incrementer();
 	const qaRefIndex = incrementer();
 
-	// need to check for state before rendering MenuItems,
+	// TODO: need to check for state before rendering MenuItems,
 	// otherwise it shows up for a split-second when switching the menu off after adding to the river
 	// weird Race Condition even if I dispatch closeContextMenu first?
 	return (
@@ -105,7 +105,7 @@ function ContextMenu({
 			keepMounted
 			open={state}
 			anchorReference="anchorPosition"
-			anchorPosition={state ? { top: boundingRectGroup[0].y, left: boundingRectGroup[0].x } : undefined}
+			anchorPosition={state ? { top: position.y, left: position.x } : undefined}
 		>
 			{state &&
 				riverCards.map((cardConfig) => (

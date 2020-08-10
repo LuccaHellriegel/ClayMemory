@@ -1,10 +1,22 @@
 import { Dispatch } from "redux";
-import { tryInterval } from "../../shared/utils";
 import { materialGroupData } from "./services/materialGroupData";
 import * as t from "./actionTypes";
 import { MaterialData } from "./model";
 import { getTimeStamp, getWordSelectionGroups } from "./selectors";
 import { RefObject } from "react";
+import { incrementer } from "../../shared/utils";
+
+export const tryInterval = (tries: number, ms: number, func: () => boolean) => {
+	const increment = incrementer();
+	const timeout = setInterval(() => {
+		if (increment() > tries) {
+			clearInterval(timeout);
+			return;
+		}
+
+		if (func()) clearInterval(timeout);
+	}, ms);
+};
 
 // text-layer is not really guaranteed to be rendered on render "success",
 // so we use this ugly "try ten times" approach

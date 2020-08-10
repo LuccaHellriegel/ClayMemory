@@ -24,6 +24,10 @@ export const getCurrentBoundingRectGroup = createSelector(
 	(boundingRectGroups, sectionIndex) => boundingRectGroups[sectionIndex]
 );
 
+export const getCurrentBoundingRect = createSelector(getCurrentBoundingRectGroup, (group) => group[0]);
+
+export const getCurrentSelectionPosition = getCurrentBoundingRect;
+
 export const getCurrentSelectionGroup = createSelector(
 	analyze.selectors.getWordSelectionGroups,
 	getSectionIndex,
