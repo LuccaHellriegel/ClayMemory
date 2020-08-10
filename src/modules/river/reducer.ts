@@ -15,6 +15,7 @@ const intialState: CardRiverState = {
 	activeRiverMakeUpID: pageNumberToRiverMakeUpID(1),
 	lastRiverIDNumber: 1,
 	riverShowState: "SHOW",
+	summaryRiverID: "SummaryRiver",
 };
 
 const emptyCardRiver = (page: number): RiverMakeUp => {

@@ -19,9 +19,14 @@ const ReaderSceneRiverColumn = () => {
 				width: "38%",
 			}}
 		>
-			<Paper elevation={3}>
-				<river.components.CardRiver></river.components.CardRiver>
-			</Paper>
+			<Grid container justify="center" direction="column" alignItems="stretch" spacing={1}>
+				<Grid item>
+					<river.components.ActiveCardRiver></river.components.ActiveCardRiver>
+				</Grid>
+				<Grid item>
+					<river.components.SummaryRiver></river.components.SummaryRiver>
+				</Grid>
+			</Grid>
 		</Grid>
 	);
 };

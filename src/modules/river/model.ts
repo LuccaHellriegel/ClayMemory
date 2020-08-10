@@ -13,6 +13,7 @@ export type CardRiverState = {
 	activeRiverMakeUpID: string;
 	lastRiverIDNumber: number;
 	riverShowState: RiverShowState;
+	summaryRiverID: "SummaryRiver";
 };
 
-export const pageNumberToRiverMakeUpID = (page: number) => "RiverMakeUp" + page;
+export const pageNumberToRiverMakeUpID = (page: number) => "CardRiver " + page;
