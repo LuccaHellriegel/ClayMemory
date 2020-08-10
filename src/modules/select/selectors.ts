@@ -26,7 +26,10 @@ export const getCurrentBoundingRectGroup = createSelector(
 
 export const getCurrentBoundingRect = createSelector(getCurrentBoundingRectGroup, (group) => group[0]);
 
-export const getCurrentSelectionPosition = getCurrentBoundingRect;
+//TODO: position in store
+export const getCurrentSelectionPosition = (state: SelectionData) => {
+	return analyze.selectors.getDataExists(state) ? getCurrentBoundingRect(state) : { x: 0, y: 0 };
+};
 
 export const getCurrentSelectionGroup = createSelector(
 	analyze.selectors.getWordSelectionGroups,
@@ -54,10 +57,19 @@ export const getManuallySelectedString = createSelector(getAll, (state: Selectio
 const rangeArrToStr = (rangeArr: Range[]) => rangeArr.map((range) => range.toString()).join(" ");
 export const getCurrentRangeArrStr = createSelector(getCurrentSelectedWordRanges, rangeArrToStr);
 
+export const manualSelectionOccured = createSelector(getManuallySelectedString, (str) => str !== "");
+
 export const getCurrentSelectedString = createSelector(
-	getManuallySelectedString,
-	getCurrentRangeArrStr,
-	(str, rangeArrStr) => (str === "" ? rangeArrStr : str)
+	(state: any) => state,
+	manualSelectionOccured,
+	analyze.selectors.getDataExists,
+	(state, manualSelection, dataExists) => {
+		if (manualSelection) return getManuallySelectedString(state);
+
+		if (dataExists) return getCurrentRangeArrStr(state);
+
+		return "";
+	}
 );
 
 export const getSelectionType = createSelector(getAll, (state: SelectionData) => state.selectionType);

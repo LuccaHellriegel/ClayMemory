@@ -1,34 +1,27 @@
 import * as t from "./actionTypes";
-import analyze from "../analyze";
 import select from "../select";
 import { CardType, CreationType } from "../cards/model";
 import cards from "../cards";
 import focus from "../focus";
 
 export const toggleContextMenu = () => {
-	return (dispatch: any, getState: Function) => {
-		if (analyze.selectors.getDataExists(getState())) {
-			dispatch({ type: t.TOGGLE_CONTEXT_MENU });
-			dispatch(focus.actions.toggleContextMenuFocus());
-		}
+	return (dispatch: any) => {
+		dispatch({ type: t.TOGGLE_CONTEXT_MENU });
+		dispatch(focus.actions.toggleContextMenuFocus());
 	};
 };
 
 export const closeContextMenu = () => {
-	return (dispatch: any, getState: Function) => {
-		if (analyze.selectors.getDataExists(getState())) {
-			dispatch({ type: t.CLOSE_CONTEXT_MENU });
-			dispatch(focus.actions.updateFocus("SELECTION"));
-		}
+	return (dispatch: any) => {
+		dispatch({ type: t.CLOSE_CONTEXT_MENU });
+		dispatch(focus.actions.updateFocus("SELECTION"));
 	};
 };
 
 export const openContextMenu = () => {
-	return (dispatch: any, getState: Function) => {
-		if (analyze.selectors.getDataExists(getState())) {
-			dispatch({ type: t.OPEN_CONTEXT_MENU });
-			dispatch(focus.actions.updateFocus("SELECTION"));
-		}
+	return (dispatch: any) => {
+		dispatch({ type: t.OPEN_CONTEXT_MENU });
+		dispatch(focus.actions.updateFocus("SELECTION"));
 	};
 };
 

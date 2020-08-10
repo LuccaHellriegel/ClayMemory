@@ -1,7 +1,7 @@
 import { FocusState, UserFocus } from "./model";
 import * as t from "./actionTypes";
 
-const initialState: FocusState = { focus: "SELECTION" };
+const initialState: FocusState = { focus: "CONTROL" };
 
 const focus = (state = initialState, { type, payload }: { type: string; payload: any }): FocusState => {
 	switch (type) {

@@ -10,13 +10,13 @@ export const mouseDownControl = (event: MouseEvent) => {
 			const clickOutSideOfMenu = !creation.utils.contextMenuContainsTargetNode(state, event);
 
 			if (clickOutSideOfMenu) {
-				dispatch(creation.actions.toggleContextMenu());
+				dispatch(creation.actions.closeContextMenu());
 			}
 		}
 	};
 };
 
-export const mouseUpControl = (event: MouseEvent) => {
+export const mouseUpControl = (_: any) => {
 	return (dispatch: any, getState: Function) => {
 		const selection = document.getSelection();
 		if (selection) {
@@ -24,6 +24,7 @@ export const mouseUpControl = (event: MouseEvent) => {
 			if (selectedStr !== "") {
 				const state = getState();
 				const userFocus = focus.selectors.getFocus(state);
+				console.log(selectedStr, userFocus);
 				if (userFocus === "SELECTION" || userFocus === "EDITOR") {
 					dispatch(select.actions.updateManuallySelectedString(selectedStr));
 					dispatch(creation.actions.openContextMenu());

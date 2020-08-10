@@ -2,13 +2,12 @@ import React, { RefObject } from "react";
 import Menu from "@material-ui/core/Menu";
 import NestedMenuItem from "material-ui-nested-menu-item";
 import { MenuItem, Divider } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, connect } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
 import { triggerSelectionGrab } from "../actions";
 import { incrementer } from "../../../shared/utils";
 import river from "../../river";
 import { CardConfig, CardType, CreationType } from "../../cards/model";
-import analyze from "../../analyze";
 
 const NewQACard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q-A</MenuItem>;
 const NewNoteCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Note</MenuItem>;
@@ -132,4 +131,4 @@ function ContextMenu({
 	);
 }
 
-export const ContextMenuContainer = analyze.components.DataGuardHOC(ContextMenu, getContextMenuInitData);
+export const ContextMenuContainer = connect(getContextMenuInitData)(ContextMenu);
