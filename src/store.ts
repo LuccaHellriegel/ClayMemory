@@ -56,18 +56,9 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-//TODO: write my own persister, this surface-level does not work
 const composeEnhancers = composeWithDevTools({ stateSanitizer });
-const enhancer = composeEnhancers(
-	applyMiddleware(
-		thunk
-		//save({ debounce: 500, ignoreStates: [analyze.constants.NAME, creation.constants.NAME, display.constants.NAME] })
-	)
-);
+const enhancer = composeEnhancers(applyMiddleware(thunk));
 
-export const store = createStore(
-	persistedReducer, //load(),
-	enhancer
-);
+export const store = createStore(persistedReducer, enhancer);
 
 export const persistor = persistStore(store);

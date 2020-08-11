@@ -1,6 +1,6 @@
 export type RiverMakeUp = { riverID: string; cardIDs: string[]; active: boolean };
 
-export type RiverMakeUps = { [riverID: string]: RiverMakeUp };
+type RiverMakeUps = { [riverID: string]: RiverMakeUp };
 
 export type RiverShowState = "SHOW" | "HIDE";
 

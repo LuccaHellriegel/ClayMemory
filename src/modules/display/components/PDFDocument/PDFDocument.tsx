@@ -73,6 +73,3 @@ export const PDFDocumentContainer = connect(getRenderCritialData, {
 	materialLoaded,
 	captureMaterialData: analyze.actions.captureMaterialData,
 })(PDFDocument);
-
-// Material Data on change of page width without page numb change
-// Material Data init on first turning on the button
