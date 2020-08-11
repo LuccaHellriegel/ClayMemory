@@ -30,47 +30,7 @@ export const getCurrentBoundingRect = createSelector(getCurrentBoundingRectGroup
 export const getCurrentSelectionPosition = (state: SelectionData) => {
 	return analyze.selectors.getDataExists(state) ? getCurrentBoundingRect(state) : { x: 0, y: 0 };
 };
-
-export const getCurrentSelectionGroup = createSelector(
-	analyze.selectors.getWordSelectionGroups,
-	getSectionIndex,
-	(selectionGroups, sectionIndex) => selectionGroups[sectionIndex]
-);
-
-export const getCurrentWordRangeGroup = createSelector(
-	analyze.selectors.getWordRangeGroups,
-	getSectionIndex,
-	(wordRangeGroups, sectionIndex) => wordRangeGroups[sectionIndex]
-);
-
-export const getCurrentSelectedWordRanges = createSelector(
-	getCurrentSelectionGroup,
-	getCurrentWordRangeGroup,
-	(selectionGroup, wordRangeGroup) =>
-		wordRangeGroup.flatMap((rangeArr, lineIndex) =>
-			rangeArr.filter((_, index) => selectionGroup[lineIndex][index] === 1)
-		)
-);
-
-export const getManuallySelectedString = createSelector(getAll, (state: SelectionData) => state.manuallySelectedString);
-
-const rangeArrToStr = (rangeArr: Range[]) => rangeArr.map((range) => range.toString()).join(" ");
-export const getCurrentRangeArrStr = createSelector(getCurrentSelectedWordRanges, rangeArrToStr);
-
-export const manualSelectionOccured = createSelector(getManuallySelectedString, (str) => str !== "");
-
-export const getCurrentSelectedString = createSelector(
-	(state: any) => state,
-	manualSelectionOccured,
-	analyze.selectors.getDataExists,
-	(state, manualSelection, dataExists) => {
-		if (manualSelection) return getManuallySelectedString(state);
-
-		if (dataExists) return getCurrentRangeArrStr(state);
-
-		return "";
-	}
-);
+export const getCurrentSelectedString = createSelector(getAll, (state: SelectionData) => state.manuallySelectedString);
 
 export const getSelectionType = createSelector(getAll, (state: SelectionData) => state.selectionType);
 
@@ -78,11 +38,9 @@ export const selectionTypeIsSection = createSelector(getSelectionType, (type) =>
 
 export const getOverlayRelevantData = createSelector(
 	getCurrentSpanGroup,
-	getCurrentSelectionGroup,
-	getCurrentWordRangeGroup,
 	getSectionMovementState,
 	display.selectors.getDocumentRef,
-	(spanGroup, selectionGroup, wordRangeGroup, movementState, documentRef) => {
-		return { spanGroup, selectionGroup, wordRangeGroup, movementState, documentRef };
+	(spanGroup, movementState, documentRef) => {
+		return { spanGroup, movementState, documentRef };
 	}
 );

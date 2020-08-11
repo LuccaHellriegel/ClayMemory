@@ -26,46 +26,40 @@ function BoundingRectRect({
 	);
 }
 
-const wordRangesToRects = (flatWordRanges: Range[], flatSelectionGroup: any, containerRect: DOMRect, color: string) => {
+const spansToRects = (spanGroup: HTMLSpanElement[], containerRect: DOMRect, color: string) => {
 	let increment = incrementer();
 
-	return flatWordRanges
-		.map((range, index) =>
-			flatSelectionGroup[index] === 1 ? (
-				<BoundingRectRect
-					xOffset={containerRect.x}
-					yOffset={containerRect.y}
-					boundingRect={range.getBoundingClientRect()}
-					shadowBlur={5}
-					stroke={color}
-					opacity={0.3}
-					key={increment()}
-				></BoundingRectRect>
-			) : null
-		)
-		.filter((val) => val !== null);
+	return spanGroup.map((span) => (
+		<BoundingRectRect
+			xOffset={containerRect.x}
+			yOffset={containerRect.y}
+			boundingRect={span.getBoundingClientRect()}
+			shadowBlur={5}
+			stroke={color}
+			opacity={0.3}
+			key={increment()}
+		></BoundingRectRect>
+	));
 };
 
 export function WordLayer({
 	spanGroup,
-	wordRangeGroup,
 	color,
-	selectionGroup,
 	container,
 	showRects,
 	...props
 }: {
 	spanGroup: HTMLSpanElement[];
-	wordRangeGroup: Range[][];
 	container: HTMLDivElement;
 	showRects: boolean;
 } & LayerConfig) {
 	// we want to be able to quickly show/hide the rects, so we need to memoize
 	// dependency is on the props (which stay the same if unchanged)
-	const boundingRectRects = useMemo(
-		() => wordRangesToRects(wordRangeGroup.flat(), selectionGroup.flat(), container.getBoundingClientRect(), color),
-		[selectionGroup, wordRangeGroup, container, color]
-	);
+	const boundingRectRects = useMemo(() => spansToRects(spanGroup, container.getBoundingClientRect(), color), [
+		spanGroup,
+		container,
+		color,
+	]);
 
 	useEffect(() => {
 		if (showRects) {

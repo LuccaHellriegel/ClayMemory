@@ -1,4 +1,4 @@
-import { CardRiverState, RiverShowState, pageNumberToRiverMakeUpID, RiverMakeUps, RiverMakeUp } from "./model";
+import { CardRiverState, RiverShowState, pageNumberToRiverMakeUpID, RiverMakeUp } from "./model";
 import { FinalizedCardPayload } from "../cards/model";
 import cards from "../cards";
 import * as t from "./actionTypes";

@@ -2,7 +2,7 @@ import { Dispatch } from "redux";
 import { materialGroupData } from "./services/materialGroupData";
 import * as t from "./actionTypes";
 import { MaterialData } from "./model";
-import { getTimeStamp, getWordSelectionGroups } from "./selectors";
+import { getTimeStamp } from "./selectors";
 import { RefObject } from "react";
 import { incrementer } from "../../shared/utils";
 
@@ -56,12 +56,3 @@ export function captureMaterialData(documentRef: RefObject<any>) {
 		}
 	};
 }
-
-export const updateSelectionGroup = (updatedSelectionGroup: (1 | 0)[][], sectionIndex: number) => {
-	return (dispatch: Dispatch, getState: Function) => {
-		const state = getState();
-		const newSelectionGroups = [...getWordSelectionGroups(state)];
-		newSelectionGroups[sectionIndex] = updatedSelectionGroup;
-		dispatch({ type: t.SELECTION_UPDATE, payload: newSelectionGroups });
-	};
-};

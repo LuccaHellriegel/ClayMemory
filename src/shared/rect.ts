@@ -1,6 +1,6 @@
 export const rectHeight = (rect: DOMRect) => rect.bottom - rect.y;
 
-export const rectsYDist = (rect: DOMRect, rect2: DOMRect) => Math.abs(rect.y - rect2.y);
+const rectsYDist = (rect: DOMRect, rect2: DOMRect) => Math.abs(rect.y - rect2.y);
 
 export const isDistHigherThanFirstHeight = (rect: DOMRect, rect2: DOMRect) => {
 	// assumes that the spans are directly beneath each other

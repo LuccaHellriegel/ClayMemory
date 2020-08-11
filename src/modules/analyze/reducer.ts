@@ -7,8 +7,6 @@ const materialData = (state = initialState, { type, payload }: { type: string; p
 	switch (type) {
 		case t.MATERIAL_DATA:
 			return payload;
-		case t.SELECTION_UPDATE:
-			return { ...state, materialWordSelectionGroups: payload };
 		default:
 			return state;
 	}

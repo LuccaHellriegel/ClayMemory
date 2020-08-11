@@ -1,6 +1,5 @@
 import { MaterialGroupData } from "../model";
 import {
-	spanToWordRanges,
 	expandSpans,
 	groupExpandedSpans,
 	sortExpandedSpansAccordingToY,
@@ -32,18 +31,8 @@ export const materialGroupData = (container: HTMLDivElement): MaterialGroupData 
 		[[], []]
 	);
 
-	const materialWordGroups = (materialSpanGroups as HTMLSpanElement[][]).map((group) =>
-		group.map((span) => spanToWordRanges(span))
-	);
-
-	const materialWordSelectionGroups: (1 | 0)[][][] = materialWordGroups.map((group) =>
-		group.map((words) => words.map((_) => 1))
-	);
-
 	return {
 		materialSpanGroups,
 		materialBoundingRectGroups,
-		materialWordGroups,
-		materialWordSelectionGroups,
 	};
 };

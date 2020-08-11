@@ -2,7 +2,7 @@ export type CardType = "Note" | "Q-A";
 
 export type QACardContent = { q: string; a: string };
 
-export type CardContent = string | QACardContent;
+type CardContent = string | QACardContent;
 
 export type CardConfig = { cardID: string; type: CardType; content: CardContent };
 

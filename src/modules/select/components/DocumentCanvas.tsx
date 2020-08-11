@@ -13,8 +13,6 @@ const lockedColor = "red";
 function DocumentCanvas({
 	spanGroup,
 	movementState,
-	selectionGroup,
-	wordRangeGroup,
 	parentSize,
 	documentRef,
 }: {
@@ -42,8 +40,6 @@ function DocumentCanvas({
 					container={documentRef.current as HTMLDivElement}
 					spanGroup={spanGroup}
 					color={movementState === "FREE" ? freeColor : lockedColor}
-					selectionGroup={selectionGroup}
-					wordRangeGroup={wordRangeGroup}
 				></WordLayer>
 			)}
 		</Stage>
