@@ -10,7 +10,7 @@ const intialState: CardsState = {
 	lastCardIDNumber: 2,
 };
 
-const cards = (state = intialState, { type, payload }: { type: string; payload: FinalizedCardPayload }) => {
+const cards = (state = intialState, { type, payload }: { type: string; payload?: any }) => {
 	let cardID;
 	let cardObj;
 	switch (type) {
@@ -18,13 +18,13 @@ const cards = (state = intialState, { type, payload }: { type: string; payload: 
 			const lastCardIDNumber = state.lastCardIDNumber + 1;
 
 			cardObj = { ...state.cards };
-			cardObj[payload.card.cardID] = payload.card;
+			cardObj[(payload as FinalizedCardPayload).card.cardID] = (payload as FinalizedCardPayload).card;
 
 			return { ...state, cards: cardObj, lastCardIDNumber };
 		case t.CARD_UPDATE:
-			cardID = payload.card.cardID as string;
+			cardID = (payload as FinalizedCardPayload).card.cardID as string;
 			cardObj = { ...state.cards };
-			cardObj[cardID] = payload.card;
+			cardObj[cardID] = (payload as FinalizedCardPayload).card;
 
 			return { ...state, cards: cardObj };
 		default:

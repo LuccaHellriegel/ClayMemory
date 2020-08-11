@@ -19,12 +19,12 @@ const ReaderSceneRiverColumn = () => {
 				width: "38%",
 			}}
 		>
-			<Grid container justify="center" direction="column" alignItems="stretch" spacing={1}>
-				<Grid item>
-					<river.components.ActiveCardRiver></river.components.ActiveCardRiver>
-				</Grid>
+			<Grid container justify="center" direction="row" alignItems="stretch" spacing={1}>
 				<Grid item>
 					<river.components.SummaryRiver></river.components.SummaryRiver>
+				</Grid>
+				<Grid item>
+					<river.components.ActiveCardRiver></river.components.ActiveCardRiver>
 				</Grid>
 			</Grid>
 		</Grid>

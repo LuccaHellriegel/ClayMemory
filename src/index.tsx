@@ -2,12 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ReaderScene } from "./scenes/ReaderScene";
 import { Provider } from "react-redux";
-import { store } from "./store";
+import { store, persistor } from "./store";
+import { PersistGate } from "redux-persist/es/integration/react";
 
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
-			<ReaderScene></ReaderScene>
+			<PersistGate loading={null} persistor={persistor}>
+				<ReaderScene></ReaderScene>
+			</PersistGate>
 		</Provider>
 	</React.StrictMode>,
 	document.getElementById("root")
