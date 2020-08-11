@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { materialGroupData } from "./services/materialGroupData";
+import { materialGroupData } from "./services/materialData";
 import * as t from "./actionTypes";
 import { MaterialData } from "./model";
 import { getTimeStamp } from "./selectors";

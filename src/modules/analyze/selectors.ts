@@ -6,11 +6,11 @@ export const getAll = (state: any) => state[NAME];
 
 export const getTimeStamp = createSelector(getAll, (state: MaterialData) => state.materialDataTimeStamp);
 
-export const getMaterialSpanGroups = createSelector(getAll, (state: MaterialGroupData) => state.materialSpanGroups);
+export const getMaterialSpans = createSelector(getAll, (state: MaterialGroupData) => state.materialSpans);
 
-export const getMaterialBoundingRectGroups = createSelector(
+export const getMaterialBoundingRects = createSelector(
 	getAll,
-	(state: MaterialGroupData) => state.materialBoundingRectGroups
+	(state: MaterialGroupData) => state.materialBoundingRects
 );
 
 export const getDataExists = createSelector(getTimeStamp, (timestamp) => timestamp > 0);

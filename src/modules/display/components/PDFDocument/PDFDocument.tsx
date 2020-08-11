@@ -2,7 +2,7 @@ import "./PDFDocument.css";
 import "./AnnotationLayer.css";
 import React, { RefObject } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { materialLoaded, materialRendered, setPage } from "../../actions";
 import { getRenderCritialData } from "../../selectors";
 import analyze from "../../../analyze";
@@ -41,8 +41,6 @@ function PDFDocument({
 	documentRef: RefObject<any>;
 }) {
 	const dispatch = useDispatch();
-	const hasData = useSelector(analyze.selectors.getDataExists);
-
 	return (
 		<Document
 			file={pdf}
@@ -62,10 +60,7 @@ function PDFDocument({
 					onRenderSuccess={() => {
 						removeTextLayerOffset();
 						materialRendered();
-						// if data already exists, the Section-SelectionType has been already chosen once
-						// otherwise we dont need to capture new data on every re-render
-						//TODO: however, this means once the Section-SelectionType has been used once, we still always capture the data on re-render
-						if (hasData) captureMaterialData(documentRef);
+						captureMaterialData(documentRef);
 					}}
 				/>
 			)}

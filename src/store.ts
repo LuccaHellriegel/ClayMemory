@@ -25,15 +25,7 @@ const rootReducer = combineReducers({
 });
 
 const stateSanitizer = (state: any) => {
-	let newState = state.displayData.pdf
-		? { ...state, displayData: { ...state.displayData, pdf: "PDF_FILE_IS_HERE" } }
-		: state;
-	return newState.materialData
-		? {
-				...newState,
-				materialData: "MATERIAL_DATA_IS_HERE",
-		  }
-		: newState;
+	return state.displayData.pdf ? { ...state, displayData: { ...state.displayData, pdf: "PDF_FILE_IS_HERE" } } : state;
 };
 
 const creationTransform = createTransform(

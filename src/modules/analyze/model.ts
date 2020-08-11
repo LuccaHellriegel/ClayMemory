@@ -1,6 +1,6 @@
 export type MaterialGroupData = {
-	materialSpanGroups: HTMLSpanElement[][];
-	materialBoundingRectGroups: DOMRect[][];
+	materialSpans: HTMLSpanElement[];
+	materialBoundingRects: DOMRect[];
 };
 
 type MaterialDataTimeStamp = number;
