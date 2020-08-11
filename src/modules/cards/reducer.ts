@@ -10,6 +10,16 @@ const intialState: CardsState = {
 	lastCardIDNumber: 2,
 };
 
+const removeCard = (state: CardsState, cardID: string) => {
+	const cards = { ...state.cards };
+
+	// we do not reset the ID counter
+
+	delete cards[cardID];
+
+	return { ...state, cards };
+};
+
 const cards = (state = intialState, { type, payload }: { type: string; payload?: any }) => {
 	let cardID;
 	let cardObj;
@@ -27,6 +37,8 @@ const cards = (state = intialState, { type, payload }: { type: string; payload?:
 			cardObj[cardID] = (payload as FinalizedCardPayload).card;
 
 			return { ...state, cards: cardObj };
+		case t.CARD_REMOVE:
+			return removeCard(state, payload as string);
 		default:
 			return state;
 	}

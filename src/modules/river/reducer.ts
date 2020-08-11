@@ -15,7 +15,6 @@ const intialState: CardRiverState = {
 	activeRiverMakeUpID: pageNumberToRiverMakeUpID(1),
 	lastRiverIDNumber: 1,
 	riverShowState: "SHOW",
-	summaryRiverID: "SummaryRiver",
 };
 
 const emptyCardRiver = (page: number): RiverMakeUp => {
@@ -36,6 +35,16 @@ const updateStateWithMakeUps = (state: CardRiverState, ...makeUps: RiverMakeUp[]
 
 const deactivateActiveCardRiver = (state: CardRiverState) => {
 	return { ...state.riverMakeUps[state.activeRiverMakeUpID], active: false };
+};
+
+const removeCardFromRivers = (state: CardRiverState, cardID: string): CardRiverState => {
+	const riverMakeUps = Object.fromEntries(
+		Object.entries(state.riverMakeUps).map((entry) => [
+			entry[0],
+			{ ...entry[1], cardIDs: entry[1].cardIDs.filter((id) => id !== cardID) },
+		])
+	);
+	return { ...state, riverMakeUps };
 };
 
 const cardRiverState = (state = intialState, { type, payload }: { type: string; payload: any }) => {
@@ -66,6 +75,8 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 			riverMakeUps[(payload as FinalizedCardPayload).riverID] = riverMakeUp;
 
 			return { ...state, riverMakeUps: riverMakeUps };
+		case cards.actionTypes.CARD_REMOVE:
+			return removeCardFromRivers(state, payload as string);
 		case t.RIVER_SHOW_STATE:
 			return { ...state, riverShowState: payload as RiverShowState };
 		default:

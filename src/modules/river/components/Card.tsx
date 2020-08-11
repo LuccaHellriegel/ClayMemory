@@ -4,6 +4,7 @@ import { HybridCardField } from "./HybridCardField";
 import { CardConfig, QACardContent } from "../../cards/model";
 import { useDispatch } from "react-redux";
 import cards from "../../cards";
+import { DeleteCardButton } from "./DeleteCardButton";
 
 //TODO: make full cards be not visible to the context menu by default (need to unmark them or sub-menu)
 
@@ -13,17 +14,19 @@ const NoteCard = ({ config, riverID }: CardProps) => {
 	const dispatch = useDispatch();
 
 	return (
-		<HybridCardField
-			saveChanges={(value) => {
-				dispatch(cards.actions.updateCardContent(value, config.cardID, "NOTE", "REPLACE", riverID));
-			}}
-			storeValue={config.content as string}
-			fullWidth
-			label="Note"
-			variant="filled"
-			style={{ backgroundColor: "#CBF3F0" }}
-			InputLabelProps={{ style: { color: "#000000" } }}
-		></HybridCardField>
+		<div>
+			<HybridCardField
+				saveChanges={(value) => {
+					dispatch(cards.actions.updateCardContent(value, config.cardID, "NOTE", "REPLACE", riverID));
+				}}
+				storeValue={config.content as string}
+				label="Note"
+				variant="filled"
+				style={{ backgroundColor: "#CBF3F0" }}
+				InputLabelProps={{ style: { color: "#000000" } }}
+			></HybridCardField>
+			<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
+		</div>
 	);
 };
 
@@ -38,7 +41,6 @@ const QACard = ({ config, riverID }: CardProps) => {
 						dispatch(cards.actions.updateCardContent(value, config.cardID, "Q", "REPLACE", riverID));
 					}}
 					storeValue={(config.content as QACardContent).q}
-					fullWidth
 					label={"Question"}
 					variant="filled"
 					style={{ backgroundColor: "#FFBF69" }}
@@ -51,12 +53,14 @@ const QACard = ({ config, riverID }: CardProps) => {
 						dispatch(cards.actions.updateCardContent(value, config.cardID, "A", "REPLACE", riverID));
 					}}
 					storeValue={(config.content as QACardContent).a}
-					fullWidth
 					label={"Answer"}
 					variant="filled"
 					style={{ backgroundColor: "#2EC4B6" }}
 					InputLabelProps={{ style: { color: "#000000" } }}
 				></HybridCardField>
+			</Grid>
+			<Grid item>
+				<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
 			</Grid>
 		</Grid>
 	);

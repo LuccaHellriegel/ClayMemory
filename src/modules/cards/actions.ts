@@ -54,3 +54,7 @@ export const pushCardContent = (
 	const config = contentStringToConfig(contentString, type, creationType, updateType);
 	return cardPush({ riverID, card: config });
 };
+
+export const removeCard = (cardID: string) => {
+	return { type: t.CARD_REMOVE, payload: cardID };
+};
