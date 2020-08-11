@@ -8,7 +8,6 @@ import creation from "./modules/creation";
 import river from "./modules/river";
 import analyze from "./modules/analyze";
 import display from "./modules/display";
-import select from "./modules/select";
 import cards from "./modules/cards";
 import { persistStore, persistReducer, createTransform } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
@@ -22,7 +21,6 @@ const rootReducer = combineReducers({
 	[river.constants.NAME]: river.reducer,
 	[analyze.constants.NAME]: analyze.reducer,
 	[display.constants.NAME]: display.reducer,
-	[select.constants.NAME]: select.reducer,
 	[cards.constants.NAME]: cards.reducer,
 });
 

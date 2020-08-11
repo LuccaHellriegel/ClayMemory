@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { withSize } from "react-sizeme";
 import Paper from "@material-ui/core/Paper";
-import select from "../modules/select";
 import display from "../modules/display";
 import control from "../modules/control";
 import river from "../modules/river";
@@ -52,7 +51,6 @@ function ReaderSceneMaterialColumn({ size }: any) {
 		>
 			<Paper elevation={elevation}>
 				<Divider></Divider>
-				<select.components.DocumentCanvasContainer parentSize={size}></select.components.DocumentCanvasContainer>
 				<display.components.PDFDocumentContainer parentSize={size}></display.components.PDFDocumentContainer>
 				<display.components.PDFUploadContainer></display.components.PDFUploadContainer>
 			</Paper>

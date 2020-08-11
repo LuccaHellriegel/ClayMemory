@@ -1,7 +1,6 @@
 import { NAME } from "./constants";
 import { createSelector } from "reselect";
 import { CreationData } from "./model";
-import select from "../select";
 import river from "../river";
 
 export const getAll = (state: any) => state[NAME];
@@ -12,8 +11,13 @@ export const getContextMenuRef = createSelector(getAll, (state: CreationData) =>
 
 export const getContextMenuQARefs = createSelector(getAll, (state: CreationData) => state.qaRefs);
 
+//TODO: position in store
+export const getCurrentSelectionPosition = (state: any) => {
+	return { x: 0, y: 0 };
+};
+
 export const getContextMenuInitData = createSelector(
-	select.selectors.getCurrentSelectionPosition,
+	getCurrentSelectionPosition,
 	getContextMenuState,
 	getContextMenuRef,
 	getContextMenuQARefs,
@@ -22,3 +26,5 @@ export const getContextMenuInitData = createSelector(
 		return { position, state, menuRef, qaRefs, riverCards };
 	}
 );
+
+export const getCurrentSelectedString = createSelector(getAll, (state: CreationData) => state.manuallySelectedString);

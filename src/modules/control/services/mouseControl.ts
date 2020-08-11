@@ -1,5 +1,4 @@
 import creation from "../../creation";
-import select from "../../select";
 import focus from "../../focus";
 
 export const mouseDownControl = (event: MouseEvent) => {
@@ -26,7 +25,7 @@ export const mouseUpControl = (_: any) => {
 				const userFocus = focus.selectors.getFocus(state);
 				console.log(selectedStr, userFocus);
 				if (userFocus === "SELECTION" || userFocus === "EDITOR") {
-					dispatch(select.actions.updateManuallySelectedString(selectedStr));
+					dispatch(creation.actions.updateManuallySelectedString(selectedStr));
 					dispatch(creation.actions.openContextMenu());
 				}
 			}

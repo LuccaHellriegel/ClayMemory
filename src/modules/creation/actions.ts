@@ -1,8 +1,8 @@
 import * as t from "./actionTypes";
-import select from "../select";
 import { CardType, CreationType } from "../cards/model";
 import cards from "../cards";
 import focus from "../focus";
+import creation from ".";
 
 export const toggleContextMenu = () => {
 	return (dispatch: any) => {
@@ -32,7 +32,7 @@ export const triggerSelectionGrab = (riverID: string, type: CardType, creationTy
 		//TODO: seems like a sensible default, make configurable?
 		const updateType = type === "Q-A" ? "REPLACE" : "APPEND";
 
-		const selectedString = select.selectors.getCurrentSelectedString(getState());
+		const selectedString = creation.selectors.getCurrentSelectedString(getState());
 		const isUpdate = cardID !== undefined;
 
 		if (isUpdate) {
@@ -41,4 +41,12 @@ export const triggerSelectionGrab = (riverID: string, type: CardType, creationTy
 			dispatch(cards.actions.pushCardContent(selectedString, creationType, updateType, riverID, type));
 		}
 	};
+};
+
+export const updateManuallySelectedString = (str: string) => {
+	return { type: t.SELECTED_STRING, payload: str };
+};
+
+export const resetManuallySelectedString = () => {
+	return updateManuallySelectedString("");
 };

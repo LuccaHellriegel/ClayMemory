@@ -1,7 +1,6 @@
 import { Dispatch } from "redux";
 import focus from "../../focus";
 import display from "../../display";
-import select from "../../select";
 import creation from "../../creation";
 import { UserFocus } from "../../focus/model";
 
@@ -22,36 +21,16 @@ const pageControlKeyMap: KeyActionMap = {
 	ArrowRight: display.actions.nextPage(),
 };
 
-const sectionControlKeyMap: KeyActionMap = {
-	ArrowDown: select.actions.updateSection("DOWN"),
-	ArrowUp: select.actions.updateSection("UP"),
-	" ": select.actions.toggleSectionMovementState(),
-};
-
 const contextMenuControlKeyMap: KeyActionMap = {
 	t: creation.actions.toggleContextMenu(),
 };
 
-const selectionFocusSectionKeyMap = {
-	...pageControlKeyMap,
-	...contextMenuControlKeyMap,
-	...sectionControlKeyMap,
-};
-const selectionFocusSectionDispatcher = keyEventDispatcher(selectionFocusSectionKeyMap);
-
-const selectionFocusMouseKeyMap = {
+const selectionFocusKeyMap = {
 	...pageControlKeyMap,
 	...contextMenuControlKeyMap,
 };
-const selectionFocusMouseDispatcher = keyEventDispatcher(selectionFocusMouseKeyMap);
 
-const selectionFocusDispatcher: KeyEventDispatcher = (event, dispatch, state) => {
-	if (select.selectors.selectionTypeIsSection(state)) {
-		selectionFocusSectionDispatcher(event, dispatch);
-	} else {
-		selectionFocusMouseDispatcher(event, dispatch);
-	}
-};
+const selectionFocusDispatcher = keyEventDispatcher(selectionFocusKeyMap);
 
 const contextMenuFocusKeyMap = { ...contextMenuControlKeyMap };
 const contextMenuFocusDispatcher = keyEventDispatcher(contextMenuFocusKeyMap);

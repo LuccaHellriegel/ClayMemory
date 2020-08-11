@@ -3,7 +3,6 @@ import river from "../../river";
 import React from "react";
 import { AppBar, Toolbar, Grid, Divider } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import select from "../../select";
 
 export const ControlBar = () => {
 	const totalPages = useSelector(display.selectors.getTotalPages);
@@ -18,8 +17,6 @@ export const ControlBar = () => {
 				{totalPages && <display.components.PageChooser></display.components.PageChooser>}
 				{totalPages && <display.components.PreviousButton></display.components.PreviousButton>}
 				{totalPages && <display.components.NextButton></display.components.NextButton>}
-				<Divider orientation="vertical" flexItem />
-				{totalPages && <select.components.SelectionTypeButton></select.components.SelectionTypeButton>}
 			</Toolbar>
 		</AppBar>
 	);
