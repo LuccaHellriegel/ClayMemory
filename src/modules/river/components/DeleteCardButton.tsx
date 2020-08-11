@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import cards from "../../cards";
 
 //TODO: Undo / Redo for Card-Deletions
+//TODO: make confirmation overlap
 
 export const DeleteCardButton = ({ cardID }: { cardID: string }) => {
 	const dispatch = useDispatch();

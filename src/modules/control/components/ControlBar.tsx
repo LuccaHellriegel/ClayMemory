@@ -1,7 +1,7 @@
 import display from "../../display";
 import river from "../../river";
 import React from "react";
-import { AppBar, Toolbar, Grid } from "@material-ui/core";
+import { AppBar, Toolbar, Grid, Divider } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import select from "../../select";
 
@@ -13,10 +13,12 @@ export const ControlBar = () => {
 			<Toolbar variant="dense">
 				<Grid></Grid>
 				<river.components.ShowRiverButton></river.components.ShowRiverButton>
+				<display.components.ShowMaterialButton></display.components.ShowMaterialButton>
+				<Divider orientation="vertical" flexItem />
 				{totalPages && <display.components.PageChooser></display.components.PageChooser>}
 				{totalPages && <display.components.PreviousButton></display.components.PreviousButton>}
 				{totalPages && <display.components.NextButton></display.components.NextButton>}
-				<display.components.ShowMaterialButton></display.components.ShowMaterialButton>
+				<Divider orientation="vertical" flexItem />
 				{totalPages && <select.components.SelectionTypeButton></select.components.SelectionTypeButton>}
 			</Toolbar>
 		</AppBar>

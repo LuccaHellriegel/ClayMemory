@@ -28,13 +28,6 @@ const sectionControlKeyMap: KeyActionMap = {
 	" ": select.actions.toggleSectionMovementState(),
 };
 
-const selectionControlKeyMap: KeyActionMap = {
-	a: select.actions.updateSelection("PLUS_WORD"),
-	d: select.actions.updateSelection("MINUS_WORD"),
-	w: select.actions.updateSelection("PLUS_SPAN"),
-	s: select.actions.updateSelection("MINUS_SPAN"),
-};
-
 const contextMenuControlKeyMap: KeyActionMap = {
 	t: creation.actions.toggleContextMenu(),
 };
@@ -43,7 +36,6 @@ const selectionFocusSectionKeyMap = {
 	...pageControlKeyMap,
 	...contextMenuControlKeyMap,
 	...sectionControlKeyMap,
-	...selectionControlKeyMap,
 };
 const selectionFocusSectionDispatcher = keyEventDispatcher(selectionFocusSectionKeyMap);
 

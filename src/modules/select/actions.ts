@@ -1,22 +1,9 @@
 import * as t from "./actionTypes";
 import { Dispatch } from "redux";
 import { getSectionMovementState, getUpdateAllowed, getSectionIndex, getSelectionType } from "./selectors";
-import { SectionUpdateType, SelectionUpdateType, SelectionType } from "./model";
+import { SectionUpdateType, SelectionType } from "./model";
 import analyze from "../analyze";
-import { updateSelectionGroup } from "./services/updateSelectionGroup";
 import display from "../display";
-
-export const updateSelection = (type: SelectionUpdateType) => {
-	return (dispatch: any, getState: Function) => {
-		const state = getState();
-		if (getUpdateAllowed(state)) {
-			const selectionGroups = analyze.selectors.getWordSelectionGroups(state);
-			const sectionIndex = getSectionIndex(state);
-			const updatedSelectionGroup = updateSelectionGroup(selectionGroups[sectionIndex], type);
-			if (updatedSelectionGroup) dispatch(analyze.actions.updateSelectionGroup(updatedSelectionGroup, sectionIndex));
-		}
-	};
-};
 
 export const toggleSectionMovementState = () => {
 	return (dispatch: Dispatch, getState: Function) => {
