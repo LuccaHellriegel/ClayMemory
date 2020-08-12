@@ -3,7 +3,7 @@ import "./AnnotationLayer.css";
 import React, { RefObject } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import { connect, useDispatch } from "react-redux";
-import { materialLoaded, materialRendered, setPage, captureMaterialData } from "../../actions";
+import { materialLoaded, setPage, captureMaterialData } from "../../actions";
 import { getRenderCritialData } from "../../selectors";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -26,7 +26,6 @@ function PDFDocument({
 	parentSize,
 	pdf,
 	currentPage,
-	materialRendered,
 	materialLoaded,
 	captureMaterialData,
 	documentRef,
@@ -34,7 +33,6 @@ function PDFDocument({
 	parentSize: any;
 	pdf: File | undefined;
 	currentPage: number;
-	materialRendered: Function;
 	materialLoaded: (numPages: number) => void;
 	captureMaterialData: Function;
 	documentRef: RefObject<any>;
@@ -58,7 +56,6 @@ function PDFDocument({
 					pageNumber={currentPage}
 					onRenderSuccess={() => {
 						removeTextLayerOffset();
-						materialRendered();
 						captureMaterialData(documentRef);
 					}}
 				/>
@@ -68,7 +65,6 @@ function PDFDocument({
 }
 
 export const PDFDocumentContainer = connect(getRenderCritialData, {
-	materialRendered,
 	materialLoaded,
 	captureMaterialData,
 })(PDFDocument);

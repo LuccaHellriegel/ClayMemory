@@ -32,7 +32,6 @@ export const triggerSelectionGrab = (riverID: string, type: CardType, creationTy
 
 		const state = getState();
 
-		//TODO: seems like a sensible default, make configurable?
 		const updateType = type === "Q-A" ? "REPLACE" : "APPEND";
 
 		const selectedString = getCurrentSelectedString(state);

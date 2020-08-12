@@ -1,7 +1,7 @@
 import { ChangeEvent, RefObject } from "react";
 import { Dispatch } from "redux";
 import * as t from "./actionTypes";
-import { DisplayStatus, PageMove, MaterialData } from "./model";
+import { PageMove, MaterialData } from "./model";
 import { getPageControlData, getDisplayStatus, getZoomQueue, getTimeStamp, getMaterialSpans } from "./selectors";
 import { incrementer } from "../../shared/utils";
 import { materialData } from "./services/materialData";
@@ -16,10 +16,6 @@ export const materialUploaded = (event: ChangeEvent<HTMLInputElement>) => {
 
 export const materialLoaded = (totalPages: number) => {
 	return { type: t.MATERIAL_LOADED, payload: totalPages };
-};
-
-export const materialRendered = (): { type: string; payload: DisplayStatus } => {
-	return { type: t.DISPLAY_STATUS, payload: "SHOW" };
 };
 
 export const tryInterval = (tries: number, ms: number, func: () => boolean) => {
