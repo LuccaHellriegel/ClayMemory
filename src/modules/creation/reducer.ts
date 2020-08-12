@@ -10,6 +10,7 @@ const initialState: CreationData = {
 	qaRefs: [createRef(), createRef()],
 	manuallySelectedString: "",
 	selectedParentSpan: null,
+	selectionPosition: { x: 0, y: 0 },
 };
 
 const creationData = (state = initialState, { type, payload }: { type: string; payload: any }): CreationData => {
@@ -30,6 +31,8 @@ const creationData = (state = initialState, { type, payload }: { type: string; p
 			return { ...state, manuallySelectedString: payload as string };
 		case t.SELECTED_PARENT:
 			return { ...state, selectedParentSpan: payload };
+		case t.SELECTION_POSITION:
+			return { ...state, selectionPosition: payload };
 		default:
 			return state;
 	}

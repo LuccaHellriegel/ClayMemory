@@ -68,3 +68,7 @@ export const resetManuallySelectedString = () => {
 export const selectedParent = (span: null | HTMLSpanElement) => {
 	return { type: t.SELECTED_PARENT, payload: span };
 };
+
+export const updateSelectionPosition = (x: number, y: number) => {
+	return { type: t.SELECTION_POSITION, payload: { x, y } };
+};

@@ -15,7 +15,7 @@ export const mouseDownControl = (event: MouseEvent) => {
 	};
 };
 
-export const mouseUpControl = (_: any) => {
+export const mouseUpControl = (event: MouseEvent) => {
 	return (dispatch: any, getState: Function) => {
 		const selection = document.getSelection();
 		if (selection) {
@@ -26,6 +26,7 @@ export const mouseUpControl = (_: any) => {
 				if (userFocus === "SELECTION" || userFocus === "EDITOR") {
 					dispatch(creation.actions.selectedParent(selection.anchorNode?.parentNode as HTMLSpanElement));
 					dispatch(creation.actions.updateManuallySelectedString(selectedStr));
+					dispatch(creation.actions.updateSelectionPosition(event.x, event.y));
 					dispatch(creation.actions.openContextMenu());
 				}
 			}

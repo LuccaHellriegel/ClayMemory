@@ -6,4 +6,5 @@ export type CreationData = {
 	qaRefs: RefObject<any>[];
 	manuallySelectedString: string;
 	selectedParentSpan: null | HTMLSpanElement;
+	selectionPosition: { x: number; y: number };
 };

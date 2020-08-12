@@ -11,10 +11,7 @@ export const getContextMenuRef = createSelector(getAll, (state: CreationData) =>
 
 export const getContextMenuQARefs = createSelector(getAll, (state: CreationData) => state.qaRefs);
 
-//TODO: position in store
-export const getCurrentSelectionPosition = (state: any) => {
-	return { x: 0, y: 0 };
-};
+export const getCurrentSelectionPosition = createSelector(getAll, (state: CreationData) => state.selectionPosition);
 
 export const getContextMenuInitData = createSelector(
 	getCurrentSelectionPosition,
