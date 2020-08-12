@@ -1,6 +1,7 @@
 import creation from "../../creation";
 import focus from "../../focus";
 import cards from "../../cards";
+import river from "../../river";
 
 export const mouseDownControl = (event: MouseEvent) => {
 	return (dispatch: any, getState: Function) => {
@@ -38,6 +39,8 @@ export const mouseUpControl = (event: MouseEvent) => {
 					dispatch(cards.actions.resetGoalCard());
 				} else {
 					if (userFocus === "SELECTION") {
+						//if the user is focused on the document, the push-to river should always be the active=page-wise river
+						dispatch(river.actions.setPushToRiver(river.selectors.getActiveRiverMakeUpID(state)));
 						dispatch(creation.actions.selectedParent(selection.anchorNode?.parentNode as HTMLSpanElement));
 						dispatch(creation.actions.updateManuallySelectedString(selectedStr));
 						dispatch(creation.actions.updateSelectionPosition(event.x, event.y));

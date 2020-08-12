@@ -18,7 +18,7 @@ export const getContextMenuInitData = createSelector(
 	getContextMenuState,
 	getContextMenuRef,
 	getContextMenuQARefs,
-	river.selectors.getActiveRiverCards,
+	river.selectors.getPushToRiverCards,
 	(position, state, menuRef, qaRefs, riverCards) => {
 		return { position, state, menuRef, qaRefs, riverCards };
 	}

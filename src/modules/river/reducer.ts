@@ -9,9 +9,11 @@ const intialState: CardRiverState = {
 		[pageNumberToRiverMakeUpID(1)]: {
 			riverID: pageNumberToRiverMakeUpID(1),
 			cardIDs: ["2", "0", "1"],
+			//TODO-NICE: might remove this active-flag, because I dont use it? Maybe for multiple documents?
 			active: true,
 		},
 	},
+	pushToRiverID: pageNumberToRiverMakeUpID(1),
 	activeRiverMakeUpID: pageNumberToRiverMakeUpID(1),
 	lastRiverIDNumber: 1,
 	riverShowState: "SHOW",
@@ -61,27 +63,30 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 
 			const oldRiver = deactivateActiveCardRiver(state);
 
-			return { ...updateStateWithMakeUps(state, activeRiver, oldRiver), activeRiverMakeUpID: activeRiver.riverID };
+			return {
+				...updateStateWithMakeUps(state, activeRiver, oldRiver),
+				activeRiverMakeUpID: activeRiver.riverID,
+				pushToRiverID: activeRiver.riverID,
+			};
 
 		case cards.actionTypes.CARD_PUSH:
 			//TODO-RC: activeRiver is not set, when using SummaryRiver for editing!
 			// how to push in SummaryRiver?
 			//TODO-RC: buttons for adding cards in River
 			riverMakeUp = {
-				...state.riverMakeUps[state.activeRiverMakeUpID],
-				cardIDs: [
-					...state.riverMakeUps[state.activeRiverMakeUpID].cardIDs,
-					(payload as FinalizedCardPayload).card.cardID,
-				],
+				...state.riverMakeUps[state.pushToRiverID],
+				cardIDs: [...state.riverMakeUps[state.pushToRiverID].cardIDs, (payload as FinalizedCardPayload).card.cardID],
 			};
 			riverMakeUps = { ...state.riverMakeUps };
-			riverMakeUps[state.activeRiverMakeUpID] = riverMakeUp;
+			riverMakeUps[state.pushToRiverID] = riverMakeUp;
 
 			return { ...state, riverMakeUps: riverMakeUps };
 		case cards.actionTypes.CARD_REMOVE:
 			return removeCardFromRivers(state, payload as string);
 		case t.RIVER_SHOW_STATE:
 			return { ...state, riverShowState: payload as RiverShowState };
+		case t.RIVER_PUSH_STATE:
+			return { ...state, pushToRiverID: payload };
 		default:
 			return state;
 	}

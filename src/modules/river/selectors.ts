@@ -9,12 +9,25 @@ export const getRiverMakeUps = createSelector(getAll, (state: CardRiverState) =>
 
 export const getActiveRiverMakeUpID = createSelector(getAll, (state: CardRiverState) => state.activeRiverMakeUpID);
 
+export const getPushToRiver = createSelector(getAll, (state: CardRiverState) => state.pushToRiverID);
+
+export const getPushToRiverMakeUp = createSelector(getRiverMakeUps, getPushToRiver, (makeUps, id) => makeUps[id]);
+
 export const getActiveRiverMakeUp = createSelector(
 	getRiverMakeUps,
 	getActiveRiverMakeUpID,
 	(makeUps, id) => makeUps[id]
 );
 
+export const getPushToRiverCardIDs = createSelector(getPushToRiverMakeUp, (makeUp) => makeUp.cardIDs);
+
+export const getPushToRiverCards = createSelector(
+	getPushToRiverCardIDs,
+	cards.selectors.getCards,
+	(makeUpCardIDs, cards) => makeUpCardIDs.map((id) => cards[id])
+);
+
+//TODO-NICE: rename active=page-wise or smth like that for clarity
 export const getActiveRiverCardIDs = createSelector(getActiveRiverMakeUp, (makeUp) => makeUp.cardIDs);
 
 export const getActiveRiverCards = createSelector(

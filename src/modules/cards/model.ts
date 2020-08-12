@@ -4,6 +4,7 @@ export type QACardContent = { q: string; a: string };
 
 type CardContent = string | QACardContent;
 
+//TODO-RC: origin needs to be per field (q/a) and not for whole card
 export type CardOrigin = { spanIndex: number; page: number };
 
 export type CardConfig = { cardID: string; type: CardType; content: CardContent; origin?: CardOrigin };

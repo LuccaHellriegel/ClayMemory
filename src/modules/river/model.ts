@@ -7,6 +7,7 @@ export type RiverShowState = "SHOW" | "HIDE";
 export type CardRiverState = {
 	riverMakeUps: RiverMakeUps;
 	activeRiverMakeUpID: string;
+	pushToRiverID: string;
 	lastRiverIDNumber: number;
 	riverShowState: RiverShowState;
 };
