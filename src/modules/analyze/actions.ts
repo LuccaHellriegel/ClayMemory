@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { materialGroupData } from "./services/materialData";
+import { materialData } from "./services/materialData";
 import * as t from "./actionTypes";
 import { MaterialData } from "./model";
 import { getTimeStamp } from "./selectors";
@@ -32,7 +32,7 @@ export function captureMaterialData(documentRef: RefObject<any>) {
 			const startTime = Date.now();
 
 			// try once before going into intervals (most times once should work)
-			const curMaterialGroupData = materialGroupData(container as HTMLDivElement);
+			const curMaterialGroupData = materialData(container as HTMLDivElement);
 			if (curMaterialGroupData && getTimeStamp(state) < startTime) {
 				const payload: MaterialData = {
 					...curMaterialGroupData,
@@ -41,7 +41,7 @@ export function captureMaterialData(documentRef: RefObject<any>) {
 				dispatch({ type: t.MATERIAL_DATA, payload });
 			} else {
 				tryInterval(10, 20, () => {
-					const curMaterialGroupData = materialGroupData(container as HTMLDivElement);
+					const curMaterialGroupData = materialData(container as HTMLDivElement);
 					if (curMaterialGroupData && getTimeStamp(getState()) < startTime) {
 						const payload: MaterialData = {
 							...curMaterialGroupData,

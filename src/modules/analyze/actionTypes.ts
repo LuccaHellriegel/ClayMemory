@@ -1,1 +1,3 @@
-export const MATERIAL_DATA = "analyze/MATERIAL_DATA";
+import { NAME } from "./constants";
+
+export const MATERIAL_DATA = NAME + "/MATERIAL_DATA";

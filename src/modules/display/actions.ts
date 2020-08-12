@@ -2,7 +2,8 @@ import { ChangeEvent } from "react";
 import { Dispatch } from "redux";
 import * as t from "./actionTypes";
 import { DisplayStatus, PageMove } from "./model";
-import { getPageControlData, getDisplayStatus } from "./selectors";
+import { getPageControlData, getDisplayStatus, getZoomQueue } from "./selectors";
+import analyze from "../analyze";
 
 export const materialUploaded = (event: ChangeEvent<HTMLInputElement>) => {
 	return (dispatch: Dispatch) => {
@@ -53,5 +54,28 @@ export const toggleDisplayState = () => {
 		const displayState = getDisplayStatus(getState()) === "SHOW" ? "HIDE" : "SHOW";
 
 		dispatch({ type: t.DISPLAY_STATUS, payload: displayState });
+	};
+};
+
+export const setZoomQueue = (spanIndex: number | null) => {
+	return { type: t.ZOOM_QUEUE, payload: spanIndex };
+};
+
+export const zoomToCardOrigin = (spanIndex: number, page: number) => {
+	return (dispatch: Dispatch) => {
+		dispatch(setPage(page));
+		dispatch(setZoomQueue(spanIndex));
+	};
+};
+
+export const emptyZoomQueue = () => {
+	return (dispatch: Dispatch, getState: Function) => {
+		const state = getState();
+		const spanIndex = getZoomQueue(state);
+		const originSpan = analyze.selectors.getMaterialSpans(state)[spanIndex as number];
+		originSpan.focus();
+		originSpan.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+
+		dispatch(setZoomQueue(null));
 	};
 };
