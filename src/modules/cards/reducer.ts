@@ -8,6 +8,7 @@ const intialState: CardsState = {
 		"2": { cardID: "2", type: "Note", content: "Note here" },
 	},
 	lastCardIDNumber: 2,
+	goalCard: null,
 };
 
 const removeCard = (state: CardsState, cardID: string) => {
@@ -39,6 +40,8 @@ const cards = (state = intialState, { type, payload }: { type: string; payload?:
 			return { ...state, cards: cardObj };
 		case t.CARD_REMOVE:
 			return removeCard(state, payload as string);
+		case t.CARD_GOAL:
+			return { ...state, goalCard: payload };
 		default:
 			return state;
 	}

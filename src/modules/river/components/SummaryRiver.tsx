@@ -11,9 +11,14 @@ export const SummaryRiver = () => {
 	const cardConfigs = useSelector(cards.selectors.getCards);
 	const riverMakeUps = Object.values(useSelector(getRiverMakeUps));
 
+	//TODO-NICE: find way to make UI-text unselectable globally, maybe different focus? But might be unperformant
 	return (
 		<Paper elevation={5}>
-			<Typography variant="h4" align="center">
+			<Typography
+				variant="h4"
+				align="center"
+				style={{ MozUserSelect: "none", WebkitUserSelect: "none", msUserSelect: "none" }}
+			>
 				SummaryRiver
 			</Typography>
 			{riverMakeUps.map((makeUp) => (

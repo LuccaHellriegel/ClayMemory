@@ -1,4 +1,4 @@
-import { CardPayload, FinalizedCardPayload, CreationType, UpdateType, CardType, CardOrigin } from "./model";
+import { CardPayload, FinalizedCardPayload, CreationType, UpdateType, CardType, CardOrigin, CardConfig } from "./model";
 import * as t from "./actionTypes";
 import { Dispatch } from "redux";
 import { getLastCardIDNumber, getCards } from "./selectors";
@@ -27,7 +27,6 @@ export const updateCardContent = (
 	cardID: string,
 	creationType: CreationType,
 	updateType: UpdateType,
-	riverID: string,
 	origin?: CardOrigin
 ) => {
 	return (dispatch: Dispatch, getState: Function) => {
@@ -38,7 +37,6 @@ export const updateCardContent = (
 
 		dispatch(
 			cardUpdate({
-				riverID,
 				card: origin ? { ...config, origin } : config,
 			})
 		);
@@ -49,14 +47,21 @@ export const pushCardContent = (
 	contentString: string,
 	creationType: CreationType,
 	updateType: UpdateType,
-	riverID: string,
 	type: CardType,
 	origin?: CardOrigin
 ) => {
 	const config = contentStringToConfig(contentString, type, creationType, updateType);
-	return origin ? cardPush({ riverID, card: { ...config, origin } }) : cardPush({ riverID, card: config });
+	return origin ? cardPush({ card: { ...config, origin } }) : cardPush({ card: config });
 };
 
 export const removeCard = (cardID: string) => {
 	return { type: t.CARD_REMOVE, payload: cardID };
+};
+
+export const setGoalCard = (cardConfig: CardConfig, creationType: CreationType) => {
+	return { type: t.CARD_GOAL, payload: { ...cardConfig, creationType } };
+};
+
+export const resetGoalCard = () => {
+	return { type: t.CARD_GOAL, payload: null };
 };

@@ -6,6 +6,9 @@ import { useDispatch } from "react-redux";
 import cards from "../../cards";
 import { DeleteCardButton } from "./DeleteCardButton";
 import { JumpToOriginButton } from "./JumpToOriginButton";
+import { GrabForFieldButton } from "./GrabForFieldButton";
+
+//TODO-RC: tooltips for all buttons, multiple languages?
 
 //TODO-RC: mouse-up in editor should not trigger context menu, because I cant delete selections then, better use the Pinsel-Idea for inside the card
 
@@ -13,14 +16,14 @@ import { JumpToOriginButton } from "./JumpToOriginButton";
 
 type CardProps = { config: CardConfig; riverID: string };
 
-const NoteCard = ({ config, riverID }: CardProps) => {
+const NoteCard = ({ config }: CardProps) => {
 	const dispatch = useDispatch();
 
 	return (
 		<div>
 			<HybridCardField
 				saveChanges={(value) => {
-					dispatch(cards.actions.updateCardContent(value, config.cardID, "NOTE", "REPLACE", riverID));
+					dispatch(cards.actions.updateCardContent(value, config.cardID, "NOTE", "REPLACE", config.origin));
 				}}
 				storeValue={config.content as string}
 				label="Note"
@@ -29,12 +32,13 @@ const NoteCard = ({ config, riverID }: CardProps) => {
 				InputLabelProps={{ style: { color: "#000000" } }}
 			></HybridCardField>
 			<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
+			<GrabForFieldButton cardConfig={config} creationType="NOTE"></GrabForFieldButton>
 			{config.origin && <JumpToOriginButton cardOrigin={config.origin}></JumpToOriginButton>}
 		</div>
 	);
 };
 
-const QACard = ({ config, riverID }: CardProps) => {
+const QACard = ({ config }: CardProps) => {
 	const dispatch = useDispatch();
 
 	return (
@@ -42,7 +46,7 @@ const QACard = ({ config, riverID }: CardProps) => {
 			<Grid item>
 				<HybridCardField
 					saveChanges={(value) => {
-						dispatch(cards.actions.updateCardContent(value, config.cardID, "Q", "REPLACE", riverID));
+						dispatch(cards.actions.updateCardContent(value, config.cardID, "Q", "REPLACE", config.origin));
 					}}
 					storeValue={(config.content as QACardContent).q}
 					label={"Question"}
@@ -50,11 +54,12 @@ const QACard = ({ config, riverID }: CardProps) => {
 					style={{ backgroundColor: "#FFBF69" }}
 					InputLabelProps={{ style: { color: "#000000" } }}
 				></HybridCardField>
+				<GrabForFieldButton cardConfig={config} creationType="Q"></GrabForFieldButton>
 			</Grid>
 			<Grid item>
 				<HybridCardField
 					saveChanges={(value) => {
-						dispatch(cards.actions.updateCardContent(value, config.cardID, "A", "REPLACE", riverID));
+						dispatch(cards.actions.updateCardContent(value, config.cardID, "A", "REPLACE", config.origin));
 					}}
 					storeValue={(config.content as QACardContent).a}
 					label={"Answer"}
@@ -62,6 +67,7 @@ const QACard = ({ config, riverID }: CardProps) => {
 					style={{ backgroundColor: "#2EC4B6" }}
 					InputLabelProps={{ style: { color: "#000000" } }}
 				></HybridCardField>
+				<GrabForFieldButton cardConfig={config} creationType="A"></GrabForFieldButton>
 			</Grid>
 			<Grid item>
 				<DeleteCardButton cardID={config.cardID}></DeleteCardButton>

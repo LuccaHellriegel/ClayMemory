@@ -6,7 +6,6 @@ import { useDispatch, useSelector, connect } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
 import { triggerSelectionGrab } from "../actions";
 import { incrementer } from "../../../shared/utils";
-import river from "../../river";
 import { CardConfig, CardType, CreationType } from "../../cards/model";
 
 const NewQACard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q-A</MenuItem>;
@@ -69,12 +68,6 @@ const CardConfigItem = ({
 	}
 };
 
-const partialRiverDispatch = (riverID: string, dispatch: any) => {
-	return (type: CardType, creationType: CreationType, cardID?: string) => {
-		dispatch(triggerSelectionGrab(riverID, type, creationType, cardID));
-	};
-};
-
 function ContextMenu({
 	position,
 	state,
@@ -89,8 +82,9 @@ function ContextMenu({
 	riverCards: CardConfig[];
 }) {
 	const dispatch = useDispatch();
-	const riverID = useSelector(river.selectors.getActiveRiverMakeUpID);
-	const dispatchRiverOne = partialRiverDispatch(riverID, dispatch);
+	const dispatchRiver = (type: CardType, creationType: CreationType, cardID?: string) => {
+		dispatch(triggerSelectionGrab(type, creationType, cardID));
+	};
 
 	const increment = incrementer();
 	const qaRefIndex = incrementer();
@@ -110,7 +104,7 @@ function ContextMenu({
 				riverCards.map((cardConfig) => (
 					<CardConfigItem
 						cardConfig={cardConfig}
-						dispatchRiver={dispatchRiverOne}
+						dispatchRiver={dispatchRiver}
 						key={increment()}
 						qaRef={cardConfig.type === "Q-A" ? qaRefs[qaRefIndex()] : undefined}
 					></CardConfigItem>
@@ -119,12 +113,12 @@ function ContextMenu({
 
 			<NewQACard
 				onClick={() => {
-					dispatchRiverOne("Q-A", "Q");
+					dispatchRiver("Q-A", "Q");
 				}}
 			></NewQACard>
 			<NewNoteCard
 				onClick={() => {
-					dispatchRiverOne("Note", "NOTE");
+					dispatchRiver("Note", "NOTE");
 				}}
 			></NewNoteCard>
 		</Menu>

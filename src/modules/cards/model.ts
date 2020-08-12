@@ -10,12 +10,18 @@ export type CardConfig = { cardID: string; type: CardType; content: CardContent;
 
 export type CardPayloadConfig = { cardID?: string; type: CardType; content: CardContent; origin?: CardOrigin };
 
-export type CardPayload = { riverID: string; card: CardPayloadConfig };
+export type CardPayload = { card: CardPayloadConfig };
 
-export type FinalizedCardPayload = { riverID: string; card: CardConfig };
+export type FinalizedCardPayload = { card: CardConfig };
 
 export type UpdateType = "REPLACE" | "APPEND";
 
 export type CreationType = "NOTE" | "Q" | "A";
 
-export type CardsState = { cards: { [cardID: string]: CardConfig }; lastCardIDNumber: number };
+export type GoalCard = CardConfig & { creationType: CreationType };
+
+export type CardsState = {
+	cards: { [cardID: string]: CardConfig };
+	lastCardIDNumber: number;
+	goalCard: GoalCard | null;
+};

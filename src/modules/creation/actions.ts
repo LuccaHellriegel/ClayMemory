@@ -26,13 +26,15 @@ export const openContextMenu = () => {
 	};
 };
 
-export const triggerSelectionGrab = (riverID: string, type: CardType, creationType: CreationType, cardID?: string) => {
+export const triggerSelectionGrab = (type: CardType, creationType: CreationType, cardID?: string) => {
 	return (dispatch: Function, getState: Function) => {
 		dispatch(closeContextMenu());
 
 		const state = getState();
 
-		const updateType = type === "Q-A" ? "REPLACE" : "APPEND";
+		//TODO-NICE: think of a way to make this intuitive
+		//const updateType = type === "Q-A" ? "REPLACE" : "APPEND";
+		const updateType = "REPLACE";
 
 		const selectedString = getCurrentSelectedString(state);
 		const isUpdate = cardID !== undefined;
@@ -47,11 +49,9 @@ export const triggerSelectionGrab = (riverID: string, type: CardType, creationTy
 			: undefined;
 
 		if (isUpdate) {
-			dispatch(
-				cards.actions.updateCardContent(selectedString, cardID as string, creationType, updateType, riverID, origin)
-			);
+			dispatch(cards.actions.updateCardContent(selectedString, cardID as string, creationType, updateType, origin));
 		} else {
-			dispatch(cards.actions.pushCardContent(selectedString, creationType, updateType, riverID, type, origin));
+			dispatch(cards.actions.pushCardContent(selectedString, creationType, updateType, type, origin));
 		}
 	};
 };

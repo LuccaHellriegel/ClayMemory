@@ -64,15 +64,18 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 			return { ...updateStateWithMakeUps(state, activeRiver, oldRiver), activeRiverMakeUpID: activeRiver.riverID };
 
 		case cards.actionTypes.CARD_PUSH:
+			//TODO-RC: activeRiver is not set, when using SummaryRiver for editing!
+			// how to push in SummaryRiver?
+			//TODO-RC: buttons for adding cards in River
 			riverMakeUp = {
-				...state.riverMakeUps[(payload as FinalizedCardPayload).riverID],
+				...state.riverMakeUps[state.activeRiverMakeUpID],
 				cardIDs: [
-					...state.riverMakeUps[(payload as FinalizedCardPayload).riverID].cardIDs,
+					...state.riverMakeUps[state.activeRiverMakeUpID].cardIDs,
 					(payload as FinalizedCardPayload).card.cardID,
 				],
 			};
 			riverMakeUps = { ...state.riverMakeUps };
-			riverMakeUps[(payload as FinalizedCardPayload).riverID] = riverMakeUp;
+			riverMakeUps[state.activeRiverMakeUpID] = riverMakeUp;
 
 			return { ...state, riverMakeUps: riverMakeUps };
 		case cards.actionTypes.CARD_REMOVE:

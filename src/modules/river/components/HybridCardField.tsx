@@ -24,10 +24,10 @@ export const HybridCardField = ({
 	// need the onChange-pattern, because we want to be able to pre-fill the field from the store
 	return (
 		<TextField
-			multiline
-			onClick={() => {
+			onMouseEnter={() => {
 				dispatch(focus.actions.tryUpdateFocus("EDITOR"));
 			}}
+			multiline
 			variant="filled"
 			value={state.mutableValue}
 			onChange={(event) => {

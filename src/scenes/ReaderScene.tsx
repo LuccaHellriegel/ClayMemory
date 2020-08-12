@@ -82,12 +82,7 @@ export function ReaderScene() {
 					<control.components.ControlBar></control.components.ControlBar>
 				</Grid>
 
-				<Grid
-					item
-					onMouseEnter={() => {
-						dispatch(focus.actions.tryUpdateFocus("EDITOR"));
-					}}
-				>
+				<Grid item>
 					<Grid container justify="space-around" direction="row" alignItems="stretch">
 						<ReaderSceneRiverColumn hidden={!showRiver}></ReaderSceneRiverColumn>
 						<ReaderSceneMaterialColumnWithSize hidden={!showMaterial}></ReaderSceneMaterialColumnWithSize>
