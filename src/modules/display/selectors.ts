@@ -39,6 +39,11 @@ export const getMaterialSpans = createSelector(
 	(state: MaterialGroupData) => state.materialSpans
 );
 
+export const getSpanIndex = (state: any, span: HTMLSpanElement) => {
+	const spans = getMaterialSpans(state);
+	return spans.indexOf(span);
+};
+
 export const getMaterialBoundingRects = createSelector(
 	getMaterialData as (state: any) => MaterialGroupData,
 	(state: MaterialGroupData) => state.materialBoundingRects

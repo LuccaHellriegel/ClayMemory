@@ -5,6 +5,9 @@ import { CardConfig, QACardContent } from "../../cards/model";
 import { useDispatch } from "react-redux";
 import cards from "../../cards";
 import { DeleteCardButton } from "./DeleteCardButton";
+import { JumpToOriginButton } from "./JumpToOriginButton";
+
+//TODO: mouse-up in editor should not trigger context menu, because I cant delete selections then, better use the Pinsel-Idea for inside the card
 
 //TODO: make full cards be not visible to the context menu by default (need to unmark them or sub-menu)
 
@@ -26,6 +29,7 @@ const NoteCard = ({ config, riverID }: CardProps) => {
 				InputLabelProps={{ style: { color: "#000000" } }}
 			></HybridCardField>
 			<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
+			{config.origin && <JumpToOriginButton cardOrigin={config.origin}></JumpToOriginButton>}
 		</div>
 	);
 };
@@ -61,6 +65,7 @@ const QACard = ({ config, riverID }: CardProps) => {
 			</Grid>
 			<Grid item>
 				<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
+				{config.origin && <JumpToOriginButton cardOrigin={config.origin}></JumpToOriginButton>}
 			</Grid>
 		</Grid>
 	);

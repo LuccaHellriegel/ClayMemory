@@ -5,4 +5,5 @@ export type CreationData = {
 	menuRef: RefObject<any>;
 	qaRefs: RefObject<any>[];
 	manuallySelectedString: string;
+	selectedParentSpan: null | HTMLSpanElement;
 };

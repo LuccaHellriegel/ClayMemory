@@ -28,3 +28,5 @@ export const getContextMenuInitData = createSelector(
 );
 
 export const getCurrentSelectedString = createSelector(getAll, (state: CreationData) => state.manuallySelectedString);
+
+export const getCurrentSelectedParent = createSelector(getAll, (state: CreationData) => state.selectedParentSpan);

@@ -4,9 +4,11 @@ export type QACardContent = { q: string; a: string };
 
 type CardContent = string | QACardContent;
 
-export type CardConfig = { cardID: string; type: CardType; content: CardContent };
+export type CardOrigin = { spanIndex: number; page: number };
 
-export type CardPayloadConfig = { cardID?: string; type: CardType; content: CardContent };
+export type CardConfig = { cardID: string; type: CardType; content: CardContent; origin?: CardOrigin };
+
+export type CardPayloadConfig = { cardID?: string; type: CardType; content: CardContent; origin?: CardOrigin };
 
 export type CardPayload = { riverID: string; card: CardPayloadConfig };
 

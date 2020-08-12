@@ -23,8 +23,8 @@ export const mouseUpControl = (_: any) => {
 			if (selectedStr !== "") {
 				const state = getState();
 				const userFocus = focus.selectors.getFocus(state);
-				console.log(selectedStr, userFocus);
 				if (userFocus === "SELECTION" || userFocus === "EDITOR") {
+					dispatch(creation.actions.selectedParent(selection.anchorNode?.parentNode as HTMLSpanElement));
 					dispatch(creation.actions.updateManuallySelectedString(selectedStr));
 					dispatch(creation.actions.openContextMenu());
 				}

@@ -28,7 +28,7 @@ const stateSanitizer = (state: any) => {
 
 const creationTransform = createTransform(
 	(inboundState: CreationData) => {
-		return { ...inboundState, menuRef: null, qaRefs: inboundState.qaRefs.map((_) => null) };
+		return { ...inboundState, menuRef: null, qaRefs: inboundState.qaRefs.map((_) => null), selectedParentSpan: null };
 	},
 	(outboundState): CreationData => {
 		return { ...outboundState, menuRef: createRef(), qaRefs: outboundState.qaRefs.map((_) => createRef()) };

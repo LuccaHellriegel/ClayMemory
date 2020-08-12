@@ -37,7 +37,7 @@ export const tryInterval = (tries: number, ms: number, func: () => boolean) => {
 // text-layer is not really guaranteed to be rendered on render "success",
 // so we use this ugly "try ten times" approach
 export function captureMaterialData(documentRef: RefObject<any>) {
-	return (dispatch: Dispatch, getState: Function) => {
+	return (dispatch: any, getState: Function) => {
 		const state = getState();
 		const container = documentRef.current;
 		if (container) {
@@ -55,6 +55,7 @@ export function captureMaterialData(documentRef: RefObject<any>) {
 					materialDataTimeStamp: startTime,
 				};
 				dispatch({ type: t.MATERIAL_DATA, payload });
+				dispatch(emptyZoomQueue());
 			} else {
 				tryInterval(10, 20, () => {
 					const curMaterialGroupData = materialData(container as HTMLDivElement);
@@ -124,10 +125,12 @@ export const emptyZoomQueue = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
 		const spanIndex = getZoomQueue(state);
-		const originSpan = getMaterialSpans(state)[spanIndex as number];
-		originSpan.focus();
-		originSpan.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+		if (spanIndex) {
+			const originSpan = getMaterialSpans(state)[spanIndex];
+			originSpan.focus();
+			originSpan.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
 
-		dispatch(setZoomQueue(null));
+			dispatch(setZoomQueue(null));
+		}
 	};
 };
