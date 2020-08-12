@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { DisplayData } from "./model";
+import { DisplayData, MaterialData, MaterialGroupData } from "./model";
 import { NAME } from "./constants";
 
 export const getAll = (state: any) => state[NAME];
@@ -30,6 +30,24 @@ export const getPageControlData = createSelector(
 
 export const getDocumentRef = createSelector(getAll, (state: DisplayData) => state.documentRef);
 
+export const getMaterialData = createSelector(getAll, (state: DisplayData) => state.materialData);
+
+export const getTimeStamp = createSelector(getMaterialData, (state: MaterialData) => state.materialDataTimeStamp);
+
+export const getMaterialSpans = createSelector(
+	getMaterialData as (state: any) => MaterialGroupData,
+	(state: MaterialGroupData) => state.materialSpans
+);
+
+export const getMaterialBoundingRects = createSelector(
+	getMaterialData as (state: any) => MaterialGroupData,
+	(state: MaterialGroupData) => state.materialBoundingRects
+);
+
+export const getDataExists = createSelector(getTimeStamp, (timestamp) => timestamp > 0);
+
 export const getDisplayStatus = createSelector(getAll, (state: DisplayData) => state.displayStatus);
 
 export const displayStatusIsShow = createSelector(getDisplayStatus, (status) => status === "SHOW");
+
+export const getZoomQueue = createSelector(getAll, (state: DisplayData) => state.zoomQueue);

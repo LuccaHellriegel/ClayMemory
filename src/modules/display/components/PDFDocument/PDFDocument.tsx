@@ -3,9 +3,8 @@ import "./AnnotationLayer.css";
 import React, { RefObject } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import { connect, useDispatch } from "react-redux";
-import { materialLoaded, materialRendered, setPage } from "../../actions";
+import { materialLoaded, materialRendered, setPage, captureMaterialData } from "../../actions";
 import { getRenderCritialData } from "../../selectors";
-import analyze from "../../../analyze";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function removeTextLayerOffset() {
@@ -71,5 +70,5 @@ function PDFDocument({
 export const PDFDocumentContainer = connect(getRenderCritialData, {
 	materialRendered,
 	materialLoaded,
-	captureMaterialData: analyze.actions.captureMaterialData,
+	captureMaterialData,
 })(PDFDocument);

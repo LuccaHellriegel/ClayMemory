@@ -1,9 +1,10 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, RefObject } from "react";
 import { Dispatch } from "redux";
 import * as t from "./actionTypes";
-import { DisplayStatus, PageMove } from "./model";
-import { getPageControlData, getDisplayStatus, getZoomQueue } from "./selectors";
-import analyze from "../analyze";
+import { DisplayStatus, PageMove, MaterialData } from "./model";
+import { getPageControlData, getDisplayStatus, getZoomQueue, getTimeStamp, getMaterialSpans } from "./selectors";
+import { incrementer } from "../../shared/utils";
+import { materialData } from "./services/materialData";
 
 export const materialUploaded = (event: ChangeEvent<HTMLInputElement>) => {
 	return (dispatch: Dispatch) => {
@@ -20,6 +21,57 @@ export const materialLoaded = (totalPages: number) => {
 export const materialRendered = (): { type: string; payload: DisplayStatus } => {
 	return { type: t.DISPLAY_STATUS, payload: "SHOW" };
 };
+
+export const tryInterval = (tries: number, ms: number, func: () => boolean) => {
+	const increment = incrementer();
+	const timeout = setInterval(() => {
+		if (increment() > tries) {
+			clearInterval(timeout);
+			return;
+		}
+
+		if (func()) clearInterval(timeout);
+	}, ms);
+};
+
+// text-layer is not really guaranteed to be rendered on render "success",
+// so we use this ugly "try ten times" approach
+export function captureMaterialData(documentRef: RefObject<any>) {
+	return (dispatch: Dispatch, getState: Function) => {
+		const state = getState();
+		const container = documentRef.current;
+		if (container) {
+			// TODO: still possibility of race-condition,
+			// maybe check on each section update if the number is congruent and if not actualize?
+			// TODO: make fluid movement for changing from non-existing section on new page to existing one
+
+			const startTime = Date.now();
+
+			// try once before going into intervals (most times once should work)
+			const curMaterialGroupData = materialData(container as HTMLDivElement);
+			if (curMaterialGroupData && getTimeStamp(state) < startTime) {
+				const payload: MaterialData = {
+					...curMaterialGroupData,
+					materialDataTimeStamp: startTime,
+				};
+				dispatch({ type: t.MATERIAL_DATA, payload });
+			} else {
+				tryInterval(10, 20, () => {
+					const curMaterialGroupData = materialData(container as HTMLDivElement);
+					if (curMaterialGroupData && getTimeStamp(getState()) < startTime) {
+						const payload: MaterialData = {
+							...curMaterialGroupData,
+							materialDataTimeStamp: startTime,
+						};
+						dispatch({ type: t.MATERIAL_DATA, payload });
+						return true;
+					}
+					return false;
+				});
+			}
+		}
+	};
+}
 
 // assumes outside validation/correction
 export const setPage = (page: number) => {
@@ -72,7 +124,7 @@ export const emptyZoomQueue = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
 		const spanIndex = getZoomQueue(state);
-		const originSpan = analyze.selectors.getMaterialSpans(state)[spanIndex as number];
+		const originSpan = getMaterialSpans(state)[spanIndex as number];
 		originSpan.focus();
 		originSpan.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
 

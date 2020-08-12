@@ -2,7 +2,7 @@ import * as t from "./actionTypes";
 import { UserFocus } from "./model";
 import { Dispatch } from "redux";
 import { getFocus } from "./selectors";
-import analyze from "../analyze";
+import display from "../display";
 
 export const updateFocus = (focus: UserFocus) => {
 	return { type: t.FOCUS_UPDATE, payload: focus };
@@ -17,7 +17,7 @@ export const tryUpdateFocus = (focus: UserFocus) => {
 export const toggleContextMenuFocus = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
-		if (analyze.selectors.getDataExists(state)) {
+		if (display.selectors.getDataExists(state)) {
 			const currentFocus = getFocus(getState());
 			switch (currentFocus) {
 				case "CONTEXT_MENU":

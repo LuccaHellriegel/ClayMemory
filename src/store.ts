@@ -6,7 +6,6 @@ import { combineReducers } from "redux";
 import focus from "./modules/focus";
 import creation from "./modules/creation";
 import river from "./modules/river";
-import analyze from "./modules/analyze";
 import display from "./modules/display";
 import cards from "./modules/cards";
 import { persistStore, persistReducer, createTransform } from "redux-persist";
@@ -19,7 +18,6 @@ const rootReducer = combineReducers({
 	[focus.constants.NAME]: focus.reducer,
 	[creation.constants.NAME]: creation.reducer,
 	[river.constants.NAME]: river.reducer,
-	[analyze.constants.NAME]: analyze.reducer,
 	[display.constants.NAME]: display.reducer,
 	[cards.constants.NAME]: cards.reducer,
 });
@@ -39,10 +37,15 @@ const creationTransform = createTransform(
 );
 const displayTransform = createTransform(
 	(inboundState: DisplayData) => {
-		return { ...inboundState, pdf: null, documentRef: null };
+		return { ...inboundState, pdf: null, documentRef: null, materialData: null };
 	},
 	(outboundState): DisplayData => {
-		return { ...outboundState, pdf: undefined, documentRef: createRef() };
+		return {
+			...outboundState,
+			pdf: undefined,
+			documentRef: createRef(),
+			materialData: { materialDataTimeStamp: -Infinity },
+		};
 	},
 	{ whitelist: [display.constants.NAME] }
 );
@@ -50,7 +53,6 @@ const displayTransform = createTransform(
 const persistConfig = {
 	key: "root",
 	storage,
-	blacklist: [analyze.constants.NAME],
 	transforms: [creationTransform, displayTransform],
 };
 

@@ -1,11 +1,14 @@
 import * as t from "./actionTypes";
-import type { DisplayData, DisplayStatus } from "./model";
+import type { DisplayData, DisplayStatus, MaterialGroupData } from "./model";
 import { createRef } from "react";
 
 const initialState: DisplayData = {
 	displayStatus: "SHOW",
 	currentPage: 1,
 	documentRef: createRef(),
+	pageSpans: {},
+	zoomQueue: null,
+	materialData: { materialDataTimeStamp: -Infinity },
 };
 
 const displayData = (state = initialState, { type, payload }: { type: string; payload: any }): DisplayData => {
@@ -18,6 +21,12 @@ const displayData = (state = initialState, { type, payload }: { type: string; pa
 			return { ...state, currentPage: payload as number };
 		case t.DISPLAY_STATUS:
 			return { ...state, displayStatus: payload as DisplayStatus };
+		case t.MATERIAL_DATA:
+			return {
+				...state,
+				materialData: payload,
+				pageSpans: { ...state.pageSpans, [state.currentPage]: (payload as MaterialGroupData).materialSpans.length - 1 },
+			};
 		default:
 			return state;
 	}
