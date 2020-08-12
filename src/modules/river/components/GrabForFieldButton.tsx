@@ -22,8 +22,6 @@ export const GrabForFieldButton = ({
 	const goalCard = useSelector(getGoalCard);
 	const [outlined, setOutlined] = useState(true);
 
-	if (goalCard) console.log(isGoalCard(cardConfig, creationType, goalCard));
-
 	if (goalCard) {
 		const isGoal = isGoalCard(cardConfig, creationType, goalCard);
 		if (isGoal) {
