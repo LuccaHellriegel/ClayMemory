@@ -70,9 +70,6 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 			};
 
 		case cards.actionTypes.CARD_PUSH:
-			//TODO-RC: activeRiver is not set, when using SummaryRiver for editing!
-			// how to push in SummaryRiver?
-			//TODO-RC: buttons for adding cards in River
 			riverMakeUp = {
 				...state.riverMakeUps[state.pushToRiverID],
 				cardIDs: [...state.riverMakeUps[state.pushToRiverID].cardIDs, (payload as FinalizedCardPayload).card.cardID],

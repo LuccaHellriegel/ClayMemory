@@ -26,7 +26,6 @@ export const mouseUpControl = (event: MouseEvent) => {
 				const userFocus = focus.selectors.getFocus(state);
 
 				if (goalCard && (userFocus === "EDITOR" || userFocus === "SELECTION")) {
-					console.log(event.target);
 					dispatch(
 						cards.actions.updateCardContent(
 							selectedStr,

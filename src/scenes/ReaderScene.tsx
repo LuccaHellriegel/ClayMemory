@@ -14,6 +14,11 @@ import { useDispatch, useSelector } from "react-redux";
 //TODO-RC: in SummaryRiver make Buttons to jump to page of the rivers
 //TODO-RC: on top of SummaryRiver make field for navigating the river (jumping to sub-river, maybe also in sub-river for jumping around?)
 //TODO-RC: think about the idea, that each column has a app-menu that has a dropwdown, where all the possible things are that it can display (so I cant prevent this akward having two SummaryRivers available)
+//TODO-NICE: make River-View, where you can just see one card and can make it smaller? Maybe just button to zoom "in" / just seeing the current river
+//TODO-RC: buttons for making new cards in River
+//TODO-RC: make way for me to upload and download cards so I can prepare the user-study
+//TODO-NICE: mark Origin-Span or maybe rect over whole page-section?
+//TODO-NICE: make reconciliation algorithm for origin when new PDF versions come out
 
 const ReaderSceneRiverColumn = ({ hidden }: any) => {
 	const [value, setValue] = useState(0);
