@@ -11,6 +11,7 @@ import { Divider } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 
 const ReaderSceneRiverColumn = ({ hidden }: any) => {
+	//TODO-RC: enable once id-choosign is fixed <river.components.SummaryRiver></river.components.SummaryRiver>
 	return (
 		<Grid
 			item
@@ -20,9 +21,7 @@ const ReaderSceneRiverColumn = ({ hidden }: any) => {
 			hidden={hidden}
 		>
 			<Grid container justify="center" direction="row" alignItems="stretch" spacing={1}>
-				<Grid item>
-					<river.components.SummaryRiver></river.components.SummaryRiver>
-				</Grid>
+				<Grid item></Grid>
 				<Grid item>
 					<river.components.ActiveCardRiver></river.components.ActiveCardRiver>
 				</Grid>
@@ -89,6 +88,7 @@ export function ReaderScene() {
 					</Grid>
 				</Grid>
 			</Grid>
+			<creation.components.SourceMenuContainer></creation.components.SourceMenuContainer>
 			<creation.components.ContextMenuContainer></creation.components.ContextMenuContainer>
 		</div>
 	);

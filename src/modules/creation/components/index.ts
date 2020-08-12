@@ -1,3 +1,4 @@
 import { ContextMenuContainer } from "./ContextMenu";
+import { SourceMenuContainer } from "./SourceMenu";
 
-export { ContextMenuContainer };
+export { ContextMenuContainer, SourceMenuContainer };

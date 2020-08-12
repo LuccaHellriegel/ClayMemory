@@ -5,13 +5,11 @@ import cards from "../../cards";
 export const mouseDownControl = (event: MouseEvent) => {
 	return (dispatch: any, getState: Function) => {
 		const state = getState();
-		const contextMenuState = creation.selectors.getContextMenuState(state);
-		if (contextMenuState) {
-			const clickOutSideOfMenu = !creation.utils.contextMenuContainsTargetNode(state, event);
-
-			if (clickOutSideOfMenu) {
-				dispatch(creation.actions.closeContextMenu());
-			}
+		// the menu-ref is used for all drop-down menus, so this closes all of them
+		const clickOutSideOfMenu = !creation.utils.contextMenuContainsTargetNode(state, event);
+		if (clickOutSideOfMenu) {
+			dispatch(cards.actions.tryResetSourceCard());
+			dispatch(creation.actions.closeContextMenu());
 		}
 	};
 };
@@ -44,6 +42,11 @@ export const mouseUpControl = (event: MouseEvent) => {
 						dispatch(creation.actions.updateManuallySelectedString(selectedStr));
 						dispatch(creation.actions.updateSelectionPosition(event.x, event.y));
 						dispatch(creation.actions.openContextMenu());
+					}
+
+					if (userFocus === "EDITOR") {
+						dispatch(creation.actions.selectedParent(selection.anchorNode?.parentNode as HTMLSpanElement));
+						dispatch(creation.actions.updateManuallySelectedString(selectedStr));
 					}
 				}
 			}

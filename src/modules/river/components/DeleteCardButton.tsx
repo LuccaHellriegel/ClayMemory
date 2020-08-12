@@ -5,8 +5,9 @@ import { useDispatch } from "react-redux";
 import cards from "../../cards";
 import focus from "../../focus";
 
-//TODO-RC: Undo / Redo for Card-Deletions
+//TODO-RC: Undo / Redo for Card-Deletions and also Card_Push and Card_Updates
 //TODO-RC: make confirmation overlap
+//TODO-NICE: use storybook for visual component testing
 
 export const DeleteCardButton = ({ cardID }: { cardID: string }) => {
 	const dispatch = useDispatch();

@@ -1,43 +1,38 @@
 import React, { RefObject } from "react";
 import Menu from "@material-ui/core/Menu";
 import { MenuItem, Divider } from "@material-ui/core";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch, useSelector, connect } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
 import { triggerSelectionGrab } from "../actions";
 import { incrementer } from "../../../shared/utils";
 import { CardConfig, CardType, CreationType } from "../../cards/model";
+import cards from "../../cards";
 import { CardConfigItem } from "./CardConfigItem";
 
 const NewQACard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q-A</MenuItem>;
 const NewNoteCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Note</MenuItem>;
 
-function ContextMenu({
-	position,
-	state,
+function SourceMenu({
 	menuRef,
 	qaRefs,
 	riverCards,
 }: {
-	position: { x: number; y: number };
-	state: boolean;
 	menuRef: RefObject<any>;
 	qaRefs: RefObject<any>[];
 	riverCards: CardConfig[];
 }) {
 	const dispatch = useDispatch();
-	const openState = state;
+	const sourceCard = useSelector(cards.selectors.getSourceCard);
+	const openState = !!sourceCard;
 	const dispatchRiver = (type: CardType, creationType: CreationType, cardID?: string) => {
-		dispatch(triggerSelectionGrab(type, creationType, cardID));
+		dispatch(triggerSelectionGrab(type, creationType, cardID, sourceCard?.origin));
+		dispatch(cards.actions.tryResetSourceCard());
 	};
 
 	const increment = incrementer();
 	const qaRefIndex = incrementer();
+	const anchorPosition = sourceCard ? { top: sourceCard.y, left: sourceCard.x } : undefined;
 
-	const anchorPosition = openState ? { top: position.y, left: position.x } : undefined;
-
-	// TODO-NICE: need to check for state before rendering MenuItems,
-	// otherwise it shows up for a split-second when switching the menu off after adding to the river
-	// weird Race Condition even if I dispatch closeContextMenu first?
 	return (
 		<Menu
 			ref={openState ? menuRef : null}
@@ -73,4 +68,4 @@ function ContextMenu({
 	);
 }
 
-export const ContextMenuContainer = connect(getContextMenuInitData)(ContextMenu);
+export const SourceMenuContainer = connect(getContextMenuInitData)(SourceMenu);

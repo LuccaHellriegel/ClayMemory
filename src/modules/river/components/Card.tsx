@@ -7,6 +7,7 @@ import cards from "../../cards";
 import { DeleteCardButton } from "./DeleteCardButton";
 import { JumpToOriginButton } from "./JumpToOriginButton";
 import { GrabForFieldButton } from "./GrabForFieldButton";
+import { ExtractFromFieldButton } from "./ExtractFromFieldButton";
 
 //TODO-RC: tooltips for all buttons, multiple languages?
 
@@ -33,6 +34,7 @@ const NoteCard = ({ config }: CardProps) => {
 			></HybridCardField>
 			<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
 			<GrabForFieldButton cardConfig={config} creationType="NOTE"></GrabForFieldButton>
+			<ExtractFromFieldButton cardOrigin={config.origin}></ExtractFromFieldButton>
 			{config.origin && <JumpToOriginButton cardOrigin={config.origin}></JumpToOriginButton>}
 		</div>
 	);
@@ -55,6 +57,7 @@ const QACard = ({ config }: CardProps) => {
 					InputLabelProps={{ style: { color: "#000000" } }}
 				></HybridCardField>
 				<GrabForFieldButton cardConfig={config} creationType="Q"></GrabForFieldButton>
+				<ExtractFromFieldButton cardOrigin={config.origin}></ExtractFromFieldButton>
 			</Grid>
 			<Grid item>
 				<HybridCardField
@@ -68,6 +71,7 @@ const QACard = ({ config }: CardProps) => {
 					InputLabelProps={{ style: { color: "#000000" } }}
 				></HybridCardField>
 				<GrabForFieldButton cardConfig={config} creationType="A"></GrabForFieldButton>
+				<ExtractFromFieldButton cardOrigin={config.origin}></ExtractFromFieldButton>
 			</Grid>
 			<Grid item>
 				<DeleteCardButton cardID={config.cardID}></DeleteCardButton>

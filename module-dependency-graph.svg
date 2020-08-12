@@ -61,7 +61,7 @@
 </g>
 </g>
 <!-- src/scenes/ReaderScene.tsx&#45;&gt;src/modules/control -->
-<g id="edge17" class="edge">
+<g id="edge18" class="edge">
 <title>src/scenes/ReaderScene.tsx&#45;&gt;src/modules/control</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M173.154,-68C173.154,-68 190.9873,-68 190.9873,-68"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="190.9873,-70.1001 196.9873,-68 190.9873,-65.9001 190.9873,-70.1001"/>
@@ -79,7 +79,7 @@
 </g>
 </g>
 <!-- src/scenes/ReaderScene.tsx&#45;&gt;src/modules/creation -->
-<g id="edge18" class="edge">
+<g id="edge19" class="edge">
 <title>src/scenes/ReaderScene.tsx&#45;&gt;src/modules/creation</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M144,-58.9776C144,-55.1255 144,-51.5 144,-51.5 144,-51.5 257.6949,-51.5 257.6949,-51.5"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="257.695,-53.6001 263.6949,-51.5 257.6949,-49.4001 257.695,-53.6001"/>
@@ -97,7 +97,7 @@
 </g>
 </g>
 <!-- src/scenes/ReaderScene.tsx&#45;&gt;src/modules/display -->
-<g id="edge19" class="edge">
+<g id="edge20" class="edge">
 <title>src/scenes/ReaderScene.tsx&#45;&gt;src/modules/display</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M115,-58.7451C115,-44.7969 115,-20 115,-20 115,-20 492,-20 492,-20 492,-20 492,-37.9826 492,-37.9826"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="489.9001,-37.9826 492,-43.9826 494.1001,-37.9826 489.9001,-37.9826"/>
@@ -115,7 +115,7 @@
 </g>
 </g>
 <!-- src/scenes/ReaderScene.tsx&#45;&gt;src/modules/focus -->
-<g id="edge20" class="edge">
+<g id="edge21" class="edge">
 <title>src/scenes/ReaderScene.tsx&#45;&gt;src/modules/focus</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M115,-77.0843C115,-87.749 115,-104 115,-104 115,-104 425,-104 425,-104 425,-104 425,-98.0278 425,-98.0278"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="427.1001,-98.0277 425,-92.0278 422.9001,-98.0278 427.1001,-98.0277"/>
@@ -133,7 +133,7 @@
 </g>
 </g>
 <!-- src/scenes/ReaderScene.tsx&#45;&gt;src/modules/river -->
-<g id="edge21" class="edge">
+<g id="edge22" class="edge">
 <title>src/scenes/ReaderScene.tsx&#45;&gt;src/modules/river</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M144,-77.0224C144,-80.8745 144,-84.5 144,-84.5 144,-84.5 324.8968,-84.5 324.8968,-84.5"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="324.8968,-86.6001 330.8968,-84.5 324.8967,-82.4001 324.8968,-86.6001"/>
@@ -150,50 +150,56 @@
 </a>
 </g>
 </g>
+<!-- src/modules/control&#45;&gt;src/modules/cards -->
+<g id="edge5" class="edge">
+<title>src/modules/control&#45;&gt;src/modules/cards</title>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M251.1017,-66.5C304.0266,-66.5 416,-66.5 416,-66.5 416,-66.5 416,-66.0729 416,-66.0729"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="418.1002,-68.2285 416,-62.2285 413.9002,-68.2286 418.1002,-68.2285"/>
+</g>
 <!-- src/modules/control&#45;&gt;src/modules/creation -->
 <g id="edge2" class="edge">
 <title>src/modules/control&#45;&gt;src/modules/creation</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M251.3016,-65.4286C266.3451,-65.4286 282,-65.4286 282,-65.4286 282,-65.4286 282,-65.089 282,-65.089"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="284.1002,-68.0323 282,-62.0324 279.9002,-68.0325 284.1002,-68.0323"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M251.3016,-65C266.3451,-65 282,-65 282,-65 282,-65 282,-64.7217 282,-64.7217"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="284.1002,-68.2167 282,-62.2168 279.9002,-68.2169 284.1002,-68.2167"/>
 </g>
 <!-- src/modules/control&#45;&gt;src/modules/display -->
 <g id="edge3" class="edge">
 <title>src/modules/control&#45;&gt;src/modules/display</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M251.155,-67.1429C318.3511,-67.1429 487,-67.1429 487,-67.1429 487,-67.1429 487,-66.6323 487,-66.6323"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="489.1001,-68.0369 487,-62.037 484.9001,-68.037 489.1001,-68.0369"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M251.155,-68C318.3511,-68 487,-68 487,-68 487,-68 487,-67.4244 487,-67.4244"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="489.1001,-68.2435 487,-62.2435 484.9001,-68.2435 489.1001,-68.2435"/>
 </g>
 <!-- src/modules/control&#45;&gt;src/modules/focus -->
 <g id="edge4" class="edge">
 <title>src/modules/control&#45;&gt;src/modules/focus</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M251.1078,-70.5714C305.9722,-70.5714 425,-70.5714 425,-70.5714 425,-70.5714 425,-70.911 425,-70.911"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="422.9002,-67.9675 425,-73.9676 427.1002,-67.9677 422.9002,-67.9675"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M251.0239,-69.5C307.7416,-69.5 434,-69.5 434,-69.5 434,-69.5 434,-69.9271 434,-69.9271"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="431.9002,-67.7714 434,-73.7715 436.1002,-67.7715 431.9002,-67.7714"/>
 </g>
 <!-- src/modules/control&#45;&gt;src/modules/river -->
-<g id="edge5" class="edge">
+<g id="edge6" class="edge">
 <title>src/modules/control&#45;&gt;src/modules/river</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M251.0716,-72.2857C285.9092,-72.2857 342,-72.2857 342,-72.2857 342,-72.2857 342,-72.4531 342,-72.4531"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="339.9004,-67.9597 342,-73.9598 344.1004,-67.96 339.9004,-67.9597"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M251.0716,-72.5C285.9092,-72.5 342,-72.5 342,-72.5 342,-72.5 342,-72.6288 342,-72.6288"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="339.9005,-67.7873 342,-73.7875 344.1005,-67.7877 339.9005,-67.7873"/>
 </g>
 <!-- src/modules/creation&#45;&gt;src/modules/cards -->
-<g id="edge6" class="edge">
+<g id="edge7" class="edge">
 <title>src/modules/creation&#45;&gt;src/modules/cards</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M318.1169,-47.6C318.1169,-47.6 391.9234,-47.6 391.9234,-47.6"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="391.9235,-49.7001 397.9234,-47.6 391.9234,-45.5001 391.9235,-49.7001"/>
 </g>
 <!-- src/modules/creation&#45;&gt;src/modules/display -->
-<g id="edge7" class="edge">
+<g id="edge8" class="edge">
 <title>src/modules/creation&#45;&gt;src/modules/display</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M300,-62.0402C300,-63.0446 300,-63.7143 300,-63.7143 300,-63.7143 476,-63.7143 476,-63.7143 476,-63.7143 476,-63.5469 476,-63.5469"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="478.1004,-68.04 476,-62.0402 473.9004,-68.0403 478.1004,-68.04"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M300,-62.2125C300,-62.9976 300,-63.5 300,-63.5 300,-63.5 476,-63.5 476,-63.5 476,-63.5 476,-63.3712 476,-63.3712"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="478.1005,-68.2123 476,-62.2125 473.9005,-68.2127 478.1005,-68.2123"/>
 </g>
 <!-- src/modules/creation&#45;&gt;src/modules/focus -->
-<g id="edge8" class="edge">
+<g id="edge9" class="edge">
 <title>src/modules/creation&#45;&gt;src/modules/focus</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M318.0661,-51.2C347.9836,-51.2 392,-51.2 392,-51.2 392,-51.2 392,-80 392,-80 392,-80 392.5748,-80 392.5748,-80"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="391.7482,-82.1001 397.7482,-80 391.7481,-77.9001 391.7482,-82.1001"/>
 </g>
 <!-- src/modules/creation&#45;&gt;src/modules/river -->
-<g id="edge9" class="edge">
+<g id="edge10" class="edge">
 <title>src/modules/creation&#45;&gt;src/modules/river</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M318.1825,-58.4C338.9374,-58.4 364,-58.4 364,-58.4 364,-58.4 364,-67.8399 364,-67.8399"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="361.9001,-67.8398 364,-73.8399 366.1001,-67.8399 361.9001,-67.8398"/>
@@ -211,43 +217,43 @@
 </g>
 </g>
 <!-- src/modules/creation&#45;&gt;src/shared -->
-<g id="edge10" class="edge">
+<g id="edge11" class="edge">
 <title>src/modules/creation&#45;&gt;src/shared</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M291,-43.9722C291,-38.2805 291,-32 291,-32 291,-32 562,-32 562,-32 562,-32 562,-37.9722 562,-37.9722"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="559.9001,-37.9722 562,-43.9722 564.1001,-37.9723 559.9001,-37.9722"/>
 </g>
 <!-- src/modules/display&#45;&gt;src/shared -->
-<g id="edge11" class="edge">
+<g id="edge12" class="edge">
 <title>src/modules/display&#45;&gt;src/shared</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M519.2643,-53C519.2643,-53 528.695,-53 528.695,-53"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="528.695,-55.1001 534.695,-53 528.695,-50.9001 528.695,-55.1001"/>
 </g>
 <!-- src/modules/focus&#45;&gt;src/modules/display -->
-<g id="edge12" class="edge">
+<g id="edge13" class="edge">
 <title>src/modules/focus&#45;&gt;src/modules/display</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M452.0405,-83C476.5964,-83 509,-83 509,-83 509,-83 509,-68.164 509,-68.164"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="511.1001,-68.164 509,-62.164 506.9001,-68.164 511.1001,-68.164"/>
 </g>
 <!-- src/modules/river&#45;&gt;src/modules/cards -->
-<g id="edge13" class="edge">
+<g id="edge14" class="edge">
 <title>src/modules/river&#45;&gt;src/modules/cards</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M375,-73.7663C375,-65.542 375,-54.8 375,-54.8 375,-54.8 391.9513,-54.8 391.9513,-54.8"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="391.9513,-56.9001 397.9513,-54.8 391.9512,-52.7001 391.9513,-56.9001"/>
 </g>
 <!-- src/modules/river&#45;&gt;src/modules/display -->
-<g id="edge16" class="edge">
+<g id="edge17" class="edge">
 <title>src/modules/river&#45;&gt;src/modules/display</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M353,-73.963C353,-71.1913 353,-68.8571 353,-68.8571 353,-68.8571 498,-68.8571 498,-68.8571 498,-68.8571 498,-68.0403 498,-68.0403"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="500.1001,-68.0402 498,-62.0403 495.9001,-68.0403 500.1001,-68.0402"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M353,-73.7832C353,-72.1719 353,-71 353,-71 353,-71 498,-71 498,-71 498,-71 498,-68.4217 498,-68.4217"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="500.1001,-68.4217 498,-62.4217 495.9001,-68.4218 500.1001,-68.4217"/>
 </g>
 <!-- src/modules/river&#45;&gt;src/modules/focus -->
-<g id="edge15" class="edge">
+<g id="edge16" class="edge">
 <title>src/modules/river&#45;&gt;src/modules/focus</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M385.2515,-86C385.2515,-86 391.9899,-86 391.9899,-86"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="391.9899,-88.1001 397.9899,-86 391.9899,-83.9001 391.9899,-88.1001"/>
 </g>
 <!-- src/modules/river&#45;&gt;src/shared -->
-<g id="edge14" class="edge">
+<g id="edge15" class="edge">
 <title>src/modules/river&#45;&gt;src/shared</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M358,-92.0174C358,-101.7881 358,-116 358,-116 358,-116 562,-116 562,-116 562,-116 562,-68.0264 562,-68.0264"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="564.1001,-68.0263 562,-62.0264 559.9001,-68.0264 564.1001,-68.0263"/>

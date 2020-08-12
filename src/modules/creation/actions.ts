@@ -2,7 +2,7 @@ import * as t from "./actionTypes";
 import { CardType, CreationType, CardOrigin } from "../cards/model";
 import cards from "../cards";
 import focus from "../focus";
-import { getCurrentSelectedString, getCurrentSelectedParent } from "./selectors";
+import { getCurrentSelectedString, getCurrentSelectedParent, getContextMenuState } from "./selectors";
 import display from "../display";
 
 export const toggleContextMenu = () => {
@@ -13,9 +13,11 @@ export const toggleContextMenu = () => {
 };
 
 export const closeContextMenu = () => {
-	return (dispatch: any) => {
-		dispatch({ type: t.CLOSE_CONTEXT_MENU });
-		dispatch(focus.actions.updateFocus("SELECTION"));
+	return (dispatch: any, getState: Function) => {
+		if (getContextMenuState(getState())) {
+			dispatch({ type: t.CLOSE_CONTEXT_MENU });
+			dispatch(focus.actions.updateFocus("SELECTION"));
+		}
 	};
 };
 
@@ -26,7 +28,12 @@ export const openContextMenu = () => {
 	};
 };
 
-export const triggerSelectionGrab = (type: CardType, creationType: CreationType, cardID?: string) => {
+export const triggerSelectionGrab = (
+	type: CardType,
+	creationType: CreationType,
+	cardID?: string,
+	origin?: CardOrigin
+) => {
 	return (dispatch: Function, getState: Function) => {
 		dispatch(closeContextMenu());
 
@@ -41,17 +48,18 @@ export const triggerSelectionGrab = (type: CardType, creationType: CreationType,
 
 		//TODO-RC: if selection is from card then copy card-origin
 		const selectedParent = getCurrentSelectedParent(state);
-		const origin: CardOrigin | undefined = selectedParent
-			? {
-					spanIndex: display.selectors.getSpanIndex(state, selectedParent),
-					page: display.selectors.getCurrentPage(state),
-			  }
-			: undefined;
+		const newOrigin: CardOrigin | undefined =
+			selectedParent && !origin
+				? {
+						spanIndex: display.selectors.getSpanIndex(state, selectedParent),
+						page: display.selectors.getCurrentPage(state),
+				  }
+				: origin;
 
 		if (isUpdate) {
-			dispatch(cards.actions.updateCardContent(selectedString, cardID as string, creationType, updateType, origin));
+			dispatch(cards.actions.updateCardContent(selectedString, cardID as string, creationType, updateType, newOrigin));
 		} else {
-			dispatch(cards.actions.pushCardContent(selectedString, creationType, updateType, type, origin));
+			dispatch(cards.actions.pushCardContent(selectedString, creationType, updateType, type, newOrigin));
 		}
 	};
 };
