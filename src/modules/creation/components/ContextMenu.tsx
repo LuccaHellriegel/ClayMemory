@@ -95,7 +95,7 @@ function ContextMenu({
 	const increment = incrementer();
 	const qaRefIndex = incrementer();
 
-	// TODO: need to check for state before rendering MenuItems,
+	// TODO-NICE: need to check for state before rendering MenuItems,
 	// otherwise it shows up for a split-second when switching the menu off after adding to the river
 	// weird Race Condition even if I dispatch closeContextMenu first?
 	return (

@@ -7,9 +7,9 @@ import cards from "../../cards";
 import { DeleteCardButton } from "./DeleteCardButton";
 import { JumpToOriginButton } from "./JumpToOriginButton";
 
-//TODO: mouse-up in editor should not trigger context menu, because I cant delete selections then, better use the Pinsel-Idea for inside the card
+//TODO-RC: mouse-up in editor should not trigger context menu, because I cant delete selections then, better use the Pinsel-Idea for inside the card
 
-//TODO: make full cards be not visible to the context menu by default (need to unmark them or sub-menu)
+//TODO-RC: make full cards be not visible to the context menu by default (need to unmark them or sub-menu)
 
 type CardProps = { config: CardConfig; riverID: string };
 

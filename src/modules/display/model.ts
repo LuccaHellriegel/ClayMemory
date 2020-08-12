@@ -23,7 +23,7 @@ export type DisplayData = {
 	displayStatus: DisplayStatus;
 	currentPage: number;
 	totalPages?: number;
-	//TODO:might need amount of spans per page for validation? if yes, use this
+	//TODO-NICE:might need amount of spans per page for validation? if yes, use this
 	pageSpans: PerPageSpans;
 	documentRef: RefObject<HTMLDivElement>;
 	zoomQueue: number | null;

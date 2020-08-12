@@ -37,9 +37,7 @@ export function captureMaterialData(documentRef: RefObject<any>) {
 		const state = getState();
 		const container = documentRef.current;
 		if (container) {
-			// TODO: still possibility of race-condition,
-			// maybe check on each section update if the number is congruent and if not actualize?
-			// TODO: make fluid movement for changing from non-existing section on new page to existing one
+			// TODO-NICE: still possibility of race-condition,
 
 			const startTime = Date.now();
 
@@ -80,6 +78,7 @@ const pageCorrections = {
 	REMOVE: (newPage: number, totalPages: number) => (newPage === 0 ? totalPages : newPage),
 };
 
+//TODO-PERF: maybe hide all rendered pages but not shown instead of re-rendering for faster switching?
 export const movePage = (type: PageMove) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const { currentPage, totalPages } = getPageControlData(getState());

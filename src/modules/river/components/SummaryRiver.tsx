@@ -5,7 +5,7 @@ import React from "react";
 import cards from "../../cards";
 import { ChildCardRiver } from "./ChildCardRiver";
 
-//TODO: SummaryRiver "searchable", so that you can zoom to certain rivers and also look at them next to each other
+//TODO-RC: SummaryRiver "searchable", so that you can zoom to certain rivers and also look at them next to each other
 
 export const SummaryRiver = () => {
 	const cardConfigs = useSelector(cards.selectors.getCards);

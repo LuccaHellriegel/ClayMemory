@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## TODO Types
+
+* RC: release candidate, need this to be feature complete
+* NICE: nice to have
+* PERF: performance optimization possible if I notice it during testing
+
 ## Available Scripts
 
 In the project directory, you can run:

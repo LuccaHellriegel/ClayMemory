@@ -22,9 +22,9 @@ const creationData = (state = initialState, { type, payload }: { type: string; p
 		case t.OPEN_CONTEXT_MENU:
 			return { ...state, open: true };
 		case cards.actionTypes.CARD_PUSH:
-			//TODO: state from local storage does not have all the refs
-			//TODO: reliance on order of refs and coupling to the fact that a new card was pushed
-			// no support for multiple rivers
+			//TODO-NICE: reliance on order of refs (needs to be the same as order of qaRefs) and coupling to the fact that a new card was pushed
+			// might need to change if I allow moving the cards
+			//TODO-NICE: no support for multiple rivers
 			if ((payload as CardPayload).card.type === "Q-A") return { ...state, qaRefs: [...state.qaRefs, createRef()] };
 			return state;
 		case t.SELECTED_STRING:

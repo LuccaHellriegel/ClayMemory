@@ -37,7 +37,7 @@ export const triggerSelectionGrab = (riverID: string, type: CardType, creationTy
 		const selectedString = getCurrentSelectedString(state);
 		const isUpdate = cardID !== undefined;
 
-		//TODO: if selection is from card then copy card-origin
+		//TODO-RC: if selection is from card then copy card-origin
 		const selectedParent = getCurrentSelectedParent(state);
 		const origin: CardOrigin | undefined = selectedParent
 			? {
