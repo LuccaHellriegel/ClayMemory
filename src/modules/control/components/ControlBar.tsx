@@ -1,8 +1,11 @@
 import display from "../../display";
 import river from "../../river";
 import React from "react";
-import { AppBar, Toolbar, Grid, Divider } from "@material-ui/core";
+import { AppBar, Toolbar, Divider } from "@material-ui/core";
 import { useSelector } from "react-redux";
+
+//TODO-RC: make dropdown menu (or drawer?) for switching documents (how to make cross-document stapels?), download csv for Anki / json for loading, loading option
+//TODO-RC: save PDF somehow
 
 export const ControlBar = () => {
 	const totalPages = useSelector(display.selectors.getTotalPages);
@@ -10,7 +13,6 @@ export const ControlBar = () => {
 	return (
 		<AppBar position="static">
 			<Toolbar variant="dense">
-				<Grid></Grid>
 				<river.components.ShowRiverButton></river.components.ShowRiverButton>
 				<display.components.ShowMaterialButton></display.components.ShowMaterialButton>
 				<Divider orientation="vertical" flexItem />

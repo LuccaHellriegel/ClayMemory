@@ -14,18 +14,14 @@ import { useDispatch, useSelector } from "react-redux";
 //TODO-RC: in SummaryRiver make Buttons to jump to page of the rivers
 //TODO-RC: on top of SummaryRiver make field for navigating the river (jumping to sub-river, maybe also in sub-river for jumping around?)
 //TODO-RC: think about the idea, that each column has a app-menu that has a dropwdown, where all the possible things are that it can display (so I cant prevent this akward having two SummaryRivers available)
-//TODO-NICE: make River-View, where you can just see one card and can make it smaller? Maybe just button to zoom "in" / just seeing the current river
 //TODO-RC: buttons for making new cards in River
 //TODO-RC: make way for me to upload and download cards so I can prepare the user-study
+
+//TODO-NICE: make River-View, where you can just see one card and can make it smaller? Maybe just button to zoom "in" / just seeing the current river
 //TODO-NICE: mark Origin-Span or maybe rect over whole page-section?
 //TODO-NICE: make reconciliation algorithm for origin when new PDF versions come out
 
 const ReaderSceneRiverColumn = ({ hidden }: any) => {
-	const [value, setValue] = useState(0);
-
-	const handleChange = (_: ChangeEvent<{}>, newValue: number) => {
-		setValue(newValue);
-	};
 	//TODO-RC: use other buttons for hide/showing columns, that indicate just columns and not content
 	return (
 		<Grid
@@ -35,29 +31,12 @@ const ReaderSceneRiverColumn = ({ hidden }: any) => {
 			}}
 			hidden={hidden}
 		>
-			<AppBar position="static">
-				<Tabs value={value} onChange={handleChange}>
-					<Tab label="ActiveRiver" />
-					<Tab label="SummaryRiver" />
-				</Tabs>
-			</AppBar>
-			<div hidden={value !== 0}>
-				<river.components.ActiveCardRiver></river.components.ActiveCardRiver>
-			</div>
-			<div hidden={value !== 1}>
-				<river.components.SummaryRiver></river.components.SummaryRiver>
-			</div>
+			<river.components.ActiveCardRiver></river.components.ActiveCardRiver>
 		</Grid>
 	);
 };
 
 function ReaderSceneMaterialColumn({ size, hidden }: any) {
-	const [value, setValue] = useState(0);
-
-	const handleChange = (_: ChangeEvent<{}>, newValue: number) => {
-		setValue(newValue);
-	};
-
 	const dispatch = useDispatch();
 
 	const [elevation, setElevation] = useState(3);
@@ -77,21 +56,10 @@ function ReaderSceneMaterialColumn({ size, hidden }: any) {
 			}}
 			hidden={hidden}
 		>
-			<AppBar position="static">
-				<Tabs value={value} onChange={handleChange}>
-					<Tab label="Material" />
-					<Tab label="SummaryRiver" />
-				</Tabs>
-			</AppBar>
-			<div hidden={value !== 0}>
-				<Paper elevation={elevation}>
-					<display.components.PDFDocumentContainer parentSize={size}></display.components.PDFDocumentContainer>
-					<display.components.PDFUploadContainer></display.components.PDFUploadContainer>
-				</Paper>
-			</div>
-			<div hidden={value !== 1}>
-				<river.components.SummaryRiver></river.components.SummaryRiver>
-			</div>
+			<Paper elevation={elevation}>
+				<display.components.PDFDocumentContainer parentSize={size}></display.components.PDFDocumentContainer>
+				<display.components.PDFUploadContainer></display.components.PDFUploadContainer>
+			</Paper>
 		</Grid>
 	);
 }
@@ -100,11 +68,25 @@ const ReaderSceneMaterialColumnWithSize = withSize({ monitorHeight: true, noPlac
 	ReaderSceneMaterialColumn
 );
 
+//TODO: make show/hide depdendant on tab, also Page choice, control-bar dependant on tab
+
 export function ReaderScene() {
 	const dispatch = useDispatch();
 
+	const displayFocus = useSelector(focus.selectors.getDisplayFocus);
+	const value = displayFocus === "ACTIVE_RIVER" ? 0 : 1;
+
+	const handleChange = (_: ChangeEvent<{}>, newValue: number) => {
+		dispatch(
+			newValue === 0
+				? focus.actions.updateDisplayFocus("ACTIVE_RIVER")
+				: focus.actions.updateDisplayFocus("SUMMARY_RIVER")
+		);
+	};
+
 	const showMaterial = useSelector(display.selectors.displayStatusIsShow);
 	const showRiver = useSelector(river.selectors.riverShowStateIsShow);
+
 	return (
 		<div>
 			<control.components.ControlContainer></control.components.ControlContainer>
@@ -115,14 +97,23 @@ export function ReaderScene() {
 						dispatch(focus.actions.tryUpdateFocus("CONTROL"));
 					}}
 				>
+					<AppBar position="static">
+						<Tabs value={value} onChange={handleChange}>
+							<Tab label="ActiveRiver" />
+							<Tab label="SummaryRiver" />
+						</Tabs>
+					</AppBar>
 					<control.components.ControlBar></control.components.ControlBar>
 				</Grid>
 
-				<Grid item>
+				<Grid item hidden={value !== 0}>
 					<Grid container justify="space-around" direction="row" alignItems="stretch">
 						<ReaderSceneRiverColumn hidden={!showRiver}></ReaderSceneRiverColumn>
 						<ReaderSceneMaterialColumnWithSize hidden={!showMaterial}></ReaderSceneMaterialColumnWithSize>
 					</Grid>
+				</Grid>
+				<Grid item hidden={value !== 1}>
+					<river.components.SummaryRiver></river.components.SummaryRiver>
 				</Grid>
 			</Grid>
 			<creation.components.SourceMenuContainer></creation.components.SourceMenuContainer>

@@ -10,7 +10,5 @@ export const ChildCardRiver = ({ riverID, riverCards }: { riverID: string; river
 	// this should only change if the store values change
 	const gridItems = useMemo(() => toCardGridItemsWithDividers(riverCards, riverID), [riverCards, riverID]);
 
-	return riverCards.length > 0 ? (
-		<CardRiverAccordion riverID={riverID} gridItems={gridItems} summary={riverID}></CardRiverAccordion>
-	) : null;
+	return <CardRiverAccordion riverID={riverID} gridItems={gridItems} summary={riverID}></CardRiverAccordion>;
 };

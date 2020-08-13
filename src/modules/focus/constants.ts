@@ -1,1 +1,1 @@
-export const NAME = "userFocus";
+export const NAME = "appFocus";

@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Typography, Divider } from "@material-ui/core";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -48,6 +48,7 @@ export const CardRiverAccordion = ({
 					<Grid item>
 						<AddQAButton></AddQAButton>
 						<AddNoteButton></AddNoteButton>
+						<Divider></Divider>
 					</Grid>
 					{gridItems}
 				</Grid>

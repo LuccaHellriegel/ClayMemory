@@ -16,7 +16,7 @@ import { ChildCardRiver } from "./ChildCardRiver";
 
 //TODO-RC: make butto where you can choose from the Card-field in the Card-River and then select what should go in there (reverse selection idea?)
 
-//TODO-RC, new A, new Q, SummaryNotes
+//TODO-RC, new A, new Q, SummaryNotes (maybe just SummaryRiver but with filter clickable?)
 export const ActiveCardRiver = () => {
 	const riverID = useSelector(getActiveRiverMakeUpID);
 	const riverCards = useSelector(getActiveRiverCards);

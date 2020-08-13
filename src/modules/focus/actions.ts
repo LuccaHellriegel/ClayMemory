@@ -1,5 +1,5 @@
 import * as t from "./actionTypes";
-import { UserFocus } from "./model";
+import { UserFocus, DisplayFocus } from "./model";
 import { Dispatch } from "redux";
 import { getFocus } from "./selectors";
 import display from "../display";
@@ -29,4 +29,8 @@ export const toggleContextMenuFocus = () => {
 			}
 		}
 	};
+};
+
+export const updateDisplayFocus = (focus: DisplayFocus) => {
+	return { type: t.DISPLAY_FOCUS_UPDATE, payload: focus };
 };
