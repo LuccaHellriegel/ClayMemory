@@ -9,10 +9,10 @@ import river from "./modules/river";
 import display from "./modules/display";
 import cards from "./modules/cards";
 import { persistStore, persistReducer, createTransform } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { CreationData } from "./modules/creation/model";
 import { createRef } from "react";
 import { DisplayData } from "./modules/display/model";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 const rootReducer = combineReducers({
 	[focus.constants.NAME]: focus.reducer,
@@ -35,9 +35,29 @@ const creationTransform = createTransform(
 	},
 	{ whitelist: [creation.constants.NAME] }
 );
+
+//TODO-NICE: find way to save PDF in browser, maybe manually use indexeddb and use that in transform?
+// const reader = new FileReaderSync();
+
+// function readFileAsync(file: File) {
+// 	return new Promise((resolve) => {
+// 		reader.onload = () => {
+// 			resolve(reader.result);
+// 		};
+// 		reader.onerror = () => resolve(null);
+
+// 		reader.readAsDataURL(file);
+// 	});
+// }
+
 const displayTransform = createTransform(
 	(inboundState: DisplayData) => {
-		return { ...inboundState, pdf: null, documentRef: null, materialData: null };
+		let pdf = null;
+		// if (inboundState.pdf) {
+		// 	pdf = await readFileAsync(inboundState.pdf);
+		// }
+		const result = { ...inboundState, documentRef: null, materialData: null, pdf };
+		return result;
 	},
 	(outboundState): DisplayData => {
 		return {
@@ -52,7 +72,7 @@ const displayTransform = createTransform(
 
 const persistConfig = {
 	key: "root",
-	storage,
+	storage, //: storage("ClayMemory"),
 	transforms: [creationTransform, displayTransform],
 };
 

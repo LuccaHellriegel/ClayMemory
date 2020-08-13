@@ -3,7 +3,7 @@ import Menu from "@material-ui/core/Menu";
 import { MenuItem, Divider } from "@material-ui/core";
 import { useDispatch, connect } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
-import { triggerSelectionGrab } from "../actions";
+import { grabSelectionForContextMenu } from "../actions";
 import { incrementer } from "../../../shared/utils";
 import { CardConfig, CardType, CreationType } from "../../cards/model";
 import { CardConfigItem } from "./CardConfigItem";
@@ -27,7 +27,7 @@ function ContextMenu({
 	const dispatch = useDispatch();
 	const openState = state;
 	const dispatchRiver = (type: CardType, creationType: CreationType, cardID?: string) => {
-		dispatch(triggerSelectionGrab(type, creationType, cardID));
+		dispatch(grabSelectionForContextMenu(type, creationType, cardID));
 	};
 
 	const increment = incrementer();

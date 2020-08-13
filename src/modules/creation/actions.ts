@@ -1,9 +1,11 @@
 import * as t from "./actionTypes";
-import { CardType, CreationType, CardOrigin } from "../cards/model";
+import { CardType, CreationType, CardOrigin, QAOrigin, SingleOrigin } from "../cards/model";
 import cards from "../cards";
 import focus from "../focus";
-import { getCurrentSelectedString, getCurrentSelectedParent, getContextMenuState } from "./selectors";
+import { getCurrentSelectedString, getCurrentSelectedParent, getContextMenuState, getCurrentOrigin } from "./selectors";
 import display from "../display";
+import { isNullOrUndefined } from "util";
+import { transformInputOrigin } from "./services/transformInputOrigin";
 
 export const toggleContextMenu = () => {
 	return (dispatch: any) => {
@@ -28,12 +30,7 @@ export const openContextMenu = () => {
 	};
 };
 
-export const triggerSelectionGrab = (
-	type: CardType,
-	creationType: CreationType,
-	cardID?: string,
-	origin?: CardOrigin
-) => {
+export const grabSelectionForContextMenu = (type: CardType, creationType: CreationType, cardID?: string) => {
 	return (dispatch: Function, getState: Function) => {
 		dispatch(closeContextMenu());
 
@@ -42,24 +39,73 @@ export const triggerSelectionGrab = (
 		//TODO-NICE: think of a way to make this intuitive
 		//const updateType = type === "Q-A" ? "REPLACE" : "APPEND";
 		const updateType = "REPLACE";
-
-		const selectedString = getCurrentSelectedString(state);
 		const isUpdate = cardID !== undefined;
 
-		//TODO-RC: if selection is from card then copy card-origin
+		// this should be from the document
+		const selectedString = getCurrentSelectedString(state);
 		const selectedParent = getCurrentSelectedParent(state);
-		const newOrigin: CardOrigin | undefined =
-			selectedParent && !origin
-				? {
-						spanIndex: display.selectors.getSpanIndex(state, selectedParent),
-						page: display.selectors.getCurrentPage(state),
-				  }
-				: origin;
+
+		// always overwrite origin, even if isUpdate, because updateType==replace
+		const origin: CardOrigin | undefined = selectedParent ? getCurrentOrigin(state) : undefined;
 
 		if (isUpdate) {
-			dispatch(cards.actions.updateCardContent(selectedString, cardID as string, creationType, updateType, newOrigin));
+			dispatch(cards.actions.updateCardContent(selectedString, cardID as string, creationType, updateType, origin));
 		} else {
-			dispatch(cards.actions.pushCardContent(selectedString, creationType, updateType, type, newOrigin));
+			dispatch(cards.actions.pushCardContent(selectedString, creationType, updateType, type, origin));
+		}
+	};
+};
+
+export const hasNonEmptyOrigin = (origin?: CardOrigin) =>
+	!!origin &&
+	(!isNullOrUndefined((origin as SingleOrigin).spanIndex) ||
+		!isNullOrUndefined((origin as QAOrigin).a?.spanIndex) ||
+		!isNullOrUndefined((origin as QAOrigin).q?.spanIndex));
+
+export const grabSelectionForSourceMenu = (
+	type: CardType,
+	creationType: CreationType,
+	sourceField: CreationType,
+	origin?: CardOrigin,
+	cardID?: string
+) => {
+	return (dispatch: Function, getState: Function) => {
+		// this is called, after the source-card has been set, the SourceMenu has been opened and been clicked
+		const state = getState();
+
+		// close SourceMenu by resetting SourceCard
+		dispatch(cards.actions.resetSourceCard());
+
+		//TODO-RC: if selection is from other-card then copy card-origin
+		const updateType = "REPLACE";
+		const isUpdate = cardID !== undefined;
+
+		//  this should be from the SourceCard in which the extract button has been clicked
+		//	the SourceCard can or can not have an origin
+		const sourceHasNonEmptyOrigin = hasNonEmptyOrigin(origin);
+		const newOrigin = sourceHasNonEmptyOrigin
+			? transformInputOrigin(
+					origin as CardOrigin,
+					sourceField,
+					creationType,
+					isUpdate ? (cards.selectors.getCards(state)[cardID as string].origin as CardOrigin) : undefined
+			  )
+			: undefined;
+		const selectedString = getCurrentSelectedString(state);
+
+		//TODO-NICE: untangle the types so that the as CardOrigin is not necessary in the dispatch
+		if (isUpdate) {
+			dispatch(
+				cards.actions.updateCardContent(
+					selectedString,
+					cardID as string,
+					creationType,
+					updateType,
+					newOrigin as CardOrigin
+				)
+			);
+		} else {
+			dispatch(cards.actions.pushCardContent(selectedString, creationType, updateType, type, newOrigin as CardOrigin));
 		}
 	};
 };

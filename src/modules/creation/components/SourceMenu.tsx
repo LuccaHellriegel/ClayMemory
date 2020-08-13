@@ -3,9 +3,9 @@ import Menu from "@material-ui/core/Menu";
 import { MenuItem, Divider } from "@material-ui/core";
 import { useDispatch, useSelector, connect } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
-import { triggerSelectionGrab } from "../actions";
+import { grabSelectionForSourceMenu } from "../actions";
 import { incrementer } from "../../../shared/utils";
-import { CardConfig, CardType, CreationType } from "../../cards/model";
+import { CardConfig, CardType, CreationType, SourceCard } from "../../cards/model";
 import cards from "../../cards";
 import { CardConfigItem } from "./CardConfigItem";
 
@@ -25,8 +25,15 @@ function SourceMenu({
 	const sourceCard = useSelector(cards.selectors.getSourceCard);
 	const openState = !!sourceCard;
 	const dispatchRiver = (type: CardType, creationType: CreationType, cardID?: string) => {
-		dispatch(triggerSelectionGrab(type, creationType, cardID, sourceCard?.origin));
-		dispatch(cards.actions.tryResetSourceCard());
+		dispatch(
+			grabSelectionForSourceMenu(
+				type,
+				creationType,
+				(sourceCard as SourceCard).sourceField,
+				(sourceCard as SourceCard).origin,
+				cardID
+			)
+		);
 	};
 
 	const increment = incrementer();

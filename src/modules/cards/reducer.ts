@@ -3,8 +3,16 @@ import { CardsState, FinalizedCardPayload } from "./model";
 
 const intialState: CardsState = {
 	cards: {
-		"0": { cardID: "0", type: "Q-A", content: { q: "Was ist der Sinn des Lebens?", a: "42" } },
-		"1": { cardID: "1", type: "Q-A", content: { q: "Welches Layout macht mehr Sinn?", a: "??" } },
+		"0": {
+			cardID: "0",
+			type: "Q-A",
+			content: { q: "Was ist der Sinn des Lebens?", a: "42" },
+		},
+		"1": {
+			cardID: "1",
+			type: "Q-A",
+			content: { q: "Welches Layout macht mehr Sinn?", a: "??" },
+		},
 		"2": { cardID: "2", type: "Note", content: "Note here" },
 	},
 	lastCardIDNumber: 2,

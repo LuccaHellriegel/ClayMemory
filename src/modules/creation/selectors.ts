@@ -2,6 +2,8 @@ import { NAME } from "./constants";
 import { createSelector } from "reselect";
 import { CreationData } from "./model";
 import river from "../river";
+import display from "../display";
+import { SingleOrigin } from "../cards/model";
 
 export const getAll = (state: any) => state[NAME];
 
@@ -27,3 +29,15 @@ export const getContextMenuInitData = createSelector(
 export const getCurrentSelectedString = createSelector(getAll, (state: CreationData) => state.manuallySelectedString);
 
 export const getCurrentSelectedParent = createSelector(getAll, (state: CreationData) => state.selectedParentSpan);
+
+export const getCurrentOrigin = createSelector(
+	(state: any) => state,
+	display.selectors.getCurrentPage,
+	getCurrentSelectedParent,
+	(state, currentPage, selectedParent): SingleOrigin => {
+		return {
+			spanIndex: display.selectors.getSpanIndex(state, selectedParent as HTMLSpanElement),
+			page: currentPage,
+		};
+	}
+);

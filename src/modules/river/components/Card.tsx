@@ -1,13 +1,14 @@
 import Grid from "@material-ui/core/Grid";
 import React from "react";
 import { HybridCardField } from "./HybridCardField";
-import { CardConfig, QACardContent } from "../../cards/model";
+import { CardConfig, QACardContent, NoteOrigin, SingleOrigin, QAOrigin } from "../../cards/model";
 import { useDispatch } from "react-redux";
 import cards from "../../cards";
 import { DeleteCardButton } from "./DeleteCardButton";
 import { JumpToOriginButton } from "./JumpToOriginButton";
 import { GrabForFieldButton } from "./GrabForFieldButton";
 import { ExtractFromFieldButton } from "./ExtractFromFieldButton";
+import { isNullOrUndefined } from "util";
 
 //TODO-RC: tooltips for all buttons, multiple languages?
 
@@ -34,8 +35,8 @@ const NoteCard = ({ config }: CardProps) => {
 			></HybridCardField>
 			<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
 			<GrabForFieldButton cardConfig={config} creationType="NOTE"></GrabForFieldButton>
-			<ExtractFromFieldButton cardOrigin={config.origin}></ExtractFromFieldButton>
-			{config.origin && <JumpToOriginButton cardOrigin={config.origin}></JumpToOriginButton>}
+			<ExtractFromFieldButton cardOrigin={config.origin} sourceField="NOTE"></ExtractFromFieldButton>
+			{config.origin && <JumpToOriginButton cardOrigin={config.origin as NoteOrigin}></JumpToOriginButton>}
 		</div>
 	);
 };
@@ -57,7 +58,10 @@ const QACard = ({ config }: CardProps) => {
 					InputLabelProps={{ style: { color: "#000000" } }}
 				></HybridCardField>
 				<GrabForFieldButton cardConfig={config} creationType="Q"></GrabForFieldButton>
-				<ExtractFromFieldButton cardOrigin={config.origin}></ExtractFromFieldButton>
+				<ExtractFromFieldButton cardOrigin={config.origin} sourceField="Q"></ExtractFromFieldButton>
+				{config.origin && !isNullOrUndefined((config.origin as QAOrigin).q?.spanIndex) && (
+					<JumpToOriginButton cardOrigin={(config.origin as QAOrigin).q as SingleOrigin}></JumpToOriginButton>
+				)}
 			</Grid>
 			<Grid item>
 				<HybridCardField
@@ -71,11 +75,13 @@ const QACard = ({ config }: CardProps) => {
 					InputLabelProps={{ style: { color: "#000000" } }}
 				></HybridCardField>
 				<GrabForFieldButton cardConfig={config} creationType="A"></GrabForFieldButton>
-				<ExtractFromFieldButton cardOrigin={config.origin}></ExtractFromFieldButton>
+				<ExtractFromFieldButton cardOrigin={config.origin} sourceField="A"></ExtractFromFieldButton>
+				{config.origin && !isNullOrUndefined((config.origin as QAOrigin).a?.spanIndex) && (
+					<JumpToOriginButton cardOrigin={(config.origin as QAOrigin).a as SingleOrigin}></JumpToOriginButton>
+				)}
 			</Grid>
 			<Grid item>
 				<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
-				{config.origin && <JumpToOriginButton cardOrigin={config.origin}></JumpToOriginButton>}
 			</Grid>
 		</Grid>
 	);

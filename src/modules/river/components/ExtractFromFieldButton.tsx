@@ -2,7 +2,7 @@ import ExtensionIcon from "@material-ui/icons/Extension";
 import React from "react";
 import { IconButton } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { CardOrigin } from "../../cards/model";
+import { CardOrigin, CreationType } from "../../cards/model";
 import cards from "../../cards";
 import focus from "../../focus";
 
@@ -11,7 +11,13 @@ import focus from "../../focus";
 
 //TODO-RC, if text from the filed was already extracted this just opens the menu
 
-export const ExtractFromFieldButton = ({ cardOrigin }: { cardOrigin?: CardOrigin }) => {
+export const ExtractFromFieldButton = ({
+	cardOrigin,
+	sourceField,
+}: {
+	cardOrigin?: CardOrigin;
+	sourceField: CreationType;
+}) => {
 	const dispatch = useDispatch();
 
 	return (
@@ -21,7 +27,9 @@ export const ExtractFromFieldButton = ({ cardOrigin }: { cardOrigin?: CardOrigin
 				dispatch(focus.actions.tryUpdateFocus("EDITOR_CONTROL"));
 			}}
 			onClick={(event: any) => {
-				dispatch(cards.actions.setSourceCard(event.clientX as number, event.clientY as number, cardOrigin));
+				dispatch(
+					cards.actions.setSourceCard(event.clientX as number, event.clientY as number, sourceField, cardOrigin)
+				);
 			}}
 		>
 			<ExtensionIcon></ExtensionIcon>

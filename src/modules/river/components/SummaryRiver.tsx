@@ -1,4 +1,4 @@
-import { Paper, Typography, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { getRiverMakeUps } from "../selectors";
 import React from "react";
@@ -6,7 +6,7 @@ import cards from "../../cards";
 import { ChildCardRiver } from "./ChildCardRiver";
 import { incrementer } from "../../../shared/utils";
 
-//TODO-RC: SummaryRiver "searchable", so that you can zoom to certain rivers and also look at them next to each other
+//TODO-RC: SummaryRiver "searchable", so that you can zoom to certain rivers and also look at them next to each other (like PageChooser but needs different visuals)
 //TODO-RC: make cards searchable when looking at River/Material
 //TODO-RC: make separate Summary View that goes from left to right -> focus on active River
 export const SummaryRiver = () => {

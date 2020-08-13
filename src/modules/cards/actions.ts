@@ -1,4 +1,14 @@
-import { CardPayload, FinalizedCardPayload, CreationType, UpdateType, CardType, CardOrigin, CardConfig } from "./model";
+import {
+	CardPayload,
+	FinalizedCardPayload,
+	CreationType,
+	UpdateType,
+	CardType,
+	CardOrigin,
+	CardConfig,
+	QAOrigin,
+	SingleOrigin,
+} from "./model";
 import * as t from "./actionTypes";
 import { Dispatch } from "redux";
 import { getLastCardIDNumber, getCards, getSourceCard } from "./selectors";
@@ -35,9 +45,14 @@ export const updateCardContent = (
 		const currentCard = getCards(state)[cardID as string];
 		const config = contentStringToConfig(contentString, currentCard.type, creationType, updateType, currentCard);
 
+		// const newOrigin = origin
+		// 	? (currentCard.origin as QAOrigin)?.q
+		// 		? { ...currentCard.origin, [creationType === "Q" ? "q" : "a"]: origin }
+		// 		: origin
+		// 	: undefined;
 		dispatch(
 			cardUpdate({
-				card: origin ? { ...config, origin } : config,
+				card: { ...config, origin },
 			})
 		);
 	};
@@ -51,7 +66,15 @@ export const pushCardContent = (
 	origin?: CardOrigin
 ) => {
 	const config = contentStringToConfig(contentString, type, creationType, updateType);
-	return origin ? cardPush({ card: { ...config, origin } }) : cardPush({ card: config });
+	// const newOrigin =
+	// 	creationType !== "NOTE" && origin ? { q: {}, a: {}, [creationType === "Q" ? "q" : "a"]: origin } : origin;
+
+	// const newOrigin = origin
+	// 	? (origin as QAOrigin)?.q
+	// 		? { ...origin, [creationType === "Q" ? "q" : "a"]: origin }
+	// 		: origin
+	// 	: undefined;
+	return cardPush({ card: { ...config, origin } });
 };
 
 export const removeCard = (cardID: string) => {
@@ -66,8 +89,8 @@ export const resetGoalCard = () => {
 	return { type: t.CARD_GOAL, payload: null };
 };
 
-export const setSourceCard = (x: number, y: number, origin?: CardOrigin) => {
-	return { type: t.CARD_SOURCE, payload: { origin, x, y } };
+export const setSourceCard = (x: number, y: number, sourceField: CreationType, origin?: CardOrigin) => {
+	return { type: t.CARD_SOURCE, payload: { origin, x, y, sourceField } };
 };
 
 export const resetSourceCard = () => {

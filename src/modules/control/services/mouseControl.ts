@@ -25,7 +25,14 @@ export const mouseUpControl = (event: MouseEvent) => {
 				const goalCard = cards.selectors.getGoalCard(state);
 				const userFocus = focus.selectors.getFocus(state);
 
-				if (goalCard && (userFocus === "EDITOR" || userFocus === "SELECTION")) {
+				const shouldGrab = userFocus === "EDITOR" || userFocus === "SELECTION";
+
+				if (goalCard && shouldGrab) {
+					// this is the dispatch for the grab for field button
+					//(which has been pressed before the mouse-up if goalCard is not null), here we actually update the goal card
+
+					//TODO-RC: what if another card is the source?
+					//We actually want to copy that origin or get the new origin, if we select from the document
 					dispatch(
 						cards.actions.updateCardContent(
 							selectedStr,
@@ -37,6 +44,7 @@ export const mouseUpControl = (event: MouseEvent) => {
 					);
 					dispatch(cards.actions.resetGoalCard());
 				} else {
+					// this is the dispatch for the ContextMenu
 					if (userFocus === "SELECTION") {
 						//if the user is focused on the document, the push-to river should always be the active=page-wise river
 						dispatch(river.actions.setPushToRiver(river.selectors.getActiveRiverMakeUpID(state)));
@@ -46,8 +54,8 @@ export const mouseUpControl = (event: MouseEvent) => {
 						dispatch(creation.actions.openContextMenu());
 					}
 
+					// this is the dispatch to prepare for extraction from card
 					if (userFocus === "EDITOR") {
-						dispatch(creation.actions.selectedParent(selection.anchorNode?.parentNode as HTMLSpanElement));
 						dispatch(creation.actions.updateManuallySelectedString(selectedStr));
 					}
 				}
