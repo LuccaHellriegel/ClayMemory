@@ -31,7 +31,7 @@ export const mouseUpControl = (event: MouseEvent) => {
 					// this is the dispatch for the grab for field button
 					//(which has been pressed before the mouse-up if goalCard is not null), here we actually update the goal card
 
-					//TODO-RC: what if another card is the source?
+					//TODO-RC: what if another card is the source? if userFocus === "EDITOR" it is from another card
 					//We actually want to copy that origin or get the new origin, if we select from the document
 					dispatch(
 						cards.actions.updateCardContent(

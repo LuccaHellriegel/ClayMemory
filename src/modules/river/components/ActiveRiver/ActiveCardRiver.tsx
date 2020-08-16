@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getActiveRiverCards, getActiveRiverMakeUpID } from "../selectors";
-import { ChildCardRiver } from "./ChildCardRiver";
+import { getActiveRiverCards, getActiveRiverMakeUpID } from "../../selectors";
+import { ChildCardRiver } from "../CardRiver/ChildCardRiver";
 
 //TODO-RC: improve visual clarity of mapping ContextMenu to River
 

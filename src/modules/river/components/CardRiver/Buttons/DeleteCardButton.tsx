@@ -2,8 +2,8 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import React from "react";
 import { IconButton } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import cards from "../../cards";
-import focus from "../../focus";
+import cards from "../../../../cards";
+import focus from "../../../../focus";
 
 //TODO-RC: Undo / Redo for Card-Deletions and also Card_Push and Card_Updates
 //TODO-RC: make confirmation overlap

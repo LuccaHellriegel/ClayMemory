@@ -4,10 +4,10 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Grid from "@material-ui/core/Grid";
 import React, { useState } from "react";
-import { trySetPushToRiver } from "../actions";
+import { trySetPushToRiver } from "../../actions";
 import { useDispatch } from "react-redux";
-import { AddNoteButton } from "./AddNoteButton";
-import { AddQAButton } from "./AddQAButton";
+import { AddNoteButton } from "./Buttons/AddNoteButton";
+import { AddQAButton } from "./Buttons/AddQAButton";
 
 //TODO-NICE: make it not be accordion but closeable?
 

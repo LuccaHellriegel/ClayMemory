@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextField, TextFieldProps } from "@material-ui/core";
-import focus from "../../focus";
+import focus from "../../../focus";
 import { useDispatch } from "react-redux";
 
 export const HybridCardField = ({

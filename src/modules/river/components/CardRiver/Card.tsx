@@ -1,13 +1,13 @@
 import Grid from "@material-ui/core/Grid";
 import React from "react";
 import { HybridCardField } from "./HybridCardField";
-import { CardConfig, QACardContent, NoteOrigin, SingleOrigin, QAOrigin } from "../../cards/model";
+import { CardConfig, QACardContent, NoteOrigin, SingleOrigin, QAOrigin } from "../../../cards/model";
 import { useDispatch } from "react-redux";
-import cards from "../../cards";
-import { DeleteCardButton } from "./DeleteCardButton";
-import { JumpToOriginButton } from "./JumpToOriginButton";
-import { GrabForFieldButton } from "./GrabForFieldButton";
-import { ExtractFromFieldButton } from "./ExtractFromFieldButton";
+import cards from "../../../cards";
+import { DeleteCardButton } from "./Buttons/DeleteCardButton";
+import { JumpToOriginButton } from "./Buttons/JumpToOriginButton";
+import { GrabForFieldButton } from "./Buttons/GrabForFieldButton";
+import { ExtractFromFieldButton } from "./Buttons/ExtractFromFieldButton";
 import { isNullOrUndefined } from "util";
 
 //TODO-RC: tooltips for all buttons, multiple languages?

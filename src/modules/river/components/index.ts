@@ -1,4 +1,4 @@
-import { ActiveCardRiver } from "./ActiveCardRiver";
-import { ShowRiverButton } from "./ShowRiverButton";
-import { SummaryRiver } from "./SummaryRiver";
-export { ActiveCardRiver, ShowRiverButton, SummaryRiver };
+import { SummaryRiverView } from "./SummaryRiver/SummaryRiverView";
+import { ActiveRiverView } from "./ActiveRiver/ActiveRiverView";
+
+export { ActiveRiverView, SummaryRiverView };

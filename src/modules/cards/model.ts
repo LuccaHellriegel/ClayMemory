@@ -6,7 +6,6 @@ type CardContent = string | QACardContent;
 
 export type SingleOrigin = { spanIndex: number; page: number };
 
-//TODO-RC: origin needs to be per field (q/a) and not for whole card
 export type QAOrigin = { q: { spanIndex?: number; page?: number }; a?: { spanIndex?: number; page?: number } };
 
 export type NoteOrigin = SingleOrigin;

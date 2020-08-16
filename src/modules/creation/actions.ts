@@ -3,14 +3,17 @@ import { CardType, CreationType, CardOrigin, QAOrigin, SingleOrigin } from "../c
 import cards from "../cards";
 import focus from "../focus";
 import { getCurrentSelectedString, getCurrentSelectedParent, getContextMenuState, getCurrentOrigin } from "./selectors";
-import display from "../display";
 import { isNullOrUndefined } from "util";
 import { transformInputOrigin } from "./services/transformInputOrigin";
+import display from "../display";
 
 export const toggleContextMenu = () => {
-	return (dispatch: any) => {
-		dispatch({ type: t.TOGGLE_CONTEXT_MENU });
-		dispatch(focus.actions.toggleContextMenuFocus());
+	return (dispatch: any, getState: Function) => {
+		const state = getState();
+		if (display.selectors.getDataExists(state)) {
+			dispatch({ type: t.TOGGLE_CONTEXT_MENU });
+			dispatch(focus.actions.toggleContextMenuFocus());
+		}
 	};
 };
 
@@ -76,7 +79,6 @@ export const grabSelectionForSourceMenu = (
 		// close SourceMenu by resetting SourceCard
 		dispatch(cards.actions.resetSourceCard());
 
-		//TODO-RC: if selection is from other-card then copy card-origin
 		const updateType = "REPLACE";
 		const isUpdate = cardID !== undefined;
 
@@ -93,7 +95,8 @@ export const grabSelectionForSourceMenu = (
 			: undefined;
 		const selectedString = getCurrentSelectedString(state);
 
-		//TODO-NICE: untangle the types so that the as CardOrigin is not necessary in the dispatch
+		//TODO-NICE: untangle the types so that the as CardOrigin is not necessary in the dispatch,
+		//maybe merge content and origin to avoid two object hierarchies?
 		if (isUpdate) {
 			dispatch(
 				cards.actions.updateCardContent(

@@ -1,23 +1,23 @@
-import FeaturedPlayListIcon from "@material-ui/icons/FeaturedPlayList";
+import FeaturedVideoIcon from "@material-ui/icons/FeaturedVideo";
 import React from "react";
 import { IconButton } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import cards from "../../cards";
-import focus from "../../focus";
+import cards from "../../../../cards";
+import focus from "../../../../focus";
 
-export const AddQAButton = () => {
+export const AddNoteButton = () => {
 	const dispatch = useDispatch();
 	return (
 		<IconButton
 			type="button"
 			onClick={() => {
-				dispatch(cards.actions.cardPush({ card: { type: "Q-A", content: { q: "", a: "" } } }));
+				dispatch(cards.actions.cardPush({ card: { type: "Note", content: "" } }));
 			}}
 			onMouseEnter={() => {
 				dispatch(focus.actions.tryUpdateFocus("EDITOR_CONTROL"));
 			}}
 		>
-			<FeaturedPlayListIcon></FeaturedPlayListIcon>
+			<FeaturedVideoIcon></FeaturedVideoIcon>
 		</IconButton>
 	);
 };

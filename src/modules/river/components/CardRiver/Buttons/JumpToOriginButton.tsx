@@ -2,9 +2,9 @@ import FindInPageIcon from "@material-ui/icons/FindInPage";
 import React from "react";
 import { IconButton } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import display from "../../display";
-import { SingleOrigin } from "../../cards/model";
-import focus from "../../focus";
+import display from "../../../../display";
+import { SingleOrigin } from "../../../../cards/model";
+import focus from "../../../../focus";
 
 export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin }) => {
 	const dispatch = useDispatch();

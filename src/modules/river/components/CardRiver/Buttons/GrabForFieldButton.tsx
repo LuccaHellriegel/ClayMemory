@@ -3,10 +3,9 @@ import PanToolOutlinedIcon from "@material-ui/icons/PanToolOutlined";
 import React, { useState } from "react";
 import { IconButton } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { CardConfig, CreationType, GoalCard } from "../../cards/model";
-import cards from "../../cards";
-import { getGoalCard } from "../../cards/selectors";
-import focus from "../../focus";
+import { CardConfig, CreationType, GoalCard } from "../../../../cards/model";
+import cards from "../../../../cards";
+import focus from "../../../../focus";
 
 const isGoalCard = (cardConfig: CardConfig, creationType: CreationType, goalCard: GoalCard) =>
 	cardConfig.cardID === goalCard.cardID && creationType === goalCard.creationType;
@@ -19,7 +18,7 @@ export const GrabForFieldButton = ({
 	creationType: CreationType;
 }) => {
 	const dispatch = useDispatch();
-	const goalCard = useSelector(getGoalCard);
+	const goalCard = useSelector(cards.selectors.getGoalCard);
 	const [outlined, setOutlined] = useState(true);
 
 	if (goalCard) {

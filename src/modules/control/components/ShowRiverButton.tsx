@@ -4,7 +4,7 @@ import SpeakerNotesTwoToneIcon from "@material-ui/icons/SpeakerNotesTwoTone";
 import React from "react";
 import { IconButton } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { toggleRiverShowState } from "../actions";
+import river from "../../river";
 
 export const ShowRiverButton = () => {
 	const [outlined, setOutlined] = useState(true);
@@ -13,7 +13,7 @@ export const ShowRiverButton = () => {
 		<IconButton
 			type="button"
 			onClick={() => {
-				dispatch(toggleRiverShowState());
+				dispatch(river.actions.toggleRiverShowState());
 				setOutlined(!outlined);
 			}}
 		>
