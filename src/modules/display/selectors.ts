@@ -5,7 +5,7 @@ import { NAME } from "./constants";
 export const getAll = (state: any) => state[NAME];
 
 export const getPDF = createSelector(getAll, (state: DisplayData) => {
-	return { pdf: state.pdf };
+	return { pdf: state.pdf ? state.pdf : null };
 });
 
 export const getRenderCritialData = createSelector(getAll, (state: DisplayData) => {

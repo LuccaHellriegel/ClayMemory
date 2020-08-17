@@ -5,7 +5,6 @@ import Paper from "@material-ui/core/Paper";
 import focus from "../../focus";
 import { useDispatch } from "react-redux";
 import { PDFDocumentContainer } from "./PDFDocument/PDFDocument";
-import { PDFUploadContainer } from "./PDFUpload";
 
 function MaterialDisplayColumn({ size, hidden }: any) {
 	const dispatch = useDispatch();
@@ -29,7 +28,6 @@ function MaterialDisplayColumn({ size, hidden }: any) {
 		>
 			<Paper elevation={elevation}>
 				<PDFDocumentContainer parentSize={size}></PDFDocumentContainer>
-				<PDFUploadContainer></PDFUploadContainer>
 			</Paper>
 		</Grid>
 	);

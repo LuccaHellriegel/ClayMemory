@@ -6,11 +6,15 @@ import { getPageControlData, getDisplayStatus, getZoomQueue, getTimeStamp, getMa
 import { incrementer } from "../../shared/utils";
 import { materialData } from "./services/materialData";
 
+export const pdfUpload = (pdf: File) => {
+	return { type: t.PDF_UPLOADED, payload: pdf };
+};
+
 export const materialUploaded = (event: ChangeEvent<HTMLInputElement>) => {
 	return (dispatch: Dispatch) => {
 		const files = event.target.files;
 		const pdf = files ? files[0] : null;
-		if (pdf) dispatch({ type: t.PDF_UPLOADED, payload: pdf });
+		if (pdf) dispatch(pdfUpload(pdf));
 	};
 };
 

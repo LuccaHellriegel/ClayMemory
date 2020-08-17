@@ -5,6 +5,7 @@ import * as t from "./actionTypes";
 import display from "../display";
 import focus from "../focus";
 import { UserFocus } from "../focus/model";
+import { CentralControlRiver } from "../control/model";
 
 const intialState: CardRiverState = {
 	riverMakeUps: {
@@ -97,6 +98,18 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 				return { ...state, hoveredCard: null, hoveredField: null };
 			} else {
 				return state;
+			}
+		case cards.actionTypes.GLOBAL_RESET:
+			if (payload) {
+				return {
+					...intialState,
+					riverMakeUps: (payload as CentralControlRiver).riverMakeUps,
+					activeRiverMakeUpID: (payload as CentralControlRiver).activeRiverMakeUpID,
+					pushToRiverID: (payload as CentralControlRiver).pushToRiverID,
+					lastRiverIDNumber: (payload as CentralControlRiver).lastRiverIDNumber,
+				};
+			} else {
+				return intialState;
 			}
 		default:
 			return state;

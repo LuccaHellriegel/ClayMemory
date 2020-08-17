@@ -43,3 +43,5 @@ export const riverShowStateIsShow = createSelector(getRiverShowState, (state) =>
 export const getHoveredCardData = createSelector(getAll, (state: CardRiverState) => {
 	return { id: state.hoveredCard, field: state.hoveredField };
 });
+
+export const getLastRiverIDNumber = createSelector(getAll, (state: CardRiverState) => state.lastRiverIDNumber);

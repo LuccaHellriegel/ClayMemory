@@ -1,5 +1,6 @@
 import * as t from "./actionTypes";
 import { CardsState, FinalizedCardPayload } from "./model";
+import { CentralControlCards } from "../control/model";
 
 const intialState: CardsState = {
 	cards: {
@@ -53,6 +54,16 @@ const cards = (state = intialState, { type, payload }: { type: string; payload?:
 			return { ...state, goalCard: payload };
 		case t.CARD_SOURCE:
 			return { ...state, sourceCard: payload };
+		case t.GLOBAL_RESET:
+			if (payload) {
+				return {
+					...intialState,
+					cards: (payload as CentralControlCards).cards,
+					lastCardIDNumber: (payload as CentralControlCards).lastCardIDNumber,
+				};
+			} else {
+				return intialState;
+			}
 		default:
 			return state;
 	}

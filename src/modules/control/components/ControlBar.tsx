@@ -4,6 +4,7 @@ import React, { ChangeEvent } from "react";
 import { AppBar, Toolbar, Divider, Tabs, Tab, Grid } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { ShowRiverButton } from "./ShowRiverButton";
+import { DocumentChooser } from "./DocumentChooser";
 
 //TODO-RC: make dropdown menu (or drawer?) for switching documents (how to make cross-document stapels?), download csv for Anki / json for loading, loading option
 //TODO-NICE: save PDF somehow
@@ -42,6 +43,8 @@ export const ControlBar = () => {
 					<Divider orientation="vertical" flexItem />
 					{value === 0 && <ShowRiverButton></ShowRiverButton>}
 					{value === 0 && <display.components.ShowMaterialButton></display.components.ShowMaterialButton>}
+					{value === 0 && <Divider orientation="vertical" flexItem />}
+					<DocumentChooser></DocumentChooser>
 				</Toolbar>
 			</AppBar>
 		</Grid>

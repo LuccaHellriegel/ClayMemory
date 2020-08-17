@@ -7,6 +7,8 @@ import { materialLoaded, setPage, captureMaterialData } from "../../actions";
 import { getRenderCritialData } from "../../selectors";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+//TODO-NICE: implent more pdf-reader functionality, like zoom
+
 function removeTextLayerOffset() {
 	const textLayers = document.querySelectorAll(".react-pdf__Page__textContent");
 	textLayers.forEach((layer) => {

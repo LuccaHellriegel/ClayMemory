@@ -9,7 +9,6 @@ const focus = (state = initialState, { type, payload }: { type: string; payload:
 			return { ...state, userFocus: payload as UserFocus };
 		case t.DISPLAY_FOCUS_UPDATE:
 			return { ...state, displayFocus: payload as DisplayFocus };
-
 		default:
 			return state;
 	}

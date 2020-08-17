@@ -13,6 +13,7 @@ import { CreationData } from "./modules/creation/model";
 import { createRef } from "react";
 import { DisplayData } from "./modules/display/model";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import control from "./modules/control";
 
 const rootReducer = combineReducers({
 	[focus.constants.NAME]: focus.reducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
 	[river.constants.NAME]: river.reducer,
 	[display.constants.NAME]: display.reducer,
 	[cards.constants.NAME]: cards.reducer,
+	[control.constants.NAME]: control.reducer,
 });
 
 const stateSanitizer = (state: any) => {
@@ -37,6 +39,7 @@ const creationTransform = createTransform(
 );
 
 //TODO-NICE: find way to save PDF in browser, maybe manually use indexeddb and use that in transform?
+// idea: make store-field pdfAsBase64 and use thunk for async-filling the field, then when reloading, use thunk to format
 // const reader = new FileReaderSync();
 
 // function readFileAsync(file: File) {

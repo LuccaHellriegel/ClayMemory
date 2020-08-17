@@ -2,7 +2,7 @@ import { CreationType } from "../cards/model";
 
 export type RiverMakeUp = { riverID: string; cardIDs: string[]; active: boolean };
 
-type RiverMakeUps = { [riverID: string]: RiverMakeUp };
+export type RiverMakeUps = { [riverID: string]: RiverMakeUp };
 
 export type RiverShowState = "SHOW" | "HIDE";
 

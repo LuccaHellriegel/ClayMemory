@@ -21,6 +21,8 @@ type CardProps = { config: CardConfig; riverID: string };
 
 const borderStyle = { border: "2px solid green", borderRadius: "4px" };
 
+//TODO-RC: investigate if this hover-store approach is too slow, useRef instead?
+
 const NoteCard = ({ config }: CardProps) => {
 	const dispatch = useDispatch();
 	const { id } = useSelector(getHoveredCardData);
