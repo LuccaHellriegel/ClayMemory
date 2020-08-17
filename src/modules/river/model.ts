@@ -13,3 +13,5 @@ export type CardRiverState = {
 };
 
 export const pageNumberToRiverMakeUpID = (page: number) => "CardRiver " + page;
+
+export const riverMakeUpIDToPageNumber = (riverID: string) => parseInt(riverID.replace("CardRiver ", ""));
