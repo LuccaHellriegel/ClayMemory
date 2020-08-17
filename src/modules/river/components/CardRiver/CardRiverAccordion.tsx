@@ -5,9 +5,10 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Grid from "@material-ui/core/Grid";
 import React, { useState } from "react";
 import { trySetPushToRiver } from "../../actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AddNoteButton } from "./Buttons/AddNoteButton";
 import { AddQAButton } from "./Buttons/AddQAButton";
+import { getPushToRiver } from "../../selectors";
 
 //TODO-NICE: make it not be accordion but closeable?
 
@@ -20,17 +21,23 @@ export const CardRiverAccordion = ({
 	gridItems: any;
 	summary: string;
 }) => {
-	const [elevation, setElevation] = useState(3);
+	const defaultElevation = 3;
+	const highlightElevation = 20;
+	const [elevation, setElevation] = useState(defaultElevation);
+	const pushToRiver = useSelector(getPushToRiver);
+
+	if (riverID === pushToRiver && elevation === defaultElevation) {
+		setElevation(highlightElevation);
+	} else if (riverID !== pushToRiver && elevation !== defaultElevation) {
+		setElevation(defaultElevation);
+	}
+
 	const dispatch = useDispatch();
 	return (
 		<Accordion
 			defaultExpanded={true}
 			onMouseEnter={() => {
-				setElevation(20);
 				dispatch(trySetPushToRiver(riverID));
-			}}
-			onMouseLeave={() => {
-				setElevation(3);
 			}}
 			elevation={elevation}
 		>

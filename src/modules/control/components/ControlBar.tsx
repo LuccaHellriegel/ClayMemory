@@ -1,5 +1,4 @@
 import display from "../../display";
-import river from "../../river";
 import focus from "../../focus";
 import React, { ChangeEvent } from "react";
 import { AppBar, Toolbar, Divider, Tabs, Tab, Grid } from "@material-ui/core";
@@ -32,7 +31,7 @@ export const ControlBar = () => {
 				dispatch(focus.actions.tryUpdateFocus("CONTROL"));
 			}}
 		>
-			<AppBar position="static">
+			<AppBar>
 				<Toolbar variant="dense">
 					<Tabs value={value} onChange={handleChange}>
 						<Tab label="ActiveRiver" />

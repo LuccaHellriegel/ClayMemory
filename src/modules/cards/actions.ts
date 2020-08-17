@@ -1,14 +1,4 @@
-import {
-	CardPayload,
-	FinalizedCardPayload,
-	CreationType,
-	UpdateType,
-	CardType,
-	CardOrigin,
-	CardConfig,
-	QAOrigin,
-	SingleOrigin,
-} from "./model";
+import { CardPayload, FinalizedCardPayload, CreationType, UpdateType, CardType, CardOrigin, CardConfig } from "./model";
 import * as t from "./actionTypes";
 import { Dispatch } from "redux";
 import { getLastCardIDNumber, getCards, getSourceCard } from "./selectors";
