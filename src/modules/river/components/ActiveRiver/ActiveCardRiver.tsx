@@ -11,12 +11,9 @@ import { ChildCardRiver } from "../CardRiver/ChildCardRiver";
 //TODO-RC: selection in CardRiver should stay highlighted when the contextMenu opens?
 
 //TODO-NICE: contextMenu as permant element, maybe sidebar?
-
 //TODO-NICE: preview in ContextMenu of how selected string would be used
 
-//TODO-RC: make butto where you can choose from the Card-field in the Card-River and then select what should go in there (reverse selection idea?)
-
-//TODO-RC, new A, new Q, SummaryNotes (maybe just SummaryRiver but with filter clickable?)
+//TODO-RC: SummaryNotes (maybe just SummaryRiver but with filter clickable?)
 export const ActiveCardRiver = () => {
 	const riverID = useSelector(getActiveRiverMakeUpID);
 	const riverCards = useSelector(getActiveRiverCards);

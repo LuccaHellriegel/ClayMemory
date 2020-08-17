@@ -8,9 +8,7 @@ import { incrementer } from "../../../shared/utils";
 import { CardConfig, CardType, CreationType, SourceCard } from "../../cards/model";
 import cards from "../../cards";
 import { CardConfigItem } from "./CardConfigItem";
-
-const NewQACard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q-A</MenuItem>;
-const NewNoteCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Note</MenuItem>;
+import { NewButtons } from "./NewButtons";
 
 function SourceMenu({
 	menuRef,
@@ -59,18 +57,19 @@ function SourceMenu({
 				))}
 			{openState && riverCards.length > 0 && <Divider />}
 
-			{openState && [
-				<NewQACard
-					onClick={() => {
-						dispatchRiver("Q-A", "Q");
-					}}
-				></NewQACard>,
-				<NewNoteCard
-					onClick={() => {
+			{openState && (
+				<NewButtons
+					noteClick={() => {
 						dispatchRiver("Note", "NOTE");
 					}}
-				></NewNoteCard>,
-			]}
+					qClick={() => {
+						dispatchRiver("Q-A", "Q");
+					}}
+					aClick={() => {
+						dispatchRiver("Q-A", "A");
+					}}
+				></NewButtons>
+			)}
 		</Menu>
 	);
 }

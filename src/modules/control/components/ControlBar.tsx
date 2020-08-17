@@ -6,8 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ShowRiverButton } from "./ShowRiverButton";
 
 //TODO-RC: make dropdown menu (or drawer?) for switching documents (how to make cross-document stapels?), download csv for Anki / json for loading, loading option
-//TODO-RC: save PDF somehow
-//TODO-RC: merge tabs with controlbar
+//TODO-NICE: save PDF somehow
 export const ControlBar = () => {
 	const dispatch = useDispatch();
 	const displayFocus = useSelector(focus.selectors.getDisplayFocus);
@@ -23,7 +22,6 @@ export const ControlBar = () => {
 	};
 
 	const totalPages = useSelector(display.selectors.getTotalPages);
-	//TODO-RC: show active River ID or higlight it in some way? with the mouse-enter pattern this could lead to weird edge cases otherwise
 	return (
 		<Grid
 			item

@@ -35,11 +35,6 @@ export const updateCardContent = (
 		const currentCard = getCards(state)[cardID as string];
 		const config = contentStringToConfig(contentString, currentCard.type, creationType, updateType, currentCard);
 
-		// const newOrigin = origin
-		// 	? (currentCard.origin as QAOrigin)?.q
-		// 		? { ...currentCard.origin, [creationType === "Q" ? "q" : "a"]: origin }
-		// 		: origin
-		// 	: undefined;
 		dispatch(
 			cardUpdate({
 				card: { ...config, origin },
@@ -56,14 +51,7 @@ export const pushCardContent = (
 	origin?: CardOrigin
 ) => {
 	const config = contentStringToConfig(contentString, type, creationType, updateType);
-	// const newOrigin =
-	// 	creationType !== "NOTE" && origin ? { q: {}, a: {}, [creationType === "Q" ? "q" : "a"]: origin } : origin;
 
-	// const newOrigin = origin
-	// 	? (origin as QAOrigin)?.q
-	// 		? { ...origin, [creationType === "Q" ? "q" : "a"]: origin }
-	// 		: origin
-	// 	: undefined;
 	return cardPush({ card: { ...config, origin } });
 };
 

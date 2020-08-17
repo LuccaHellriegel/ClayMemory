@@ -1,15 +1,13 @@
 import React, { RefObject } from "react";
 import Menu from "@material-ui/core/Menu";
-import { MenuItem, Divider } from "@material-ui/core";
+import { Divider } from "@material-ui/core";
 import { useDispatch, connect } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
 import { grabSelectionForContextMenu } from "../actions";
 import { incrementer } from "../../../shared/utils";
 import { CardConfig, CardType, CreationType } from "../../cards/model";
 import { CardConfigItem } from "./CardConfigItem";
-
-const NewQACard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q-A</MenuItem>;
-const NewNoteCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Note</MenuItem>;
+import { NewButtons } from "./NewButtons";
 
 function ContextMenu({
 	position,
@@ -57,18 +55,19 @@ function ContextMenu({
 				))}
 			{openState && riverCards.length > 0 && <Divider />}
 
-			{openState && [
-				<NewQACard
-					onClick={() => {
-						dispatchRiver("Q-A", "Q");
-					}}
-				></NewQACard>,
-				<NewNoteCard
-					onClick={() => {
+			{openState && (
+				<NewButtons
+					noteClick={() => {
 						dispatchRiver("Note", "NOTE");
 					}}
-				></NewNoteCard>,
-			]}
+					qClick={() => {
+						dispatchRiver("Q-A", "Q");
+					}}
+					aClick={() => {
+						dispatchRiver("Q-A", "A");
+					}}
+				></NewButtons>
+			)}
 		</Menu>
 	);
 }
