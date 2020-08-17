@@ -11,6 +11,8 @@ export const getDocumentDB = createSelector(getAll, (state: CentralControl) => s
 
 export const getDocumentNames = createSelector(getDocumentDB, (db) => Object.keys(db));
 
+export const getDocumentDataSets = createSelector(getDocumentDB, (db) => Object.values(db));
+
 export const getCurrentDBData: (state: any) => DocumentData | null = createSelector(
 	display.selectors.getPDF,
 	river.selectors.getRiverMakeUps,

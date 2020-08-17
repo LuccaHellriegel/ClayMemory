@@ -1,4 +1,4 @@
-import { CentralControl, DocumentData } from "./model";
+import { CentralControl, DocumentData, DocumentDB } from "./model";
 import * as t from "./actionTypes";
 
 const initialState: CentralControl = { documentDB: {} };
@@ -7,11 +7,25 @@ const initialState: CentralControl = { documentDB: {} };
 
 const centralControl = (
 	state = initialState,
-	{ type, payload }: { type: string; payload: DocumentData }
+	{ type, payload }: { type: string; payload: DocumentData | DocumentData[] }
 ): CentralControl => {
 	switch (type) {
 		case t.ARCHIVE_CURRENT_DATA:
-			return { ...state, documentDB: { ...state.documentDB, [payload.name]: payload } };
+			return {
+				...state,
+				documentDB: { ...state.documentDB, [(payload as DocumentData).name]: payload as DocumentData },
+			};
+		case t.LOAD_DOCUMENT_DATA_SETS:
+			return {
+				...state,
+				documentDB: {
+					...state.documentDB,
+					...(payload as DocumentData[]).reduce((prev, dbData) => {
+						prev[dbData.name] = dbData;
+						return prev;
+					}, {} as DocumentDB),
+				},
+			};
 		default:
 			return state;
 	}

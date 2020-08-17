@@ -20,4 +20,6 @@ export type DocumentData = {
 } & CentralControlRiver &
 	CentralControlCards;
 
-export type CentralControl = { documentDB: { [name: string]: DocumentData } };
+export type DocumentDB = { [name: string]: DocumentData };
+
+export type CentralControl = { documentDB: DocumentDB };

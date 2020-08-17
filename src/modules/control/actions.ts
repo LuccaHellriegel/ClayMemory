@@ -34,3 +34,7 @@ export const changeDocument = (pdf: File) => {
 		}
 	};
 };
+
+export const loadDocumentDataSets = (dbData: DocumentData[]) => {
+	return { type: t.LOAD_DOCUMENT_DATA_SETS, payload: dbData };
+};
