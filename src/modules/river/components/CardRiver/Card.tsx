@@ -2,13 +2,14 @@ import Grid from "@material-ui/core/Grid";
 import React from "react";
 import { HybridCardField } from "./HybridCardField";
 import { CardConfig, QACardContent, NoteOrigin, SingleOrigin, QAOrigin } from "../../../cards/model";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import cards from "../../../cards";
 import { DeleteCardButton } from "./Buttons/DeleteCardButton";
 import { JumpToOriginButton } from "./Buttons/JumpToOriginButton";
 import { GrabForFieldButton } from "./Buttons/GrabForFieldButton";
 import { ExtractFromFieldButton } from "./Buttons/ExtractFromFieldButton";
 import { isNullOrUndefined } from "util";
+import { getHoveredCardData } from "../../selectors";
 
 //TODO-RC: tooltips for all buttons, multiple languages?
 
@@ -18,11 +19,15 @@ import { isNullOrUndefined } from "util";
 
 type CardProps = { config: CardConfig; riverID: string };
 
+const borderStyle = { border: "2px solid green", borderRadius: "4px" };
+
 const NoteCard = ({ config }: CardProps) => {
 	const dispatch = useDispatch();
+	const { id } = useSelector(getHoveredCardData);
+	const isHoveredCard = config.cardID === id;
 
 	return (
-		<div>
+		<div style={isHoveredCard ? borderStyle : undefined}>
 			<HybridCardField
 				saveChanges={(value) => {
 					dispatch(cards.actions.updateCardContent(value, config.cardID, "NOTE", "REPLACE", config.origin));
@@ -43,10 +48,12 @@ const NoteCard = ({ config }: CardProps) => {
 
 const QACard = ({ config }: CardProps) => {
 	const dispatch = useDispatch();
+	const { id, field } = useSelector(getHoveredCardData);
+	const isHoveredCard = config.cardID === id;
 
 	return (
 		<Grid container direction="column" spacing={1}>
-			<Grid item>
+			<Grid item style={isHoveredCard && field === "Q" ? borderStyle : undefined}>
 				<HybridCardField
 					saveChanges={(value) => {
 						dispatch(cards.actions.updateCardContent(value, config.cardID, "Q", "REPLACE", config.origin));
@@ -63,7 +70,7 @@ const QACard = ({ config }: CardProps) => {
 					<JumpToOriginButton cardOrigin={(config.origin as QAOrigin).q as SingleOrigin}></JumpToOriginButton>
 				)}
 			</Grid>
-			<Grid item>
+			<Grid item style={isHoveredCard && field === "A" ? borderStyle : undefined}>
 				<HybridCardField
 					saveChanges={(value) => {
 						dispatch(cards.actions.updateCardContent(value, config.cardID, "A", "REPLACE", config.origin));

@@ -1,6 +1,6 @@
 import React, { RefObject } from "react";
 import Menu from "@material-ui/core/Menu";
-import { MenuItem, Divider } from "@material-ui/core";
+import { Divider } from "@material-ui/core";
 import { useDispatch, useSelector, connect } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
 import { grabSelectionForSourceMenu } from "../actions";

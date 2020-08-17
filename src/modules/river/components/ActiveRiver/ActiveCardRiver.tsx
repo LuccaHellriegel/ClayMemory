@@ -10,6 +10,9 @@ import { ChildCardRiver } from "../CardRiver/ChildCardRiver";
 
 //TODO-RC: selection in CardRiver should stay highlighted when the contextMenu opens?
 
+//TODO-RC: move filled cards to separate sub-menu at the bottom, so they can be filled either way
+//TODO-RC make border around hovered card
+
 //TODO-NICE: contextMenu as permant element, maybe sidebar?
 //TODO-NICE: preview in ContextMenu of how selected string would be used
 

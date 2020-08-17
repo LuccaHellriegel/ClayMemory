@@ -3,6 +3,8 @@ import { FinalizedCardPayload } from "../cards/model";
 import cards from "../cards";
 import * as t from "./actionTypes";
 import display from "../display";
+import focus from "../focus";
+import { UserFocus } from "../focus/model";
 
 const intialState: CardRiverState = {
 	riverMakeUps: {
@@ -17,6 +19,8 @@ const intialState: CardRiverState = {
 	activeRiverMakeUpID: pageNumberToRiverMakeUpID(1),
 	lastRiverIDNumber: 1,
 	riverShowState: "SHOW",
+	hoveredCard: null,
+	hoveredField: null,
 };
 
 const emptyCardRiver = (page: number): RiverMakeUp => {
@@ -84,6 +88,16 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 			return { ...state, riverShowState: payload as RiverShowState };
 		case t.RIVER_PUSH_STATE:
 			return { ...state, pushToRiverID: payload };
+		case t.RIVER_HOVERED_CARD:
+			return { ...state, hoveredCard: payload.id, hoveredField: payload.field };
+		case focus.actionTypes.FOCUS_UPDATE:
+			// reset hovered-card once we are not focused on the context menu
+			//TODO-NICE: investigate a better factoring for the relation between river and creation
+			if (state.hoveredCard !== null && (payload as UserFocus) !== "CONTEXT_MENU") {
+				return { ...state, hoveredCard: null, hoveredField: null };
+			} else {
+				return state;
+			}
 		default:
 			return state;
 	}
