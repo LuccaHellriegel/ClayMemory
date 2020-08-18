@@ -9,9 +9,7 @@ import { incrementer } from "../../../../shared/utils";
 import { ChildCardRiver } from "../CardRiver/ChildCardRiver";
 import { riverMakeUpIDToPageNumber } from "../../model";
 
-//TODO-RC: SummaryRiver "searchable", so that you can zoom to certain rivers and also look at them next to each other (like PageChooser but needs different visuals)
 //TODO-RC: make cards searchable when looking at River/Material
-//TODO-RC: make separate Summary View that goes from left to right -> focus on active River
 //TODO-PREF: memoize Rivers (not necessary right now, because we just hide)
 
 export const SummaryRiver = () => {

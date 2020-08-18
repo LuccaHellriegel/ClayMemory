@@ -6,6 +6,8 @@ export type RiverMakeUps = { [riverID: string]: RiverMakeUp };
 
 export type RiverShowState = "SHOW" | "HIDE";
 
+export type RiverContentState = "ALL" | "NOTES" | "QAS";
+
 //TODO-NICE: rename pushto/active river
 
 export type CardRiverState = {
@@ -14,6 +16,7 @@ export type CardRiverState = {
 	pushToRiverID: string;
 	lastRiverIDNumber: number;
 	riverShowState: RiverShowState;
+	riverContentState: RiverContentState;
 	hoveredCard: null | string;
 	hoveredField: null | CreationType;
 };

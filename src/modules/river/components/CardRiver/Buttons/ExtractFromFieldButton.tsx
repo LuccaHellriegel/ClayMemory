@@ -8,9 +8,10 @@ import focus from "../../../../focus";
 
 //TODO-NICE: make selection-dropable on buttons, so that they can be send to cards, make this the default instead of context-menu?
 // imagine: toolbar with new Note, new A, new Q | all the cards and you can drop off
+
 //TODO-NICE: delete extracted str in source
 
-//TODO-RC, bug: if text from the field was already extracted this just opens the menu
+//TODO-RC: bug: if text from the field was already extracted this just opens the menu
 
 // need this button: mouse-up in editor should not trigger context menu (cant select directly), because I cant delete selections then
 export const ExtractFromFieldButton = ({

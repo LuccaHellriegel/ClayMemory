@@ -1,4 +1,4 @@
-import { CardRiverState, RiverShowState, pageNumberToRiverMakeUpID, RiverMakeUp } from "./model";
+import { CardRiverState, RiverShowState, pageNumberToRiverMakeUpID, RiverMakeUp, RiverContentState } from "./model";
 import { FinalizedCardPayload } from "../cards/model";
 import cards from "../cards";
 import * as t from "./actionTypes";
@@ -22,6 +22,7 @@ const intialState: CardRiverState = {
 	riverShowState: "SHOW",
 	hoveredCard: null,
 	hoveredField: null,
+	riverContentState: "ALL",
 };
 
 const emptyCardRiver = (page: number): RiverMakeUp => {
@@ -87,6 +88,8 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 			return removeCardFromRivers(state, payload as string);
 		case t.RIVER_SHOW_STATE:
 			return { ...state, riverShowState: payload as RiverShowState };
+		case t.RIVER_CONTENT_STATE:
+			return { ...state, riverContentState: payload as RiverContentState };
 		case t.RIVER_PUSH_STATE:
 			return { ...state, pushToRiverID: payload };
 		case t.RIVER_HOVERED_CARD:

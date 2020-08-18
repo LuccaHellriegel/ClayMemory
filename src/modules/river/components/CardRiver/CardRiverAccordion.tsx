@@ -11,7 +11,7 @@ import { AddQAButton } from "./Buttons/AddQAButton";
 import { getPushToRiver } from "../../selectors";
 
 //TODO-NICE: make it not be accordion but closeable?
-
+//TODO-NICE: make local show / hide notes
 export const CardRiverAccordion = ({
 	riverID,
 	gridItems,

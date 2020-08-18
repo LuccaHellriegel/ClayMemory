@@ -45,3 +45,5 @@ export const getHoveredCardData = createSelector(getAll, (state: CardRiverState)
 });
 
 export const getLastRiverIDNumber = createSelector(getAll, (state: CardRiverState) => state.lastRiverIDNumber);
+
+export const getRiverContentState = createSelector(getAll, (state: CardRiverState) => state.riverContentState);
