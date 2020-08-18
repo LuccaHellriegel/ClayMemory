@@ -33,8 +33,6 @@ export const downloadDBData = () => {
 	};
 };
 
-//TODO-RC: dont count selection if it is just two letters?
-
 export const changeDocument = (pdf: File) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const newPDFName = pdf.name;

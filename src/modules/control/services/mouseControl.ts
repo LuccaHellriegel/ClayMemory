@@ -20,7 +20,9 @@ export const mouseUpControl = (event: MouseEvent) => {
 		const selection = document.getSelection();
 		if (selection) {
 			const selectedStr = selection.toString();
-			if (selectedStr !== "") {
+			// assumes that there are no words selected with length < 2
+			// needed to avoid some mouse-slip edge cases
+			if (selectedStr !== "" && selectedStr.length > 2) {
 				const state = getState();
 				const goalCard = cards.selectors.getGoalCard(state);
 				const userFocus = focus.selectors.getFocus(state);
