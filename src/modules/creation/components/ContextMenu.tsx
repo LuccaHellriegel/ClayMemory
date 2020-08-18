@@ -5,9 +5,10 @@ import { useDispatch, connect } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
 import { grabSelectionForContextMenu } from "../actions";
 import { incrementer } from "../../../shared/utils";
-import { CardConfig, CardType, CreationType } from "../../cards/model";
-import { CardConfigItem } from "./CardConfigItem";
+import { CardConfig, CardType, CreationType, QACardContent } from "../../cards/model";
+import { CardConfigItem, noteCardIsEmpty, qaCardIsNotFull } from "./CardItems";
 import { NewButtons } from "./NewButtons";
+import NestedMenuItem from "material-ui-nested-menu-item";
 
 function ContextMenu({
 	position,
@@ -33,6 +34,24 @@ function ContextMenu({
 
 	const anchorPosition = openState ? { top: position.y, left: position.x } : undefined;
 
+	//TODO-PERF: use partition function, or loop to avoid double iteration
+	//TODO-NICE: abstract menu, this is doubled
+	const nonFullRiverCards = riverCards.filter((card) => {
+		if (typeof card.content === "string") {
+			return noteCardIsEmpty(card.content);
+		} else {
+			return qaCardIsNotFull(card.content as QACardContent);
+		}
+	});
+
+	const fullRiverCards = riverCards.filter((card) => {
+		if (typeof card.content === "string") {
+			return !noteCardIsEmpty(card.content);
+		} else {
+			return !qaCardIsNotFull(card.content as QACardContent);
+		}
+	});
+
 	// TODO-NICE: need to check for state before rendering MenuItems,
 	// otherwise it shows up for a split-second when switching the menu off after adding to the river
 	// weird Race Condition even if I dispatch closeContextMenu first?
@@ -45,7 +64,7 @@ function ContextMenu({
 			anchorPosition={anchorPosition}
 		>
 			{openState &&
-				riverCards.map((cardConfig) => (
+				nonFullRiverCards.map((cardConfig) => (
 					<CardConfigItem
 						cardConfig={cardConfig}
 						dispatchRiver={dispatchRiver}
@@ -53,7 +72,7 @@ function ContextMenu({
 						qaRef={cardConfig.type === "Q-A" ? qaRefs[qaRefIndex()] : undefined}
 					></CardConfigItem>
 				))}
-			{openState && riverCards.length > 0 && <Divider />}
+			{openState && nonFullRiverCards.length > 0 && <Divider />}
 
 			{openState && (
 				<NewButtons
@@ -67,6 +86,20 @@ function ContextMenu({
 						dispatchRiver("Q-A", "A");
 					}}
 				></NewButtons>
+			)}
+
+			{openState && fullRiverCards.length > 0 && <Divider />}
+			{openState && (
+				<NestedMenuItem label="Full cards: " parentMenuOpen={true}>
+					{fullRiverCards.map((cardConfig) => (
+						<CardConfigItem
+							cardConfig={cardConfig}
+							dispatchRiver={dispatchRiver}
+							key={increment()}
+							qaRef={cardConfig.type === "Q-A" ? qaRefs[qaRefIndex()] : undefined}
+						></CardConfigItem>
+					))}
+				</NestedMenuItem>
 			)}
 		</Menu>
 	);

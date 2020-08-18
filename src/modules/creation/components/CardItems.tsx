@@ -1,9 +1,13 @@
 import React, { RefObject } from "react";
 import NestedMenuItem from "material-ui-nested-menu-item";
 import { MenuItem } from "@material-ui/core";
-import { CardConfig, CardType, CreationType } from "../../cards/model";
+import { CardConfig, CardType, CreationType, QACardContent } from "../../cards/model";
 import { useDispatch } from "react-redux";
 import river from "../../river";
+
+export const noteCardIsEmpty = (content: string) => content === "";
+export const qaCardIsNotFull = (content: QACardContent) =>
+	(content as QACardContent).q === "" || (content as QACardContent).a === "";
 
 type dispatchRiver = (type: CardType, creationType: CreationType, cardID?: string | undefined) => void;
 

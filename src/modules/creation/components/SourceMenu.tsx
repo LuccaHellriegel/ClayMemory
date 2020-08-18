@@ -5,10 +5,11 @@ import { useDispatch, useSelector, connect } from "react-redux";
 import { getContextMenuInitData } from "../selectors";
 import { grabSelectionForSourceMenu } from "../actions";
 import { incrementer } from "../../../shared/utils";
-import { CardConfig, CardType, CreationType, SourceCard } from "../../cards/model";
+import { CardConfig, CardType, CreationType, SourceCard, QACardContent } from "../../cards/model";
 import cards from "../../cards";
-import { CardConfigItem } from "./CardConfigItem";
+import { CardConfigItem, noteCardIsEmpty, qaCardIsNotFull } from "./CardItems";
 import { NewButtons } from "./NewButtons";
+import NestedMenuItem from "material-ui-nested-menu-item";
 
 function SourceMenu({
 	menuRef,
@@ -38,6 +39,23 @@ function SourceMenu({
 	const qaRefIndex = incrementer();
 	const anchorPosition = sourceCard ? { top: sourceCard.y, left: sourceCard.x } : undefined;
 
+	//TODO-PERF: use partition function, or loop to avoid double iteration
+	const nonFullRiverCards = riverCards.filter((card) => {
+		if (typeof card.content === "string") {
+			return noteCardIsEmpty(card.content);
+		} else {
+			return qaCardIsNotFull(card.content as QACardContent);
+		}
+	});
+
+	const fullRiverCards = riverCards.filter((card) => {
+		if (typeof card.content === "string") {
+			return !noteCardIsEmpty(card.content);
+		} else {
+			return !qaCardIsNotFull(card.content as QACardContent);
+		}
+	});
+
 	return (
 		<Menu
 			ref={openState ? menuRef : null}
@@ -47,7 +65,7 @@ function SourceMenu({
 			anchorPosition={anchorPosition}
 		>
 			{openState &&
-				riverCards.map((cardConfig) => (
+				nonFullRiverCards.map((cardConfig) => (
 					<CardConfigItem
 						cardConfig={cardConfig}
 						dispatchRiver={dispatchRiver}
@@ -55,7 +73,7 @@ function SourceMenu({
 						qaRef={cardConfig.type === "Q-A" ? qaRefs[qaRefIndex()] : undefined}
 					></CardConfigItem>
 				))}
-			{openState && riverCards.length > 0 && <Divider />}
+			{openState && nonFullRiverCards.length > 0 && <Divider />}
 
 			{openState && (
 				<NewButtons
@@ -69,6 +87,20 @@ function SourceMenu({
 						dispatchRiver("Q-A", "A");
 					}}
 				></NewButtons>
+			)}
+
+			{openState && fullRiverCards.length > 0 && <Divider />}
+			{openState && (
+				<NestedMenuItem label="Full cards: " parentMenuOpen={true}>
+					{fullRiverCards.map((cardConfig) => (
+						<CardConfigItem
+							cardConfig={cardConfig}
+							dispatchRiver={dispatchRiver}
+							key={increment()}
+							qaRef={cardConfig.type === "Q-A" ? qaRefs[qaRefIndex()] : undefined}
+						></CardConfigItem>
+					))}
+				</NestedMenuItem>
 			)}
 		</Menu>
 	);
