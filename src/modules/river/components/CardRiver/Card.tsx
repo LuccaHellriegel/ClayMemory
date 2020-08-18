@@ -7,7 +7,6 @@ import cards from "../../../cards";
 import { DeleteCardButton } from "./Buttons/DeleteCardButton";
 import { JumpToOriginButton } from "./Buttons/JumpToOriginButton";
 import { GrabForFieldButton } from "./Buttons/GrabForFieldButton";
-import { ExtractFromFieldButton } from "./Buttons/ExtractFromFieldButton";
 import { isNullOrUndefined } from "util";
 import { getHoveredCardData } from "../../selectors";
 import focus from "../../../focus";
@@ -41,10 +40,13 @@ const NoteCard = ({ config }: CardProps) => {
 				variant="filled"
 				style={{ backgroundColor: "#CBF3F0" }}
 				InputLabelProps={{ style: { color: "#000000" } }}
+				onMouseEnter={() => {
+					dispatch(focus.actions.tryUpdateFocus("EDITOR"));
+					dispatch(cards.actions.trySetSourceCard("NOTE", config.origin));
+				}}
 			></HybridCardField>
 			<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
 			{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="NOTE"></GrabForFieldButton>}
-			<ExtractFromFieldButton cardOrigin={config.origin} sourceField="NOTE"></ExtractFromFieldButton>
 			{config.origin && <JumpToOriginButton cardOrigin={config.origin as NoteOrigin}></JumpToOriginButton>}
 		</div>
 	);
@@ -71,9 +73,12 @@ const QACard = ({ config }: CardProps) => {
 					variant="filled"
 					style={{ backgroundColor: "#FFBF69" }}
 					InputLabelProps={{ style: { color: "#000000" } }}
+					onMouseEnter={() => {
+						dispatch(focus.actions.tryUpdateFocus("EDITOR"));
+						dispatch(cards.actions.trySetSourceCard("Q", config.origin));
+					}}
 				></HybridCardField>
 				{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="Q"></GrabForFieldButton>}
-				<ExtractFromFieldButton cardOrigin={config.origin} sourceField="Q"></ExtractFromFieldButton>
 				{config.origin && !isNullOrUndefined((config.origin as QAOrigin).q?.spanIndex) && (
 					<JumpToOriginButton cardOrigin={(config.origin as QAOrigin).q as SingleOrigin}></JumpToOriginButton>
 				)}
@@ -88,9 +93,12 @@ const QACard = ({ config }: CardProps) => {
 					variant="filled"
 					style={{ backgroundColor: "#2EC4B6" }}
 					InputLabelProps={{ style: { color: "#000000" } }}
+					onMouseEnter={() => {
+						dispatch(focus.actions.tryUpdateFocus("EDITOR"));
+						dispatch(cards.actions.trySetSourceCard("A", config.origin));
+					}}
 				></HybridCardField>
 				{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="A"></GrabForFieldButton>}
-				<ExtractFromFieldButton cardOrigin={config.origin} sourceField="A"></ExtractFromFieldButton>
 				{config.origin && !isNullOrUndefined((config.origin as QAOrigin).a?.spanIndex) && (
 					<JumpToOriginButton cardOrigin={(config.origin as QAOrigin).a as SingleOrigin}></JumpToOriginButton>
 				)}

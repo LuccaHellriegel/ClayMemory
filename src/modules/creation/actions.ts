@@ -51,11 +51,35 @@ export const grabSelectionForContextMenu = (type: CardType, creationType: Creati
 		// always overwrite origin, even if isUpdate, because updateType==replace
 		const origin: CardOrigin | undefined = selectedParent ? getCurrentOrigin(state) : undefined;
 
-		if (isUpdate) {
-			dispatch(cards.actions.updateCardContent(selectedString, cardID as string, creationType, updateType, origin));
-		} else {
-			dispatch(cards.actions.pushCardContent(selectedString, creationType, updateType, type, origin));
+		let transformedOrigin;
+		if (origin) {
+			// we exploit that the input from the document is always just a SingleOrigin=NoteOrigin
+			// need to transform it because we can create als QA-Cards from document
+			transformedOrigin = transformInputOrigin(
+				origin,
+				"NOTE",
+				creationType,
+				isUpdate ? (cards.selectors.getCards(state)[cardID as string].origin as CardOrigin) : undefined
+			);
 		}
+
+		if (isUpdate) {
+			dispatch(
+				cards.actions.updateCardContent(
+					selectedString,
+					cardID as string,
+					creationType,
+					updateType,
+					transformedOrigin as CardOrigin
+				)
+			);
+		} else {
+			dispatch(
+				cards.actions.pushCardContent(selectedString, creationType, updateType, type, transformedOrigin as CardOrigin)
+			);
+		}
+
+		dispatch(resetManuallySelectedString());
 	};
 };
 
@@ -73,11 +97,9 @@ export const grabSelectionForSourceMenu = (
 	cardID?: string
 ) => {
 	return (dispatch: Function, getState: Function) => {
-		// this is called, after the source-card has been set, the SourceMenu has been opened and been clicked
-		const state = getState();
+		dispatch(closeContextMenu());
 
-		// close SourceMenu by resetting SourceCard
-		dispatch(cards.actions.resetSourceCard());
+		const state = getState();
 
 		const updateType = "REPLACE";
 		const isUpdate = cardID !== undefined;
@@ -110,6 +132,9 @@ export const grabSelectionForSourceMenu = (
 		} else {
 			dispatch(cards.actions.pushCardContent(selectedString, creationType, updateType, type, newOrigin as CardOrigin));
 		}
+
+		dispatch(resetManuallySelectedString());
+		dispatch(cards.actions.resetSourceCard());
 	};
 };
 

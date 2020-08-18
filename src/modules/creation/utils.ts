@@ -1,4 +1,4 @@
-import { getContextMenuRef, getContextMenuQARefs } from "./selectors";
+import { getContextMenuRef, getContextMenuQARefs, getContextMenuFullCardsRef } from "./selectors";
 
 // the root div for the menu invisibly covers the whole screen
 // the actual div that is visible is this
@@ -6,6 +6,7 @@ const baseContextMenuSelector = "div.MuiPaper-root";
 
 export const contextMenuContainsTargetNode = (state: any, event: Event) => {
 	const menuRef = getContextMenuRef(state).current;
+	const fullCardsRef = getContextMenuFullCardsRef(state).current?.parentNode;
 
 	// the nested items are rendered under a different menu
 	// the current api does not allow access
@@ -20,6 +21,8 @@ export const contextMenuContainsTargetNode = (state: any, event: Event) => {
 	const target = event.target as Node;
 
 	if (menuRef?.querySelector(baseContextMenuSelector)?.contains(target)) return true;
+
+	if (fullCardsRef?.contains(target)) return true;
 
 	for (const qaRef of qaRefs) {
 		if (qaRef.contains(target)) return true;

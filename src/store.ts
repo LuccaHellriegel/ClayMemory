@@ -33,7 +33,12 @@ const creationTransform = createTransform(
 		return { ...inboundState, menuRef: null, qaRefs: inboundState.qaRefs.map((_) => null), selectedParentSpan: null };
 	},
 	(outboundState): CreationData => {
-		return { ...outboundState, menuRef: createRef(), qaRefs: outboundState.qaRefs.map((_) => createRef()) };
+		return {
+			...outboundState,
+			menuRef: createRef(),
+			fullCardRef: createRef(),
+			qaRefs: outboundState.qaRefs.map((_) => createRef()),
+		};
 	},
 	{ whitelist: [creation.constants.NAME] }
 );

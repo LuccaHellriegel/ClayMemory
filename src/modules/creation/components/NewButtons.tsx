@@ -8,12 +8,12 @@ const NewQACardQ = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q (Q-A
 const NewQACardA = ({ onClick }: any) => <MenuItem onClick={onClick}>New: A (Q-A)</MenuItem>;
 const NewNoteCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Note</MenuItem>;
 
-export const NewButtons = ({ noteClick, qClick, aClick }: any) => {
+export const NewButtons = ({ noteDispatch, qDispatch, aDispatch }: any) => {
 	return (
 		<Fragment>
-			<NewNoteCard onClick={noteClick}></NewNoteCard>
-			<NewQACardQ> onClick={qClick}</NewQACardQ>
-			<NewQACardA> onClick={aClick}</NewQACardA>
+			<NewNoteCard onClick={noteDispatch}></NewNoteCard>
+			<NewQACardQ onClick={qDispatch}></NewQACardQ>
+			<NewQACardA onClick={aDispatch}></NewQACardA>
 		</Fragment>
 	);
 };

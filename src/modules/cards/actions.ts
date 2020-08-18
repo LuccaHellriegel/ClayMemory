@@ -67,8 +67,16 @@ export const resetGoalCard = () => {
 	return { type: t.CARD_GOAL, payload: null };
 };
 
-export const setSourceCard = (x: number, y: number, sourceField: CreationType, origin?: CardOrigin) => {
-	return { type: t.CARD_SOURCE, payload: { origin, x, y, sourceField } };
+export const setSourceCard = (sourceField: CreationType, origin?: CardOrigin) => {
+	return { type: t.CARD_SOURCE, payload: { origin, sourceField } };
+};
+
+export const trySetSourceCard = (sourceField: CreationType, origin?: CardOrigin) => {
+	return (dispatch: Dispatch, getState: Function) => {
+		const sourceCard = getSourceCard(getState());
+		if (!sourceCard || sourceCard.sourceField !== sourceField || sourceCard.origin !== origin)
+			dispatch(setSourceCard(sourceField, origin));
+	};
 };
 
 export const resetSourceCard = () => {

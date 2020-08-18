@@ -11,6 +11,8 @@ export const getContextMenuState = createSelector(getAll, (state: CreationData) 
 
 export const getContextMenuRef = createSelector(getAll, (state: CreationData) => state.menuRef);
 
+export const getContextMenuFullCardsRef = createSelector(getAll, (state: CreationData) => state.fullCardRef);
+
 export const getContextMenuQARefs = createSelector(getAll, (state: CreationData) => state.qaRefs);
 
 export const getCurrentSelectionPosition = createSelector(getAll, (state: CreationData) => state.selectionPosition);

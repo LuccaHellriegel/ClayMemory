@@ -9,7 +9,6 @@ export const mouseDownControl = (event: MouseEvent) => {
 		// the menu-ref is used for all drop-down menus, so this closes all of them
 		const clickOutSideOfMenu = !creation.utils.contextMenuContainsTargetNode(state, event);
 		if (clickOutSideOfMenu) {
-			dispatch(cards.actions.tryResetSourceCard());
 			dispatch(creation.actions.closeContextMenu());
 		}
 	};
@@ -17,12 +16,14 @@ export const mouseDownControl = (event: MouseEvent) => {
 
 export const mouseUpControl = (event: MouseEvent) => {
 	return (dispatch: any, getState: Function) => {
+		// if the menu is already open, this means we have opened it in the editor
+		if (creation.selectors.getContextMenuState(getState())) return;
+
 		const selection = document.getSelection();
 		if (selection) {
 			const selectedStr = selection.toString();
-			// assumes that there are no words selected with length < 2
-			// needed to avoid some mouse-slip edge cases
-			if (selectedStr !== "" && selectedStr.length > 2) {
+
+			if (selectedStr !== "") {
 				const state = getState();
 				const goalCard = cards.selectors.getGoalCard(state);
 				const userFocus = focus.selectors.getFocus(state);
@@ -33,17 +34,18 @@ export const mouseUpControl = (event: MouseEvent) => {
 					// this is the dispatch for the grab for field button
 					//(which has been pressed before the mouse-up if goalCard is not null), here we actually update the goal card
 
-					//TODO-RC: what if another card is the source? if userFocus === "EDITOR" it is from another card
-					//We actually want to copy that origin or get the new origin, if we select from the document
-					dispatch(
-						cards.actions.updateCardContent(
-							selectedStr,
-							goalCard.cardID,
-							goalCard.creationType,
-							"REPLACE",
-							goalCard.origin
-						)
-					);
+					//TODO-NICE: allow grabbing from other cards
+					// for now we dont allow grabbing from other cards to simplifiy the card->card workflow
+					if (userFocus !== "EDITOR")
+						dispatch(
+							cards.actions.updateCardContent(
+								selectedStr,
+								goalCard.cardID,
+								goalCard.creationType,
+								"REPLACE",
+								goalCard.origin
+							)
+						);
 					dispatch(cards.actions.resetGoalCard());
 				} else {
 					// this is the dispatch for the ContextMenu
@@ -62,6 +64,31 @@ export const mouseUpControl = (event: MouseEvent) => {
 					}
 				}
 			}
+		}
+	};
+};
+
+//TODO-NICE: make selection-dropable on buttons, so that they can be send to cards, make this the default instead of context-menu?
+// imagine: toolbar with new Note, new A, new Q | all the cards and you can drop off
+
+//TODO-NICE: delete extracted str in source
+
+export const rightClickControl = (event: MouseEvent) => {
+	return (dispatch: any, getState: Function) => {
+		const state = getState();
+		const userFocus = focus.selectors.getFocus(state);
+
+		// this is set via left-click
+		const selectedStr = creation.selectors.getCurrentSelectedString(state);
+
+		if (selectedStr === "") return;
+
+		event.preventDefault();
+
+		// this is the dispatch for the ContextMenu inside the editor
+		if (userFocus === "EDITOR") {
+			dispatch(creation.actions.updateSelectionPosition(event.x, event.y));
+			dispatch(creation.actions.openContextMenu());
 		}
 	};
 };

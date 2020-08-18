@@ -3,6 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import { withSize } from "react-sizeme";
 import Paper from "@material-ui/core/Paper";
 import focus from "../../focus";
+import cards from "../../cards";
+
 import { useDispatch } from "react-redux";
 import { PDFDocumentContainer } from "./PDFDocument/PDFDocument";
 
@@ -19,6 +21,7 @@ function MaterialDisplayColumn({ size, hidden }: any) {
 			}}
 			onMouseEnter={() => {
 				dispatch(focus.actions.tryUpdateFocus("SELECTION"));
+				dispatch(cards.actions.tryResetSourceCard());
 				setElevation(20);
 			}}
 			onMouseLeave={() => {

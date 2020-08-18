@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { TextField, TextFieldProps } from "@material-ui/core";
-import focus from "../../../focus";
-import { useDispatch } from "react-redux";
 
 export const HybridCardField = ({
 	storeValue = "",
@@ -13,7 +11,6 @@ export const HybridCardField = ({
 	saveChanges: (value: string) => void;
 	style: any;
 } & TextFieldProps) => {
-	const dispatch = useDispatch();
 	const [state, setState] = useState({ storeValue, mutableValue: storeValue });
 
 	// reset if new storeValue, otherwise keep user-mutated value
@@ -24,9 +21,6 @@ export const HybridCardField = ({
 	// need the onChange-pattern, because we want to be able to pre-fill the field from the store
 	return (
 		<TextField
-			onMouseEnter={() => {
-				dispatch(focus.actions.tryUpdateFocus("EDITOR"));
-			}}
 			multiline
 			variant="filled"
 			value={state.mutableValue}

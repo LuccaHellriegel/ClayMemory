@@ -7,6 +7,7 @@ import cards from "../cards";
 const initialState: CreationData = {
 	open: false,
 	menuRef: createRef(),
+	fullCardRef: createRef(),
 	qaRefs: [createRef(), createRef()],
 	manuallySelectedString: "",
 	selectedParentSpan: null,
