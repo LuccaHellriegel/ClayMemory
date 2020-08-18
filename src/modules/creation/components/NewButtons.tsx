@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { MenuItem } from "@material-ui/core";
 import React from "react";
 
-//TODO-RC: clear qa-field button
+//TODO-NICE: clear qa-field button
 
 const NewQACardQ = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q (Q-A)</MenuItem>;
 const NewQACardA = ({ onClick }: any) => <MenuItem onClick={onClick}>New: A (Q-A)</MenuItem>;

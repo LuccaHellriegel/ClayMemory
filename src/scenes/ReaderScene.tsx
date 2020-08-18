@@ -61,6 +61,7 @@ export function ReaderScene() {
 			</ScrollTop>
 			<creation.components.SourceMenuContainer></creation.components.SourceMenuContainer>
 			<creation.components.ContextMenuContainer></creation.components.ContextMenuContainer>
+			<creation.components.SelectionSnackbar></creation.components.SelectionSnackbar>
 		</div>
 	);
 }

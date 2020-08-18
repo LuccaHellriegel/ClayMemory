@@ -10,6 +10,7 @@ import { GrabForFieldButton } from "./Buttons/GrabForFieldButton";
 import { ExtractFromFieldButton } from "./Buttons/ExtractFromFieldButton";
 import { isNullOrUndefined } from "util";
 import { getHoveredCardData } from "../../selectors";
+import focus from "../../../focus";
 
 //TODO-RC: tooltips for all buttons, multiple languages?
 
@@ -24,6 +25,11 @@ const NoteCard = ({ config }: CardProps) => {
 	const { id } = useSelector(getHoveredCardData);
 	const isHoveredCard = config.cardID === id;
 
+	// we only offer one way to use card-content in other cards: extract
+	// we do not allow grabbing from other cards, just from the document, so we only need the grab button in the ActiveRiver
+	//TODO-NICE: allow grabbing from other cards
+	const isActiveRiver = useSelector(focus.selectors.getDisplayFocus) === "ACTIVE_RIVER";
+
 	return (
 		<div style={isHoveredCard ? borderStyle : undefined}>
 			<HybridCardField
@@ -37,7 +43,7 @@ const NoteCard = ({ config }: CardProps) => {
 				InputLabelProps={{ style: { color: "#000000" } }}
 			></HybridCardField>
 			<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
-			<GrabForFieldButton cardConfig={config} creationType="NOTE"></GrabForFieldButton>
+			{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="NOTE"></GrabForFieldButton>}
 			<ExtractFromFieldButton cardOrigin={config.origin} sourceField="NOTE"></ExtractFromFieldButton>
 			{config.origin && <JumpToOriginButton cardOrigin={config.origin as NoteOrigin}></JumpToOriginButton>}
 		</div>
@@ -48,6 +54,10 @@ const QACard = ({ config }: CardProps) => {
 	const dispatch = useDispatch();
 	const { id, field } = useSelector(getHoveredCardData);
 	const isHoveredCard = config.cardID === id;
+
+	// we only offer one way to use card-content in other cards: extract
+	// we do not allow grabbing from other cards, just from the document, so we only need the grab button in the ActiveRiver
+	const isActiveRiver = useSelector(focus.selectors.getDisplayFocus) === "ACTIVE_RIVER";
 
 	return (
 		<Grid container direction="column" spacing={1}>
@@ -62,7 +72,7 @@ const QACard = ({ config }: CardProps) => {
 					style={{ backgroundColor: "#FFBF69" }}
 					InputLabelProps={{ style: { color: "#000000" } }}
 				></HybridCardField>
-				<GrabForFieldButton cardConfig={config} creationType="Q"></GrabForFieldButton>
+				{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="Q"></GrabForFieldButton>}
 				<ExtractFromFieldButton cardOrigin={config.origin} sourceField="Q"></ExtractFromFieldButton>
 				{config.origin && !isNullOrUndefined((config.origin as QAOrigin).q?.spanIndex) && (
 					<JumpToOriginButton cardOrigin={(config.origin as QAOrigin).q as SingleOrigin}></JumpToOriginButton>
@@ -79,7 +89,7 @@ const QACard = ({ config }: CardProps) => {
 					style={{ backgroundColor: "#2EC4B6" }}
 					InputLabelProps={{ style: { color: "#000000" } }}
 				></HybridCardField>
-				<GrabForFieldButton cardConfig={config} creationType="A"></GrabForFieldButton>
+				{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="A"></GrabForFieldButton>}
 				<ExtractFromFieldButton cardOrigin={config.origin} sourceField="A"></ExtractFromFieldButton>
 				{config.origin && !isNullOrUndefined((config.origin as QAOrigin).a?.spanIndex) && (
 					<JumpToOriginButton cardOrigin={(config.origin as QAOrigin).a as SingleOrigin}></JumpToOriginButton>
