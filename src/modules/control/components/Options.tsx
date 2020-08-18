@@ -1,10 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
-import { getDocumentNames, getDocumentDataSets } from "../selectors";
+import { getDocumentNames } from "../selectors";
 import React, { ChangeEvent, Fragment, useRef, MutableRefObject } from "react";
 import { Divider, Menu, MenuItem, IconButton } from "@material-ui/core";
-import { changeDocument, loadDocumentDataSets } from "../actions";
+import { changeDocument, loadDocumentDataSets, downloadDBData } from "../actions";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-const fileDownload = require("js-file-download");
+import { DocumentData } from "../model";
+import display from "../../display";
+import cards from "../../cards";
+
 //TODO-NICE: have way to merge two document-workspaces
 
 export const InputDocument = ({ handleClose, label }: any) => {
@@ -39,10 +42,10 @@ export const InputDocument = ({ handleClose, label }: any) => {
 	);
 };
 
-//TODO-NICE: sanitize, escape os new line difference, prepare multimedia cards
-
 export const InputDataSets = ({ handleClose, label }: any) => {
 	const dispatch = useDispatch();
+
+	const activeDocument = useSelector(display.selectors.getPDFName);
 
 	const ref: MutableRefObject<null | HTMLInputElement> = useRef(null);
 
@@ -65,7 +68,21 @@ export const InputDataSets = ({ handleClose, label }: any) => {
 						const reader = new FileReader();
 						reader.readAsText(file);
 						reader.onload = () => {
-							dispatch(loadDocumentDataSets(JSON.parse(reader.result as string)));
+							//TODO-NICE: sanitize, escape os new line difference, prepare multimedia cards
+							//TODO-NICE: merge same name-pdfs and think about collision in general
+
+							const uploadedDataSets = JSON.parse(reader.result as string);
+							dispatch(loadDocumentDataSets(uploadedDataSets));
+
+							const foundDataSet = (uploadedDataSets as DocumentData[]).find(
+								(dbData) => dbData.name === activeDocument
+							);
+
+							if (foundDataSet) {
+								//TODO-NICE: merge uploaded state with current-one and dont overwrite
+								// if the uploaded dataset corresponds to the current document, overwrite current with uploaded
+								dispatch({ type: cards.actionTypes.GLOBAL_RESET, payload: foundDataSet });
+							}
 						};
 					}
 					handleClose();
@@ -78,8 +95,8 @@ export const InputDataSets = ({ handleClose, label }: any) => {
 };
 
 export const Options = () => {
+	const activeDocument = useSelector(display.selectors.getPDFName);
 	const documents = useSelector(getDocumentNames);
-	const documentDataSets = useSelector(getDocumentDataSets);
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -91,12 +108,21 @@ export const Options = () => {
 		setAnchorEl(null);
 	};
 
+	const dispatch = useDispatch();
+
 	return (
 		<div style={{ minWidth: 160 }}>
 			<IconButton type="button" onClick={handleClick}>
 				<MoreVertIcon></MoreVertIcon>
 			</IconButton>
 			<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+				Active Document:
+				<br></br>
+				{activeDocument?.replace(".pdf", "")}
+				<br></br>
+				<br></br>
+				<Divider />
+				<br></br>
 				Documents with existing data:
 				<ul>{documents.map((document) => (document ? <li>{document.replace(".pdf", "")}</li> : null))}</ul>
 				<br></br>
@@ -105,8 +131,7 @@ export const Options = () => {
 				<Divider />
 				<MenuItem
 					onClick={() => {
-						const localString = new Date().toLocaleString();
-						fileDownload(JSON.stringify(documentDataSets), localString + " ClayMemory.txt");
+						dispatch(downloadDBData());
 						handleClose();
 					}}
 				>

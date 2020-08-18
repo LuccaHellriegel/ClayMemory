@@ -2,11 +2,13 @@ import { createSelector } from "reselect";
 import { DisplayData, MaterialData, MaterialGroupData } from "./model";
 import { NAME } from "./constants";
 
-export const getAll = (state: any) => state[NAME];
+export const getAll = (state: any): DisplayData => state[NAME];
 
 export const getPDF = createSelector(getAll, (state: DisplayData) => {
 	return { pdf: state.pdf ? state.pdf : null };
 });
+
+export const getPDFName = createSelector(getAll, (state) => state.pdfName);
 
 export const getRenderCritialData = createSelector(getAll, (state: DisplayData) => {
 	return {

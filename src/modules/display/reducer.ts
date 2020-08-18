@@ -14,7 +14,7 @@ const initialState: DisplayData = {
 const displayData = (state = initialState, { type, payload }: { type: string; payload: any }): DisplayData => {
 	switch (type) {
 		case t.PDF_UPLOADED:
-			return { ...state, pdf: payload as File };
+			return { ...state, pdf: payload as File, pdfName: (payload as File).name };
 		case t.MATERIAL_LOADED:
 			return { ...state, totalPages: payload as number };
 		case t.PAGE_UPDATE:

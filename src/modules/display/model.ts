@@ -20,6 +20,7 @@ type PerPageSpans = { [page: number]: number };
 
 export type DisplayData = {
 	pdf?: File;
+	pdfName?: string;
 	displayStatus: DisplayStatus;
 	currentPage: number;
 	totalPages?: number;

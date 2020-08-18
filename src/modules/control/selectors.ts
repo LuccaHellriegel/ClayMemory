@@ -14,16 +14,16 @@ export const getDocumentNames = createSelector(getDocumentDB, (db) => Object.key
 export const getDocumentDataSets = createSelector(getDocumentDB, (db) => Object.values(db));
 
 export const getCurrentDBData: (state: any) => DocumentData | null = createSelector(
-	display.selectors.getPDF,
+	display.selectors.getPDFName,
 	river.selectors.getRiverMakeUps,
 	river.selectors.getActiveRiverMakeUpID,
 	river.selectors.getPushToRiver,
 	river.selectors.getLastRiverIDNumber,
 	cards.selectors.getCards,
 	cards.selectors.getLastCardIDNumber,
-	(pdf, riverMakeUps, activeRiverMakeUpID, pushToRiverID, lastRiverIDNumber, cards, lastCardIDNumber) => {
+	(pdfName, riverMakeUps, activeRiverMakeUpID, pushToRiverID, lastRiverIDNumber, cards, lastCardIDNumber) => {
 		return {
-			name: (pdf.pdf as File).name,
+			name: pdfName as string,
 			riverMakeUps,
 			activeRiverMakeUpID,
 			pushToRiverID,
