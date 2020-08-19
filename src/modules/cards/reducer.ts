@@ -1,6 +1,6 @@
 import * as t from "./actionTypes";
 import { CardsState, FinalizedCardPayload, CardID } from "./model";
-import { CentralControlCards } from "../control/model";
+import { ArchiveCards } from "../db/model";
 
 const intialState: CardsState = {
 	cards: {
@@ -55,8 +55,8 @@ const cards = (state = intialState, { type, payload }: { type: string; payload?:
 			if (payload) {
 				return {
 					...intialState,
-					cards: (payload as CentralControlCards).cards,
-					lastCardIDNumber: (payload as CentralControlCards).lastCardIDNumber,
+					cards: (payload as ArchiveCards).cards,
+					lastCardIDNumber: (payload as ArchiveCards).lastCardIDNumber,
 				};
 			} else {
 				return intialState;

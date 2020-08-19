@@ -1,14 +1,14 @@
 import { Dispatch } from "redux";
-import { getCurrentDBData, getDocumentDB, getDocumentDataSets } from "./selectors";
-import { DocumentData } from "./model";
 import display from "../display";
 import cards from "../cards";
-import * as t from "./actionTypes";
 import { ActionCreators } from "redux-undo";
+import db from "../db";
+import { collectCurrentDBData } from "./selectors";
+import { DocumentData } from "../db/model";
 
-export const archiveDBData = (dbData: DocumentData) => {
-	return { type: t.ARCHIVE_CURRENT_DATA, payload: dbData };
-};
+// export const archiveDBData = (dbData: DocumentData) => {
+// 	return { type: t.ARCHIVE_CURRENT_DATA, payload: dbData };
+// };
 
 export const archiveCurrentDBData = () => {
 	return (dispatch: Dispatch, getState: Function) => {
@@ -16,8 +16,8 @@ export const archiveCurrentDBData = () => {
 		const currentPDFName = display.selectors.getPDFName(state);
 
 		if (currentPDFName !== undefined) {
-			const dbData = getCurrentDBData(state) as DocumentData;
-			dispatch(archiveDBData(dbData));
+			const dbData = collectCurrentDBData(state) as DocumentData;
+			dispatch(db.actions.archiveDBData(dbData));
 		}
 	};
 };
@@ -28,7 +28,7 @@ export const downloadDBData = () => {
 		//actualize the db before downloading
 		dispatch(archiveCurrentDBData());
 
-		const documentDataSets = getDocumentDataSets(getState());
+		const documentDataSets = db.selectors.getDocumentDataSets(getState());
 		const localString = new Date().toLocaleString();
 		fileDownload(JSON.stringify(documentDataSets), localString + " ClayMemory.txt");
 	};
@@ -41,12 +41,12 @@ export const changeDocument = (pdf: File) => {
 		const state = getState();
 		const currentPDFName = display.selectors.getPDFName(state);
 
-		const documentDB = getDocumentDB(state);
+		const documentDB = db.selectors.getDocumentDB(state);
 
 		// save current data only if pdf has been uploaded / there is an active document
 		if (currentPDFName !== undefined) {
-			const dbData = getCurrentDBData(state) as DocumentData;
-			dispatch(archiveDBData(dbData));
+			const dbData = collectCurrentDBData(state) as DocumentData;
+			dispatch(db.actions.archiveDBData(dbData));
 		}
 
 		dispatch(display.actions.pdfUpload(pdf));
@@ -70,6 +70,6 @@ export const changeDocument = (pdf: File) => {
 	};
 };
 
-export const loadDocumentDataSets = (dbData: DocumentData[]) => {
-	return { type: t.LOAD_DOCUMENT_DATA_SETS, payload: dbData };
-};
+// export const loadDocumentDataSets = (dbData: DocumentData[]) => {
+// 	return { type: t.LOAD_DOCUMENT_DATA_SETS, payload: dbData };
+// };

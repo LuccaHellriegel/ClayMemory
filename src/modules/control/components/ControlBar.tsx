@@ -10,6 +10,8 @@ import UndoIcon from "@material-ui/icons/Undo";
 import RedoIcon from "@material-ui/icons/Redo";
 import { ActionCreators } from "redux-undo";
 
+// we support undo/redo instead of lengthy confirmation (see The Humane Interface)
+
 const UndoButton = () => {
 	const dispatch = useDispatch();
 	return (

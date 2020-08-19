@@ -5,7 +5,7 @@ import * as t from "./actionTypes";
 import display from "../display";
 import focus from "../focus";
 import { UserFocus } from "../focus/model";
-import { CentralControlRiver } from "../control/model";
+import { ArchiveRiver } from "../db/model";
 
 const initialState: CardRiverState = {
 	riverMakeUps: {
@@ -112,10 +112,10 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 			if (payload) {
 				return {
 					...initialState,
-					riverMakeUps: (payload as CentralControlRiver).riverMakeUps,
-					activeRiverMakeUpID: (payload as CentralControlRiver).activeRiverMakeUpID,
-					pushToRiverID: (payload as CentralControlRiver).pushToRiverID,
-					lastRiverIDNumber: (payload as CentralControlRiver).lastRiverIDNumber,
+					riverMakeUps: (payload as ArchiveRiver).riverMakeUps,
+					activeRiverMakeUpID: (payload as ArchiveRiver).activeRiverMakeUpID,
+					pushToRiverID: (payload as ArchiveRiver).pushToRiverID,
+					lastRiverIDNumber: (payload as ArchiveRiver).lastRiverIDNumber,
 				};
 			} else {
 				return initialState;

@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
-import { getDocumentNames } from "../selectors";
 import React, { ChangeEvent, Fragment, useRef, MutableRefObject } from "react";
 import { Divider, Menu, MenuItem, IconButton } from "@material-ui/core";
-import { changeDocument, loadDocumentDataSets, downloadDBData } from "../actions";
+import { changeDocument, downloadDBData } from "../actions";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { DocumentData } from "../model";
 import display from "../../display";
 import cards from "../../cards";
+import db from "../../db";
+import { DocumentData } from "../../db/model";
 
 //TODO-NICE: have way to merge two document-workspaces
 
@@ -72,12 +72,12 @@ export const InputDataSets = ({ handleClose, label }: any) => {
 							//TODO-NICE: merge same name-pdfs and think about collision in general
 
 							const uploadedDataSets = JSON.parse(reader.result as string);
-							dispatch(loadDocumentDataSets(uploadedDataSets));
+							dispatch(db.actions.loadDocumentDataSets(uploadedDataSets));
 
 							const foundDataSet = (uploadedDataSets as DocumentData[]).find(
 								(dbData) => dbData.name === activeDocument
 							);
-							//TODO-RC: merge this with loadDocument because I only allow load document to be undone
+							//TODO-RC: merge this with loadDocument because I only allow load document-datasets to be undone
 
 							if (foundDataSet) {
 								//TODO-NICE: merge uploaded state with current-one and dont overwrite
@@ -97,7 +97,7 @@ export const InputDataSets = ({ handleClose, label }: any) => {
 
 export const Options = () => {
 	const activeDocument = useSelector(display.selectors.getPDFName);
-	const documents = useSelector(getDocumentNames);
+	const documents = useSelector(db.selectors.getDocumentNames);
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 

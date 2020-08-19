@@ -3,23 +3,23 @@ import { CardConfig } from "../cards/model";
 
 //TODO-NICE: find way to make this depend on the actual models of the reducers, otherwise I dont notice changes
 
-export type CentralControlRiver = {
+export type ArchiveRiver = {
 	riverMakeUps: RiverMakeUps;
 	activeRiverMakeUpID: string;
 	pushToRiverID: string;
 	lastRiverIDNumber: number;
 };
 
-export type CentralControlCards = {
+export type ArchiveCards = {
 	cards: { [cardID: string]: CardConfig };
 	lastCardIDNumber: number;
 };
 
 export type DocumentData = {
 	name: string;
-} & CentralControlRiver &
-	CentralControlCards;
+} & ArchiveRiver &
+	ArchiveCards;
 
 export type DocumentDB = { [name: string]: DocumentData };
 
-export type CentralControl = { documentDB: DocumentDB };
+export type DocumentDBState = { documentDB: DocumentDB };

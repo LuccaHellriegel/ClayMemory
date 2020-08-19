@@ -9,9 +9,9 @@ import river from "./modules/river";
 import display from "./modules/display";
 import cards from "./modules/cards";
 import { persistStore, persistReducer } from "redux-persist";
-import control from "./modules/control";
 import undoable, { includeAction } from "redux-undo";
 import { persistConfig } from "./persist";
+import db from "./modules/db";
 
 //TODO-NICE: this undo-buisness is not very transparent, I just list each action that is state-relevant and not view, make action list in constants.ts?
 
@@ -33,8 +33,8 @@ const rootReducer = combineReducers({
 			cards.actionTypes.CARD_GOAL,
 		]),
 	}),
-	[control.constants.NAME]: undoable(control.reducer, {
-		filter: includeAction([control.actionTypes.LOAD_DOCUMENT_DATA_SETS]),
+	[db.constants.NAME]: undoable(db.reducer, {
+		filter: includeAction([db.actionTypes.LOAD_DOCUMENT_DATA_SETS]),
 	}),
 });
 
