@@ -41,10 +41,13 @@ export const getRiverShowState = createSelector(getAll, (state: CardRiverState) 
 export const riverShowStateIsShow = createSelector(getRiverShowState, (state) => state === "SHOW");
 
 export const getHoveredCardData = createSelector(getAll, (state: CardRiverState) => {
-	return { id: state.hoveredCard, field: state.hoveredField };
+	return { id: state.highlightedCardID, field: state.highlightedCardField };
 });
 
-export const getSourceCard = createSelector(getAll, (state: CardRiverState) => state.sourceCard);
+export const getSourceCard = createSelector(getAll, cards.selectors.getCards, (state, cards) =>
+	// only return sourceCard if it still exists
+	state.sourceCard && cards[state.sourceCard] ? state.sourceCard : null
+);
 
 export const getLastRiverIDNumber = createSelector(getAll, (state: CardRiverState) => state.lastRiverIDNumber);
 

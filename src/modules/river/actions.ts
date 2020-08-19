@@ -29,8 +29,9 @@ export const setHoveredCard = (cardID: CardID, field: CardField) => {
 export const trySetHoveredCard = (cardID: CardID, field: CardField) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
-		const hoveredCardData = getHoveredCardData(state);
-		if (hoveredCardData.id !== cardID || hoveredCardData.field !== field) dispatch(setHoveredCard(cardID, field));
+		const highlightedCardIDData = getHoveredCardData(state);
+		if (highlightedCardIDData.id !== cardID || highlightedCardIDData.field !== field)
+			dispatch(setHoveredCard(cardID, field));
 	};
 };
 

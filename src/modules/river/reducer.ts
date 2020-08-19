@@ -18,8 +18,8 @@ const initialState: CardRiverState = {
 	activeRiverMakeUpID: pageNumberToRiverMakeUpID(1),
 	lastRiverIDNumber: 1,
 	riverShowState: "SHOW",
-	hoveredCard: null,
-	hoveredField: null,
+	highlightedCardID: null,
+	highlightedCardField: null,
 	riverContentState: "ALL",
 	sourceCard: null,
 };
@@ -91,7 +91,7 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 		case t.RIVER_PUSH_STATE:
 			return { ...state, pushToRiverID: payload };
 		case t.RIVER_HOVERED_CARD:
-			return { ...state, hoveredCard: payload.id, hoveredField: payload.field };
+			return { ...state, highlightedCardID: payload.id, highlightedCardField: payload.field };
 		case focus.actionTypes.FOCUS_UPDATE:
 			let sourceCard = state.sourceCard;
 
@@ -103,8 +103,8 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 
 			// reset hovered-card once we are not focused on the context menu
 			//TODO-NICE: investigate a better factoring for the relation between river and creation
-			if (state.hoveredCard !== null && (payload as UserFocus) !== "CONTEXT_MENU") {
-				return { ...state, hoveredCard: null, hoveredField: null, sourceCard };
+			if (state.highlightedCardID !== null && (payload as UserFocus) !== "CONTEXT_MENU") {
+				return { ...state, highlightedCardID: null, highlightedCardField: null, sourceCard };
 			} else {
 				return { ...state, sourceCard };
 			}
