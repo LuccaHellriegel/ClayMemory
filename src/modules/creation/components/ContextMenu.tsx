@@ -5,11 +5,12 @@ import { useDispatch, connect, useSelector } from "react-redux";
 import { getContextMenuInitData, getContextMenuFullCardsRef } from "../selectors";
 import { grabSelectionForContextMenu, grabSelectionForSourceMenu } from "../actions";
 import { incrementer } from "../../../shared/utils";
-import { CardConfig, CardType, CreationType, QACardContent, SourceCard } from "../../cards/model";
+import { CardConfig, CardType, CreationType, QACardContent } from "../../cards/model";
 import { CardConfigItem, noteCardIsEmpty, qaCardIsNotFull } from "./CardItems";
 import { NewButtons } from "./NewButtons";
 import NestedMenuItem from "material-ui-nested-menu-item";
-import cards from "../../cards";
+import river from "../../river";
+import { SourceCard } from "../../river/model";
 
 function ContextMenu({
 	position,
@@ -27,7 +28,7 @@ function ContextMenu({
 	const fullCardsRef = useSelector(getContextMenuFullCardsRef);
 
 	const dispatch = useDispatch();
-	const sourceCard = useSelector(cards.selectors.getSourceCard);
+	const sourceCard = useSelector(river.selectors.getSourceCard);
 
 	//TODO-NICE: open menu in editor to the right not over the document
 

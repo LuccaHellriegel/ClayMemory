@@ -1,7 +1,7 @@
 import * as t from "./actionTypes";
-import { riverShowStateIsShow, getPushToRiver, getHoveredCardData } from "./selectors";
+import { riverShowStateIsShow, getPushToRiver, getHoveredCardData, getSourceCard } from "./selectors";
 import { Dispatch } from "redux";
-import { CreationType, CardID } from "../cards/model";
+import { CardID, CardField, CardOrigin } from "../cards/model";
 import { RiverContentState } from "./model";
 
 export const toggleRiverShowState = () => (dispatch: Dispatch, getState: Function) => {
@@ -22,14 +22,37 @@ export const trySetPushToRiver = (id: string) => {
 	};
 };
 
-export const setHoveredCard = (cardID: CardID, field: CreationType) => {
+export const setHoveredCard = (cardID: CardID, field: CardField) => {
 	return { payload: { id: cardID, field }, type: t.RIVER_HOVERED_CARD };
 };
 
-export const trySetHoveredCard = (cardID: CardID, field: CreationType) => {
+export const trySetHoveredCard = (cardID: CardID, field: CardField) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
 		const hoveredCardData = getHoveredCardData(state);
 		if (hoveredCardData.id !== cardID || hoveredCardData.field !== field) dispatch(setHoveredCard(cardID, field));
+	};
+};
+
+export const setSourceCard = (sourceField: CardField, origin?: CardOrigin) => {
+	return { type: t.RIVER_CARD_SOURCE, payload: { origin, sourceField } };
+};
+
+export const trySetSourceCard = (sourceField: CardField, origin?: CardOrigin) => {
+	return (dispatch: Dispatch, getState: Function) => {
+		const sourceCard = getSourceCard(getState());
+		if (!sourceCard || sourceCard.sourceField !== sourceField || sourceCard.origin !== origin)
+			dispatch(setSourceCard(sourceField, origin));
+	};
+};
+
+export const resetSourceCard = () => {
+	return { type: t.RIVER_CARD_SOURCE, payload: null };
+};
+
+export const tryResetSourceCard = () => {
+	return (dispatch: Dispatch, getState: Function) => {
+		const sourceCardExits = getSourceCard(getState()) !== null;
+		if (sourceCardExits) dispatch(resetSourceCard());
 	};
 };

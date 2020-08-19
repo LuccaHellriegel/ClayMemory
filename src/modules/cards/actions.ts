@@ -10,7 +10,7 @@ import {
 } from "./model";
 import * as t from "./actionTypes";
 import { Dispatch } from "redux";
-import { getLastCardIDNumber, getCards, getSourceCard } from "./selectors";
+import { getLastCardIDNumber, getCards } from "./selectors";
 import { contentStringToConfig } from "./services/config";
 
 const createCardID = (lastCardIDNumber: number) => (lastCardIDNumber + 1).toString();
@@ -74,27 +74,4 @@ export const setGoalCard = (cardConfig: CardConfig, creationType: CreationType) 
 
 export const resetGoalCard = () => {
 	return { type: t.CARD_GOAL, payload: null };
-};
-
-export const setSourceCard = (sourceField: CreationType, origin?: CardOrigin) => {
-	return { type: t.CARD_SOURCE, payload: { origin, sourceField } };
-};
-
-export const trySetSourceCard = (sourceField: CreationType, origin?: CardOrigin) => {
-	return (dispatch: Dispatch, getState: Function) => {
-		const sourceCard = getSourceCard(getState());
-		if (!sourceCard || sourceCard.sourceField !== sourceField || sourceCard.origin !== origin)
-			dispatch(setSourceCard(sourceField, origin));
-	};
-};
-
-export const resetSourceCard = () => {
-	return { type: t.CARD_SOURCE, payload: null };
-};
-
-export const tryResetSourceCard = () => {
-	return (dispatch: Dispatch, getState: Function) => {
-		const sourceCardExits = getSourceCard(getState()) !== null;
-		if (sourceCardExits) dispatch(resetSourceCard());
-	};
 };

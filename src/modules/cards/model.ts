@@ -2,9 +2,13 @@ export type CardID = string;
 
 export type CardType = "Note" | "Q-A";
 
+export type CardField = "NOTE" | "Q" | "A";
+
+export type NoteCardContent = string;
+
 export type QACardContent = { q: string; a: string };
 
-type CardContent = string | QACardContent;
+type CardContent = NoteCardContent | QACardContent;
 
 export type SingleOrigin = { spanIndex: number; page: number };
 
@@ -14,7 +18,7 @@ export type NoteOrigin = SingleOrigin;
 
 export type CardOrigin = NoteOrigin | QAOrigin;
 
-export type NoteConfig = { cardID: CardID; type: CardType; content: string; origin?: NoteOrigin };
+export type NoteConfig = { cardID: CardID; type: CardType; content: NoteCardContent; origin?: NoteOrigin };
 
 export type QAConfig = { cardID: CardID; type: CardType; content: QACardContent; origin?: QAOrigin };
 
@@ -32,12 +36,8 @@ export type CreationType = "NOTE" | "Q" | "A";
 
 export type GoalCard = CardConfig & { creationType: CreationType };
 
-//TODO-NICE: think about Model-Separation, why do we need the coordinates to polute the Card-Model
-export type SourceCard = { origin?: CardOrigin; sourceField: CreationType };
-
 export type CardsState = {
 	cards: { [cardID: string]: CardConfig };
 	lastCardIDNumber: number;
 	goalCard: GoalCard | null;
-	sourceCard: SourceCard | null;
 };

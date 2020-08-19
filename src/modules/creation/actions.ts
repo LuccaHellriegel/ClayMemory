@@ -6,6 +6,7 @@ import { getCurrentSelectedString, getCurrentSelectedParent, getContextMenuState
 import { isNullOrUndefined } from "util";
 import { transformInputOrigin } from "./services/transformInputOrigin";
 import display from "../display";
+import river from "../river";
 
 export const toggleContextMenu = () => {
 	return (dispatch: any, getState: Function) => {
@@ -134,7 +135,7 @@ export const grabSelectionForSourceMenu = (
 		}
 
 		dispatch(resetManuallySelectedString());
-		dispatch(cards.actions.resetSourceCard());
+		dispatch(river.actions.resetSourceCard());
 	};
 };
 

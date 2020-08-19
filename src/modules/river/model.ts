@@ -1,4 +1,4 @@
-import { CreationType } from "../cards/model";
+import { CardField, CardOrigin } from "../cards/model";
 
 export type RiverMakeUp = { riverID: string; cardIDs: string[] };
 
@@ -10,6 +10,9 @@ export type RiverContentState = "ALL" | "NOTES" | "QAS";
 
 //TODO-NICE: rename pushto/active river
 
+// SourceCard is used when selecting/extracting from a card
+export type SourceCard = { origin?: CardOrigin; sourceField: CardField };
+
 export type CardRiverState = {
 	riverMakeUps: RiverMakeUps;
 	activeRiverMakeUpID: string;
@@ -18,7 +21,8 @@ export type CardRiverState = {
 	riverShowState: RiverShowState;
 	riverContentState: RiverContentState;
 	hoveredCard: null | string;
-	hoveredField: null | CreationType;
+	hoveredField: null | CardField;
+	sourceCard: SourceCard | null;
 };
 
 export const pageNumberToRiverMakeUpID = (page: number) => "CardRiver " + page;

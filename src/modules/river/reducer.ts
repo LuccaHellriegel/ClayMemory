@@ -21,6 +21,7 @@ const initialState: CardRiverState = {
 	hoveredCard: null,
 	hoveredField: null,
 	riverContentState: "ALL",
+	sourceCard: null,
 };
 
 const emptyCardRiver = (page: number): RiverMakeUp => {
@@ -92,12 +93,21 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 		case t.RIVER_HOVERED_CARD:
 			return { ...state, hoveredCard: payload.id, hoveredField: payload.field };
 		case focus.actionTypes.FOCUS_UPDATE:
+			let sourceCard = state.sourceCard;
+
+			//TODO-NICE: untangle the focus logic, might be that I can just reset in the first case
+			// need to reset sourceCard because we want to trigger the correct Selection-Grab when in the document
+			//TODO-NICE: change SELECTION to DOCUMENT now that we can also select from other cards
+			if ((payload as UserFocus) === "SELECTION" && sourceCard) {
+				sourceCard = null;
+			}
+
 			// reset hovered-card once we are not focused on the context menu
 			//TODO-NICE: investigate a better factoring for the relation between river and creation
 			if (state.hoveredCard !== null && (payload as UserFocus) !== "CONTEXT_MENU") {
-				return { ...state, hoveredCard: null, hoveredField: null };
+				return { ...state, hoveredCard: null, hoveredField: null, sourceCard };
 			} else {
-				return state;
+				return { ...state, sourceCard };
 			}
 		case cards.actionTypes.GLOBAL_RESET:
 			if (payload) {
@@ -111,6 +121,8 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 			} else {
 				return initialState;
 			}
+		case t.RIVER_CARD_SOURCE:
+			return { ...state, sourceCard: payload };
 		default:
 			return state;
 	}

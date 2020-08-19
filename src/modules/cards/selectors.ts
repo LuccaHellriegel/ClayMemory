@@ -8,5 +8,3 @@ export const getLastCardIDNumber = createSelector(getAll, (state) => state.lastC
 export const getCards = createSelector(getAll, (state: CardsState) => state.cards);
 
 export const getGoalCard = createSelector(getAll, (state: CardsState) => state.goalCard);
-
-export const getSourceCard = createSelector(getAll, (state: CardsState) => state.sourceCard);

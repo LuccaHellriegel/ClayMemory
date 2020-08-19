@@ -10,6 +10,7 @@ import { GrabForFieldButton } from "./Buttons/GrabForFieldButton";
 import { isNullOrUndefined } from "util";
 import { getHoveredCardData } from "../../selectors";
 import focus from "../../../focus";
+import { trySetSourceCard } from "../../actions";
 
 //TODO-RC: tooltips for all buttons, multiple languages?
 
@@ -42,7 +43,7 @@ const NoteCard = ({ config }: CardProps) => {
 				InputLabelProps={{ style: { color: "#000000" } }}
 				onMouseEnter={() => {
 					dispatch(focus.actions.tryUpdateFocus("EDITOR"));
-					dispatch(cards.actions.trySetSourceCard("NOTE", config.origin));
+					dispatch(trySetSourceCard("NOTE", config.origin));
 				}}
 			></HybridCardField>
 			<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
@@ -75,7 +76,7 @@ const QACard = ({ config }: CardProps) => {
 					InputLabelProps={{ style: { color: "#000000" } }}
 					onMouseEnter={() => {
 						dispatch(focus.actions.tryUpdateFocus("EDITOR"));
-						dispatch(cards.actions.trySetSourceCard("Q", config.origin));
+						dispatch(trySetSourceCard("Q", config.origin));
 					}}
 				></HybridCardField>
 				{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="Q"></GrabForFieldButton>}
@@ -95,7 +96,7 @@ const QACard = ({ config }: CardProps) => {
 					InputLabelProps={{ style: { color: "#000000" } }}
 					onMouseEnter={() => {
 						dispatch(focus.actions.tryUpdateFocus("EDITOR"));
-						dispatch(cards.actions.trySetSourceCard("A", config.origin));
+						dispatch(trySetSourceCard("A", config.origin));
 					}}
 				></HybridCardField>
 				{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="A"></GrabForFieldButton>}

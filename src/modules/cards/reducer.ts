@@ -18,7 +18,6 @@ const intialState: CardsState = {
 	},
 	lastCardIDNumber: 2,
 	goalCard: null,
-	sourceCard: null,
 };
 
 const removeCard = (state: CardsState, cardID: CardID) => {
@@ -52,8 +51,6 @@ const cards = (state = intialState, { type, payload }: { type: string; payload?:
 			return removeCard(state, payload as string);
 		case t.CARD_GOAL:
 			return { ...state, goalCard: payload };
-		case t.CARD_SOURCE:
-			return { ...state, sourceCard: payload };
 		case t.GLOBAL_RESET:
 			if (payload) {
 				return {
