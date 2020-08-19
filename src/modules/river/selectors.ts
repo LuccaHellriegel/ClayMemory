@@ -3,7 +3,7 @@ import { createSelector } from "reselect";
 import { CardRiverState } from "./model";
 import cards from "../cards";
 
-export const getAll = (state: any) => state[NAME];
+export const getAll = (state: any) => state[NAME].present;
 
 export const getRiverMakeUps = createSelector(getAll, (state: CardRiverState) => state.riverMakeUps);
 

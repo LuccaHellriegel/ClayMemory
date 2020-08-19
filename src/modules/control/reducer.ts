@@ -10,6 +10,7 @@ const centralControl = (
 	{ type, payload }: { type: string; payload: DocumentData | DocumentData[] }
 ): CentralControl => {
 	switch (type) {
+		// dont need to undo this, because if we change the active river and then change the document, the archive version gets overwritten
 		case t.ARCHIVE_CURRENT_DATA:
 			return {
 				...state,

@@ -8,80 +8,38 @@ import creation from "./modules/creation";
 import river from "./modules/river";
 import display from "./modules/display";
 import cards from "./modules/cards";
-import { persistStore, persistReducer, createTransform } from "redux-persist";
-import { CreationData } from "./modules/creation/model";
-import { createRef } from "react";
-import { DisplayData } from "./modules/display/model";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import { persistStore, persistReducer } from "redux-persist";
 import control from "./modules/control";
+import undoable, { includeAction } from "redux-undo";
+import { persistConfig } from "./persist";
+
+//TODO-NICE: this undo-buisness is not very transparent, I just list each action that is state-relevant and not view, make action list in constants.ts?
 
 const rootReducer = combineReducers({
 	[focus.constants.NAME]: focus.reducer,
-	[creation.constants.NAME]: creation.reducer,
-	[river.constants.NAME]: river.reducer,
+	[creation.constants.NAME]: undoable(creation.reducer, {
+		filter: includeAction([cards.actionTypes.CARD_PUSH, creation.actionTypes.SELECTED_STRING]),
+	}),
+	[river.constants.NAME]: undoable(river.reducer, {
+		filter: includeAction([cards.actionTypes.CARD_PUSH, cards.actionTypes.CARD_REMOVE]),
+	}),
 	[display.constants.NAME]: display.reducer,
-	[cards.constants.NAME]: cards.reducer,
-	[control.constants.NAME]: control.reducer,
+	[cards.constants.NAME]: undoable(cards.reducer, {
+		filter: includeAction([
+			cards.actionTypes.CARD_PUSH,
+			cards.actionTypes.CARD_UPDATE,
+			cards.actionTypes.CARD_REMOVE,
+			//this needs to be here, because we use display it to the user with the grab-icon
+			cards.actionTypes.CARD_GOAL,
+		]),
+	}),
+	[control.constants.NAME]: undoable(control.reducer, {
+		filter: includeAction([control.actionTypes.LOAD_DOCUMENT_DATA_SETS]),
+	}),
 });
 
 const stateSanitizer = (state: any) => {
 	return state.displayData.pdf ? { ...state, displayData: { ...state.displayData, pdf: "PDF_FILE_IS_HERE" } } : state;
-};
-
-const creationTransform = createTransform(
-	(inboundState: CreationData) => {
-		return { ...inboundState, menuRef: null, qaRefs: inboundState.qaRefs.map((_) => null), selectedParentSpan: null };
-	},
-	(outboundState): CreationData => {
-		return {
-			...outboundState,
-			menuRef: createRef(),
-			fullCardRef: createRef(),
-			qaRefs: outboundState.qaRefs.map((_) => createRef()),
-		};
-	},
-	{ whitelist: [creation.constants.NAME] }
-);
-
-//TODO-NICE: find way to save PDF in browser, maybe manually use indexeddb and use that in transform?
-// idea: make store-field pdfAsBase64 and use thunk for async-filling the field, then when reloading, use thunk to format
-// const reader = new FileReaderSync();
-
-// function readFileAsync(file: File) {
-// 	return new Promise((resolve) => {
-// 		reader.onload = () => {
-// 			resolve(reader.result);
-// 		};
-// 		reader.onerror = () => resolve(null);
-
-// 		reader.readAsDataURL(file);
-// 	});
-// }
-
-const displayTransform = createTransform(
-	(inboundState: DisplayData) => {
-		let pdf = null;
-		// if (inboundState.pdf) {
-		// 	pdf = await readFileAsync(inboundState.pdf);
-		// }
-		const result = { ...inboundState, documentRef: null, materialData: null, pdf };
-		return result;
-	},
-	(outboundState): DisplayData => {
-		return {
-			...outboundState,
-			pdf: undefined,
-			documentRef: createRef(),
-			materialData: { materialDataTimeStamp: -Infinity },
-		};
-	},
-	{ whitelist: [display.constants.NAME] }
-);
-
-const persistConfig = {
-	key: "root",
-	storage, //: storage("ClayMemory"),
-	transforms: [creationTransform, displayTransform],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -10,7 +10,6 @@ export const ActiveRiverView = () => {
 	const displayFocus = useSelector(focus.selectors.getDisplayFocus);
 	const showMaterial = useSelector(display.selectors.displayStatusIsShow);
 	const showRiver = useSelector(riverShowStateIsShow);
-
 	return (
 		<Grid item hidden={displayFocus !== "ACTIVE_RIVER"}>
 			<Grid container justify="space-around" direction="row" alignItems="stretch">

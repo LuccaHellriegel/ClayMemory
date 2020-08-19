@@ -4,6 +4,7 @@ import { DocumentData } from "./model";
 import display from "../display";
 import cards from "../cards";
 import * as t from "./actionTypes";
+import { ActionCreators } from "redux-undo";
 
 export const archiveDBData = (dbData: DocumentData) => {
 	return { type: t.ARCHIVE_CURRENT_DATA, payload: dbData };
@@ -63,6 +64,9 @@ export const changeDocument = (pdf: File) => {
 		} else {
 			dispatch({ type: cards.actionTypes.GLOBAL_RESET });
 		}
+
+		// no undo-redo across documents
+		dispatch(ActionCreators.clearHistory());
 	};
 };
 

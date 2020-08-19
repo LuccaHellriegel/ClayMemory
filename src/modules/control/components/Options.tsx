@@ -77,6 +77,7 @@ export const InputDataSets = ({ handleClose, label }: any) => {
 							const foundDataSet = (uploadedDataSets as DocumentData[]).find(
 								(dbData) => dbData.name === activeDocument
 							);
+							//TODO-RC: merge this with loadDocument because I only allow load document to be undone
 
 							if (foundDataSet) {
 								//TODO-NICE: merge uploaded state with current-one and dont overwrite

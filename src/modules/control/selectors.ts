@@ -5,7 +5,7 @@ import cards from "../cards";
 import { DocumentData, CentralControl } from "./model";
 import { NAME } from "./constants";
 
-export const getAll = (state: any) => state[NAME];
+export const getAll = (state: any) => state[NAME].present;
 
 export const getDocumentDB = createSelector(getAll, (state: CentralControl) => state.documentDB);
 

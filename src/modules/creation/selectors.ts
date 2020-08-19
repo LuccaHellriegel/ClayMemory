@@ -5,7 +5,7 @@ import river from "../river";
 import display from "../display";
 import { SingleOrigin } from "../cards/model";
 
-export const getAll = (state: any) => state[NAME];
+export const getAll = (state: any) => state[NAME].present;
 
 export const getContextMenuState = createSelector(getAll, (state: CreationData) => state.open);
 

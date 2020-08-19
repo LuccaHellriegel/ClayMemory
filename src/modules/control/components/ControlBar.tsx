@@ -2,10 +2,41 @@ import display from "../../display";
 import focus from "../../focus";
 import river from "../../river";
 import React, { ChangeEvent } from "react";
-import { AppBar, Toolbar, Divider, Tabs, Tab, Grid } from "@material-ui/core";
+import { AppBar, Toolbar, Divider, Tabs, Tab, Grid, IconButton } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { ShowRiverButton } from "./ShowRiverButton";
 import { Options } from "./Options";
+import UndoIcon from "@material-ui/icons/Undo";
+import RedoIcon from "@material-ui/icons/Redo";
+import { ActionCreators } from "redux-undo";
+
+const UndoButton = () => {
+	const dispatch = useDispatch();
+	return (
+		<IconButton
+			type="button"
+			onClick={() => {
+				dispatch(ActionCreators.undo());
+			}}
+		>
+			<UndoIcon></UndoIcon>
+		</IconButton>
+	);
+};
+
+const RedoButton = () => {
+	const dispatch = useDispatch();
+	return (
+		<IconButton
+			type="button"
+			onClick={() => {
+				dispatch(ActionCreators.redo());
+			}}
+		>
+			<RedoIcon></RedoIcon>
+		</IconButton>
+	);
+};
 
 //TODO-NICE: download/load csv for Anki
 export const ControlBar = () => {
@@ -36,6 +67,9 @@ export const ControlBar = () => {
 						<Tab label="ActiveRiver" />
 						<Tab label="SummaryRiver" />
 					</Tabs>
+					<Divider orientation="vertical" flexItem />
+					<UndoButton></UndoButton>
+					<RedoButton></RedoButton>
 					<Divider orientation="vertical" flexItem />
 					{totalPages && <display.components.PageChooser></display.components.PageChooser>}
 					{totalPages && <display.components.PreviousButton></display.components.PreviousButton>}

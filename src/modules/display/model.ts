@@ -16,7 +16,7 @@ export type MaterialData =
 export type DisplayStatus = "SHOW" | "HIDE";
 
 //the number is the arr position and not the actual count of spans
-type PerPageSpans = { [page: number]: number };
+export type PerPageSpans = { [page: number]: number };
 
 export type DisplayData = {
 	pdf?: File;
