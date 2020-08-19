@@ -97,8 +97,7 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 
 			//TODO-NICE: untangle the focus logic, might be that I can just reset in the first case
 			// need to reset sourceCard because we want to trigger the correct Selection-Grab when in the document
-			//TODO-NICE: change SELECTION to DOCUMENT now that we can also select from other cards
-			if ((payload as UserFocus) === "SELECTION" && sourceCard) {
+			if ((payload as UserFocus) === "DOCUMENT" && sourceCard) {
 				sourceCard = null;
 			}
 

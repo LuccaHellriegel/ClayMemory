@@ -28,7 +28,7 @@ export const mouseUpControl = (event: MouseEvent) => {
 				const goalCard = cards.selectors.getGoalCard(state);
 				const userFocus = focus.selectors.getFocus(state);
 
-				const shouldGrab = userFocus === "EDITOR" || userFocus === "SELECTION";
+				const shouldGrab = userFocus === "RIVER" || userFocus === "DOCUMENT";
 
 				if (goalCard && shouldGrab) {
 					// this is the dispatch for the grab for field button
@@ -36,7 +36,7 @@ export const mouseUpControl = (event: MouseEvent) => {
 
 					//TODO-NICE: allow grabbing from other cards
 					// for now we dont allow grabbing from other cards to simplifiy the card->card workflow
-					if (userFocus !== "EDITOR")
+					if (userFocus !== "RIVER")
 						dispatch(
 							cards.actions.updateCardContent(
 								selectedStr,
@@ -49,7 +49,7 @@ export const mouseUpControl = (event: MouseEvent) => {
 					dispatch(cards.actions.resetGoalCard());
 				} else {
 					// this is the dispatch for the ContextMenu
-					if (userFocus === "SELECTION") {
+					if (userFocus === "DOCUMENT") {
 						//if the user is focused on the document, the push-to river should always be the active=page-wise river
 						dispatch(river.actions.setPushToRiver(river.selectors.getActiveRiverMakeUpID(state)));
 						dispatch(creation.actions.selectedParent(selection.anchorNode?.parentNode as HTMLSpanElement));
@@ -59,7 +59,7 @@ export const mouseUpControl = (event: MouseEvent) => {
 					}
 
 					// this is the dispatch to prepare for extraction from card
-					if (userFocus === "EDITOR") {
+					if (userFocus === "RIVER") {
 						dispatch(creation.actions.updateManuallySelectedString(selectedStr));
 					}
 				}
@@ -86,7 +86,7 @@ export const rightClickControl = (event: MouseEvent) => {
 		event.preventDefault();
 
 		// this is the dispatch for the ContextMenu inside the editor
-		if (userFocus === "EDITOR") {
+		if (userFocus === "RIVER") {
 			dispatch(creation.actions.updateSelectionPosition(event.x, event.y));
 			dispatch(creation.actions.openContextMenu());
 		}

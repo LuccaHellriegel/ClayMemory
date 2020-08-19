@@ -36,7 +36,7 @@ export const GrabForFieldButton = ({
 		<IconButton
 			type="button"
 			onMouseEnter={() => {
-				dispatch(focus.actions.tryUpdateFocus("EDITOR_CONTROL"));
+				dispatch(focus.actions.tryUpdateFocus("RIVER_CONTROL"));
 			}}
 			onClick={() => {
 				if (outlined) {

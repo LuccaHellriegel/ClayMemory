@@ -19,7 +19,7 @@ export const DeleteCardButton = ({ cardID }: { cardID: CardID }) => {
 				dispatch(cards.actions.removeCard(cardID));
 			}}
 			onMouseEnter={() => {
-				dispatch(focus.actions.tryUpdateFocus("EDITOR_CONTROL"));
+				dispatch(focus.actions.tryUpdateFocus("RIVER_CONTROL"));
 			}}
 		>
 			<DeleteForeverIcon></DeleteForeverIcon>

@@ -38,11 +38,11 @@ const contextMenuFocusDispatcher = keyEventDispatcher(contextMenuFocusKeyMap);
 const doNothing = (event: any, dispatch: any) => {};
 
 const focusDispatcherMap: { [focus in UserFocus]: KeyEventDispatcher } = {
-	SELECTION: selectionFocusDispatcher,
+	DOCUMENT: selectionFocusDispatcher,
 	CONTEXT_MENU: contextMenuFocusDispatcher,
-	EDITOR: doNothing,
+	RIVER: doNothing,
 	CONTROL: doNothing,
-	EDITOR_CONTROL: doNothing,
+	RIVER_CONTROL: doNothing,
 };
 
 export const keyDownControl = (event: KeyboardEvent) => {

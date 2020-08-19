@@ -32,7 +32,7 @@ const creationData = (state = initialState, { type, payload }: { type: string; p
 			return { ...state, manuallySelectedString: payload as string };
 		case t.SELECTED_PARENT:
 			return { ...state, selectedParentSpan: payload };
-		case t.SELECTION_POSITION:
+		case t.DOCUMENT_POSITION:
 			return { ...state, selectionPosition: payload };
 		default:
 			return state;

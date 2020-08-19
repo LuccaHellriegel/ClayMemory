@@ -42,7 +42,7 @@ const NoteCard = ({ config }: CardProps) => {
 				style={{ backgroundColor: "#CBF3F0" }}
 				InputLabelProps={{ style: { color: "#000000" } }}
 				onMouseEnter={() => {
-					dispatch(focus.actions.tryUpdateFocus("EDITOR"));
+					dispatch(focus.actions.tryUpdateFocus("RIVER"));
 					dispatch(trySetSourceCard("NOTE", config.origin));
 				}}
 			></HybridCardField>
@@ -75,7 +75,7 @@ const QACard = ({ config }: CardProps) => {
 					style={{ backgroundColor: "#FFBF69" }}
 					InputLabelProps={{ style: { color: "#000000" } }}
 					onMouseEnter={() => {
-						dispatch(focus.actions.tryUpdateFocus("EDITOR"));
+						dispatch(focus.actions.tryUpdateFocus("RIVER"));
 						dispatch(trySetSourceCard("Q", config.origin));
 					}}
 				></HybridCardField>
@@ -95,7 +95,7 @@ const QACard = ({ config }: CardProps) => {
 					style={{ backgroundColor: "#2EC4B6" }}
 					InputLabelProps={{ style: { color: "#000000" } }}
 					onMouseEnter={() => {
-						dispatch(focus.actions.tryUpdateFocus("EDITOR"));
+						dispatch(focus.actions.tryUpdateFocus("RIVER"));
 						dispatch(trySetSourceCard("A", config.origin));
 					}}
 				></HybridCardField>

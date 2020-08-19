@@ -19,7 +19,7 @@ function MaterialDisplayColumn({ size, hidden }: any) {
 				width: "60%",
 			}}
 			onMouseEnter={() => {
-				dispatch(focus.actions.tryUpdateFocus("SELECTION"));
+				dispatch(focus.actions.tryUpdateFocus("DOCUMENT"));
 				setElevation(20);
 			}}
 			onMouseLeave={() => {

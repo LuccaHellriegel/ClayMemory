@@ -14,7 +14,7 @@ export const AddQAButton = () => {
 				dispatch(cards.actions.cardPush({ card: { type: "Q-A", content: { q: "", a: "" } } }));
 			}}
 			onMouseEnter={() => {
-				dispatch(focus.actions.tryUpdateFocus("EDITOR_CONTROL"));
+				dispatch(focus.actions.tryUpdateFocus("RIVER_CONTROL"));
 			}}
 		>
 			<FeaturedPlayListIcon></FeaturedPlayListIcon>

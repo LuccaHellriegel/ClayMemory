@@ -14,7 +14,7 @@ export const AddNoteButton = () => {
 				dispatch(cards.actions.cardPush({ card: { type: "Note", content: "" } }));
 			}}
 			onMouseEnter={() => {
-				dispatch(focus.actions.tryUpdateFocus("EDITOR_CONTROL"));
+				dispatch(focus.actions.tryUpdateFocus("RIVER_CONTROL"));
 			}}
 		>
 			<FeaturedVideoIcon></FeaturedVideoIcon>

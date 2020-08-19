@@ -22,7 +22,7 @@ export const closeContextMenu = () => {
 	return (dispatch: any, getState: Function) => {
 		if (getContextMenuState(getState())) {
 			dispatch({ type: t.CLOSE_CONTEXT_MENU });
-			dispatch(focus.actions.updateFocus("SELECTION"));
+			dispatch(focus.actions.updateFocus("DOCUMENT"));
 		}
 	};
 };
@@ -30,7 +30,7 @@ export const closeContextMenu = () => {
 export const openContextMenu = () => {
 	return (dispatch: any) => {
 		dispatch({ type: t.OPEN_CONTEXT_MENU });
-		dispatch(focus.actions.updateFocus("SELECTION"));
+		dispatch(focus.actions.updateFocus("DOCUMENT"));
 	};
 };
 
@@ -152,5 +152,5 @@ export const selectedParent = (span: null | HTMLSpanElement) => {
 };
 
 export const updateSelectionPosition = (x: number, y: number) => {
-	return { type: t.SELECTION_POSITION, payload: { x, y } };
+	return { type: t.DOCUMENT_POSITION, payload: { x, y } };
 };
