@@ -1,4 +1,13 @@
-import { CardPayload, FinalizedCardPayload, CreationType, UpdateType, CardType, CardOrigin, CardConfig } from "./model";
+import {
+	CardPayload,
+	FinalizedCardPayload,
+	CreationType,
+	UpdateType,
+	CardType,
+	CardOrigin,
+	CardConfig,
+	CardID,
+} from "./model";
 import * as t from "./actionTypes";
 import { Dispatch } from "redux";
 import { getLastCardIDNumber, getCards, getSourceCard } from "./selectors";
@@ -24,7 +33,7 @@ export const cardUpdate = (card: CardPayload) => {
 
 export const updateCardContent = (
 	contentString: string,
-	cardID: string,
+	cardID: CardID,
 	creationType: CreationType,
 	updateType: UpdateType,
 	origin?: CardOrigin
@@ -55,7 +64,7 @@ export const pushCardContent = (
 	return cardPush({ card: { ...config, origin } });
 };
 
-export const removeCard = (cardID: string) => {
+export const removeCard = (cardID: CardID) => {
 	return { type: t.CARD_REMOVE, payload: cardID };
 };
 

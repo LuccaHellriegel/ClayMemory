@@ -1,5 +1,5 @@
 import { CardRiverState, RiverShowState, pageNumberToRiverMakeUpID, RiverMakeUp, RiverContentState } from "./model";
-import { FinalizedCardPayload } from "../cards/model";
+import { FinalizedCardPayload, CardID } from "../cards/model";
 import cards from "../cards";
 import * as t from "./actionTypes";
 import display from "../display";
@@ -7,13 +7,11 @@ import focus from "../focus";
 import { UserFocus } from "../focus/model";
 import { CentralControlRiver } from "../control/model";
 
-const intialState: CardRiverState = {
+const initialState: CardRiverState = {
 	riverMakeUps: {
 		[pageNumberToRiverMakeUpID(1)]: {
 			riverID: pageNumberToRiverMakeUpID(1),
 			cardIDs: ["2", "0", "1"],
-			//TODO-NICE: might remove this active-flag, because I dont use it? Maybe for multiple documents?
-			active: true,
 		},
 	},
 	pushToRiverID: pageNumberToRiverMakeUpID(1),
@@ -29,7 +27,6 @@ const emptyCardRiver = (page: number): RiverMakeUp => {
 	return {
 		riverID: pageNumberToRiverMakeUpID(page),
 		cardIDs: [],
-		active: true,
 	};
 };
 
@@ -45,7 +42,7 @@ const deactivateActiveCardRiver = (state: CardRiverState) => {
 	return { ...state.riverMakeUps[state.activeRiverMakeUpID], active: false };
 };
 
-const removeCardFromRivers = (state: CardRiverState, cardID: string): CardRiverState => {
+const removeCardFromRivers = (state: CardRiverState, cardID: CardID): CardRiverState => {
 	const riverMakeUps = Object.fromEntries(
 		Object.entries(state.riverMakeUps).map((entry) => [
 			entry[0],
@@ -55,7 +52,7 @@ const removeCardFromRivers = (state: CardRiverState, cardID: string): CardRiverS
 	return { ...state, riverMakeUps };
 };
 
-const cardRiverState = (state = intialState, { type, payload }: { type: string; payload: any }) => {
+const cardRiverState = (state = initialState, { type, payload }: { type: string; payload: any }) => {
 	let riverMakeUp;
 	let riverMakeUps;
 	switch (type) {
@@ -64,7 +61,7 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 			if (!state.riverMakeUps[pageNumberToRiverMakeUpID(payload as number)]) {
 				activeRiver = emptyCardRiver(payload as number);
 			} else {
-				activeRiver = { ...state.riverMakeUps[pageNumberToRiverMakeUpID(payload as number)], active: true };
+				activeRiver = { ...state.riverMakeUps[pageNumberToRiverMakeUpID(payload as number)] };
 			}
 
 			const oldRiver = deactivateActiveCardRiver(state);
@@ -105,14 +102,14 @@ const cardRiverState = (state = intialState, { type, payload }: { type: string; 
 		case cards.actionTypes.GLOBAL_RESET:
 			if (payload) {
 				return {
-					...intialState,
+					...initialState,
 					riverMakeUps: (payload as CentralControlRiver).riverMakeUps,
 					activeRiverMakeUpID: (payload as CentralControlRiver).activeRiverMakeUpID,
 					pushToRiverID: (payload as CentralControlRiver).pushToRiverID,
 					lastRiverIDNumber: (payload as CentralControlRiver).lastRiverIDNumber,
 				};
 			} else {
-				return intialState;
+				return initialState;
 			}
 		default:
 			return state;

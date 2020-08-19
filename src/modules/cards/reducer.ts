@@ -1,5 +1,5 @@
 import * as t from "./actionTypes";
-import { CardsState, FinalizedCardPayload } from "./model";
+import { CardsState, FinalizedCardPayload, CardID } from "./model";
 import { CentralControlCards } from "../control/model";
 
 const intialState: CardsState = {
@@ -21,7 +21,7 @@ const intialState: CardsState = {
 	sourceCard: null,
 };
 
-const removeCard = (state: CardsState, cardID: string) => {
+const removeCard = (state: CardsState, cardID: CardID) => {
 	const cards = { ...state.cards };
 
 	// we do not reset the ID counter

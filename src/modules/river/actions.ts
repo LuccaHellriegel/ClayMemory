@@ -1,7 +1,7 @@
 import * as t from "./actionTypes";
 import { riverShowStateIsShow, getPushToRiver, getHoveredCardData } from "./selectors";
 import { Dispatch } from "redux";
-import { CreationType } from "../cards/model";
+import { CreationType, CardID } from "../cards/model";
 import { RiverContentState } from "./model";
 
 export const toggleRiverShowState = () => (dispatch: Dispatch, getState: Function) => {
@@ -22,11 +22,11 @@ export const trySetPushToRiver = (id: string) => {
 	};
 };
 
-export const setHoveredCard = (cardID: string, field: CreationType) => {
+export const setHoveredCard = (cardID: CardID, field: CreationType) => {
 	return { payload: { id: cardID, field }, type: t.RIVER_HOVERED_CARD };
 };
 
-export const trySetHoveredCard = (cardID: string, field: CreationType) => {
+export const trySetHoveredCard = (cardID: CardID, field: CreationType) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
 		const hoveredCardData = getHoveredCardData(state);

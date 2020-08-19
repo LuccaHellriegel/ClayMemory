@@ -1,6 +1,6 @@
 import { CreationType } from "../cards/model";
 
-export type RiverMakeUp = { riverID: string; cardIDs: string[]; active: boolean };
+export type RiverMakeUp = { riverID: string; cardIDs: string[] };
 
 export type RiverMakeUps = { [riverID: string]: RiverMakeUp };
 
