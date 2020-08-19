@@ -13,6 +13,8 @@ export type RiverContentState = "ALL" | "NOTES" | "QAS";
 // SourceCard is used when selecting/extracting from a card
 export type SourceCard = { origin?: CardOrigin; sourceField: CardField };
 
+export type ContentFilter = string;
+
 export type CardRiverState = {
 	riverMakeUps: RiverMakeUps;
 	activeRiverMakeUpID: string;
@@ -27,6 +29,7 @@ export type CardRiverState = {
 	highlightedCardField: null | CardField;
 	// is used to determine if we are extracting from a card
 	sourceCard: SourceCard | null;
+	contentFilter: ContentFilter | "";
 };
 
 export const pageNumberToRiverMakeUpID = (page: number) => "CardRiver " + page;

@@ -2,7 +2,7 @@ import * as t from "./actionTypes";
 import { riverShowStateIsShow, getPushToRiver, getHoveredCardData, getSourceCard } from "./selectors";
 import { Dispatch } from "redux";
 import { CardID, CardField, CardOrigin } from "../cards/model";
-import { RiverContentState } from "./model";
+import { RiverContentState, ContentFilter } from "./model";
 
 export const toggleRiverShowState = () => (dispatch: Dispatch, getState: Function) => {
 	dispatch({ type: t.RIVER_SHOW_STATE, payload: riverShowStateIsShow(getState()) ? "HIDE" : "SHOW" });
@@ -56,4 +56,8 @@ export const tryResetSourceCard = () => {
 		const sourceCardExits = getSourceCard(getState()) !== null;
 		if (sourceCardExits) dispatch(resetSourceCard());
 	};
+};
+
+export const setContentFilter = (filter: ContentFilter) => {
+	return { type: t.RIVER_CONTENT_FILTER, payload: filter };
 };

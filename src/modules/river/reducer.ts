@@ -23,6 +23,7 @@ const initialState: CardRiverState = {
 	highlightedCardField: null,
 	riverContentState: "ALL",
 	sourceCard: null,
+	contentFilter: "",
 };
 
 const emptyCardRiver = (page: number): RiverMakeUp => {
@@ -138,6 +139,8 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 			}
 		case t.RIVER_CARD_SOURCE:
 			return { ...state, sourceCard: payload };
+		case t.RIVER_CONTENT_FILTER:
+			return { ...state, contentFilter: payload };
 		default:
 			return state;
 	}

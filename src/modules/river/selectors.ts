@@ -52,3 +52,5 @@ export const getSourceCard = createSelector(getAll, cards.selectors.getCards, (s
 export const getLastRiverIDNumber = createSelector(getAll, (state: CardRiverState) => state.lastRiverIDNumber);
 
 export const getRiverContentState = createSelector(getAll, (state: CardRiverState) => state.riverContentState);
+
+export const getRiverContentFilter = createSelector(getAll, (state: CardRiverState) => state.contentFilter);

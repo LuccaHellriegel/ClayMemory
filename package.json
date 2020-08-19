@@ -25,6 +25,7 @@
 		"js-file-download": "^0.4.12",
 		"konva": "^7.0.2",
 		"material-ui-nested-menu-item": "^1.0.2",
+		"material-ui-search-bar": "^1.0.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-konva": "^16.13.0-3",

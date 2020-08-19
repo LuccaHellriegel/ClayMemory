@@ -9,6 +9,7 @@ import { Options } from "./Options";
 import UndoIcon from "@material-ui/icons/Undo";
 import RedoIcon from "@material-ui/icons/Redo";
 import { ActionCreators } from "redux-undo";
+import { CardSearchBar } from "./CardSearchBar";
 
 // we support undo/redo instead of lengthy confirmation (see The Humane Interface)
 
@@ -83,6 +84,8 @@ export const ControlBar = () => {
 					{totalPages && <river.components.RiverContentFormGroup></river.components.RiverContentFormGroup>}
 					{totalPages && <Divider orientation="vertical" flexItem />}
 					<Options></Options>
+					<Divider orientation="vertical" flexItem />
+					<CardSearchBar></CardSearchBar>
 				</Toolbar>
 			</AppBar>
 		</Grid>

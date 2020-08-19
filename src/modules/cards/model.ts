@@ -18,9 +18,9 @@ export type NoteOrigin = SingleOrigin;
 
 export type CardOrigin = NoteOrigin | QAOrigin;
 
-type NoteConfig = { cardID: CardID; type: CardType; content: NoteCardContent; origin?: NoteOrigin };
+export type NoteConfig = { cardID: CardID; type: CardType; content: NoteCardContent; origin?: NoteOrigin };
 
-type QAConfig = { cardID: CardID; type: CardType; content: QACardContent; origin?: QAOrigin };
+export type QAConfig = { cardID: CardID; type: CardType; content: QACardContent; origin?: QAOrigin };
 
 export type CardConfig = NoteConfig | QAConfig;
 
