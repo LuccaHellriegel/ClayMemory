@@ -7,7 +7,7 @@ const initialState: DocumentDBState = { documentDB: {} };
 
 const documentDB = (
 	state = initialState,
-	{ type, payload }: { type: string; payload: DocumentData | DocumentData[] }
+	{ type, payload }: { type: string; payload: DocumentData | DocumentData[] | { dbData: DocumentData[] } }
 ): DocumentDBState => {
 	switch (type) {
 		// dont need to undo this, because if we change the active river and then change the document, the archive version gets overwritten
@@ -21,7 +21,7 @@ const documentDB = (
 				...state,
 				documentDB: {
 					...state.documentDB,
-					...(payload as DocumentData[]).reduce((prev, dbData) => {
+					...((payload as { dbData: DocumentData[] }).dbData as DocumentData[]).reduce((prev, dbData) => {
 						prev[dbData.name] = dbData;
 						return prev;
 					}, {} as DocumentDB),

@@ -1,6 +1,7 @@
 import * as t from "./actionTypes";
 import { CardsState, FinalizedCardPayload, CardID } from "./model";
 import { ArchiveCards } from "../db/model";
+import db from "../db";
 
 const intialState: CardsState = {
 	cards: {
@@ -60,6 +61,19 @@ const cards = (state = intialState, { type, payload }: { type: string; payload?:
 				};
 			} else {
 				return intialState;
+			}
+		case db.actionTypes.LOAD_DOCUMENT_DATA_SETS:
+			// basically the same as GLOBAL_RESET, just only triggered
+			// when uploading data that corresponds to current document
+			// and if not we dont reset
+			if (payload.newActiveDataSet) {
+				return {
+					...intialState,
+					cards: (payload.newActiveDataSet as ArchiveCards).cards,
+					lastCardIDNumber: (payload.newActiveDataSet as ArchiveCards).lastCardIDNumber,
+				};
+			} else {
+				return state;
 			}
 		default:
 			return state;

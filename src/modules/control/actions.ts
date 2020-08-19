@@ -6,10 +6,6 @@ import db from "../db";
 import { collectCurrentDBData } from "./selectors";
 import { DocumentData } from "../db/model";
 
-// export const archiveDBData = (dbData: DocumentData) => {
-// 	return { type: t.ARCHIVE_CURRENT_DATA, payload: dbData };
-// };
-
 export const archiveCurrentDBData = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
@@ -69,7 +65,3 @@ export const changeDocument = (pdf: File) => {
 		dispatch(ActionCreators.clearHistory());
 	};
 };
-
-// export const loadDocumentDataSets = (dbData: DocumentData[]) => {
-// 	return { type: t.LOAD_DOCUMENT_DATA_SETS, payload: dbData };
-// };

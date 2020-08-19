@@ -5,6 +5,6 @@ export const archiveDBData = (dbData: DocumentData) => {
 	return { type: t.ARCHIVE_CURRENT_DATA, payload: dbData };
 };
 
-export const loadDocumentDataSets = (dbData: DocumentData[]) => {
-	return { type: t.LOAD_DOCUMENT_DATA_SETS, payload: dbData };
+export const loadDocumentDataSets = (dbData: DocumentData[], newActiveDataSet?: DocumentData) => {
+	return { type: t.LOAD_DOCUMENT_DATA_SETS, payload: { dbData, newActiveDataSet } };
 };

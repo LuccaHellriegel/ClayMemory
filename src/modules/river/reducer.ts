@@ -6,6 +6,7 @@ import display from "../display";
 import focus from "../focus";
 import { UserFocus } from "../focus/model";
 import { ArchiveRiver } from "../db/model";
+import db from "../db";
 
 const initialState: CardRiverState = {
 	riverMakeUps: {
@@ -119,6 +120,21 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 				};
 			} else {
 				return initialState;
+			}
+		case db.actionTypes.LOAD_DOCUMENT_DATA_SETS:
+			// basically the same as GLOBAL_RESET, just only triggered
+			//when uploading data that corresponds to current document
+			// and if not, we dont reset
+			if (payload.newActiveDataSet) {
+				return {
+					...initialState,
+					riverMakeUps: (payload.newActiveDataSet as ArchiveRiver).riverMakeUps,
+					activeRiverMakeUpID: (payload.newActiveDataSet as ArchiveRiver).activeRiverMakeUpID,
+					pushToRiverID: (payload.newActiveDataSet as ArchiveRiver).pushToRiverID,
+					lastRiverIDNumber: (payload.newActiveDataSet as ArchiveRiver).lastRiverIDNumber,
+				};
+			} else {
+				return state;
 			}
 		case t.RIVER_CARD_SOURCE:
 			return { ...state, sourceCard: payload };

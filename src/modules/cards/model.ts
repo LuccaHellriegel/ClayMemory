@@ -4,7 +4,7 @@ export type CardType = "Note" | "Q-A";
 
 export type CardField = "NOTE" | "Q" | "A";
 
-export type NoteCardContent = string;
+type NoteCardContent = string;
 
 export type QACardContent = { q: string; a: string };
 
@@ -18,9 +18,9 @@ export type NoteOrigin = SingleOrigin;
 
 export type CardOrigin = NoteOrigin | QAOrigin;
 
-export type NoteConfig = { cardID: CardID; type: CardType; content: NoteCardContent; origin?: NoteOrigin };
+type NoteConfig = { cardID: CardID; type: CardType; content: NoteCardContent; origin?: NoteOrigin };
 
-export type QAConfig = { cardID: CardID; type: CardType; content: QACardContent; origin?: QAOrigin };
+type QAConfig = { cardID: CardID; type: CardType; content: QACardContent; origin?: QAOrigin };
 
 export type CardConfig = NoteConfig | QAConfig;
 
