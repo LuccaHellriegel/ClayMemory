@@ -56,9 +56,9 @@ export const changeDocument = (pdf: File) => {
 		// load new data or reset
 		const newDocumentData = documentDB[newPDFName];
 		if (newDocumentData) {
-			dispatch({ type: cards.actionTypes.GLOBAL_RESET, payload: newDocumentData });
+			dispatch({ type: cards.actionTypes.DOCUMENT_CHANGE, payload: newDocumentData });
 		} else {
-			dispatch({ type: cards.actionTypes.GLOBAL_RESET });
+			dispatch({ type: cards.actionTypes.DOCUMENT_CHANGE });
 		}
 
 		// no undo-redo across documents

@@ -109,7 +109,7 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 			} else {
 				return { ...state, sourceCard };
 			}
-		case cards.actionTypes.GLOBAL_RESET:
+		case cards.actionTypes.DOCUMENT_CHANGE:
 			if (payload) {
 				return {
 					...initialState,
@@ -122,7 +122,7 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 				return initialState;
 			}
 		case db.actionTypes.LOAD_DOCUMENT_DATA_SETS:
-			// basically the same as GLOBAL_RESET, just only triggered
+			// basically the same as DOCUMENT_CHANGE, just only triggered
 			//when uploading data that corresponds to current document
 			// and if not, we dont reset
 			if (payload.newActiveDataSet) {

@@ -52,7 +52,7 @@ const cards = (state = intialState, { type, payload }: { type: string; payload?:
 			return removeCard(state, payload as string);
 		case t.CARD_GOAL:
 			return { ...state, goalCard: payload };
-		case t.GLOBAL_RESET:
+		case t.DOCUMENT_CHANGE:
 			if (payload) {
 				return {
 					...intialState,
@@ -63,7 +63,7 @@ const cards = (state = intialState, { type, payload }: { type: string; payload?:
 				return intialState;
 			}
 		case db.actionTypes.LOAD_DOCUMENT_DATA_SETS:
-			// basically the same as GLOBAL_RESET, just only triggered
+			// basically the same as DOCUMENT_CHANGE, just only triggered
 			// when uploading data that corresponds to current document
 			// and if not we dont reset
 			if (payload.newActiveDataSet) {
