@@ -5,7 +5,8 @@ import { useDispatch, connect, useSelector } from "react-redux";
 import { getContextMenuInitData, getContextMenuFullCardsRef } from "../selectors";
 import { grabSelectionForContextMenu, grabSelectionForSourceMenu } from "../actions";
 import { incrementer } from "../../../shared/utils";
-import { CardConfig, CardType, CreationType, QACardContent } from "../../cards/model";
+import { CardConfig, CardType, CreationType } from "../../cards/model/model";
+import { QACardContent } from "../../cards/model/model-content";
 import { CardConfigItem, noteCardIsEmpty, qaCardIsNotFull } from "./CardItems";
 import { NewButtons } from "./NewButtons";
 import NestedMenuItem from "material-ui-nested-menu-item";
@@ -99,13 +100,13 @@ function ContextMenu({
 			{openState && (
 				<NewButtons
 					noteDispatch={() => {
-						dispatchRiver("Note", "NOTE");
+						dispatchRiver("Note", "note");
 					}}
 					qDispatch={() => {
-						dispatchRiver("Q-A", "Q");
+						dispatchRiver("Q-A", "q");
 					}}
 					aDispatch={() => {
-						dispatchRiver("Q-A", "A");
+						dispatchRiver("Q-A", "a");
 					}}
 				></NewButtons>
 			)}

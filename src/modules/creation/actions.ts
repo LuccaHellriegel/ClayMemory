@@ -1,5 +1,6 @@
 import * as t from "./actionTypes";
-import { CardType, CreationType, CardOrigin, QAOrigin, SingleOrigin } from "../cards/model";
+import { CardType, CreationType } from "../cards/model/model";
+import { CardOrigin, SingleOrigin, AOnlyQAOrigin, QOnlyQAOrigin } from "../cards/model/model-origin";
 import cards from "../cards";
 import focus from "../focus";
 import { getCurrentSelectedString, getCurrentSelectedParent, getContextMenuState, getCurrentOrigin } from "./selectors";
@@ -57,10 +58,11 @@ export const grabSelectionForContextMenu = (type: CardType, creationType: Creati
 			// need to transform it because we can create als QA-Cards from document
 			transformedOrigin = cards.services.transformInputOrigin(
 				origin,
-				"NOTE",
+				"note",
 				creationType,
 				isUpdate ? (cards.selectors.getCards(state)[cardID as string].origin as CardOrigin) : undefined
 			);
+			console.log(origin, transformedOrigin);
 		}
 
 		if (isUpdate) {
@@ -86,8 +88,8 @@ export const grabSelectionForContextMenu = (type: CardType, creationType: Creati
 export const hasNonEmptyOrigin = (origin?: CardOrigin) =>
 	!!origin &&
 	(!isNullOrUndefined((origin as SingleOrigin).spanIndex) ||
-		!isNullOrUndefined((origin as QAOrigin).a?.spanIndex) ||
-		!isNullOrUndefined((origin as QAOrigin).q?.spanIndex));
+		!isNullOrUndefined((origin as AOnlyQAOrigin).a?.spanIndex) ||
+		!isNullOrUndefined((origin as QOnlyQAOrigin).q?.spanIndex));
 
 export const grabSelectionForSourceMenu = (
 	type: CardType,

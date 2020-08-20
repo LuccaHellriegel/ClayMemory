@@ -1,7 +1,9 @@
 import * as t from "./actionTypes";
 import { riverShowStateIsShow, getPushToRiver, getHoveredCardData, getSourceCard } from "./selectors";
 import { Dispatch } from "redux";
-import { CardID, CardField, CardOrigin } from "../cards/model";
+import { CardID } from "../cards/model/model";
+import { CardField } from "../cards/model/model-content";
+import { CardOrigin } from "../cards/model/model-origin";
 import { RiverContentState, ContentFilter } from "./model";
 
 export const toggleRiverShowState = () => (dispatch: Dispatch, getState: Function) => {

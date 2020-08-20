@@ -1,4 +1,6 @@
-import { CardField, CardOrigin, CardID } from "../cards/model";
+import { CardID } from "../cards/model/model";
+import { CardField } from "../cards/model/model-content";
+import { CardOrigin } from "../cards/model/model-origin";
 
 export type RiverMakeUp = { riverID: string; cardIDs: CardID[] };
 

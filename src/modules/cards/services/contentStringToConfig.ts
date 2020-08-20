@@ -1,13 +1,14 @@
-import { UpdateType, CardPayloadConfig, QACardContent, CardType, CardField } from "../model";
+import { UpdateType, CardPayloadConfig, CardType } from "../model/model";
+import { QACardContent, CardField } from "../model/model-content";
 
-type updateContentStrFunction = (oldStr: string, newStr: string) => string;
+type UpdateContentStrFunction = (oldStr: string, newStr: string) => string;
 
-type partialUpdateContentStrFunction = (oldStr: string) => string;
-
-const updateContentStrFunctions: { [key in UpdateType]: updateContentStrFunction } = {
+const updateContentStrFunctions: { [key in UpdateType]: UpdateContentStrFunction } = {
 	REPLACE: (_: string, newStr: string) => newStr,
 	APPEND: (oldStr: string, newStr: string) => oldStr + newStr,
 };
+
+type partialUpdateContentStrFunction = (oldStr: string) => string;
 
 const createPartialUpdateContentStrFunction = (updateType: UpdateType, newStr: string) => (oldStr: string) =>
 	updateContentStrFunctions[updateType](oldStr, newStr);
@@ -24,12 +25,12 @@ const defaultCreationFunction: creationFunction = (oldConfig, partialUpdateFunct
 const creationFunctions: {
 	[key in CardField]: creationFunction;
 } = {
-	NOTE: defaultCreationFunction,
-	Q: (oldConfig, partialUpdateFunction) => {
+	note: defaultCreationFunction,
+	q: (oldConfig, partialUpdateFunction) => {
 		const content = oldConfig.content as QACardContent;
 		return { ...oldConfig, content: { ...content, q: partialUpdateFunction(content.q) } };
 	},
-	A: (oldConfig, partialUpdateFunction) => {
+	a: (oldConfig, partialUpdateFunction) => {
 		const content = oldConfig.content as QACardContent;
 		return { ...oldConfig, content: { ...content, a: partialUpdateFunction(content.a) } };
 	},

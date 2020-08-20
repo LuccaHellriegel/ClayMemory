@@ -4,7 +4,7 @@ import { IconButton } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import cards from "../../../../cards";
 import focus from "../../../../focus";
-import { CardID } from "../../../../cards/model";
+import { CardID } from "../../../../cards/model/model";
 
 //TODO-NICE: use storybook for visual component testing
 

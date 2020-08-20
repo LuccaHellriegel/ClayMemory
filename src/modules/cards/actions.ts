@@ -4,10 +4,10 @@ import {
 	CreationType,
 	UpdateType,
 	CardType,
-	CardOrigin,
 	CardConfig,
 	CardID,
-} from "./model";
+} from "./model/model";
+import { CardOrigin } from "./model/model-origin";
 import * as t from "./actionTypes";
 import { Dispatch } from "redux";
 import { getLastCardIDNumber, getCards } from "./selectors";

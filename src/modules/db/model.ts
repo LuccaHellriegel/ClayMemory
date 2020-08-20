@@ -1,5 +1,5 @@
 import { RiverMakeUps } from "../river/model";
-import { CardConfig } from "../cards/model";
+import { CardConfig } from "../cards/model/model";
 
 //TODO-NICE: find way to make this depend on the actual models of the reducers, otherwise I dont notice changes
 

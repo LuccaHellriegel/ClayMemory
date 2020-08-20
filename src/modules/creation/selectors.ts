@@ -3,7 +3,7 @@ import { createSelector } from "reselect";
 import { CreationData } from "./model";
 import river from "../river";
 import display from "../display";
-import { SingleOrigin } from "../cards/model";
+import { SingleOrigin } from "../cards/model/model-origin";
 
 export const getAll = (state: any) => state[NAME].present;
 

@@ -1,5 +1,5 @@
 import { CardRiverState, RiverShowState, pageNumberToRiverMakeUpID, RiverMakeUp, RiverContentState } from "./model";
-import { FinalizedCardPayload, CardID } from "../cards/model";
+import { FinalizedCardPayload, CardID } from "../cards/model/model";
 import cards from "../cards";
 import * as t from "./actionTypes";
 import display from "../display";

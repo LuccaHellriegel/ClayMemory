@@ -1,7 +1,7 @@
 import * as t from "./actionTypes";
 import { CreationData } from "./model";
 import { createRef } from "react";
-import { CardPayload } from "../cards/model";
+import { CardPayload } from "../cards/model/model";
 import cards from "../cards";
 
 const initialState: CreationData = {

@@ -1,5 +1,15 @@
-import { CardOrigin, QAOrigin, CardField } from "../model";
-import { isNullOrUndefined } from "util";
+import { CardField, QACardField } from "../model/model-content";
+import {
+	CardOrigin,
+	QAOrigin,
+	PartialQAOrigin,
+	partialQAOrigin,
+	extractSingleOrigin,
+	SingleOrigin,
+	flipPartialQAOrigin,
+	mergeSimilarCardOrigins,
+	isQAOrigin,
+} from "../model/model-origin";
 
 //TODO-NICE: make this non-redundant, but for now it works
 
@@ -7,47 +17,38 @@ export const transformInputOrigin = (
 	inputOrigin: CardOrigin,
 	inputField: CardField,
 	outputField: CardField,
-	outputOrigin?: CardOrigin
-) => {
-	if (!outputOrigin) {
+	oldOrigin?: CardOrigin
+): CardOrigin => {
+	if (!oldOrigin) {
 		if (inputField === outputField) return inputOrigin;
 
-		if (inputField === "NOTE") {
-			// this means SingleOrigin
-			return { q: {}, a: {}, [outputField === "Q" ? "q" : "a"]: inputOrigin };
+		if (inputField === "note") {
+			return partialQAOrigin(inputOrigin as SingleOrigin, outputField as QACardField);
 		}
 
-		if (outputField === "NOTE") {
-			//this means we need to transfrom QAOrigin to SingleOrigin
-			return { ...(inputOrigin as QAOrigin)[inputField === "Q" ? "q" : "a"] };
+		if (outputField === "note") {
+			return extractSingleOrigin(inputOrigin as QAOrigin, inputField as QACardField);
 		}
 
-		// swap cases
-		if (outputField === "Q") {
-			return { q: (inputOrigin as QAOrigin).a, a: {} };
-		} else {
-			//A
-			return { a: (inputOrigin as QAOrigin).q, q: {} };
-		}
+		return flipPartialQAOrigin(inputOrigin as PartialQAOrigin, inputField, outputField);
 	} else {
-		if (inputField === outputField) return { ...outputOrigin, ...inputOrigin };
+		if (inputField === outputField) return mergeSimilarCardOrigins(inputOrigin, oldOrigin);
 
-		if (inputField === "NOTE" && !isNullOrUndefined((outputOrigin as QAOrigin).q)) {
+		if (inputField === "note" && isQAOrigin(oldOrigin)) {
 			// this means SingleOrigin to QAOrigin
-			return { ...outputOrigin, [outputField === "Q" ? "q" : "a"]: inputOrigin };
+			return { ...oldOrigin, [outputField]: inputOrigin };
 		}
 
-		if (outputField === "NOTE") {
-			//this means we need to transfrom QAOrigin to SingleOrigin
-			return { ...(inputOrigin as QAOrigin)[inputField === "Q" ? "q" : "a"] };
+		if (outputField === "note") {
+			return extractSingleOrigin(inputOrigin as QAOrigin, inputField as QACardField);
 		}
 
 		// swap cases
-		if (outputField === "Q") {
-			return { q: (inputOrigin as QAOrigin).a, a: (outputOrigin as QAOrigin).a };
+		if (outputField === "q") {
+			return { q: (inputOrigin as QAOrigin).a, a: (oldOrigin as QAOrigin).a } as QAOrigin;
 		} else {
 			//A
-			return { a: (inputOrigin as QAOrigin).q, q: (outputOrigin as QAOrigin).q };
+			return { a: (inputOrigin as QAOrigin).q, q: (oldOrigin as QAOrigin).q } as QAOrigin;
 		}
 	}
 };

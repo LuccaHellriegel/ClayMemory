@@ -1,5 +1,5 @@
 import * as t from "./actionTypes";
-import { CardsState, FinalizedCardPayload, CardID } from "./model";
+import { CardsState, FinalizedCardPayload, CardID } from "./model/model";
 import { ArchiveCards } from "../db/model";
 import db from "../db";
 

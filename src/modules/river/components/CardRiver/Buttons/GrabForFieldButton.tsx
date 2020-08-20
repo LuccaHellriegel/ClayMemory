@@ -3,7 +3,7 @@ import PanToolOutlinedIcon from "@material-ui/icons/PanToolOutlined";
 import React, { useState } from "react";
 import { IconButton } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { CardConfig, CreationType, GoalCard } from "../../../../cards/model";
+import { CardConfig, CreationType, GoalCard } from "../../../../cards/model/model";
 import cards from "../../../../cards";
 import focus from "../../../../focus";
 

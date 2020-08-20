@@ -1,10 +1,12 @@
 import React, { RefObject } from "react";
 import NestedMenuItem from "material-ui-nested-menu-item";
 import { MenuItem } from "@material-ui/core";
-import { CardConfig, CardType, CreationType, QACardContent } from "../../cards/model";
+import { CardConfig, CardType, CreationType } from "../../cards/model/model";
+import { QACardContent } from "../../cards/model/model-content";
 import { useDispatch } from "react-redux";
 import river from "../../river";
 
+//TODO-NICE: move to cards
 export const noteCardIsEmpty = (content: string) => content === "";
 export const qaCardIsNotFull = (content: QACardContent) =>
 	(content as QACardContent).q === "" || (content as QACardContent).a === "";
@@ -20,10 +22,10 @@ const SingleOptionItem = ({ cardConfig, dispatchRiver }: { cardConfig: CardConfi
 	return (
 		<MenuItem
 			onClick={() => {
-				dispatchRiver(cardConfig.type, "NOTE", cardConfig.cardID);
+				dispatchRiver(cardConfig.type, "note", cardConfig.cardID);
 			}}
 			onMouseEnter={() => {
-				dispatch(river.actions.trySetHoveredCard(cardConfig.cardID, "NOTE"));
+				dispatch(river.actions.trySetHoveredCard(cardConfig.cardID, "note"));
 			}}
 		>
 			{cardConfig.type}
@@ -47,20 +49,20 @@ const QAOptionItem = ({
 			<MenuItem
 				ref={qaRef}
 				onClick={() => {
-					dispatchRiver("Q-A", "Q", cardConfig.cardID);
+					dispatchRiver("Q-A", "q", cardConfig.cardID);
 				}}
 				onMouseEnter={() => {
-					dispatch(river.actions.trySetHoveredCard(cardConfig.cardID, "Q"));
+					dispatch(river.actions.trySetHoveredCard(cardConfig.cardID, "q"));
 				}}
 			>
 				Q
 			</MenuItem>
 			<MenuItem
 				onClick={() => {
-					dispatchRiver("Q-A", "A", cardConfig.cardID);
+					dispatchRiver("Q-A", "a", cardConfig.cardID);
 				}}
 				onMouseEnter={() => {
-					dispatch(river.actions.trySetHoveredCard(cardConfig.cardID, "A"));
+					dispatch(river.actions.trySetHoveredCard(cardConfig.cardID, "a"));
 				}}
 			>
 				A

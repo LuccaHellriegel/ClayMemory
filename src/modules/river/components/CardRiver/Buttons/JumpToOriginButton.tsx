@@ -3,7 +3,7 @@ import React from "react";
 import { IconButton } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import display from "../../../../display";
-import { SingleOrigin } from "../../../../cards/model";
+import { SingleOrigin } from "../../../../cards/model/model-origin";
 import focus from "../../../../focus";
 
 export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin }) => {
