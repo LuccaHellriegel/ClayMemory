@@ -1,4 +1,4 @@
-import { getContextMenuRef, getContextMenuQARefs, getContextMenuFullCardsRef } from "./selectors";
+import { getContextMenuRef, getContextMenuQARefs, getContextMenuFullCardsRef } from "../selectors";
 
 // the root div for the menu invisibly covers the whole screen
 // the actual div that is visible is this

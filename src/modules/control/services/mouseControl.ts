@@ -7,7 +7,7 @@ export const mouseDownControl = (event: MouseEvent) => {
 	return (dispatch: any, getState: Function) => {
 		const state = getState();
 		// the menu-ref is used for all drop-down menus, so this closes all of them
-		const clickOutSideOfMenu = !creation.utils.contextMenuContainsTargetNode(state, event);
+		const clickOutSideOfMenu = !creation.services.contextMenuContainsTargetNode(state, event);
 		if (clickOutSideOfMenu) {
 			dispatch(creation.actions.closeContextMenu());
 		}
