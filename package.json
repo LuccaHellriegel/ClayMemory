@@ -4,7 +4,6 @@
 	"homepage": "https://luccahellriegel.github.io/ClayMemory",
 	"private": true,
 	"devDependencies": {
-		"@types/react-grid-layout": "^0.17.1",
 		"@types/react-pdf": "^4.0.5",
 		"@types/react-redux": "^7.1.9",
 		"dependency-cruiser": "^9.9.3"
@@ -20,15 +19,11 @@
 		"@types/react": "^16.9.41",
 		"@types/react-dom": "^16.9.8",
 		"gh-pages": "^3.1.0",
-		"jodit": "3.3.23",
-		"jodit-react": "1.0.42",
 		"js-file-download": "^0.4.12",
-		"konva": "^7.0.2",
 		"material-ui-nested-menu-item": "^1.0.2",
 		"material-ui-search-bar": "^1.0.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
-		"react-konva": "^16.13.0-3",
 		"react-pdf": "^4.1.0",
 		"react-redux": "^7.2.0",
 		"react-scripts": "3.4.1",
@@ -42,9 +37,6 @@
 		"typeface-roboto": "0.0.75",
 		"typescript": "^3.9.6",
 		"xhr2": "^0.2.0"
-	},
-	"resolutions": {
-		"jodit": "git://github.com/DaveVanRijn/jodit.git"
 	},
 	"scripts": {
 		"start": "react-scripts start",

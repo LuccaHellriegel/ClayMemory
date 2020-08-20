@@ -1,12 +1,62 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ClayMemory - sculpt your mind
+
+React-based reader and editor for creating notes and flash cards directly from PDF documents.
+
+## Overview
+
+Flash cards enable two of the most powerful empirically validated studying techniques: active recall and spaced repetition. Software like [Anki](https://apps.ankiweb.net/) brilliantly allows its users to study their flash cards everywhere and use algorithms to optimize the repetition intervals for maximum retention.
+
+Creating digital flash cards, however, can be hard work, especially if huge amounts of material need to be covered. Hours are spent just copy-pasting or taking screenshots from lecture slides or book PDFs.
+
+One way how this could be simplified dramatically would be if your document-reader included tools to quickly extract information from the documents in a flashcard-ready format, and to allow you to iterate upon your formulations in the context of where you extracted it from in the documents.
+
+ClayMemory is a prototype of this new type of document-reader.
+It is open source and primarily build to research the question of how an integration of flash-card tools with a reader can enhance the usability of creating flash cards and therefore enable an intuitive integration of memory enhancement in the studying or reading process. In the long term, ClayMemory will be expanded to a desktop app which features a connection to Anki, so that the flash cards can be comfortably created in ClayMemory and also use the comfort of Anki-based repetition.
+
+Issues, PRs and general suggestions welcome.
+
+## Features
+
+- Multiple views:
+  - ActiveRiver: view the document page and all the corresponding flash cards in parallel
+  - SummaryRiver: view all your flash cards
+- Extraction-context menu for documents and cards for fast and easy flash card creation
+- Origin-System: jump to the place in the document where you got the material for your flash card from
+  - Origin gets preserved when copying between cards
+- Customize the layout to always have access to the correct information
+  - Hide/show cards or document
+  - Filter your cards by type
+  - Search your cards
+- Handle multiple documents and their corresponding cards
+- Download or upload the document data sets
+- Basic PDF navigation
+- Undo/redo for all card-related operations
+- Local persistence in your browser, no cloud or additional download necessary
+  - Known issue: PDFs are not saved
+
+## Tech Stack
+
+- TypeScript
+- React
+  - Material-UI
+  - react-pdf / PDF.js
+- Redux
+  - redux-persist
+  - redux-undo
+  - redux-thunk
+  - reselect
+- [Architecture inspiration](https://jaysoo.ca/2016/02/28/organizing-redux-application/)
+  - Boundary enforcement with dependency-cruiser
 
 ## TODO Types
 
-* RC: release candidate, need this to be feature complete
-* NICE: nice to have
-* PERF: performance optimization possible if I notice it during testing
+- RC: release candidate, need this to be feature complete
+- NICE: nice to have
+- PERF: performance optimization possible if I notice it during testing
 
 ## Available Scripts
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
