@@ -21,28 +21,29 @@ const pageControlKeyMap: KeyActionMap = {
 	ArrowRight: display.actions.nextPage(),
 };
 
+const pageControlDispatcher = keyEventDispatcher(pageControlKeyMap);
+
 const contextMenuControlKeyMap: KeyActionMap = {
 	t: creation.actions.toggleContextMenu(),
 };
 
-const selectionFocusKeyMap = {
+const contextMenuControlDispatcher = keyEventDispatcher(contextMenuControlKeyMap);
+
+const documentFocusKeyMap = {
 	...pageControlKeyMap,
 	...contextMenuControlKeyMap,
 };
 
-const selectionFocusDispatcher = keyEventDispatcher(selectionFocusKeyMap);
-
-const contextMenuFocusKeyMap = { ...contextMenuControlKeyMap };
-const contextMenuFocusDispatcher = keyEventDispatcher(contextMenuFocusKeyMap);
+const documentFocusDispatcher = keyEventDispatcher(documentFocusKeyMap);
 
 const doNothing = (event: any, dispatch: any) => {};
 
 const focusDispatcherMap: { [focus in UserFocus]: KeyEventDispatcher } = {
-	DOCUMENT: selectionFocusDispatcher,
-	CONTEXT_MENU: contextMenuFocusDispatcher,
+	DOCUMENT: documentFocusDispatcher,
+	CONTEXT_MENU: contextMenuControlDispatcher,
 	RIVER: doNothing,
-	CONTROL: doNothing,
 	RIVER_CONTROL: doNothing,
+	CONTROL: pageControlDispatcher,
 };
 
 export const keyDownControl = (event: KeyboardEvent) => {
