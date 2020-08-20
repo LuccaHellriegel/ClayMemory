@@ -1,4 +1,4 @@
-import { UpdateType, CardPayloadConfig, CreationType, QACardContent, CardType } from "../model";
+import { UpdateType, CardPayloadConfig, QACardContent, CardType, CardField } from "../model";
 
 type updateContentStrFunction = (oldStr: string, newStr: string) => string;
 
@@ -22,7 +22,7 @@ const defaultCreationFunction: creationFunction = (oldConfig, partialUpdateFunct
 };
 
 const creationFunctions: {
-	[key in CreationType]: creationFunction;
+	[key in CardField]: creationFunction;
 } = {
 	NOTE: defaultCreationFunction,
 	Q: (oldConfig, partialUpdateFunction) => {
@@ -38,13 +38,13 @@ const creationFunctions: {
 export const contentStringToConfig = (
 	contentStr: string,
 	type: CardType,
-	creationType: CreationType,
+	outputField: CardField,
 	updateType: UpdateType,
-	currentCard?: CardPayloadConfig
+	existingCard?: CardPayloadConfig
 ): CardPayloadConfig => {
 	const partialUpdateFunction = createPartialUpdateContentStrFunction(updateType, contentStr);
-	const isCardUpdate = !!currentCard;
+	const isCardUpdate = !!existingCard;
 	return isCardUpdate
-		? creationFunctions[creationType](currentCard as CardPayloadConfig, partialUpdateFunction)
-		: creationFunctions[creationType]({ type, content: type === "Q-A" ? { q: "", a: "" } : "" }, partialUpdateFunction);
+		? creationFunctions[outputField](existingCard as CardPayloadConfig, partialUpdateFunction)
+		: creationFunctions[outputField]({ type, content: type === "Q-A" ? { q: "", a: "" } : "" }, partialUpdateFunction);
 };

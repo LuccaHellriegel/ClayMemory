@@ -1,3 +1,3 @@
-import { contentStringToConfig } from "./config";
+import { transformInputOrigin } from "./transformInputOrigin";
 
-export { contentStringToConfig as selectedStringToConfig };
+export { transformInputOrigin };

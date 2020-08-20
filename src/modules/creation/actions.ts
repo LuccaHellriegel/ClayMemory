@@ -4,7 +4,6 @@ import cards from "../cards";
 import focus from "../focus";
 import { getCurrentSelectedString, getCurrentSelectedParent, getContextMenuState, getCurrentOrigin } from "./selectors";
 import { isNullOrUndefined } from "util";
-import { transformInputOrigin } from "./services/transformInputOrigin";
 import display from "../display";
 import river from "../river";
 
@@ -56,7 +55,7 @@ export const grabSelectionForContextMenu = (type: CardType, creationType: Creati
 		if (origin) {
 			// we exploit that the input from the document is always just a SingleOrigin=NoteOrigin
 			// need to transform it because we can create als QA-Cards from document
-			transformedOrigin = transformInputOrigin(
+			transformedOrigin = cards.services.transformInputOrigin(
 				origin,
 				"NOTE",
 				creationType,
@@ -109,7 +108,7 @@ export const grabSelectionForSourceMenu = (
 		//	the SourceCard can or can not have an origin
 		const sourceHasNonEmptyOrigin = hasNonEmptyOrigin(origin);
 		const newOrigin = sourceHasNonEmptyOrigin
-			? transformInputOrigin(
+			? cards.services.transformInputOrigin(
 					origin as CardOrigin,
 					sourceField,
 					creationType,

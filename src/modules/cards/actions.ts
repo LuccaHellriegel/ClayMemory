@@ -11,7 +11,7 @@ import {
 import * as t from "./actionTypes";
 import { Dispatch } from "redux";
 import { getLastCardIDNumber, getCards } from "./selectors";
-import { contentStringToConfig } from "./services/config";
+import { contentStringToConfig } from "./services/contentStringToConfig";
 
 const createCardID = (lastCardIDNumber: number) => (lastCardIDNumber + 1).toString();
 

@@ -5,9 +5,7 @@ import river from "../../river";
 
 export const mouseDownControl = (event: MouseEvent) => {
 	return (dispatch: any, getState: Function) => {
-		const state = getState();
-		// the menu-ref is used for all drop-down menus, so this closes all of them
-		const clickOutSideOfMenu = !creation.services.contextMenuContainsTargetNode(state, event);
+		const clickOutSideOfMenu = !creation.services.contextMenuContainsTargetNode(getState(), event);
 		if (clickOutSideOfMenu) {
 			dispatch(creation.actions.closeContextMenu());
 		}
