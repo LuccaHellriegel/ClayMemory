@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { ChangeEvent, Fragment, useRef, MutableRefObject } from "react";
-import { Divider, Menu, MenuItem, IconButton } from "@material-ui/core";
+import { Divider, Menu, MenuItem, IconButton, Typography } from "@material-ui/core";
 import { changeDocument, downloadDBData } from "../actions";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import display from "../../display";
@@ -21,7 +21,7 @@ const InputDocument = ({ handleClose, label }: any) => {
 					(ref.current as HTMLInputElement).click();
 				}}
 			>
-				{label}
+				<Typography>{label}</Typography>
 			</MenuItem>
 			<input
 				ref={ref}
@@ -55,7 +55,7 @@ const InputDataSets = ({ handleClose, label }: any) => {
 					(ref.current as HTMLInputElement).click();
 				}}
 			>
-				{label}
+				<Typography>{label}</Typography>
 			</MenuItem>
 			<input
 				ref={ref}
@@ -107,21 +107,18 @@ export const Options = () => {
 	const dispatch = useDispatch();
 
 	return (
-		<div style={{ minWidth: 160 }}>
+		<div>
 			<IconButton type="button" onClick={handleClick}>
 				<MoreVertIcon></MoreVertIcon>
 			</IconButton>
 			<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-				Active Document:
-				<br></br>
-				{activeDocument?.replace(".pdf", "")}
-				<br></br>
-				<br></br>
+				<Typography>Active Document:</Typography>
+				<Typography>{activeDocument?.replace(".pdf", "")}</Typography>
 				<Divider />
-				<br></br>
-				Documents with existing data:
-				<ul>{documents.map((document) => (document ? <li>{document.replace(".pdf", "")}</li> : null))}</ul>
-				<br></br>
+				<Typography>Documents with existing data:</Typography>
+				<Typography>
+					<ul>{documents.map((document) => (document ? <li>{document.replace(".pdf", "")}</li> : null))}</ul>
+				</Typography>
 				<Divider />
 				<InputDocument handleClose={handleClose} label={"Load document"}></InputDocument>
 				<Divider />

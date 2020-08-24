@@ -8,7 +8,7 @@ export type RiverMakeUps = { [riverID: string]: RiverMakeUp };
 
 export type RiverShowState = "SHOW" | "HIDE";
 
-export type RiverContentState = "ALL" | "NOTES" | "QAS";
+export type RiverContentState = "ALL" | "NOTES" | "QAS" | "NONE";
 
 //TODO-NICE: rename pushto/active river
 

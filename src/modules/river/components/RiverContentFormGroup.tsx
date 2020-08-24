@@ -1,20 +1,10 @@
-import { FormGroup, FormControlLabel, withStyles, CheckboxProps, Checkbox } from "@material-ui/core";
+import { FormGroup, FormControlLabel } from "@material-ui/core";
 import React from "react";
-import { green } from "@material-ui/core/colors";
 import { useSelector, useDispatch } from "react-redux";
 import { getRiverContentState } from "../selectors";
 import { RiverContentState } from "../model";
 import { setRiverContentState } from "../actions";
-
-const GreenCheckbox = withStyles({
-	root: {
-		color: green[400],
-		"&$checked": {
-			color: green[600],
-		},
-	},
-	checked: {},
-})((props: CheckboxProps) => <Checkbox color="default" {...props} />);
+import { GreenCheckbox } from "../../../shared/GreenCheckbox";
 
 export const RiverContentFormGroup = () => {
 	const riverContentState = useSelector(getRiverContentState);
@@ -24,39 +14,45 @@ export const RiverContentFormGroup = () => {
 	const showNotes = riverContentState === "ALL" || riverContentState === "NOTES";
 
 	const changeContentState = (clickedState: RiverContentState) => {
-		// deactivating changes to the other state
-		// reactivating leads to all-state, we dont allow do show nothing
-
-		const wantsToDeactiveNotesWithDeactivatedQAs = !showQAs && showNotes && clickedState === "NOTES";
-		const wantsToDeactiveQAsWithDeactivatedNotes = !showNotes && showQAs && clickedState === "QAS";
-
-		if (wantsToDeactiveNotesWithDeactivatedQAs || wantsToDeactiveQAsWithDeactivatedNotes) {
-			return;
-		}
-
 		if (!showQAs && clickedState === "QAS") {
-			dispatch(setRiverContentState("ALL"));
+			if (showNotes) {
+				dispatch(setRiverContentState("ALL"));
+			} else {
+				dispatch(setRiverContentState("QAS"));
+			}
 			return;
 		}
 
 		if (!showNotes && clickedState === "NOTES") {
-			dispatch(setRiverContentState("ALL"));
+			if (showQAs) {
+				dispatch(setRiverContentState("ALL"));
+			} else {
+				dispatch(setRiverContentState("NOTES"));
+			}
 			return;
 		}
 
 		if (showQAs && clickedState === "QAS") {
-			dispatch(setRiverContentState("NOTES"));
+			if (!showNotes) {
+				dispatch(setRiverContentState("NONE"));
+			} else {
+				dispatch(setRiverContentState("NOTES"));
+			}
 			return;
 		}
 
 		if (showNotes && clickedState === "NOTES") {
-			dispatch(setRiverContentState("QAS"));
+			if (!showQAs) {
+				dispatch(setRiverContentState("NONE"));
+			} else {
+				dispatch(setRiverContentState("QAS"));
+			}
 			return;
 		}
 	};
 
 	return (
-		<FormGroup row>
+		<FormGroup>
 			<FormControlLabel
 				control={
 					<GreenCheckbox
@@ -66,7 +62,7 @@ export const RiverContentFormGroup = () => {
 						}}
 					/>
 				}
-				label="Show QAs"
+				label="QAs"
 			/>
 			<FormControlLabel
 				control={
@@ -77,7 +73,7 @@ export const RiverContentFormGroup = () => {
 						}}
 					/>
 				}
-				label="Show Notes"
+				label="Notes"
 			/>
 		</FormGroup>
 	);

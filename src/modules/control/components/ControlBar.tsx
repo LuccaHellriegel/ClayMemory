@@ -1,46 +1,12 @@
 import display from "../../display";
 import focus from "../../focus";
-import river from "../../river";
 import React, { ChangeEvent } from "react";
-import { AppBar, Toolbar, Divider, Tabs, Tab, Grid, IconButton } from "@material-ui/core";
+import { AppBar, Toolbar, Divider, Tabs, Tab, Grid } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import { ShowRiverButton } from "./ShowRiverButton";
 import { Options } from "./Options";
-import UndoIcon from "@material-ui/icons/Undo";
-import RedoIcon from "@material-ui/icons/Redo";
-import { ActionCreators } from "redux-undo";
 import { CardSearchBar } from "./CardSearchBar";
-
-// we support undo/redo instead of lengthy confirmation (see The Humane Interface)
-
-const UndoButton = () => {
-	const dispatch = useDispatch();
-	return (
-		<IconButton
-			type="button"
-			onClick={() => {
-				dispatch(ActionCreators.undo());
-			}}
-		>
-			<UndoIcon></UndoIcon>
-		</IconButton>
-	);
-};
-
-const RedoButton = () => {
-	const dispatch = useDispatch();
-	return (
-		<IconButton
-			type="button"
-			onClick={() => {
-				dispatch(ActionCreators.redo());
-			}}
-		>
-			<RedoIcon></RedoIcon>
-		</IconButton>
-	);
-};
-
+import { UndoButton, RedoButton } from "./UndoRedoButtons";
+import { ShowHideButton } from "./ShowHideButton";
 //TODO-NICE: download/load csv for Anki
 export const ControlBar = () => {
 	const dispatch = useDispatch();
@@ -65,7 +31,11 @@ export const ControlBar = () => {
 			}}
 		>
 			<AppBar>
-				<Toolbar variant="dense">
+				<Toolbar variant="regular">
+					{totalPages && <display.components.PageChooser></display.components.PageChooser>}
+					{totalPages && <display.components.PreviousButton></display.components.PreviousButton>}
+					{totalPages && <display.components.NextButton></display.components.NextButton>}
+					<Divider orientation="vertical" flexItem />
 					<Tabs value={value} onChange={handleChange}>
 						<Tab label="ActiveRiver" />
 						<Tab label="SummaryRiver" />
@@ -74,18 +44,10 @@ export const ControlBar = () => {
 					<UndoButton></UndoButton>
 					<RedoButton></RedoButton>
 					<Divider orientation="vertical" flexItem />
-					{totalPages && <display.components.PageChooser></display.components.PageChooser>}
-					{totalPages && <display.components.PreviousButton></display.components.PreviousButton>}
-					{totalPages && <display.components.NextButton></display.components.NextButton>}
-					<Divider orientation="vertical" flexItem />
-					{value === 0 && <ShowRiverButton></ShowRiverButton>}
-					{value === 0 && <display.components.ShowMaterialButton></display.components.ShowMaterialButton>}
-					{value === 0 && <Divider orientation="vertical" flexItem />}
-					{totalPages && <river.components.RiverContentFormGroup></river.components.RiverContentFormGroup>}
-					{totalPages && <Divider orientation="vertical" flexItem />}
-					<Options></Options>
-					<Divider orientation="vertical" flexItem />
+					<ShowHideButton></ShowHideButton>
+
 					<CardSearchBar></CardSearchBar>
+					<Options></Options>
 				</Toolbar>
 			</AppBar>
 		</Grid>

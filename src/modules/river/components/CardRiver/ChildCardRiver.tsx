@@ -28,6 +28,10 @@ export const ChildCardRiver = ({ riverID, riverCards }: { riverID: string; river
 	const gridItems = useMemo(() => {
 		let inputCards = riverCards;
 
+		if (riverContentState === "NONE") {
+			return [];
+		}
+
 		if (riverContentState !== "ALL") {
 			if (riverContentState === "QAS") {
 				inputCards = riverCards.filter((config) => config.type === "Q-A");

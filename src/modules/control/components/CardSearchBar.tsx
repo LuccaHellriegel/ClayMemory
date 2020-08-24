@@ -14,6 +14,7 @@ export const CardSearchBar = () => {
 	return (
 		<SearchBar
 			value={state}
+			placeholder="Search in cards"
 			onChange={(newValue) => {
 				// reset on delete
 				if (newValue === "") dispatch(river.actions.setContentFilter(""));
