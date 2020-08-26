@@ -14,6 +14,7 @@ import { getHoveredCardData } from "../../selectors";
 import focus from "../../../focus";
 import { trySetSourceCard } from "../../actions";
 import { Card } from "@material-ui/core";
+import { noteText, questionText, answerText } from "../../../../shared/text";
 
 //TODO-RC: tooltips for all buttons, multiple languages?
 
@@ -40,7 +41,7 @@ const NoteCard = ({ config }: CardProps) => {
 					dispatch(cards.actions.updateCardContent(value, config.cardID, "note", "REPLACE", config.origin));
 				}}
 				storeValue={config.content as string}
-				label="Note"
+				label={noteText}
 				variant="filled"
 				style={{ backgroundColor: "#CBF3F0" }}
 				InputLabelProps={{ style: { color: "#000000" } }}
@@ -75,7 +76,7 @@ const QACard = ({ config }: CardProps) => {
 								dispatch(cards.actions.updateCardContent(value, config.cardID, "q", "REPLACE", config.origin));
 							}}
 							storeValue={(config.content as QACardContent).q}
-							label={"Question"}
+							label={questionText}
 							variant="filled"
 							style={{ backgroundColor: "#FFBF69" }}
 							InputLabelProps={{ style: { color: "#000000" } }}
@@ -97,7 +98,7 @@ const QACard = ({ config }: CardProps) => {
 								dispatch(cards.actions.updateCardContent(value, config.cardID, "a", "REPLACE", config.origin));
 							}}
 							storeValue={(config.content as QACardContent).a}
-							label={"Answer"}
+							label={answerText}
 							style={{ backgroundColor: "#2EC4B6" }}
 							InputLabelProps={{ style: { color: "#000000" } }}
 							onMouseEnter={() => {

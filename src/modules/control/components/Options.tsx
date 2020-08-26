@@ -6,6 +6,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import display from "../../display";
 import db from "../../db";
 import { DocumentData } from "../../db/model";
+import { uploadDatasetsText, activeDocumentText, existingDataText, downloadDatasetsText } from "../../../shared/text";
 
 //TODO-NICE: have way to merge two document-workspaces
 
@@ -112,10 +113,10 @@ export const Options = () => {
 				<MoreVertIcon></MoreVertIcon>
 			</IconButton>
 			<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-				<Typography>Active Document:</Typography>
+				<Typography>{activeDocumentText}</Typography>
 				<Typography>{activeDocument?.replace(".pdf", "")}</Typography>
 				<Divider />
-				<Typography>Documents with existing data:</Typography>
+				<Typography>{existingDataText}</Typography>
 				<Typography>
 					<ul>{documents.map((document) => (document ? <li>{document.replace(".pdf", "")}</li> : null))}</ul>
 				</Typography>
@@ -128,10 +129,10 @@ export const Options = () => {
 						handleClose();
 					}}
 				>
-					Download document datasets
+					{downloadDatasetsText}
 				</MenuItem>
 				<Divider />
-				<InputDataSets handleClose={handleClose} label={"Upload document datasets"}></InputDataSets>
+				<InputDataSets handleClose={handleClose} label={uploadDatasetsText}></InputDataSets>
 			</Menu>
 		</div>
 	);

@@ -5,6 +5,7 @@ import { pdfjs, Document, Page } from "react-pdf";
 import { connect, useDispatch } from "react-redux";
 import { materialLoaded, setPage, captureMaterialData } from "../../actions";
 import { getRenderCritialData } from "../../selectors";
+import { loadingMaterialText, noMaterialText } from "../../../../shared/text";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 //TODO-NICE: implent more pdf-reader functionality, like zoom
@@ -51,6 +52,8 @@ function PDFDocument({
 			onItemClick={({ pageNumber }) => {
 				dispatch(setPage(parseInt(pageNumber)));
 			}}
+			loading={loadingMaterialText}
+			noData={noMaterialText}
 		>
 			{pdf && (
 				<Page
