@@ -1,12 +1,13 @@
 import display from "../../display";
 import focus from "../../focus";
 import React, { ChangeEvent } from "react";
-import { AppBar, Toolbar, Divider, Tabs, Tab, Grid, TextField, Card, Typography } from "@material-ui/core";
+import { AppBar, Toolbar, Tabs, Tab, Grid, Card, Typography, Tooltip } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { Options } from "./Options";
 import { CardSearchBar } from "./CardSearchBar";
 import { UndoRedoCard } from "./UndoRedoButtons";
 import { ShowHideButton } from "./ShowHideButton";
+import { switchToActiveRiverTooltip, switchToSummaryRiverTooltip } from "../../../shared/tooltips";
 //TODO-NICE: download/load csv for Anki
 export const ControlBar = () => {
 	const dispatch = useDispatch();
@@ -46,8 +47,30 @@ export const ControlBar = () => {
 							<Grid item>
 								<Card variant="outlined">
 									<Tabs value={value} onChange={handleChange}>
-										<Tab label="ActiveRiver" />
-										<Tab label="SummaryRiver" />
+										<Tab
+											label={
+												<Tooltip
+													title={switchToActiveRiverTooltip}
+													enterDelay={500}
+													enterNextDelay={500}
+													disableFocusListener={true}
+												>
+													<span>ActiveRiver</span>
+												</Tooltip>
+											}
+										></Tab>
+										<Tab
+											label={
+												<Tooltip
+													title={switchToSummaryRiverTooltip}
+													enterDelay={500}
+													enterNextDelay={500}
+													disableFocusListener={true}
+												>
+													<span>SummaryRiver</span>
+												</Tooltip>
+											}
+										/>
 									</Tabs>
 								</Card>
 							</Grid>

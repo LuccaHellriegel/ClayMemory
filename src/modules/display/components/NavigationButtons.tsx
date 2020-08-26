@@ -1,35 +1,40 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { IconButton, Card, Grid, Divider } from "@material-ui/core";
+import { IconButton, Card, Grid, Divider, Tooltip } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { nextPage, previousPage } from "../actions";
+import { previousPageTooltip, nextPageTooltip } from "../../../shared/tooltips";
 
 export const PreviousButton = () => {
 	const dispatch = useDispatch();
 	return (
-		<IconButton
-			type="button"
-			onClick={() => {
-				dispatch(previousPage());
-			}}
-		>
-			<ArrowBackIosIcon></ArrowBackIosIcon>
-		</IconButton>
+		<Tooltip title={previousPageTooltip} enterDelay={1000} enterNextDelay={1000}>
+			<IconButton
+				type="button"
+				onClick={() => {
+					dispatch(previousPage());
+				}}
+			>
+				<ArrowBackIosIcon></ArrowBackIosIcon>
+			</IconButton>
+		</Tooltip>
 	);
 };
 
 export const NextButton = () => {
 	const dispatch = useDispatch();
 	return (
-		<IconButton
-			type="button"
-			onClick={() => {
-				dispatch(nextPage());
-			}}
-		>
-			<ArrowForwardIosIcon></ArrowForwardIosIcon>
-		</IconButton>
+		<Tooltip title={nextPageTooltip} enterDelay={1000} enterNextDelay={1000}>
+			<IconButton
+				type="button"
+				onClick={() => {
+					dispatch(nextPage());
+				}}
+			>
+				<ArrowForwardIosIcon></ArrowForwardIosIcon>
+			</IconButton>
+		</Tooltip>
 	);
 };
 

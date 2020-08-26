@@ -4,7 +4,7 @@ import focus from "../../../focus";
 import { useSelector } from "react-redux";
 import { SummaryRiver } from "./SummaryRiver";
 
-//TODO-RC: dont show empty rivers in summary, make dropdown/create empty river button
+//TODO-NICE: dont show empty rivers in summary, make dropdown/create empty river button
 
 export const SummaryRiverView = () => {
 	const displayFocus = useSelector(focus.selectors.getDisplayFocus);
