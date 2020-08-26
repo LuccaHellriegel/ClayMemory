@@ -1,11 +1,11 @@
 import display from "../../display";
 import focus from "../../focus";
 import React, { ChangeEvent } from "react";
-import { AppBar, Toolbar, Divider, Tabs, Tab, Grid, TextField } from "@material-ui/core";
+import { AppBar, Toolbar, Divider, Tabs, Tab, Grid, TextField, Card, Typography } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { Options } from "./Options";
 import { CardSearchBar } from "./CardSearchBar";
-import { UndoButton, RedoButton } from "./UndoRedoButtons";
+import { UndoRedoCard } from "./UndoRedoButtons";
 import { ShowHideButton } from "./ShowHideButton";
 //TODO-NICE: download/load csv for Anki
 export const ControlBar = () => {
@@ -22,6 +22,8 @@ export const ControlBar = () => {
 		);
 	};
 
+	const materialName = useSelector(display.selectors.getPDFName);
+
 	return (
 		<Grid
 			item
@@ -31,24 +33,36 @@ export const ControlBar = () => {
 		>
 			<AppBar>
 				<Toolbar variant="regular">
-					<div style={{ width: "7%" }}>
-						<display.components.PageChooser></display.components.PageChooser>
-					</div>
-					<display.components.PreviousButton></display.components.PreviousButton>
-					<display.components.NextButton></display.components.NextButton>
-					<Divider orientation="vertical" flexItem />
-					<Tabs value={value} onChange={handleChange}>
-						<Tab label="ActiveRiver" />
-						<Tab label="SummaryRiver" />
-					</Tabs>
-					<Divider orientation="vertical" flexItem />
-					<UndoButton></UndoButton>
-					<RedoButton></RedoButton>
-					<Divider orientation="vertical" flexItem />
-					<ShowHideButton></ShowHideButton>
+					<Grid item>
+						<Grid container spacing={1} direction="row" alignItems="center" justify="flex-start">
+							<Grid item style={{ width: "12%" }}>
+								<display.components.PageChooser></display.components.PageChooser>
+							</Grid>
 
-					<CardSearchBar></CardSearchBar>
+							<Grid item>
+								<display.components.PageNavigation></display.components.PageNavigation>
+							</Grid>
+
+							<Grid item>
+								<Card variant="outlined">
+									<Tabs value={value} onChange={handleChange}>
+										<Tab label="ActiveRiver" />
+										<Tab label="SummaryRiver" />
+									</Tabs>
+								</Card>
+							</Grid>
+
+							<Grid item>
+								<UndoRedoCard></UndoRedoCard>
+							</Grid>
+						</Grid>
+					</Grid>
+
+					<Typography style={{ flexGrow: 1 }}>{materialName?.replace(".pdf", "")}</Typography>
+
+					<ShowHideButton></ShowHideButton>
 					<Options></Options>
+					<CardSearchBar></CardSearchBar>
 				</Toolbar>
 			</AppBar>
 		</Grid>

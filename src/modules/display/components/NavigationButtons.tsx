@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { IconButton } from "@material-ui/core";
+import { IconButton, Card, Grid, Divider } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { nextPage, previousPage } from "../actions";
@@ -30,5 +30,23 @@ export const NextButton = () => {
 		>
 			<ArrowForwardIosIcon></ArrowForwardIosIcon>
 		</IconButton>
+	);
+};
+
+export const PageNavigation = () => {
+	return (
+		<Card variant="outlined">
+			<Grid container direction="row">
+				<Grid item>
+					<PreviousButton></PreviousButton>
+				</Grid>
+				<Grid item>
+					<Divider orientation="vertical"></Divider>
+				</Grid>
+				<Grid item>
+					<NextButton></NextButton>
+				</Grid>
+			</Grid>
+		</Card>
 	);
 };
