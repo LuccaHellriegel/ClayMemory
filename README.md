@@ -2,6 +2,8 @@
 
 React-based reader and editor for creating notes and flash cards directly from PDF documents.
 
+Try it: [https://luccahellriegel.github.io/ClayMemory](https://luccahellriegel.github.io/ClayMemory)
+
 ## Overview
 
 Flash cards enable two of the most powerful empirically validated studying techniques: active recall and spaced repetition. Software like [Anki](https://apps.ankiweb.net/) brilliantly allows its users to study their flash cards everywhere and use algorithms to optimize the repetition intervals for maximum retention.
