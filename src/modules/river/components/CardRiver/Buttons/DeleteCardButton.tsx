@@ -22,7 +22,7 @@ export const DeleteCardButton = ({ cardID }: { cardID: CardID }) => {
 					dispatch(focus.actions.tryUpdateFocus("RIVER_CONTROL"));
 				}}
 			>
-				<DeleteForeverIcon></DeleteForeverIcon>
+				<DeleteForeverIcon fontSize="small"></DeleteForeverIcon>
 			</IconButton>
 		</Tooltip>
 	);

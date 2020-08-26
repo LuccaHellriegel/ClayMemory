@@ -48,7 +48,11 @@ export const GrabForFieldButton = ({
 					}
 				}}
 			>
-				{outlined ? <PanToolOutlinedIcon></PanToolOutlinedIcon> : <PanToolIcon></PanToolIcon>}
+				{outlined ? (
+					<PanToolOutlinedIcon fontSize="small"></PanToolOutlinedIcon>
+				) : (
+					<PanToolIcon fontSize="small"></PanToolIcon>
+				)}
 			</IconButton>
 		</Tooltip>
 	);

@@ -57,9 +57,16 @@ export const CardRiverAccordion = ({
 						<AddNoteButton></AddNoteButton>
 						<Divider></Divider>
 					</Grid>
-					{gridItems}
+
+					<Grid item>
+						<Grid container direction="column" spacing={2} justify="center" alignItems="stretch">
+							{gridItems}
+						</Grid>
+					</Grid>
 				</Grid>
 			</AccordionDetails>
 		</Accordion>
 	);
 };
+
+//TODO-RC: find way to use space for cards (right now they take up maybe 50%), maybe make Notes and QAs connected? I can display two in one line, or make notes bigger, so that each line has one qa, one note?

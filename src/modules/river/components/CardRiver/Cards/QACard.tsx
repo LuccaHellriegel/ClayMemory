@@ -12,7 +12,7 @@ import { isNullOrUndefined } from "util";
 import { getHoveredCardData } from "../../../selectors";
 import focus from "../../../../focus";
 import { trySetSourceCard } from "../../../actions";
-import { Card } from "@material-ui/core";
+import { Card, Paper } from "@material-ui/core";
 import { questionText, answerText } from "../../../../../shared/text";
 import { CardProps, borderStyle } from "./ClayCard";
 //TODO-RC: make Q/A in menu bigger so that you dont accidentially move off it
@@ -39,51 +39,81 @@ export const QACard = ({ config }: CardProps) => {
 	});
 
 	return (
-		<Card variant="elevation" elevation={5} ref={ref}>
-			<Grid container direction="column" spacing={1}>
+		<Card variant="elevation" elevation={5} ref={ref} style={{ padding: "3px" }}>
+			<Grid container direction="row" justify="space-between">
 				<Grid item>
-					<div style={isHoveredCard && field === "q" ? borderStyle : undefined}>
-						<HybridCardField
-							saveChanges={(value) => {
-								dispatch(cards.actions.updateCardContent(value, config.cardID, "q", "REPLACE", config.origin));
-							}}
-							storeValue={(config.content as QACardContent).q}
-							label={questionText}
-							variant="filled"
-							style={{ backgroundColor: "#FFBF69" }}
-							InputLabelProps={{ style: { color: "#000000" } }}
-							onMouseEnter={() => {
-								dispatch(focus.actions.tryUpdateFocus("RIVER"));
-								dispatch(trySetSourceCard("q", config.origin));
-							}}
-						></HybridCardField>
-						{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="q"></GrabForFieldButton>}
-						{config.origin && !isNullOrUndefined((config.origin as QOnlyQAOrigin).q?.spanIndex) && (
-							<JumpToOriginButton cardOrigin={(config.origin as QAOrigin).q as SingleOrigin}></JumpToOriginButton>
-						)}
-					</div>
+					<Grid container direction="column" spacing={1}>
+						<Grid item>
+							<Grid container direction="row" spacing={1}>
+								<Grid item>
+									<div style={isHoveredCard && field === "q" ? borderStyle : undefined}>
+										<HybridCardField
+											saveChanges={(value) => {
+												dispatch(cards.actions.updateCardContent(value, config.cardID, "q", "REPLACE", config.origin));
+											}}
+											storeValue={(config.content as QACardContent).q}
+											label={questionText}
+											variant="filled"
+											style={{ backgroundColor: "#FFBF69" }}
+											InputLabelProps={{ style: { color: "#000000" } }}
+											onMouseEnter={() => {
+												dispatch(focus.actions.tryUpdateFocus("RIVER"));
+												dispatch(trySetSourceCard("q", config.origin));
+											}}
+										></HybridCardField>
+									</div>
+								</Grid>
+
+								<Grid item>
+									<Paper variant="outlined">
+										<Grid container direction="column">
+											{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="q"></GrabForFieldButton>}
+											{config.origin && !isNullOrUndefined((config.origin as QOnlyQAOrigin).q?.spanIndex) && (
+												<JumpToOriginButton
+													cardOrigin={(config.origin as QAOrigin).q as SingleOrigin}
+												></JumpToOriginButton>
+											)}
+										</Grid>
+									</Paper>
+								</Grid>
+							</Grid>
+						</Grid>
+						<Grid item>
+							<Grid container direction="row" spacing={1}>
+								<Grid item>
+									<div style={isHoveredCard && field === "a" ? borderStyle : undefined}>
+										<HybridCardField
+											saveChanges={(value) => {
+												dispatch(cards.actions.updateCardContent(value, config.cardID, "a", "REPLACE", config.origin));
+											}}
+											storeValue={(config.content as QACardContent).a}
+											label={answerText}
+											style={{ backgroundColor: "#2EC4B6" }}
+											InputLabelProps={{ style: { color: "#000000" } }}
+											onMouseEnter={() => {
+												dispatch(focus.actions.tryUpdateFocus("RIVER"));
+												dispatch(trySetSourceCard("a", config.origin));
+											}}
+										></HybridCardField>
+									</div>
+								</Grid>
+								<Grid item>
+									<Paper variant="outlined">
+										<Grid container direction="column">
+											{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="a"></GrabForFieldButton>}
+											{config.origin && !isNullOrUndefined((config.origin as AOnlyQAOrigin).a?.spanIndex) && (
+												<JumpToOriginButton
+													cardOrigin={(config.origin as QAOrigin).a as SingleOrigin}
+												></JumpToOriginButton>
+											)}
+										</Grid>
+									</Paper>
+								</Grid>
+							</Grid>
+						</Grid>
+					</Grid>
 				</Grid>
-				<Grid item>
-					<div style={isHoveredCard && field === "a" ? borderStyle : undefined}>
-						<HybridCardField
-							saveChanges={(value) => {
-								dispatch(cards.actions.updateCardContent(value, config.cardID, "a", "REPLACE", config.origin));
-							}}
-							storeValue={(config.content as QACardContent).a}
-							label={answerText}
-							style={{ backgroundColor: "#2EC4B6" }}
-							InputLabelProps={{ style: { color: "#000000" } }}
-							onMouseEnter={() => {
-								dispatch(focus.actions.tryUpdateFocus("RIVER"));
-								dispatch(trySetSourceCard("a", config.origin));
-							}}
-						></HybridCardField>
-						{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="a"></GrabForFieldButton>}
-						{config.origin && !isNullOrUndefined((config.origin as AOnlyQAOrigin).a?.spanIndex) && (
-							<JumpToOriginButton cardOrigin={(config.origin as QAOrigin).a as SingleOrigin}></JumpToOriginButton>
-						)}
-					</div>
-				</Grid>
+
 				<Grid item>
 					<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
 				</Grid>

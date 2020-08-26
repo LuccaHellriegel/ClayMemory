@@ -18,7 +18,7 @@ export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin })
 					dispatch(display.actions.zoomToCardOrigin(cardOrigin.spanIndex, cardOrigin.page));
 				}}
 			>
-				<FindInPageIcon></FindInPageIcon>
+				<FindInPageIcon fontSize="small"></FindInPageIcon>
 			</IconButton>
 		</Tooltip>
 	);
