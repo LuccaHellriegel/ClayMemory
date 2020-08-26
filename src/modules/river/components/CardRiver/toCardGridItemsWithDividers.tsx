@@ -1,9 +1,11 @@
 import Grid from "@material-ui/core/Grid";
 import React from "react";
 import { incrementer } from "../../../../shared/utils";
-import { Card } from "./Card";
+import { ClayCard } from "./ClayCard";
 import { CardConfig } from "../../../cards/model/model";
 import { Divider } from "@material-ui/core";
+
+//TODO-RC: remove saved documents / load documents via menu vs via uploading
 
 const GridDivider = () => (
 	<Grid item>
@@ -17,7 +19,7 @@ export const toCardGridItemsWithDividers = (cards: CardConfig[], riverID: string
 	return cards.reduce((prev, currentCard, index, arr) => {
 		prev.push(
 			<Grid item key={increment()}>
-				<Card config={currentCard} riverID={riverID} key={increment()}></Card>
+				<ClayCard config={currentCard} riverID={riverID} key={increment()}></ClayCard>
 			</Grid>
 		);
 
