@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Typography, TextField } from "@material-ui/core";
+import { Typography, TextField, Card, Grid } from "@material-ui/core";
 import { setPage } from "../../actions";
 import { getPageControlData } from "../../selectors";
 
@@ -17,8 +17,7 @@ export const validatePageChoice = (possiblePage: string, totalPages: number) => 
 
 export const PageChooser = () => {
 	const dispatch = useDispatch();
-	// parent only renders this component if these values exist
-	const { currentPage, totalPages }: { currentPage?: number; totalPages?: number } = useSelector(getPageControlData);
+	const { currentPage, totalPages } = useSelector(getPageControlData);
 
 	const [state, setState] = useState({
 		error: false,
@@ -33,31 +32,51 @@ export const PageChooser = () => {
 	}
 
 	return (
-		<Typography variant="h6">
-			<TextField
-				type="text"
-				variant="filled"
-				value={state.userInput}
-				onKeyDown={(event) => {
-					if (event.key === "Enter") {
-						event.preventDefault();
-						const submittedValue = (event.target as HTMLFormElement).value;
-						if (!state.error) {
-							dispatch(setPage(parseInt(submittedValue)));
-						}
-					}
-				}}
-				onChange={(event) => {
-					const submittedValue = (event.target as HTMLTextAreaElement).value;
-					if (validatePageChoice(submittedValue, totalPages as number)) {
-						setState({ ...state, error: false, userInput: submittedValue });
-					} else {
-						setState({ ...state, error: true, userInput: submittedValue });
-					}
-				}}
-				error={state.error}
-			/>
-			of {totalPages}
-		</Typography>
+		<Card variant="outlined">
+			<Grid item>
+				<Grid container direction="row" alignItems="center" justify="space-between">
+					<Grid item style={{ width: "37%" }}>
+						<TextField
+							inputProps={{
+								style: {
+									padding: "0px",
+									//h6 Typography style
+									fontSize: "1.25rem",
+									fontFamily: '"Roboto", "Helvetica", "Arial", sansSerif',
+									fontWeight: 500,
+									lineHeight: 1.6,
+									letterSpacing: "0.0075em",
+								},
+							}}
+							type="text"
+							variant="filled"
+							value={state.userInput}
+							onKeyDown={(event) => {
+								if (event.key === "Enter") {
+									event.preventDefault();
+									const submittedValue = (event.target as HTMLFormElement).value;
+									if (!state.error) {
+										dispatch(setPage(parseInt(submittedValue)));
+									}
+								}
+							}}
+							onChange={(event) => {
+								const submittedValue = (event.target as HTMLTextAreaElement).value;
+								if (validatePageChoice(submittedValue, totalPages as number)) {
+									setState({ ...state, error: false, userInput: submittedValue });
+								} else {
+									setState({ ...state, error: true, userInput: submittedValue });
+								}
+							}}
+							error={state.error}
+						/>
+					</Grid>
+
+					<Grid item style={{ width: "61%" }}>
+						<Typography variant="h6">of {totalPages}</Typography>
+					</Grid>
+				</Grid>
+			</Grid>
+		</Card>
 	);
 };

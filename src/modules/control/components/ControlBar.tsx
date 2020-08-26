@@ -1,7 +1,7 @@
 import display from "../../display";
 import focus from "../../focus";
 import React, { ChangeEvent } from "react";
-import { AppBar, Toolbar, Divider, Tabs, Tab, Grid } from "@material-ui/core";
+import { AppBar, Toolbar, Divider, Tabs, Tab, Grid, TextField } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { Options } from "./Options";
 import { CardSearchBar } from "./CardSearchBar";
@@ -22,7 +22,6 @@ export const ControlBar = () => {
 		);
 	};
 
-	const totalPages = useSelector(display.selectors.getTotalPages);
 	return (
 		<Grid
 			item
@@ -32,9 +31,11 @@ export const ControlBar = () => {
 		>
 			<AppBar>
 				<Toolbar variant="regular">
-					{totalPages && <display.components.PageChooser></display.components.PageChooser>}
-					{totalPages && <display.components.PreviousButton></display.components.PreviousButton>}
-					{totalPages && <display.components.NextButton></display.components.NextButton>}
+					<div style={{ width: "7%" }}>
+						<display.components.PageChooser></display.components.PageChooser>
+					</div>
+					<display.components.PreviousButton></display.components.PreviousButton>
+					<display.components.NextButton></display.components.NextButton>
 					<Divider orientation="vertical" flexItem />
 					<Tabs value={value} onChange={handleChange}>
 						<Tab label="ActiveRiver" />

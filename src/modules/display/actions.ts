@@ -86,15 +86,13 @@ const pageCorrections = {
 export const movePage = (type: PageMove) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const { currentPage, totalPages } = getPageControlData(getState());
-		if (totalPages) {
-			switch (type) {
-				case "NEXT":
-					dispatch({ type: t.PAGE_UPDATE, payload: pageCorrections["ADD"](currentPage + 1, totalPages) });
-					break;
-				case "PREVIOUS":
-					dispatch({ type: t.PAGE_UPDATE, payload: pageCorrections["REMOVE"](currentPage - 1, totalPages) });
-					break;
-			}
+		switch (type) {
+			case "NEXT":
+				dispatch({ type: t.PAGE_UPDATE, payload: pageCorrections["ADD"](currentPage + 1, totalPages) });
+				break;
+			case "PREVIOUS":
+				dispatch({ type: t.PAGE_UPDATE, payload: pageCorrections["REMOVE"](currentPage - 1, totalPages) });
+				break;
 		}
 	};
 };

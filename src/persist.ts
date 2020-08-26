@@ -86,7 +86,7 @@ const addDOMObjectsToDisplayData = (outboundState: {
 	pdfName?: string;
 	displayStatus: DisplayStatus;
 	currentPage: number;
-	totalPages?: number;
+	totalPages: number;
 	//TODO-NICE:might need amount of spans per page for validation? if yes, use this
 	pageSpans: PerPageSpans;
 	documentRef: null;

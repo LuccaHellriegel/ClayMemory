@@ -54,10 +54,9 @@ export const ShowHideButton = () => {
 	};
 
 	const displayFocus = useSelector(focus.selectors.getDisplayFocus);
-	const totalPages = useSelector(display.selectors.getTotalPages);
 
 	return (
-		<div style={{ flexGrow: 1 }}>
+		<div>
 			<IconButton type="button" onClick={handleClick}>
 				<VisibilityIcon></VisibilityIcon>
 			</IconButton>
@@ -66,7 +65,7 @@ export const ShowHideButton = () => {
 				<Divider></Divider>
 				<Grid container direction="row">
 					<Grid item>
-						{totalPages && <river.components.RiverContentFormGroup></river.components.RiverContentFormGroup>}
+						<river.components.RiverContentFormGroup></river.components.RiverContentFormGroup>
 					</Grid>
 					<Grid item>
 						<Divider orientation="vertical"></Divider>

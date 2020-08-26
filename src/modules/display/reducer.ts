@@ -4,6 +4,7 @@ import { createRef } from "react";
 
 const initialState: DisplayData = {
 	displayStatus: "SHOW",
+	totalPages: 1000,
 	currentPage: 1,
 	documentRef: createRef(),
 	pageSpans: {},

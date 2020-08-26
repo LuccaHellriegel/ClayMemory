@@ -22,13 +22,9 @@ export const getTotalPages = createSelector(getAll, (state: DisplayData) => stat
 
 export const getCurrentPage = createSelector(getAll, (state: DisplayData) => state.currentPage);
 
-export const getPageControlData = createSelector(
-	getTotalPages,
-	getCurrentPage,
-	(totalPages: number | undefined, currentPage: number) => {
-		return { currentPage, totalPages };
-	}
-);
+export const getPageControlData = createSelector(getTotalPages, getCurrentPage, (totalPages, currentPage) => {
+	return { currentPage, totalPages };
+});
 
 export const getDocumentRef = createSelector(getAll, (state: DisplayData) => state.documentRef);
 
