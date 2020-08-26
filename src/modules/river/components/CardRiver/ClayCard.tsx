@@ -113,7 +113,7 @@ const QACard = ({ config }: CardProps) => {
 	);
 };
 
-export const Card = ({ config, riverID }: CardProps) => {
+export const ClayCard = ({ config, riverID }: CardProps) => {
 	switch (config.type) {
 		case "Note":
 			return <NoteCard config={config} riverID={riverID}></NoteCard>;
