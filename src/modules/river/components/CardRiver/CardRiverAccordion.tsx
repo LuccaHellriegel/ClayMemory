@@ -40,6 +40,8 @@ export const CardRiverAccordion = ({
 	const dispatch = useDispatch();
 
 	//TODO-NICE: make HalfFull-sub-menu for half-full QAs
+	//TODO-NICE: if you start without any document and then load one, the current cards should be merged into that one
+	//TODO-NICE: scroll-to-top for overflowing river
 	return (
 		<Accordion
 			defaultExpanded={true}

@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import { getRiverContentState, getRiverContentFilter } from "../../selectors";
 import { ContentFilter } from "../../model";
 
-//TODO-RC: make Card-River non-overlapping and scroll the cards that we are considering from the Menus into view
 //TODO-NICE: untangle these components, dont need to so many subs?
 
 const noteContainsContentFilter = (noteConfig: NoteConfig, contentFilter: ContentFilter) =>

@@ -18,9 +18,8 @@ import { CardProps, borderStyle } from "./ClayCard";
 //TODO-RC: make Q/A in menu bigger so that you dont accidentially move off it
 //TODO-RC: make Q/A as a general field for hoevered data, so that it does not jank so much
 //TODO-NICE: think of way to not have menu over the cards, because you cant read them this way? end of card?
-//TODO-RC: if river is longer than document, make non-overflow, not in SummaryRiver
 //TODO-RC: use dark color pallet (theme?)
-//TODO-RC: check if roboto font is active?
+
 export const QACard = ({ config }: CardProps) => {
 	const dispatch = useDispatch();
 	const { id, field } = useSelector(getHoveredCardData);
