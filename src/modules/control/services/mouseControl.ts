@@ -2,6 +2,7 @@ import creation from "../../creation";
 import focus from "../../focus";
 import cards from "../../cards";
 import river from "../../river";
+import { getSelectionText } from "../../../shared/utils";
 
 export const mouseDownControl = (event: MouseEvent) => {
 	return (dispatch: any, getState: Function) => {
@@ -18,10 +19,11 @@ export const mouseUpControl = (event: MouseEvent) => {
 		if (creation.selectors.getContextMenuState(getState())) return;
 
 		const selection = document.getSelection();
-		if (selection) {
-			const selectedStr = selection.toString();
 
-			if (selectedStr !== "") {
+		if (selection) {
+			const selectedStr = getSelectionText();
+
+			if (selectedStr && selectedStr !== "") {
 				const state = getState();
 				const goalCard = cards.selectors.getGoalCard(state);
 				const userFocus = focus.selectors.getFocus(state);
