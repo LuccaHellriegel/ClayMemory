@@ -2,9 +2,9 @@ import "./PDFDocument.css";
 import "./AnnotationLayer.css";
 import React, { RefObject } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
-import { connect, useDispatch } from "react-redux";
-import { materialLoaded, setPage, captureMaterialData } from "../../actions";
-import { getRenderCritialData } from "../../selectors";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { materialLoaded, setPage, captureMaterialData, setMaterialHeight } from "../../actions";
+import { getRenderCritialData, getMaterialHeight } from "../../selectors";
 import { loadingMaterialText, noMaterialText } from "../../../../shared/text";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -41,6 +41,19 @@ function PDFDocument({
 	documentRef: RefObject<any>;
 }) {
 	const dispatch = useDispatch();
+
+	const materialHeight = useSelector(getMaterialHeight);
+
+	// first setting
+	if (!materialHeight) {
+		dispatch(setMaterialHeight(parentSize.height));
+	}
+
+	// setting if changed
+	if (materialHeight && materialHeight !== parentSize.height) {
+		dispatch(setMaterialHeight(parentSize.height));
+	}
+
 	return (
 		<Document
 			file={pdf}

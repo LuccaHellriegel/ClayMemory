@@ -54,3 +54,5 @@ export const getDisplayStatus = createSelector(getAll, (state: DisplayData) => s
 export const displayStatusIsShow = createSelector(getDisplayStatus, (status) => status === "SHOW");
 
 export const getZoomQueue = createSelector(getAll, (state: DisplayData) => state.zoomQueue);
+
+export const getMaterialHeight = createSelector(getAll, (state: DisplayData) => state.materialHeight);

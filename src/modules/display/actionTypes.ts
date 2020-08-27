@@ -6,3 +6,4 @@ export const DISPLAY_STATUS = NAME + "/DISPLAY_STATUS";
 export const PAGE_UPDATE = NAME + "/PAGE_UPDATE";
 export const ZOOM_QUEUE = NAME + "/ZOOM_QUEUE";
 export const MATERIAL_DATA = NAME + "/MATERIAL_DATA";
+export const MATERIAL_HEIGHT = NAME + "/MATERIAL_HEIGHT";

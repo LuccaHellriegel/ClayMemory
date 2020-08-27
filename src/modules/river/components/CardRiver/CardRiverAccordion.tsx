@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AddNoteButton } from "./Buttons/AddNoteButton";
 import { AddQAButton } from "./Buttons/AddQAButton";
 import { getPushToRiver } from "../../selectors";
+import display from "../../../display";
+import focus from "../../../focus";
 
 //TODO-NICE: make it not be accordion but closeable?
 //TODO-NICE: make local show / hide notes
@@ -32,7 +34,12 @@ export const CardRiverAccordion = ({
 		setElevation(defaultElevation);
 	}
 
+	const materialHeight = useSelector(display.selectors.getMaterialHeight);
+	const displayFocus = useSelector(focus.selectors.getDisplayFocus);
+
 	const dispatch = useDispatch();
+
+	//TODO-NICE: make HalfFull-sub-menu for half-full QAs
 	return (
 		<Accordion
 			defaultExpanded={true}
@@ -40,6 +47,17 @@ export const CardRiverAccordion = ({
 				dispatch(trySetPushToRiver(riverID));
 			}}
 			elevation={elevation}
+			//TODO-NICE: I use 1400 to prevent non-overflow on reloading (the site would be stretched)
+			// if the river is bigger than the pdf-page would be, then the site is stretchted and the pdf-page-element assumes the size of the river
+			// this solution assumes the pdf page is always bigger than 1400 (true on 22'), need solution to get height of pdf-page-element itself and not its parent
+			style={
+				displayFocus === "ACTIVE_RIVER"
+					? {
+							overflowY: "auto",
+							maxHeight: materialHeight ? materialHeight : "1400px",
+					  }
+					: {}
+			}
 		>
 			<AccordionSummary>
 				<Typography

@@ -22,8 +22,6 @@ export const ChildCardRiver = ({ riverID, riverCards }: { riverID: string; river
 	//TODO-NICE: use regex for upper/lower-case
 	const contentFilter = useSelector(getRiverContentFilter);
 
-	console.log(contentFilter);
-
 	// this should only change if the store values change
 	const gridItems = useMemo(() => {
 		let inputCards = riverCards;

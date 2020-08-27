@@ -131,3 +131,7 @@ export const emptyZoomQueue = () => {
 		}
 	};
 };
+
+export const setMaterialHeight = (height: number) => {
+	return { type: t.MATERIAL_HEIGHT, payload: height };
+};

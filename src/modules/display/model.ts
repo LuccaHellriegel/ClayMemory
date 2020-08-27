@@ -29,6 +29,7 @@ export type DisplayData = {
 	documentRef: RefObject<HTMLDivElement>;
 	zoomQueue: number | null;
 	materialData: MaterialData;
+	materialHeight?: number;
 };
 
 export type PageMove = "PREVIOUS" | "NEXT";

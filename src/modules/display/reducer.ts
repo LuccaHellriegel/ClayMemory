@@ -28,6 +28,11 @@ const displayData = (state = initialState, { type, payload }: { type: string; pa
 				materialData: payload,
 				pageSpans: { ...state.pageSpans, [state.currentPage]: (payload as MaterialGroupData).materialSpans.length - 1 },
 			};
+		case t.MATERIAL_HEIGHT:
+			return {
+				...state,
+				materialHeight: payload,
+			};
 		default:
 			return state;
 	}
