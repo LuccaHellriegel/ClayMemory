@@ -1,10 +1,10 @@
 import "./PDFDocument.css";
 import "./AnnotationLayer.css";
-import React, { RefObject } from "react";
+import React, { RefObject, useEffect } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { materialLoaded, setPage, captureMaterialData, setMaterialHeight } from "../../actions";
-import { getRenderCritialData, getMaterialHeight } from "../../selectors";
+import { materialLoaded, setPage, captureMaterialData, setMaterialHeight, emptyZoomQueue } from "../../actions";
+import { getRenderCritialData, getMaterialHeight, getZoomQueue } from "../../selectors";
 import { loadingMaterialText, noMaterialText } from "../../../../shared/text";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -53,6 +53,14 @@ function PDFDocument({
 	if (materialHeight && materialHeight !== parentSize.height) {
 		dispatch(setMaterialHeight(parentSize.height));
 	}
+	//TODO-NICE: this is not a queue...
+	const zoomQueue = useSelector(getZoomQueue);
+
+	useEffect(() => {
+		if (!!zoomQueue && pdf) {
+			dispatch(emptyZoomQueue());
+		}
+	}, [zoomQueue, pdf, dispatch]);
 
 	return (
 		<Document

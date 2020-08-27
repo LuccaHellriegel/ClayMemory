@@ -21,7 +21,6 @@ export const SummaryRiver = () => {
 	// the current-page river is scrolled into view
 	useEffect(() => {
 		if (displayFocus === "SUMMARY_RIVER" && focusRef.current !== null) {
-			(focusRef.current as HTMLDivElement).focus();
 			const boundingRect = (focusRef.current as HTMLDivElement).getBoundingClientRect();
 			//TODO-NICE: 100 is just experience on 22', I assume that then the River is in the top row
 			// we need to scroll to top otherwise it is covered by the AppBar

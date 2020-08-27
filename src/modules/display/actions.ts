@@ -53,7 +53,6 @@ export function captureMaterialData(documentRef: RefObject<any>) {
 					materialDataTimeStamp: startTime,
 				};
 				dispatch({ type: t.MATERIAL_DATA, payload });
-				dispatch(emptyZoomQueue());
 			} else {
 				tryInterval(10, 20, () => {
 					const curMaterialGroupData = materialData(container as HTMLDivElement);
@@ -113,20 +112,23 @@ export const setZoomQueue = (spanIndex: number | null) => {
 
 export const zoomToCardOrigin = (spanIndex: number, page: number) => {
 	return (dispatch: Dispatch) => {
+		console.log(page, spanIndex);
 		dispatch(setPage(page));
 		dispatch(setZoomQueue(spanIndex));
 	};
 };
-
+//TODO-RC: make snackbar for big changes, so that the user notices that he deleted e.g. a document, or document confirmation? yes, confirmation is better
 export const emptyZoomQueue = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
 		const spanIndex = getZoomQueue(state);
-		if (spanIndex) {
-			const originSpan = getMaterialSpans(state)[spanIndex];
-			originSpan.focus();
-			originSpan.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
-
+		if (!!spanIndex) {
+			const materialSpans = getMaterialSpans(state);
+			if (materialSpans) {
+				// this way when no pdf was present we prevent the race-condition of pdf being loaded later
+				const originSpan = materialSpans[spanIndex];
+				originSpan.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+			}
 			dispatch(setZoomQueue(null));
 		}
 	};

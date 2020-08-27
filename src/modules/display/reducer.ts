@@ -33,6 +33,11 @@ const displayData = (state = initialState, { type, payload }: { type: string; pa
 				...state,
 				materialHeight: payload,
 			};
+		case t.ZOOM_QUEUE:
+			return {
+				...state,
+				zoomQueue: payload,
+			};
 		default:
 			return state;
 	}
