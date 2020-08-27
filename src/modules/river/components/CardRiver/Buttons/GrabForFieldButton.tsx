@@ -34,7 +34,7 @@ export const GrabForFieldButton = ({
 	}
 
 	return (
-		<Tooltip title={grabForCardTooltip} enterDelay={1000} enterNextDelay={1000}>
+		<Tooltip title={grabForCardTooltip} enterDelay={500} enterNextDelay={1000}>
 			<IconButton
 				type="button"
 				onMouseEnter={() => {

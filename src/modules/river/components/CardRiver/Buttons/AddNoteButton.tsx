@@ -9,7 +9,7 @@ import { newNoteCardTooltip } from "../../../../../shared/tooltips";
 export const AddNoteButton = () => {
 	const dispatch = useDispatch();
 	return (
-		<Tooltip title={newNoteCardTooltip} enterDelay={1000} enterNextDelay={1000}>
+		<Tooltip title={newNoteCardTooltip} enterDelay={500} enterNextDelay={1000}>
 			<IconButton
 				type="button"
 				onClick={() => {

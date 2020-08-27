@@ -9,7 +9,7 @@ import { undoTooltip, redoTooltip } from "../../../shared/tooltips";
 const UndoButton = () => {
 	const dispatch = useDispatch();
 	return (
-		<Tooltip title={undoTooltip} enterDelay={1000} enterNextDelay={1000}>
+		<Tooltip title={undoTooltip} enterDelay={500} enterNextDelay={1000}>
 			<IconButton
 				type="button"
 				onClick={() => {
@@ -24,7 +24,7 @@ const UndoButton = () => {
 const RedoButton = () => {
 	const dispatch = useDispatch();
 	return (
-		<Tooltip title={redoTooltip} enterDelay={1000} enterNextDelay={1000}>
+		<Tooltip title={redoTooltip} enterDelay={500} enterNextDelay={1000}>
 			<IconButton
 				type="button"
 				onClick={() => {

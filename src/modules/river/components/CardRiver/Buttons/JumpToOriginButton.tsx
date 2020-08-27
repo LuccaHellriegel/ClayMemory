@@ -10,7 +10,7 @@ import { jumpToOriginTooltip } from "../../../../../shared/tooltips";
 export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin }) => {
 	const dispatch = useDispatch();
 	return (
-		<Tooltip title={jumpToOriginTooltip} enterDelay={1000} enterNextDelay={1000}>
+		<Tooltip title={jumpToOriginTooltip} enterDelay={500} enterNextDelay={1000}>
 			<IconButton
 				type="button"
 				onClick={() => {

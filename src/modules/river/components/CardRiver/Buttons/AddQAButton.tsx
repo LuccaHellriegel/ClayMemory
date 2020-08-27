@@ -9,7 +9,7 @@ import { newQACardTooltip } from "../../../../../shared/tooltips";
 export const AddQAButton = () => {
 	const dispatch = useDispatch();
 	return (
-		<Tooltip title={newQACardTooltip} enterDelay={1000} enterNextDelay={1000}>
+		<Tooltip title={newQACardTooltip} enterDelay={500} enterNextDelay={1000}>
 			<IconButton
 				type="button"
 				onClick={() => {
