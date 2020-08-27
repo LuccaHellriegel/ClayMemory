@@ -22,7 +22,14 @@ export const SummaryRiver = () => {
 	useEffect(() => {
 		if (displayFocus === "SUMMARY_RIVER" && focusRef.current !== null) {
 			(focusRef.current as HTMLDivElement).focus();
-			(focusRef.current as HTMLDivElement).scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+			const boundingRect = (focusRef.current as HTMLDivElement).getBoundingClientRect();
+			//TODO-NICE: 100 is just experience on 22', I assume that then the River is in the top row
+			// we need to scroll to top otherwise it is covered by the AppBar
+			if (boundingRect.y < 100) {
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			} else {
+				(focusRef.current as HTMLDivElement).scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+			}
 		}
 	}, [displayFocus, currentPage]);
 
