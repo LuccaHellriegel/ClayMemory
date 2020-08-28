@@ -13,3 +13,5 @@ export const jumpToOriginTooltip = "Jump to the origin of the card content";
 
 export const newQACardTooltip = "Create new QA-card";
 export const newNoteCardTooltip = "Create new Note-card";
+
+export const deleteDocumentTooltip = "Delete this document and all its corresponding cards";

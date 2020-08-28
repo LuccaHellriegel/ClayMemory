@@ -2,9 +2,18 @@ import { ChangeEvent, RefObject } from "react";
 import { Dispatch } from "redux";
 import * as t from "./actionTypes";
 import { PageMove, MaterialData } from "./model";
-import { getPageControlData, getDisplayStatus, getZoomQueue, getTimeStamp, getMaterialSpans } from "./selectors";
+import {
+	getPageControlData,
+	getDisplayStatus,
+	getZoomQueue,
+	getTimeStamp,
+	getMaterialSpans,
+	getPDFName,
+	getPDF,
+} from "./selectors";
 import { incrementer } from "../../shared/utils";
 import { materialData } from "./services/materialData";
+import db from "../db";
 
 export const pdfUpload = (pdf: File) => {
 	return { type: t.PDF_UPLOADED, payload: pdf };
@@ -136,4 +145,19 @@ export const emptyZoomQueue = () => {
 
 export const setMaterialHeight = (height: number) => {
 	return { type: t.MATERIAL_HEIGHT, payload: height };
+};
+
+//TODO-RC: make current document show up in options, also if deleted it should show up again
+
+export const deleteDocument = (document: string) => {
+	return (dispatch: Dispatch, getState: Function) => {
+		const state = getState();
+		const activeDocument = getPDFName(state);
+		if (activeDocument && activeDocument === document) {
+			// reset data
+			dispatch({ type: db.actionTypes.DOCUMENT_CHANGE });
+		}
+
+		dispatch(db.actions.deleteDocumentDataSet(document));
+	};
 };

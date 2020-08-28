@@ -1,12 +1,17 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { ChangeEvent, Fragment, useRef, MutableRefObject } from "react";
-import { Divider, Menu, MenuItem, IconButton, Typography } from "@material-ui/core";
+import { Divider, Menu, MenuItem, IconButton, Typography, Card, Button, Tooltip, Grid } from "@material-ui/core";
 import { changeDocument, downloadDBData } from "../actions";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import display from "../../display";
 import db from "../../db";
 import { DocumentData } from "../../db/model";
-import { uploadDatasetsText, activeDocumentText, existingDataText, downloadDatasetsText } from "../../../shared/text";
+import { uploadDatasetsText, existingDataText, downloadDatasetsText } from "../../../shared/text";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import PublishIcon from "@material-ui/icons/Publish";
+import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
+import ImportContactsIcon from "@material-ui/icons/ImportContacts";
+import { DeleteDocumentButton } from "./DeleteDocumentButton";
 
 //TODO-NICE: have way to merge two document-workspaces
 
@@ -22,7 +27,14 @@ const InputDocument = ({ handleClose, label }: any) => {
 					(ref.current as HTMLInputElement).click();
 				}}
 			>
-				<Typography>{label}</Typography>
+				<Button
+					variant="contained"
+					color="primary"
+					disableElevation
+					startIcon={<InsertDriveFileIcon></InsertDriveFileIcon>}
+				>
+					{label}
+				</Button>
 			</MenuItem>
 			<input
 				ref={ref}
@@ -42,6 +54,23 @@ const InputDocument = ({ handleClose, label }: any) => {
 	);
 };
 
+//TODO-RC:
+const LoadDocumentDataButton = () => {
+	const dispatch = useDispatch();
+	return (
+		<Tooltip title={""} enterDelay={500} enterNextDelay={1000}>
+			<IconButton
+				type="button"
+				onClick={() => {
+					// dispatch(ActionCreators.undo());
+				}}
+			>
+				<ImportContactsIcon fontSize="small"></ImportContactsIcon>
+			</IconButton>
+		</Tooltip>
+	);
+};
+
 const InputDataSets = ({ handleClose, label }: any) => {
 	const dispatch = useDispatch();
 
@@ -56,7 +85,9 @@ const InputDataSets = ({ handleClose, label }: any) => {
 					(ref.current as HTMLInputElement).click();
 				}}
 			>
-				<Typography>{label}</Typography>
+				<Button variant="contained" color="primary" disableElevation startIcon={<PublishIcon></PublishIcon>}>
+					{label}
+				</Button>
 			</MenuItem>
 			<input
 				ref={ref}
@@ -91,8 +122,35 @@ const InputDataSets = ({ handleClose, label }: any) => {
 	);
 };
 
+const DocumentListItem = ({ document }: { document: string }) => {
+	return (
+		<li>
+			<Grid container direction="row" justify="space-between" alignItems="center" spacing={1}>
+				<Grid item>{document.replace(".pdf", "")}</Grid>
+
+				<Grid item>
+					<Card variant="outlined">
+						<Grid container direction="row">
+							<Grid item>
+								<LoadDocumentDataButton></LoadDocumentDataButton>
+							</Grid>
+
+							<Grid item>
+								<Divider orientation="vertical"></Divider>
+							</Grid>
+
+							<Grid item>
+								<DeleteDocumentButton document={document}></DeleteDocumentButton>
+							</Grid>
+						</Grid>
+					</Card>
+				</Grid>
+			</Grid>
+		</li>
+	);
+};
+
 export const Options = () => {
-	const activeDocument = useSelector(display.selectors.getPDFName);
 	const documents = useSelector(db.selectors.getDocumentNames);
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -112,15 +170,21 @@ export const Options = () => {
 			<IconButton type="button" onClick={handleClick}>
 				<MoreVertIcon></MoreVertIcon>
 			</IconButton>
-			<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-				<Typography>{activeDocumentText}</Typography>
-				<Typography>{activeDocument?.replace(".pdf", "")}</Typography>
-				<Divider />
-				<Typography>{existingDataText}</Typography>
+			<Menu
+				id="simple-menu"
+				anchorEl={anchorEl}
+				keepMounted
+				open={Boolean(anchorEl)}
+				onClose={handleClose}
+				MenuListProps={{ style: { paddingLeft: "8px", paddingRight: "8px" } }}
+			>
+				<Typography variant="h6">{existingDataText}</Typography>
 				<Typography>
-					<ul>{documents.map((document) => (document ? <li>{document.replace(".pdf", "")}</li> : null))}</ul>
+					<ul style={{ listStyleType: "square" }}>
+						{documents.map((document) => (document ? <DocumentListItem document={document}></DocumentListItem> : null))}
+					</ul>
 				</Typography>
-				<Divider />
+				<Divider style={{ marginTop: "6px" }} />
 				<InputDocument handleClose={handleClose} label={"Load document"}></InputDocument>
 				<Divider />
 				<MenuItem
@@ -129,7 +193,9 @@ export const Options = () => {
 						handleClose();
 					}}
 				>
-					{downloadDatasetsText}
+					<Button variant="contained" color="primary" disableElevation startIcon={<GetAppIcon></GetAppIcon>}>
+						{downloadDatasetsText}
+					</Button>
 				</MenuItem>
 				<Divider />
 				<InputDataSets handleClose={handleClose} label={uploadDatasetsText}></InputDataSets>

@@ -7,7 +7,7 @@ const initialState: DocumentDBState = { documentDB: {} };
 
 const documentDB = (
 	state = initialState,
-	{ type, payload }: { type: string; payload: DocumentData | DocumentData[] | { dbData: DocumentData[] } }
+	{ type, payload }: { type: string; payload: DocumentData | DocumentData[] | string | { dbData: DocumentData[] } }
 ): DocumentDBState => {
 	switch (type) {
 		// dont need to undo this, because if we change the active river and then change the document, the archive version gets overwritten
@@ -26,6 +26,12 @@ const documentDB = (
 						return prev;
 					}, {} as DocumentDB),
 				},
+			};
+		case t.DELETE_DOCUMENT_DATA_SET:
+			//TODO-RC: delete current document, reset?
+			return {
+				...state,
+				documentDB: Object.fromEntries(Object.entries(state.documentDB).filter((arr) => arr[0] !== payload)),
 			};
 		default:
 			return state;
