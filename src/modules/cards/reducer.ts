@@ -52,7 +52,7 @@ const cards = (state = intialState, { type, payload }: { type: string; payload?:
 			return removeCard(state, payload as string);
 		case t.CARD_GOAL:
 			return { ...state, goalCard: payload };
-		case t.DOCUMENT_CHANGE:
+		case db.actionTypes.DOCUMENT_CHANGE:
 			if (payload) {
 				return {
 					...intialState,

@@ -1,6 +1,5 @@
 import { Dispatch } from "redux";
 import display from "../display";
-import cards from "../cards";
 import { ActionCreators } from "redux-undo";
 import db from "../db";
 import { collectCurrentDBData } from "./selectors";
@@ -56,9 +55,9 @@ export const changeDocument = (pdf: File) => {
 		// load new data or reset
 		const newDocumentData = documentDB[newPDFName];
 		if (newDocumentData) {
-			dispatch({ type: cards.actionTypes.DOCUMENT_CHANGE, payload: newDocumentData });
+			dispatch({ type: db.actionTypes.DOCUMENT_CHANGE, payload: newDocumentData });
 		} else {
-			dispatch({ type: cards.actionTypes.DOCUMENT_CHANGE });
+			dispatch({ type: db.actionTypes.DOCUMENT_CHANGE });
 		}
 
 		// no undo-redo across documents

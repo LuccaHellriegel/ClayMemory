@@ -110,7 +110,7 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 			} else {
 				return { ...state, sourceCard };
 			}
-		case cards.actionTypes.DOCUMENT_CHANGE:
+		case db.actionTypes.DOCUMENT_CHANGE:
 			if (payload) {
 				return {
 					...initialState,
