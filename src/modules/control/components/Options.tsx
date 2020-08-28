@@ -1,17 +1,17 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { ChangeEvent, Fragment, useRef, MutableRefObject } from "react";
-import { Divider, Menu, MenuItem, IconButton, Typography, Card, Button, Tooltip, Grid } from "@material-ui/core";
+import { Divider, Menu, MenuItem, IconButton, Typography, Card, Button, Grid } from "@material-ui/core";
 import { changeDocument, downloadDBData } from "../actions";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import display from "../../display";
 import db from "../../db";
 import { DocumentData } from "../../db/model";
-import { uploadDatasetsText, existingDataText, downloadDatasetsText } from "../../../shared/text";
+import { uploadDatasetsText, existingDataText, downloadDatasetsText, activeDocumentText } from "../../../shared/text";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PublishIcon from "@material-ui/icons/Publish";
 import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
-import ImportContactsIcon from "@material-ui/icons/ImportContacts";
 import { DeleteDocumentButton } from "./DeleteDocumentButton";
+import { LoadDocumentDataButton } from "./LoadDocumentDataButton";
 
 //TODO-NICE: have way to merge two document-workspaces
 
@@ -51,23 +51,6 @@ const InputDocument = ({ handleClose, label }: any) => {
 				accept=".pdf"
 			/>
 		</Fragment>
-	);
-};
-
-//TODO-RC:
-const LoadDocumentDataButton = () => {
-	const dispatch = useDispatch();
-	return (
-		<Tooltip title={""} enterDelay={500} enterNextDelay={1000}>
-			<IconButton
-				type="button"
-				onClick={() => {
-					// dispatch(ActionCreators.undo());
-				}}
-			>
-				<ImportContactsIcon fontSize="small"></ImportContactsIcon>
-			</IconButton>
-		</Tooltip>
 	);
 };
 
@@ -122,36 +105,49 @@ const InputDataSets = ({ handleClose, label }: any) => {
 	);
 };
 
-const DocumentListItem = ({ document }: { document: string }) => {
+const DocumentOptionItem = ({ document }: { document: string }) => {
 	return (
-		<li>
-			<Grid container direction="row" justify="space-between" alignItems="center" spacing={1}>
-				<Grid item>{document.replace(".pdf", "")}</Grid>
+		<Grid container direction="row" justify="space-between" alignItems="center" spacing={1}>
+			<Grid item>{document.replace(".pdf", "")}</Grid>
 
-				<Grid item>
-					<Card variant="outlined">
-						<Grid container direction="row">
-							<Grid item>
-								<LoadDocumentDataButton></LoadDocumentDataButton>
-							</Grid>
-
-							<Grid item>
-								<Divider orientation="vertical"></Divider>
-							</Grid>
-
-							<Grid item>
-								<DeleteDocumentButton document={document}></DeleteDocumentButton>
-							</Grid>
+			<Grid item>
+				<Card variant="outlined">
+					<Grid container direction="row">
+						<Grid item>
+							<LoadDocumentDataButton document={document}></LoadDocumentDataButton>
 						</Grid>
-					</Card>
-				</Grid>
+
+						<Grid item>
+							<Divider orientation="vertical"></Divider>
+						</Grid>
+
+						<Grid item>
+							<DeleteDocumentButton document={document}></DeleteDocumentButton>
+						</Grid>
+					</Grid>
+				</Card>
 			</Grid>
-		</li>
+		</Grid>
+	);
+};
+
+const ActiveDocumentOptionItem = ({ document }: { document: string }) => {
+	return (
+		<Grid container direction="row" justify="space-between" alignItems="center" spacing={1}>
+			<Grid item>{document.replace(".pdf", "")}</Grid>
+
+			<Grid item>
+				<Card variant="outlined">
+					<DeleteDocumentButton document={document}></DeleteDocumentButton>
+				</Card>
+			</Grid>
+		</Grid>
 	);
 };
 
 export const Options = () => {
 	const documents = useSelector(db.selectors.getDocumentNames);
+	const activeDocument = useSelector(display.selectors.getPDFName);
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -178,13 +174,26 @@ export const Options = () => {
 				onClose={handleClose}
 				MenuListProps={{ style: { paddingLeft: "8px", paddingRight: "8px" } }}
 			>
-				<Typography variant="h6">{existingDataText}</Typography>
-				<Typography>
-					<ul style={{ listStyleType: "square" }}>
-						{documents.map((document) => (document ? <DocumentListItem document={document}></DocumentListItem> : null))}
-					</ul>
-				</Typography>
-				<Divider style={{ marginTop: "6px" }} />
+				{activeDocument && [
+					<Typography variant="h6">{activeDocumentText}</Typography>,
+					<ActiveDocumentOptionItem document={activeDocument}></ActiveDocumentOptionItem>,
+					<Divider style={{ marginTop: "6px" }}></Divider>,
+				]}
+				{documents.filter((doc) => doc !== activeDocument).length > 0 && [
+					<Typography variant="h6">{existingDataText}</Typography>,
+					<Typography>
+						<ul style={{ listStyleType: "square" }}>
+							{documents.map((document) =>
+								document && document !== activeDocument ? (
+									<li>
+										<DocumentOptionItem document={document}></DocumentOptionItem>
+									</li>
+								) : null
+							)}
+						</ul>
+					</Typography>,
+					<Divider style={{ marginTop: "6px" }} />,
+				]}
 				<InputDocument handleClose={handleClose} label={"Load document"}></InputDocument>
 				<Divider />
 				<MenuItem

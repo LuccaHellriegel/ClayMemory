@@ -9,11 +9,11 @@ import {
 	getTimeStamp,
 	getMaterialSpans,
 	getPDFName,
-	getPDF,
 } from "./selectors";
 import { incrementer } from "../../shared/utils";
 import { materialData } from "./services/materialData";
 import db from "../db";
+import { ActionCreators } from "redux-undo";
 
 export const pdfUpload = (pdf: File) => {
 	return { type: t.PDF_UPLOADED, payload: pdf };
@@ -147,8 +147,6 @@ export const setMaterialHeight = (height: number) => {
 	return { type: t.MATERIAL_HEIGHT, payload: height };
 };
 
-//TODO-RC: make current document show up in options, also if deleted it should show up again
-
 export const deleteDocument = (document: string) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
@@ -156,8 +154,12 @@ export const deleteDocument = (document: string) => {
 		if (activeDocument && activeDocument === document) {
 			// reset data
 			dispatch({ type: db.actionTypes.DOCUMENT_CHANGE });
+
+			// keeping the undo history leads to weird edge cases and makes no sense
+			dispatch(ActionCreators.clearHistory());
 		}
 
+		// note: no undo of this
 		dispatch(db.actions.deleteDocumentDataSet(document));
 	};
 };

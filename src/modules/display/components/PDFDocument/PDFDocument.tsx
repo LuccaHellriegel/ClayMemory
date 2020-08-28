@@ -44,6 +44,7 @@ function PDFDocument({
 
 	const materialHeight = useSelector(getMaterialHeight);
 
+	//TODO-RC: leads to render-problems?
 	// first setting
 	if (!materialHeight) {
 		dispatch(setMaterialHeight(parentSize.height));

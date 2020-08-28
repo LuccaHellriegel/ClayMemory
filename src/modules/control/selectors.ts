@@ -6,15 +6,29 @@ import { DocumentData } from "../db/model";
 
 export const collectCurrentDBData: (state: any) => DocumentData | null = createSelector(
 	display.selectors.getPDFName,
+	display.selectors.getTotalPages,
+	display.selectors.getCurrentPage,
 	river.selectors.getRiverMakeUps,
 	river.selectors.getActiveRiverMakeUpID,
 	river.selectors.getPushToRiver,
 	river.selectors.getLastRiverIDNumber,
 	cards.selectors.getCards,
 	cards.selectors.getLastCardIDNumber,
-	(pdfName, riverMakeUps, activeRiverMakeUpID, pushToRiverID, lastRiverIDNumber, cards, lastCardIDNumber) => {
+	(
+		pdfName,
+		totalPages,
+		currentPage,
+		riverMakeUps,
+		activeRiverMakeUpID,
+		pushToRiverID,
+		lastRiverIDNumber,
+		cards,
+		lastCardIDNumber
+	) => {
 		return {
 			name: pdfName as string,
+			totalPages,
+			currentPage,
 			riverMakeUps,
 			activeRiverMakeUpID,
 			pushToRiverID,

@@ -64,3 +64,26 @@ export const changeDocument = (pdf: File) => {
 		dispatch(ActionCreators.clearHistory());
 	};
 };
+
+//TODO-NICE: remove save redundancy
+export const loadSavedDocument = (document: string) => {
+	return (dispatch: Dispatch, getState: Function) => {
+		const state = getState();
+		const currentPDFName = display.selectors.getPDFName(state);
+
+		const documentDB = db.selectors.getDocumentDB(state);
+
+		// save current data only if pdf has been uploaded / there is an active document
+		if (currentPDFName !== undefined) {
+			const dbData = collectCurrentDBData(state) as DocumentData;
+			dispatch(db.actions.archiveDBData(dbData));
+		}
+
+		// load new data
+		const newDocumentData = documentDB[document];
+		dispatch({ type: db.actionTypes.DOCUMENT_CHANGE, payload: newDocumentData });
+
+		// no undo-redo across documents
+		dispatch(ActionCreators.clearHistory());
+	};
+};

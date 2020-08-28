@@ -5,8 +5,6 @@ import { ClayCard } from "./Cards/ClayCard";
 import { CardConfig } from "../../../cards/model/model";
 import { Divider } from "@material-ui/core";
 
-//TODO-RC: remove saved documents / load documents via menu vs via uploading
-
 const GridDivider = () => (
 	<Grid item>
 		<Divider></Divider>

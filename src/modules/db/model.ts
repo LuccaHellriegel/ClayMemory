@@ -17,6 +17,8 @@ export type ArchiveCards = {
 
 export type DocumentData = {
 	name: string;
+	currentPage: number;
+	totalPages: number;
 } & ArchiveRiver &
 	ArchiveCards;
 
