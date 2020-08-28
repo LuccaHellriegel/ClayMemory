@@ -36,7 +36,7 @@ export const ControlBar = () => {
 				<Toolbar variant="regular">
 					<Grid item>
 						<Grid container spacing={1} direction="row" alignItems="center" justify="flex-start">
-							<Grid item style={{ width: "12%" }}>
+							<Grid item style={{ width: "15%" }}>
 								<display.components.PageChooser></display.components.PageChooser>
 							</Grid>
 

@@ -7,6 +7,7 @@ import { SingleOrigin } from "../../../../cards/model/model-origin";
 import focus from "../../../../focus";
 import { jumpToOriginTooltip } from "../../../../../shared/tooltips";
 
+//TODO-NICE: replace/simplify focus system with element specific mouse-listeners
 export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin }) => {
 	const dispatch = useDispatch();
 	return (
@@ -16,6 +17,9 @@ export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin })
 				onClick={() => {
 					dispatch(focus.actions.updateDisplayFocus("ACTIVE_RIVER"));
 					dispatch(display.actions.zoomToCardOrigin(cardOrigin.spanIndex, cardOrigin.page));
+				}}
+				onMouseEnter={() => {
+					dispatch(focus.actions.tryUpdateFocus("RIVER_CONTROL"));
 				}}
 			>
 				<FindInPageIcon fontSize="small"></FindInPageIcon>
