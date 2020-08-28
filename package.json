@@ -1,12 +1,12 @@
 {
-	"name": "rem",
+	"name": "claymemory",
 	"version": "0.1.0",
 	"homepage": "https://luccahellriegel.github.io/ClayMemory",
 	"private": true,
 	"devDependencies": {
-		"@types/react-pdf": "^4.0.5",
+		"@types/react-pdf": "4.0.5",
 		"@types/react-redux": "^7.1.9",
-		"dependency-cruiser": "^9.9.3"
+		"dependency-cruiser": "^9.12.0"
 	},
 	"dependencies": {
 		"@material-ui/core": "^4.11.0",
@@ -15,8 +15,8 @@
 		"@testing-library/react": "^9.5.0",
 		"@testing-library/user-event": "^7.2.1",
 		"@types/jest": "^24.9.1",
-		"@types/node": "^12.12.48",
-		"@types/react": "^16.9.41",
+		"@types/node": "^12.12.54",
+		"@types/react": "^16.9.48",
 		"@types/react-dom": "^16.9.8",
 		"gh-pages": "^3.1.0",
 		"js-file-download": "^0.4.12",
@@ -24,7 +24,7 @@
 		"material-ui-search-bar": "^1.0.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
-		"react-pdf": "^4.1.0",
+		"react-pdf": "5.0.0",
 		"react-redux": "^7.2.0",
 		"react-scripts": "3.4.1",
 		"react-sizeme": "^2.6.12",

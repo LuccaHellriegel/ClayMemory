@@ -28,7 +28,6 @@ const documentDB = (
 				},
 			};
 		case t.DELETE_DOCUMENT_DATA_SET:
-			//TODO-RC: delete current document, reset?
 			return {
 				...state,
 				documentDB: Object.fromEntries(Object.entries(state.documentDB).filter((arr) => arr[0] !== payload)),
