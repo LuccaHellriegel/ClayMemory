@@ -36,8 +36,6 @@ export const openContextMenu = () => {
 
 export const grabSelectionForContextMenu = (type: CardType, creationType: CreationType, cardID?: string) => {
 	return (dispatch: Function, getState: Function) => {
-		dispatch(closeContextMenu());
-
 		const state = getState();
 
 		//TODO-NICE: think of a way to make this intuitive
@@ -55,14 +53,13 @@ export const grabSelectionForContextMenu = (type: CardType, creationType: Creati
 		let transformedOrigin;
 		if (origin) {
 			// we exploit that the input from the document is always just a SingleOrigin=NoteOrigin
-			// need to transform it because we can create als QA-Cards from document
+			// need to transform it because we can create also QA-Cards from document
 			transformedOrigin = cards.services.transformInputOrigin(
 				origin,
 				"note",
 				creationType,
 				isUpdate ? (cards.selectors.getCards(state)[cardID as string].origin as CardOrigin) : undefined
 			);
-			console.log(origin, transformedOrigin);
 		}
 
 		if (isUpdate) {
@@ -99,8 +96,6 @@ export const grabSelectionForSourceMenu = (
 	cardID?: string
 ) => {
 	return (dispatch: Function, getState: Function) => {
-		dispatch(closeContextMenu());
-
 		const state = getState();
 
 		const updateType = "REPLACE";

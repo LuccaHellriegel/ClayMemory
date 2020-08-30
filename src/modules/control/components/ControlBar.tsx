@@ -83,9 +83,9 @@ export const ControlBar = () => {
 
 					<Typography style={{ flexGrow: 1 }}>{materialName?.replace(".pdf", "")}</Typography>
 
+					<CardSearchBar></CardSearchBar>
 					<ShowHideButton></ShowHideButton>
 					<Options></Options>
-					<CardSearchBar></CardSearchBar>
 				</Toolbar>
 			</AppBar>
 		</Grid>

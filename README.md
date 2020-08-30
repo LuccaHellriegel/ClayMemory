@@ -4,6 +4,16 @@ React-based reader and editor for creating notes and flash cards directly from P
 
 Try it: [https://luccahellriegel.github.io/ClayMemory](https://luccahellriegel.github.io/ClayMemory)
 
+## Controls
+
+ClayMemory tries to explore a better alternative to using multiple programs and copy-pasting via clipboard, so the controls might take some getting used to. Most of the functionality is hinted at via tooltips and it does not hurt to play around. Be sure to drop any bugs you notice (+ screenshots, video or detailed description) in the issues.
+
+### Mouse controls
+
+- Selecting in the PDF (and letting the left mouse-button go) triggers the Extraction-UI for creating flash cards
+- Right-click in a card text-field while having something selected (see Current Selection-Overlay) triggers the Extraction-UI for the river
+  - It could not be the same as in the PDF, because in the text you might want to select for other reasons than just extraction
+
 ## Overview
 
 Flash cards enable two of the most powerful empirically validated studying techniques: active recall and spaced repetition. Software like [Anki](https://apps.ankiweb.net/) brilliantly allows its users to study their flash cards everywhere and use algorithms to optimize the repetition intervals for maximum retention.

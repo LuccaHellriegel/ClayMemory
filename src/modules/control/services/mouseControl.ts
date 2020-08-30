@@ -68,6 +68,8 @@ export const mouseUpControl = (event: MouseEvent) => {
 	};
 };
 
+//TODO-NICE: maybe also right-click in document?
+
 //TODO-NICE: make selection-dropable on buttons, so that they can be send to cards, make this the default instead of context-menu?
 // imagine: toolbar with new Note, new A, new Q | all the cards and you can drop off
 
