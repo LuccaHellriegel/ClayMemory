@@ -5,7 +5,6 @@ import { QACardContent } from "../../../../cards/model/model-content";
 import { SingleOrigin, QAOrigin, QOnlyQAOrigin, AOnlyQAOrigin } from "../../../../cards/model/model-origin";
 import { useDispatch, useSelector } from "react-redux";
 import cards from "../../../../cards";
-import { DeleteCardButton } from "../Buttons/DeleteCardButton";
 import { JumpToOriginButton } from "../Buttons/JumpToOriginButton";
 import { GrabForFieldButton } from "../Buttons/GrabForFieldButton";
 import { isNullOrUndefined } from "util";
@@ -113,7 +112,9 @@ export const QACard = ({ config }: CardProps) => {
 				</Grid>
 
 				<Grid item>
-					<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
+					<focus.components.RiverControlFocusUpdater>
+						<cards.components.DeleteCardButton cardID={config.cardID}></cards.components.DeleteCardButton>
+					</focus.components.RiverControlFocusUpdater>
 				</Grid>
 			</Grid>
 		</Card>

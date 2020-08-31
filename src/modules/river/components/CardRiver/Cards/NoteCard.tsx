@@ -3,7 +3,6 @@ import { HybridCardField } from "../HybridCardField";
 import { NoteOrigin } from "../../../../cards/model/model-origin";
 import { useDispatch, useSelector } from "react-redux";
 import cards from "../../../../cards";
-import { DeleteCardButton } from "../Buttons/DeleteCardButton";
 import { JumpToOriginButton } from "../Buttons/JumpToOriginButton";
 import { GrabForFieldButton } from "../Buttons/GrabForFieldButton";
 import { getHoveredCardData } from "../../../selectors";
@@ -76,7 +75,9 @@ export const NoteCard = ({ config }: CardProps) => {
 				</Grid>
 
 				<Grid item>
-					<DeleteCardButton cardID={config.cardID}></DeleteCardButton>
+					<focus.components.RiverControlFocusUpdater>
+						<cards.components.DeleteCardButton cardID={config.cardID}></cards.components.DeleteCardButton>
+					</focus.components.RiverControlFocusUpdater>
 				</Grid>
 			</Grid>
 		</Card>

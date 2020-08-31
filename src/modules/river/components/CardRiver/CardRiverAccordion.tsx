@@ -6,11 +6,10 @@ import Grid from "@material-ui/core/Grid";
 import React, { useState } from "react";
 import { trySetPushToRiver } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { AddNoteButton } from "./Buttons/AddNoteButton";
-import { AddQAButton } from "./Buttons/AddQAButton";
 import { getPushToRiver } from "../../selectors";
 import display from "../../../display";
 import focus from "../../../focus";
+import cards from "../../../cards";
 
 //TODO-NICE: make it not be accordion but closeable?
 //TODO-NICE: make local show / hide notes
@@ -73,8 +72,14 @@ export const CardRiverAccordion = ({
 			<AccordionDetails>
 				<Grid container direction="column" spacing={2} justify="center" alignItems="stretch">
 					<Grid item>
-						<AddQAButton></AddQAButton>
-						<AddNoteButton></AddNoteButton>
+						<focus.components.RiverControlFocusUpdater>
+							<cards.components.AddQAButton></cards.components.AddQAButton>
+						</focus.components.RiverControlFocusUpdater>
+
+						<focus.components.RiverControlFocusUpdater>
+							<cards.components.AddNoteButton></cards.components.AddNoteButton>
+						</focus.components.RiverControlFocusUpdater>
+
 						<Divider></Divider>
 					</Grid>
 
