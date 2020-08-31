@@ -10,8 +10,9 @@ import { getHoveredCardData } from "../../../selectors";
 import focus from "../../../../focus";
 import { trySetSourceCard } from "../../../actions";
 import { Card, Paper, Grid } from "@material-ui/core";
-import { noteText } from "../../../../../shared/text";
 import { CardProps, borderStyle } from "./ClayCard";
+import text from "../../../../text";
+
 //TODO-PERF: investigate if this hover-store approach is too slow, useRef instead?
 export const NoteCard = ({ config }: CardProps) => {
 	const dispatch = useDispatch();
@@ -46,7 +47,7 @@ export const NoteCard = ({ config }: CardProps) => {
 									dispatch(cards.actions.updateCardContent(value, config.cardID, "note", "REPLACE", config.origin));
 								}}
 								storeValue={config.content as string}
-								label={noteText}
+								label={text.constants.noteText}
 								variant="filled"
 								style={{ backgroundColor: "#CBF3F0" }}
 								InputLabelProps={{ style: { color: "#000000" } }}

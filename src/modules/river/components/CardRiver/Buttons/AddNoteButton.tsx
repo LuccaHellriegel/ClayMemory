@@ -1,26 +1,25 @@
 import FeaturedVideoIcon from "@material-ui/icons/FeaturedVideo";
 import React from "react";
-import { IconButton, Tooltip } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import cards from "../../../../cards";
 import focus from "../../../../focus";
-import { newNoteCardTooltip } from "../../../../../shared/tooltips";
+import text from "../../../../text";
 
 export const AddNoteButton = () => {
 	const dispatch = useDispatch();
 	return (
-		<Tooltip title={newNoteCardTooltip} enterDelay={500} enterNextDelay={1000}>
-			<IconButton
-				type="button"
-				onClick={() => {
-					dispatch(cards.actions.cardPush({ card: { type: "Note", content: "" } }));
-				}}
-				onMouseEnter={() => {
-					dispatch(focus.actions.tryUpdateFocus("RIVER_CONTROL"));
-				}}
-			>
-				<FeaturedVideoIcon></FeaturedVideoIcon>
-			</IconButton>
-		</Tooltip>
+		<focus.components.RiverControlFocusUpdater>
+			<text.components.NewNoteCardTooltip>
+				<IconButton
+					type="button"
+					onClick={() => {
+						dispatch(cards.actions.emptyNoteCard());
+					}}
+				>
+					<FeaturedVideoIcon></FeaturedVideoIcon>
+				</IconButton>
+			</text.components.NewNoteCardTooltip>
+		</focus.components.RiverControlFocusUpdater>
 	);
 };

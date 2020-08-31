@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CardConfig, CreationType, GoalCard } from "../../../../cards/model/model";
 import cards from "../../../../cards";
 import focus from "../../../../focus";
-import { grabForCardTooltip } from "../../../../../shared/tooltips";
+import text from "../../../../text";
 
 const isGoalCard = (cardConfig: CardConfig, creationType: CreationType, goalCard: GoalCard) =>
 	cardConfig.cardID === goalCard.cardID && creationType === goalCard.creationType;
@@ -34,7 +34,11 @@ export const GrabForFieldButton = ({
 	}
 
 	return (
-		<Tooltip title={grabForCardTooltip} enterDelay={500} enterNextDelay={1000}>
+		<Tooltip
+			title={text.constants.grabForCardTooltip}
+			enterDelay={text.constants.defaultEnterDelay}
+			enterNextDelay={text.constants.defaultEnterNextDelay}
+		>
 			<IconButton
 				type="button"
 				onMouseEnter={() => {

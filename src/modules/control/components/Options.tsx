@@ -6,12 +6,12 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import display from "../../display";
 import db from "../../db";
 import { DocumentData } from "../../db/model";
-import { uploadDatasetsText, existingDataText, downloadDatasetsText, activeDocumentText } from "../../../shared/text";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PublishIcon from "@material-ui/icons/Publish";
 import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
 import { DeleteDocumentButton } from "./DeleteDocumentButton";
 import { LoadDocumentDataButton } from "./LoadDocumentDataButton";
+import text from "../../text";
 
 //TODO-NICE: have way to merge two document-workspaces
 
@@ -175,12 +175,12 @@ export const Options = () => {
 				MenuListProps={{ style: { paddingLeft: "8px", paddingRight: "8px" } }}
 			>
 				{activeDocument && [
-					<Typography variant="h6">{activeDocumentText}</Typography>,
+					<Typography variant="h6">{text.constants.activeDocumentText}</Typography>,
 					<ActiveDocumentOptionItem document={activeDocument}></ActiveDocumentOptionItem>,
 					<Divider style={{ marginTop: "6px" }}></Divider>,
 				]}
 				{documents.filter((doc) => doc !== activeDocument).length > 0 && [
-					<Typography variant="h6">{existingDataText}</Typography>,
+					<Typography variant="h6">{text.constants.existingDataText}</Typography>,
 					<Typography>
 						<ul style={{ listStyleType: "square" }}>
 							{documents.map((document) =>
@@ -203,11 +203,11 @@ export const Options = () => {
 					}}
 				>
 					<Button variant="contained" color="primary" disableElevation startIcon={<GetAppIcon></GetAppIcon>}>
-						{downloadDatasetsText}
+						{text.constants.downloadDatasetsText}
 					</Button>
 				</MenuItem>
 				<Divider />
-				<InputDataSets handleClose={handleClose} label={uploadDatasetsText}></InputDataSets>
+				<InputDataSets handleClose={handleClose} label={text.constants.uploadDatasetsText}></InputDataSets>
 			</Menu>
 		</div>
 	);

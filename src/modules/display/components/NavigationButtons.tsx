@@ -4,12 +4,16 @@ import { IconButton, Card, Grid, Divider, Tooltip } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { nextPage, previousPage } from "../actions";
-import { previousPageTooltip, nextPageTooltip } from "../../../shared/tooltips";
+import text from "../../text";
 
 export const PreviousButton = () => {
 	const dispatch = useDispatch();
 	return (
-		<Tooltip title={previousPageTooltip} enterDelay={500} enterNextDelay={1000}>
+		<Tooltip
+			title={text.constants.previousPageTooltip}
+			enterDelay={text.constants.defaultEnterDelay}
+			enterNextDelay={text.constants.defaultEnterNextDelay}
+		>
 			<IconButton
 				type="button"
 				onClick={() => {
@@ -25,7 +29,11 @@ export const PreviousButton = () => {
 export const NextButton = () => {
 	const dispatch = useDispatch();
 	return (
-		<Tooltip title={nextPageTooltip} enterDelay={500} enterNextDelay={1000}>
+		<Tooltip
+			title={text.constants.nextPageTooltip}
+			enterDelay={text.constants.defaultEnterDelay}
+			enterNextDelay={text.constants.defaultEnterNextDelay}
+		>
 			<IconButton
 				type="button"
 				onClick={() => {

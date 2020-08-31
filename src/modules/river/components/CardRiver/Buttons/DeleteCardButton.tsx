@@ -5,14 +5,18 @@ import { useDispatch } from "react-redux";
 import cards from "../../../../cards";
 import focus from "../../../../focus";
 import { CardID } from "../../../../cards/model/model";
-import { deleteCardTooltip } from "../../../../../shared/tooltips";
+import text from "../../../../text";
 
 //TODO-NICE: use storybook for visual component testing
 
 export const DeleteCardButton = ({ cardID }: { cardID: CardID }) => {
 	const dispatch = useDispatch();
 	return (
-		<Tooltip title={deleteCardTooltip} enterDelay={500} enterNextDelay={1000}>
+		<Tooltip
+			title={text.constants.deleteCardTooltip}
+			enterDelay={text.constants.defaultEnterDelay}
+			enterNextDelay={text.constants.defaultEnterNextDelay}
+		>
 			<IconButton
 				type="button"
 				onClick={() => {

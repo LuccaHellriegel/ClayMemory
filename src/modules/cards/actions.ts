@@ -6,6 +6,8 @@ import {
 	CardType,
 	CardConfig,
 	CardID,
+	nextCardID,
+	emptyCardPayloadConfig,
 } from "./model/model";
 import { CardOrigin } from "./model/model-origin";
 import * as t from "./actionTypes";
@@ -13,19 +15,23 @@ import { Dispatch } from "redux";
 import { getLastCardIDNumber, getCards } from "./selectors";
 import { contentStringToConfig } from "./services/contentStringToConfig";
 
-const createCardID = (lastCardIDNumber: number) => (lastCardIDNumber + 1).toString();
-
 export const cardPush = (cardPayload: CardPayload) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		dispatch({
 			type: t.CARD_PUSH,
 			payload: {
 				...cardPayload,
-				card: { ...cardPayload.card, cardID: createCardID(getLastCardIDNumber(getState())) },
+				card: { ...cardPayload.card, cardID: nextCardID(getLastCardIDNumber(getState())) },
 			} as FinalizedCardPayload,
 		});
 	};
 };
+
+export const emptyCard = (type: CardType) => {
+	return cardPush({ card: emptyCardPayloadConfig(type) });
+};
+export const emptyNoteCard = () => emptyCard("Note");
+export const emptyQACard = () => emptyCard("Q-A");
 
 export const cardUpdate = (card: CardPayload) => {
 	return { type: t.CARD_UPDATE, payload: card };

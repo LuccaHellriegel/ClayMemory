@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import UndoIcon from "@material-ui/icons/Undo";
 import RedoIcon from "@material-ui/icons/Redo";
 import { ActionCreators } from "redux-undo";
-import { undoTooltip, redoTooltip } from "../../../shared/tooltips";
+import text from "../../text";
 
 //TODO-NICE: disable undo/redo buttons if no undo/redo possible, tried custom hook but didnt work,
 // need to check all store-objects which have future/past because they have different undo/redo
@@ -15,7 +15,11 @@ const UndoButton = () => {
 
 	//tooltip needs non-disabled child component
 	return (
-		<Tooltip title={undoTooltip} enterDelay={500} enterNextDelay={1000}>
+		<Tooltip
+			title={text.constants.undoTooltip}
+			enterDelay={text.constants.defaultEnterDelay}
+			enterNextDelay={text.constants.defaultEnterNextDelay}
+		>
 			<span>
 				<IconButton
 					type="button"
@@ -32,7 +36,11 @@ const UndoButton = () => {
 const RedoButton = () => {
 	const dispatch = useDispatch();
 	return (
-		<Tooltip title={redoTooltip} enterDelay={500} enterNextDelay={1000}>
+		<Tooltip
+			title={text.constants.redoTooltip}
+			enterDelay={text.constants.defaultEnterDelay}
+			enterNextDelay={text.constants.defaultEnterNextDelay}
+		>
 			<IconButton
 				type="button"
 				onClick={() => {

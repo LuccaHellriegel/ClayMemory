@@ -13,8 +13,8 @@ import { getHoveredCardData } from "../../../selectors";
 import focus from "../../../../focus";
 import { trySetSourceCard } from "../../../actions";
 import { Card, Paper } from "@material-ui/core";
-import { questionText, answerText } from "../../../../../shared/text";
 import { CardProps, borderStyle } from "./ClayCard";
+import text from "../../../../text";
 //TODO-RC: make Q/A in menu bigger so that you dont accidentially move off it
 //TODO-RC: make Q/A as a general field for hoevered data, so that it does not jank so much
 //TODO-NICE: think of way to not have menu over the cards, because you cant read them this way? end of card?
@@ -50,7 +50,7 @@ export const QACard = ({ config }: CardProps) => {
 												dispatch(cards.actions.updateCardContent(value, config.cardID, "q", "REPLACE", config.origin));
 											}}
 											storeValue={(config.content as QACardContent).q}
-											label={questionText}
+											label={text.constants.questionText}
 											variant="filled"
 											style={{ backgroundColor: "#FFBF69" }}
 											InputLabelProps={{ style: { color: "#000000" } }}
@@ -85,7 +85,7 @@ export const QACard = ({ config }: CardProps) => {
 												dispatch(cards.actions.updateCardContent(value, config.cardID, "a", "REPLACE", config.origin));
 											}}
 											storeValue={(config.content as QACardContent).a}
-											label={answerText}
+											label={text.constants.answerText}
 											style={{ backgroundColor: "#2EC4B6" }}
 											InputLabelProps={{ style: { color: "#000000" } }}
 											onMouseEnter={() => {

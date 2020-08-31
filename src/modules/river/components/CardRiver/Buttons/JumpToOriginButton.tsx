@@ -5,13 +5,17 @@ import { useDispatch } from "react-redux";
 import display from "../../../../display";
 import { SingleOrigin } from "../../../../cards/model/model-origin";
 import focus from "../../../../focus";
-import { jumpToOriginTooltip } from "../../../../../shared/tooltips";
+import text from "../../../../text";
 
 //TODO-NICE: replace/simplify focus system with element specific mouse-listeners
 export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin }) => {
 	const dispatch = useDispatch();
 	return (
-		<Tooltip title={jumpToOriginTooltip} enterDelay={500} enterNextDelay={1000}>
+		<Tooltip
+			title={text.constants.jumpToOriginTooltip}
+			enterDelay={text.constants.defaultEnterDelay}
+			enterNextDelay={text.constants.defaultEnterNextDelay}
+		>
 			<IconButton
 				type="button"
 				onClick={() => {

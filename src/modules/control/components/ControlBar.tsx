@@ -7,7 +7,8 @@ import { Options } from "./Options";
 import { CardSearchBar } from "./CardSearchBar";
 import { UndoRedoCard } from "./UndoRedoButtons";
 import { ShowHideButton } from "./ShowHideButton";
-import { switchToActiveRiverTooltip, switchToSummaryRiverTooltip } from "../../../shared/tooltips";
+import text from "../../text";
+
 //TODO-NICE: download/load csv for Anki
 export const ControlBar = () => {
 	const dispatch = useDispatch();
@@ -50,8 +51,8 @@ export const ControlBar = () => {
 										<Tab
 											label={
 												<Tooltip
-													title={switchToActiveRiverTooltip}
-													enterDelay={500}
+													title={text.constants.switchToActiveRiverTooltip}
+													enterDelay={text.constants.defaultEnterDelay}
 													enterNextDelay={500}
 													disableFocusListener={true}
 												>
@@ -62,8 +63,8 @@ export const ControlBar = () => {
 										<Tab
 											label={
 												<Tooltip
-													title={switchToSummaryRiverTooltip}
-													enterDelay={500}
+													title={text.constants.switchToSummaryRiverTooltip}
+													enterDelay={text.constants.defaultEnterDelay}
 													enterNextDelay={500}
 													disableFocusListener={true}
 												>
