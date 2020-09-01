@@ -3,7 +3,7 @@ import SearchBar from "material-ui-search-bar";
 import river from "../../river";
 import { useDispatch, useSelector } from "react-redux";
 
-//TODO-NICE: make search for PDF
+//TODO-NICE: make search for PDF (right now this would need some work to find the correct text-node and partially color it)
 export const CardSearchBar = () => {
 	const dispatch = useDispatch();
 	const contentFilter = useSelector(river.selectors.getRiverContentFilter);

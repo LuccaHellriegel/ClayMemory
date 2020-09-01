@@ -45,7 +45,14 @@ const QAOptionItem = ({
 	const dispatch = useDispatch();
 
 	return (
-		<NestedMenuItem label="Q-A" parentMenuOpen={true}>
+		<NestedMenuItem
+			label="Q-A"
+			parentMenuOpen={true}
+			onMouseEnter={() => {
+				// hover over first field as default
+				dispatch(river.actions.trySetHoveredCard(cardConfig.cardID, "q"));
+			}}
+		>
 			<MenuItem
 				ref={qaRef}
 				onClick={() => {
@@ -55,7 +62,7 @@ const QAOptionItem = ({
 					dispatch(river.actions.trySetHoveredCard(cardConfig.cardID, "q"));
 				}}
 			>
-				Q
+				Q-field
 			</MenuItem>
 			<MenuItem
 				onClick={() => {
@@ -65,7 +72,7 @@ const QAOptionItem = ({
 					dispatch(river.actions.trySetHoveredCard(cardConfig.cardID, "a"));
 				}}
 			>
-				A
+				A-field
 			</MenuItem>
 		</NestedMenuItem>
 	);
