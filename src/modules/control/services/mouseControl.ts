@@ -3,6 +3,7 @@ import focus from "../../focus";
 import cards from "../../cards";
 import river from "../../river";
 import { getSelectionText } from "../../../shared/utils";
+import selection from "../../selection";
 
 export const mouseDownControl = (event: MouseEvent) => {
 	return (dispatch: any, getState: Function) => {
@@ -18,9 +19,9 @@ export const mouseUpControl = (event: MouseEvent) => {
 		// if the menu is already open, this means we have opened it in the editor
 		if (creation.selectors.getContextMenuState(getState())) return;
 
-		const selection = document.getSelection();
+		const selectionObject = document.getSelection();
 
-		if (selection) {
+		if (selectionObject) {
 			const selectedStr = getSelectionText();
 
 			if (selectedStr && selectedStr !== "") {
@@ -52,15 +53,15 @@ export const mouseUpControl = (event: MouseEvent) => {
 					if (userFocus === "DOCUMENT") {
 						//if the user is focused on the document, the push-to river should always be the active=page-wise river
 						dispatch(river.actions.setPushToRiver(river.selectors.getActiveRiverMakeUpID(state)));
-						dispatch(creation.actions.selectedParent(selection.anchorNode?.parentNode as HTMLSpanElement));
-						dispatch(creation.actions.updateManuallySelectedString(selectedStr));
-						dispatch(creation.actions.updateSelectionPosition(event.x, event.y));
+						dispatch(selection.actions.selectedParent(selectionObject.anchorNode?.parentNode as HTMLSpanElement));
+						dispatch(selection.actions.updateManuallySelectedString(selectedStr));
+						dispatch(selection.actions.updateSelectionPosition(event.x, event.y));
 						dispatch(creation.actions.openContextMenu());
 					}
 
 					// this is the dispatch to prepare for extraction from card
 					if (userFocus === "RIVER") {
-						dispatch(creation.actions.updateManuallySelectedString(selectedStr));
+						dispatch(selection.actions.updateManuallySelectedString(selectedStr));
 					}
 				}
 			}
@@ -81,7 +82,7 @@ export const rightClickControl = (event: MouseEvent) => {
 		const userFocus = focus.selectors.getFocus(state);
 
 		// this is set via left-click
-		const selectedStr = creation.selectors.getCurrentSelectedString(state);
+		const selectedStr = selection.selectors.getCurrentSelectedString(state);
 
 		if (selectedStr === "") return;
 
@@ -89,7 +90,7 @@ export const rightClickControl = (event: MouseEvent) => {
 
 		// this is the dispatch for the ContextMenu inside the editor
 		if (userFocus === "RIVER") {
-			dispatch(creation.actions.updateSelectionPosition(event.x, event.y));
+			dispatch(selection.actions.updateSelectionPosition(event.x, event.y));
 			dispatch(creation.actions.openContextMenu());
 		}
 	};

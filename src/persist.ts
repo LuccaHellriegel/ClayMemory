@@ -14,7 +14,6 @@ const removeDOMObjectsFromCreationData = (inboundState: CreationData) => {
 		menuRef: null,
 		fullCardRef: null,
 		qaRefs: inboundState.qaRefs.map((_) => null),
-		selectedParentSpan: null,
 	};
 };
 
@@ -23,9 +22,6 @@ const addDOMObjectsToCreationData = (outboundState: {
 	menuRef: null;
 	fullCardRef: null;
 	qaRefs: null[];
-	manuallySelectedString: string;
-	selectedParentSpan: null;
-	selectionPosition: { x: number; y: number };
 }): CreationData => {
 	return {
 		...outboundState,

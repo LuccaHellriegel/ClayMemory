@@ -8,7 +8,4 @@ export type CreationData = {
 	fullCardRef: RefObject<any>;
 	//these are needed to access the DOMElement of the sub-menus
 	qaRefs: RefObject<any>[];
-	manuallySelectedString: string;
-	selectedParentSpan: null | HTMLSpanElement;
-	selectionPosition: { x: number; y: number };
 };

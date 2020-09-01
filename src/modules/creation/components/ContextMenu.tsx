@@ -3,7 +3,7 @@ import Menu from "@material-ui/core/Menu";
 import { Divider, MenuItem } from "@material-ui/core";
 import { useDispatch, connect, useSelector } from "react-redux";
 import { getContextMenuInitData, getContextMenuFullCardsRef } from "../selectors";
-import { grabSelectionForContextMenu, grabSelectionForSourceMenu, closeContextMenu } from "../actions";
+import { closeContextMenu } from "../actions";
 import { incrementer } from "../../../shared/utils";
 import { CardConfig, CardType, CreationType } from "../../cards/model/model";
 import { QACardContent } from "../../cards/model/model-content";
@@ -12,6 +12,7 @@ import { NewButtons } from "./NewButtons";
 import NestedMenuItem from "material-ui-nested-menu-item";
 import river from "../../river";
 import { SourceCard } from "../../river/model";
+import selection from "../../selection";
 
 function ContextMenu({
 	position,
@@ -39,7 +40,7 @@ function ContextMenu({
 
 		if (sourceCard) {
 			dispatch(
-				grabSelectionForSourceMenu(
+				selection.actions.selectionToCardForSourceCard(
 					type,
 					creationType,
 					(sourceCard as SourceCard).sourceField,
@@ -47,8 +48,9 @@ function ContextMenu({
 					cardID
 				)
 			);
+			dispatch(river.actions.resetSourceCard());
 		} else {
-			dispatch(grabSelectionForContextMenu(type, creationType, cardID));
+			dispatch(selection.actions.selectionToCard(type, creationType, cardID));
 		}
 	};
 

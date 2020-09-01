@@ -12,6 +12,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import undoable, { includeAction } from "redux-undo";
 import { persistConfig } from "./persist";
 import db from "./modules/db";
+import selection from "./modules/selection";
 
 //TODO-NICE: make limit for undo (right now its fine, if we reset on document-upload)
 //TODO-NICE: make snackbar for which action is undone/redone
@@ -19,8 +20,11 @@ import db from "./modules/db";
 
 const rootReducer = combineReducers({
 	[focus.constants.NAME]: focus.reducer,
+	[selection.constants.NAME]: undoable(selection.reducer, {
+		filter: includeAction([selection.actionTypes.SELECTED_STRING]),
+	}),
 	[creation.constants.NAME]: undoable(creation.reducer, {
-		filter: includeAction([cards.actionTypes.CARD_PUSH, creation.actionTypes.SELECTED_STRING]),
+		filter: includeAction([cards.actionTypes.CARD_PUSH]),
 	}),
 	[river.constants.NAME]: undoable(river.reducer, {
 		filter: includeAction([

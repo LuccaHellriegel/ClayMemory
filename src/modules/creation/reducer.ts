@@ -9,9 +9,6 @@ const initialState: CreationData = {
 	menuRef: createRef(),
 	fullCardRef: createRef(),
 	qaRefs: [createRef(), createRef()],
-	manuallySelectedString: "",
-	selectedParentSpan: null,
-	selectionPosition: { x: 0, y: 0 },
 };
 
 const creationData = (state = initialState, { type, payload }: { type: string; payload: any }): CreationData => {
@@ -28,12 +25,6 @@ const creationData = (state = initialState, { type, payload }: { type: string; p
 			//TODO-NICE: no support for multiple rivers
 			if ((payload as CardPayload).card.type === "Q-A") return { ...state, qaRefs: [...state.qaRefs, createRef()] };
 			return state;
-		case t.SELECTED_STRING:
-			return { ...state, manuallySelectedString: payload as string };
-		case t.SELECTED_PARENT:
-			return { ...state, selectedParentSpan: payload };
-		case t.DOCUMENT_POSITION:
-			return { ...state, selectionPosition: payload };
 		default:
 			return state;
 	}

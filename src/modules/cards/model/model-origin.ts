@@ -28,3 +28,9 @@ export type CardOrigin = NoteOrigin | QAOrigin;
 export const mergeSimilarCardOrigins = (inputOrigin: CardOrigin, oldOrigin: CardOrigin): CardOrigin => {
 	return { ...oldOrigin, ...inputOrigin };
 };
+
+export const hasNonEmptyOrigin = (origin?: CardOrigin) =>
+	!!origin &&
+	(!isNullOrUndefined((origin as SingleOrigin).spanIndex) ||
+		!isNullOrUndefined((origin as AOnlyQAOrigin).a?.spanIndex) ||
+		!isNullOrUndefined((origin as QOnlyQAOrigin).q?.spanIndex));

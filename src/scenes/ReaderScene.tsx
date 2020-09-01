@@ -5,6 +5,7 @@ import creation from "../modules/creation";
 import river from "../modules/river";
 import { makeStyles, Theme, createStyles, useScrollTrigger, Zoom, Toolbar, Fab } from "@material-ui/core";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import selection from "../modules/selection";
 
 //TODO: make show/hide depdendant on tab, also Page choice, control-bar dependant on tab
 
@@ -60,7 +61,7 @@ export function ReaderScene() {
 				</Fab>
 			</ScrollTop>
 			<creation.components.ContextMenuContainer></creation.components.ContextMenuContainer>
-			<creation.components.SelectionSnackbar></creation.components.SelectionSnackbar>
+			<selection.components.SelectionSnackbar></selection.components.SelectionSnackbar>
 		</div>
 	);
 }
