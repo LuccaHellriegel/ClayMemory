@@ -1,8 +1,8 @@
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { createTransform } from "redux-persist";
-import { CreationData } from "./modules/creation/model";
+import { CreationData } from "./modules/extraction/model";
 import { createRef } from "react";
-import creation from "./modules/creation";
+import creation from "./modules/extraction";
 import { DisplayData, DisplayStatus, PerPageSpans } from "./modules/display/model";
 import display from "./modules/display";
 

@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import focus from "../../focus";
 import display from "../../display";
-import creation from "../../creation";
+import creation from "../../extraction";
 import { UserFocus } from "../../focus/model";
 
 type KeyActionMap = { [key: string]: any };

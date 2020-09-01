@@ -4,7 +4,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { combineReducers } from "redux";
 import focus from "./modules/focus";
-import creation from "./modules/creation";
+import creation from "./modules/extraction";
 import river from "./modules/river";
 import display from "./modules/display";
 import cards from "./modules/cards";
