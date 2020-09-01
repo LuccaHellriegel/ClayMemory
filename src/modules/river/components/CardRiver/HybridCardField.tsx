@@ -21,6 +21,7 @@ export const HybridCardField = ({
 	// need the onChange-pattern, because we want to be able to pre-fill the field from the store
 	return (
 		<TextField
+			InputProps={{ disableUnderline: true, style: { minWidth: "400px" } }}
 			multiline
 			variant="filled"
 			value={state.mutableValue}

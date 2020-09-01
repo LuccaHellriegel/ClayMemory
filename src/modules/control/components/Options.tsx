@@ -12,6 +12,7 @@ import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
 import { DeleteDocumentButton } from "./DeleteDocumentButton";
 import { LoadDocumentDataButton } from "./LoadDocumentDataButton";
 import text from "../../text";
+import { incrementer } from "../../../shared/utils";
 
 //TODO-NICE: have way to merge two document-workspaces
 
@@ -161,6 +162,8 @@ export const Options = () => {
 
 	const dispatch = useDispatch();
 
+	const increment = incrementer();
+
 	return (
 		<div>
 			<IconButton type="button" onClick={handleClick}>
@@ -175,24 +178,28 @@ export const Options = () => {
 				MenuListProps={{ style: { paddingLeft: "8px", paddingRight: "8px" } }}
 			>
 				{activeDocument && [
-					<Typography variant="h6">{text.constants.activeDocumentText}</Typography>,
-					<ActiveDocumentOptionItem document={activeDocument}></ActiveDocumentOptionItem>,
-					<Divider style={{ marginTop: "6px" }}></Divider>,
+					<Typography key={increment()} component={"span"} variant="h6">
+						{text.constants.activeDocumentText}
+					</Typography>,
+					<ActiveDocumentOptionItem key={increment()} document={activeDocument}></ActiveDocumentOptionItem>,
+					<Divider key={increment()} style={{ marginTop: "6px" }}></Divider>,
 				]}
 				{documents.filter((doc) => doc !== activeDocument).length > 0 && [
-					<Typography variant="h6">{text.constants.existingDataText}</Typography>,
-					<Typography>
+					<Typography key={increment()} component={"span"} variant="h6">
+						{text.constants.existingDataText}
+					</Typography>,
+					<Typography key={increment()} component={"span"}>
 						<ul style={{ listStyleType: "square" }}>
 							{documents.map((document) =>
 								document && document !== activeDocument ? (
-									<li>
-										<DocumentOptionItem document={document}></DocumentOptionItem>
+									<li key={increment()}>
+										<DocumentOptionItem document={document} key={increment()}></DocumentOptionItem>
 									</li>
 								) : null
 							)}
 						</ul>
 					</Typography>,
-					<Divider style={{ marginTop: "6px" }} />,
+					<Divider key={increment()} style={{ marginTop: "6px" }} />,
 				]}
 				<InputDocument handleClose={handleClose} label={"Load document"}></InputDocument>
 				<Divider />

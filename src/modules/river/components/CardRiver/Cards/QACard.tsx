@@ -14,6 +14,7 @@ import { trySetSourceCard } from "../../../actions";
 import { Card, Paper } from "@material-ui/core";
 import { CardProps, borderStyle } from "./ClayCard";
 import text from "../../../../text";
+import { AppendButton } from "../Buttons/AppendButton";
 //TODO-RC: make Q/A in menu bigger so that you dont accidentially move off it
 //TODO-RC: make Q/A as a general field for hoevered data, so that it does not jank so much
 //TODO-NICE: think of way to not have menu over the cards, because you cant read them this way? end of card?
@@ -63,8 +64,17 @@ export const QACard = ({ config }: CardProps) => {
 
 								<Grid item>
 									<Paper variant="outlined">
-										<Grid container direction="column">
-											{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="q"></GrabForFieldButton>}
+										<Grid container direction="row">
+											{isActiveRiver && (
+												<focus.components.RiverControlFocusUpdater>
+													<AppendButton type={config.type} creationType="q" cardID={config.cardID}></AppendButton>
+												</focus.components.RiverControlFocusUpdater>
+											)}
+											{isActiveRiver && (
+												<focus.components.RiverControlFocusUpdater>
+													<GrabForFieldButton cardConfig={config} creationType="q"></GrabForFieldButton>
+												</focus.components.RiverControlFocusUpdater>
+											)}
 											{config.origin && !isNullOrUndefined((config.origin as QOnlyQAOrigin).q?.spanIndex) && (
 												<JumpToOriginButton
 													cardOrigin={(config.origin as QAOrigin).q as SingleOrigin}
@@ -96,8 +106,18 @@ export const QACard = ({ config }: CardProps) => {
 								</Grid>
 								<Grid item>
 									<Paper variant="outlined">
-										<Grid container direction="column">
-											{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="a"></GrabForFieldButton>}
+										<Grid container direction="row">
+											{isActiveRiver && (
+												<focus.components.RiverControlFocusUpdater>
+													<AppendButton type={config.type} creationType="a" cardID={config.cardID}></AppendButton>
+												</focus.components.RiverControlFocusUpdater>
+											)}
+
+											{isActiveRiver && (
+												<focus.components.RiverControlFocusUpdater>
+													<GrabForFieldButton cardConfig={config} creationType="a"></GrabForFieldButton>
+												</focus.components.RiverControlFocusUpdater>
+											)}
 											{config.origin && !isNullOrUndefined((config.origin as AOnlyQAOrigin).a?.spanIndex) && (
 												<JumpToOriginButton
 													cardOrigin={(config.origin as QAOrigin).a as SingleOrigin}

@@ -4,6 +4,52 @@ import { CardOrigin, hasNonEmptyOrigin } from "../cards/model/model-origin";
 import cards from "../cards";
 import { getCurrentSelectedString, getCurrentSelectedParent, getCurrentOrigin } from "./selectors";
 
+export const selectionToCardAppend = (type: CardType, creationType: CreationType, cardID?: string) => {
+	return (dispatch: Function, getState: Function) => {
+		const state = getState();
+
+		const updateType = "APPEND";
+		const isUpdate = cardID !== undefined;
+
+		// this should be from the document
+		const selectedString = getCurrentSelectedString(state);
+		const selectedParent = getCurrentSelectedParent(state);
+
+		// always overwrite origin, even if isUpdate, because updateType==replace
+		const origin: CardOrigin | undefined = selectedParent ? getCurrentOrigin(state) : undefined;
+
+		let transformedOrigin;
+		if (origin) {
+			// we exploit that the input from the document is always just a SingleOrigin=NoteOrigin
+			// need to transform it because we can create also QA-Cards from document
+			transformedOrigin = cards.services.transformInputOrigin(
+				origin,
+				"note",
+				creationType,
+				isUpdate ? (cards.selectors.getCards(state)[cardID as string].origin as CardOrigin) : undefined
+			);
+		}
+
+		if (isUpdate) {
+			dispatch(
+				cards.actions.updateCardContent(
+					selectedString,
+					cardID as string,
+					creationType,
+					updateType,
+					transformedOrigin as CardOrigin
+				)
+			);
+		} else {
+			dispatch(
+				cards.actions.pushCardContent(selectedString, creationType, updateType, type, transformedOrigin as CardOrigin)
+			);
+		}
+
+		dispatch(resetManuallySelectedString());
+	};
+};
+
 export const selectionToCard = (type: CardType, creationType: CreationType, cardID?: string) => {
 	return (dispatch: Function, getState: Function) => {
 		const state = getState();

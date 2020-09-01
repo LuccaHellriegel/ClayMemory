@@ -93,5 +93,3 @@ export const CardRiverAccordion = ({
 		</Accordion>
 	);
 };
-
-//TODO-RC: find way to use space for cards (right now they take up maybe 50%), maybe make Notes and QAs connected? I can display two in one line, or make notes bigger, so that each line has one qa, one note?

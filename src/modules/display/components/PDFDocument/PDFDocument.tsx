@@ -1,6 +1,6 @@
 import "./PDFDocument.css";
 import "./AnnotationLayer.css";
-import React, { RefObject, useEffect } from "react";
+import React, { RefObject, useEffect, useLayoutEffect } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { materialLoaded, setPage, captureMaterialData, setMaterialHeight, emptyZoomQueue } from "../../actions";
@@ -44,16 +44,18 @@ function PDFDocument({
 
 	const materialHeight = useSelector(getMaterialHeight);
 
-	//TODO-RC: leads to render-problems?
-	// first setting
-	if (!materialHeight) {
-		dispatch(setMaterialHeight(parentSize.height));
-	}
+	useLayoutEffect(() => {
+		// first setting
+		if (!materialHeight) {
+			dispatch(setMaterialHeight(parentSize.height));
+		}
 
-	// setting if changed
-	if (materialHeight && materialHeight !== parentSize.height) {
-		dispatch(setMaterialHeight(parentSize.height));
-	}
+		// setting if changed
+		if (materialHeight && materialHeight !== parentSize.height) {
+			dispatch(setMaterialHeight(parentSize.height));
+		}
+	}, [dispatch, materialHeight, parentSize.height]);
+
 	//TODO-NICE: this is not a queue...
 	const zoomQueue = useSelector(getZoomQueue);
 

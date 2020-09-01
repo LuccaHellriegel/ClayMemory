@@ -5,7 +5,6 @@ import { IconButton, Tooltip } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { CardConfig, CreationType, GoalCard } from "../../../../cards/model/model";
 import cards from "../../../../cards";
-import focus from "../../../../focus";
 import text from "../../../../text";
 
 const isGoalCard = (cardConfig: CardConfig, creationType: CreationType, goalCard: GoalCard) =>
@@ -41,9 +40,6 @@ export const GrabForFieldButton = ({
 		>
 			<IconButton
 				type="button"
-				onMouseEnter={() => {
-					dispatch(focus.actions.tryUpdateFocus("RIVER_CONTROL"));
-				}}
 				onClick={() => {
 					if (outlined) {
 						dispatch(cards.actions.setGoalCard(cardConfig, creationType));

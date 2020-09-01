@@ -11,6 +11,7 @@ import { trySetSourceCard } from "../../../actions";
 import { Card, Paper, Grid } from "@material-ui/core";
 import { CardProps, borderStyle } from "./ClayCard";
 import text from "../../../../text";
+import { AppendButton } from "../Buttons/AppendButton";
 
 //TODO-PERF: investigate if this hover-store approach is too slow, useRef instead?
 export const NoteCard = ({ config }: CardProps) => {
@@ -58,11 +59,22 @@ export const NoteCard = ({ config }: CardProps) => {
 						</Grid>
 						<Grid item>
 							<Paper variant="outlined">
-								<Grid container direction="column">
+								<Grid container direction="row">
 									<Grid item>
-										{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="note"></GrabForFieldButton>}
+										{isActiveRiver && (
+											<focus.components.RiverControlFocusUpdater>
+												<AppendButton type={config.type} creationType="q" cardID={config.cardID}></AppendButton>
+											</focus.components.RiverControlFocusUpdater>
+										)}
 									</Grid>
 
+									<Grid item>
+										{isActiveRiver && (
+											<focus.components.RiverControlFocusUpdater>
+												<GrabForFieldButton cardConfig={config} creationType="note"></GrabForFieldButton>
+											</focus.components.RiverControlFocusUpdater>
+										)}
+									</Grid>
 									<Grid item>
 										{config.origin && (
 											<JumpToOriginButton cardOrigin={config.origin as NoteOrigin}></JumpToOriginButton>
