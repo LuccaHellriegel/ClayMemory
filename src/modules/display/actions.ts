@@ -126,7 +126,7 @@ export const zoomToCardOrigin = (spanIndex: number, page: number) => {
 		dispatch(setZoomQueue(spanIndex));
 	};
 };
-//TODO-RC: make snackbar for big changes, so that the user notices that he deleted e.g. a document, or document confirmation? yes, confirmation is better
+
 export const emptyZoomQueue = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
