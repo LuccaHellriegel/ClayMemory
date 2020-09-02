@@ -15,6 +15,16 @@ import { Card, Paper } from "@material-ui/core";
 import { CardProps, borderStyle } from "./ClayCard";
 import text from "../../../../text";
 import { AppendButton } from "../Buttons/AppendButton";
+
+//TODO-NICE:
+// make dropdown / menu for selection to create card from selection snackbar?
+// show if selection has origin / button jump to origin at snackbar?
+// make REPLACE-button for River
+// replace Context-Menu with APPEND/REPLACE button flow? / allow both?
+
+//TODO-RC: use only right-click for context-menu (better for APPEND/REPLACE-button usage)
+//TODO-RC: replace Focus-module with scoped listeners
+
 //TODO-NICE: think of way to not have menu over the cards, because you cant read them this way? end of card?
 //TODO-NICE: use dark color pallet (theme?)
 

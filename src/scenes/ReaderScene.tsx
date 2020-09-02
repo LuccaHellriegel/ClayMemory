@@ -2,10 +2,11 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import control from "../modules/control";
 import creation from "../modules/extraction";
-import river from "../modules/river";
 import { makeStyles, Theme, createStyles, useScrollTrigger, Zoom, Toolbar, Fab } from "@material-ui/core";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import selection from "../modules/selection";
+import { ActiveRiverView } from "./ActiveRiverView";
+import { SummaryRiverView } from "./SummaryRiverView";
 
 //TODO: make show/hide depdendant on tab, also Page choice, control-bar dependant on tab
 
@@ -52,8 +53,8 @@ export function ReaderScene() {
 				<control.components.ControlBar></control.components.ControlBar>
 				<Toolbar id="back-to-top-anchor" />
 
-				<river.components.ActiveRiverView></river.components.ActiveRiverView>
-				<river.components.SummaryRiverView></river.components.SummaryRiverView>
+				<ActiveRiverView></ActiveRiverView>
+				<SummaryRiverView></SummaryRiverView>
 			</Grid>
 			<ScrollTop>
 				<Fab color="secondary" size="small" aria-label="scroll back to top">

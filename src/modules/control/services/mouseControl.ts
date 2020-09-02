@@ -16,9 +16,6 @@ export const mouseDownControl = (event: MouseEvent) => {
 
 export const mouseUpControl = (event: MouseEvent) => {
 	return (dispatch: any, getState: Function) => {
-		// if the menu is already open, this means we have opened it in the editor
-		if (creation.selectors.getContextMenuState(getState())) return;
-
 		const selectionObject = document.getSelection();
 
 		if (selectionObject) {
@@ -49,14 +46,9 @@ export const mouseUpControl = (event: MouseEvent) => {
 						);
 					dispatch(cards.actions.resetGoalCard());
 				} else {
-					// this is the dispatch for the ContextMenu
 					if (userFocus === "DOCUMENT") {
-						//if the user is focused on the document, the push-to river should always be the active=page-wise river
-						dispatch(river.actions.setPushToRiver(river.selectors.getActiveRiverMakeUpID(state)));
 						dispatch(selection.actions.selectedParent(selectionObject.anchorNode?.parentNode as HTMLSpanElement));
 						dispatch(selection.actions.updateManuallySelectedString(selectedStr));
-						dispatch(selection.actions.updateSelectionPosition(event.x, event.y));
-						dispatch(creation.actions.openContextMenu());
 					}
 
 					// this is the dispatch to prepare for extraction from card
@@ -90,6 +82,14 @@ export const rightClickControl = (event: MouseEvent) => {
 
 		// this is the dispatch for the ContextMenu inside the editor
 		if (userFocus === "RIVER") {
+			dispatch(selection.actions.updateSelectionPosition(event.x, event.y));
+			dispatch(creation.actions.openContextMenu());
+		}
+
+		if (userFocus === "DOCUMENT") {
+			//if the user is focused on the document, the push-to river should always be the active=page-wise river
+			dispatch(river.actions.setPushToRiver(river.selectors.getActiveRiverMakeUpID(state)));
+
 			dispatch(selection.actions.updateSelectionPosition(event.x, event.y));
 			dispatch(creation.actions.openContextMenu());
 		}

@@ -32,6 +32,7 @@ export const HybridCardField = ({
 			onBlur={(event: any) => {
 				saveChanges(event.target.value);
 			}}
+			onContextMenu={() => {}}
 			style={style}
 			{...rest}
 		></TextField>

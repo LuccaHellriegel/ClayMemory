@@ -1,8 +1,8 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import focus from "../../../focus";
+import focus from "../modules/focus";
 import { useSelector } from "react-redux";
-import { SummaryRiver } from "./SummaryRiver";
+import river from "../modules/river";
 
 //TODO-NICE: dont show empty rivers in summary, make dropdown/create empty river button
 
@@ -11,7 +11,7 @@ export const SummaryRiverView = () => {
 
 	return (
 		<Grid item hidden={displayFocus !== "SUMMARY_RIVER"}>
-			<SummaryRiver></SummaryRiver>
+			<river.components.SummaryRiver></river.components.SummaryRiver>
 		</Grid>
 	);
 };

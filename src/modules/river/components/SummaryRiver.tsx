@@ -1,13 +1,13 @@
 import { Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { getRiverMakeUps } from "../../selectors";
+import { getRiverMakeUps } from "../selectors";
 import React, { useRef, useEffect } from "react";
-import cards from "../../../cards";
-import focus from "../../../focus";
-import display from "../../../display";
-import { incrementer } from "../../../../shared/utils";
-import { ChildCardRiver } from "../CardRiver/ChildCardRiver";
-import { riverMakeUpIDToPageNumber } from "../../model";
+import cards from "../../cards";
+import focus from "../../focus";
+import display from "../../display";
+import { incrementer } from "../../../shared/utils";
+import { ChildCardRiver } from "./CardRiver/ChildCardRiver";
+import { riverMakeUpIDToPageNumber } from "../model";
 
 //TODO-PREF: memoize Rivers (not necessary right now, because we just hide)
 
