@@ -11,6 +11,7 @@ import { ChildCardRiver } from "./CardRiver/ChildCardRiver";
 //TODO-NICE: make River-View, where you can just see one card and can make it smaller? Maybe just button to zoom "in" / just seeing the current river
 //TODO-NICE: mark Origin-Span or maybe rect over whole page-section?
 //TODO-NICE: make reconciliation algorithm for origin when new PDF versions come out
+// (basically, just search the text, and if it is not in the same span, just move the span - expand page forward and backward then search there)
 
 export const ActiveCardRiver = () => {
 	const riverID = useSelector(getActiveRiverMakeUpID);
