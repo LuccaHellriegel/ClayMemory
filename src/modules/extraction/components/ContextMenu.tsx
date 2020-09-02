@@ -13,6 +13,8 @@ import NestedMenuItem from "material-ui-nested-menu-item";
 import river from "../../river";
 import { SourceCard } from "../../river/model";
 import selection from "../../selection";
+import { CardOrigin } from "../../cards/model/model-origin";
+import display from "../../display";
 
 function ContextMenu({
 	position,
@@ -50,7 +52,11 @@ function ContextMenu({
 			);
 			dispatch(river.actions.resetSourceCard());
 		} else {
-			dispatch(selection.actions.selectionToCard(type, creationType, cardID));
+			const selectedParent = selection.selectors.getCurrentSelectedParent(state);
+			// always overwrite origin, even if isUpdate, because updateType==replace
+			const origin: CardOrigin | undefined = selectedParent ? display.selectors.getCurrentOrigin(state) : undefined;
+
+			dispatch(selection.actions.selectionToCard(type, creationType, origin, cardID));
 		}
 	};
 

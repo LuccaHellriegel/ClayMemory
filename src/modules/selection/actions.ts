@@ -2,9 +2,14 @@ import * as t from "./actionTypes";
 import { CardType, CreationType } from "../cards/model/model";
 import { CardOrigin, hasNonEmptyOrigin } from "../cards/model/model-origin";
 import cards from "../cards";
-import { getCurrentSelectedString, getCurrentSelectedParent, getCurrentOrigin } from "./selectors";
+import { getCurrentSelectedString } from "./selectors";
 
-export const selectionToCardAppend = (type: CardType, creationType: CreationType, cardID?: string) => {
+export const selectionToCardAppend = (
+	type: CardType,
+	creationType: CreationType,
+	origin?: CardOrigin,
+	cardID?: string
+) => {
 	return (dispatch: Function, getState: Function) => {
 		const state = getState();
 
@@ -13,10 +18,6 @@ export const selectionToCardAppend = (type: CardType, creationType: CreationType
 
 		// this should be from the document
 		const selectedString = getCurrentSelectedString(state);
-		const selectedParent = getCurrentSelectedParent(state);
-
-		// always overwrite origin, even if isUpdate, because updateType==replace
-		const origin: CardOrigin | undefined = selectedParent ? getCurrentOrigin(state) : undefined;
 
 		let transformedOrigin;
 		if (origin) {
@@ -50,7 +51,7 @@ export const selectionToCardAppend = (type: CardType, creationType: CreationType
 	};
 };
 
-export const selectionToCard = (type: CardType, creationType: CreationType, cardID?: string) => {
+export const selectionToCard = (type: CardType, creationType: CreationType, origin?: CardOrigin, cardID?: string) => {
 	return (dispatch: Function, getState: Function) => {
 		const state = getState();
 
@@ -61,10 +62,6 @@ export const selectionToCard = (type: CardType, creationType: CreationType, card
 
 		// this should be from the document
 		const selectedString = getCurrentSelectedString(state);
-		const selectedParent = getCurrentSelectedParent(state);
-
-		// always overwrite origin, even if isUpdate, because updateType==replace
-		const origin: CardOrigin | undefined = selectedParent ? getCurrentOrigin(state) : undefined;
 
 		let transformedOrigin;
 		if (origin) {

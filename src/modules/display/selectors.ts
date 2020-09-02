@@ -1,6 +1,8 @@
 import { createSelector } from "reselect";
 import { DisplayData, MaterialData, MaterialGroupData } from "./model";
 import { NAME } from "./constants";
+import selection from "../selection";
+import { SingleOrigin } from "../cards/model/model-origin";
 
 export const getAll = (state: any): DisplayData => state[NAME];
 
@@ -56,3 +58,15 @@ export const displayStatusIsShow = createSelector(getDisplayStatus, (status) => 
 export const getZoomQueue = createSelector(getAll, (state: DisplayData) => state.zoomQueue);
 
 export const getMaterialHeight = createSelector(getAll, (state: DisplayData) => state.materialHeight);
+
+export const getCurrentOrigin = createSelector(
+	(state: any) => state,
+	getCurrentPage,
+	selection.selectors.getCurrentSelectedParent,
+	(state, currentPage, selectedParent): SingleOrigin => {
+		return {
+			spanIndex: getSpanIndex(state, selectedParent as HTMLSpanElement),
+			page: currentPage,
+		};
+	}
+);
