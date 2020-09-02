@@ -2,7 +2,6 @@ import creation from "../../extraction";
 import focus from "../../focus";
 import cards from "../../cards";
 import river from "../../river";
-import { getSelectionText } from "../../../shared/utils";
 import selection from "../../selection";
 
 export const mouseDownControl = (event: MouseEvent) => {
@@ -16,45 +15,39 @@ export const mouseDownControl = (event: MouseEvent) => {
 
 export const mouseUpControl = (event: MouseEvent) => {
 	return (dispatch: any, getState: Function) => {
-		const selectionObject = document.getSelection();
+		const selectionData = selection.services.getSelection();
 
-		if (selectionObject) {
-			const selectedStr = getSelectionText();
+		if (selectionData) {
+			const selectedStr = selectionData.text;
+			const selectionObject = selectionData.selection;
 
-			if (selectedStr && selectedStr !== "") {
-				const state = getState();
-				const goalCard = cards.selectors.getGoalCard(state);
-				const userFocus = focus.selectors.getFocus(state);
+			const state = getState();
+			const goalCard = cards.selectors.getGoalCard(state);
+			const userFocus = focus.selectors.getFocus(state);
 
-				const shouldGrab = userFocus === "RIVER" || userFocus === "DOCUMENT";
+			const shouldGrab = userFocus === "RIVER" || userFocus === "DOCUMENT";
 
-				if (goalCard && shouldGrab) {
-					// this is the dispatch for the grab for field button
-					//(which has been pressed before the mouse-up if goalCard is not null), here we actually update the goal card
+			if (goalCard && shouldGrab) {
+				// this is the dispatch for the grab for field button
+				//(which has been pressed before the mouse-up if goalCard is not null), here we actually update the goal card
 
-					//TODO-NICE: allow grabbing from other cards
-					// for now we dont allow grabbing from other cards to simplifiy the card->card workflow
-					if (userFocus !== "RIVER")
-						dispatch(
-							cards.actions.updateCardContent(
-								selectedStr,
-								goalCard.cardID,
-								goalCard.creationType,
-								"REPLACE",
-								goalCard.origin
-							)
-						);
-					dispatch(cards.actions.resetGoalCard());
-				} else {
-					if (userFocus === "DOCUMENT") {
-						dispatch(selection.actions.selectedParent(selectionObject.anchorNode?.parentNode as HTMLSpanElement));
-						dispatch(selection.actions.updateManuallySelectedString(selectedStr));
-					}
-
-					// this is the dispatch to prepare for extraction from card
-					if (userFocus === "RIVER") {
-						dispatch(selection.actions.updateManuallySelectedString(selectedStr));
-					}
+				//TODO-NICE: allow grabbing from other cards
+				// for now we dont allow grabbing from other cards to simplifiy the card->card workflow
+				if (userFocus !== "RIVER")
+					dispatch(
+						cards.actions.updateCardContent(
+							selectedStr,
+							goalCard.cardID,
+							goalCard.creationType,
+							"REPLACE",
+							goalCard.origin
+						)
+					);
+				dispatch(cards.actions.resetGoalCard());
+			} else {
+				if (userFocus === "DOCUMENT") {
+					dispatch(selection.actions.selectedParent(selectionObject.anchorNode?.parentNode as HTMLSpanElement));
+					dispatch(selection.actions.updateManuallySelectedString(selectedStr));
 				}
 			}
 		}

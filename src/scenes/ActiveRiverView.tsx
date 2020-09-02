@@ -4,8 +4,6 @@ import display from "../modules/display";
 import focus from "../modules/focus";
 import { useSelector } from "react-redux";
 import river from "../modules/river";
-import selection from "../modules/selection";
-import extraction from "../modules/extraction";
 
 export const ActiveRiverView = () => {
 	const displayFocus = useSelector(focus.selectors.getDisplayFocus);
@@ -29,21 +27,4 @@ export const ActiveRiverView = () => {
 			</Grid>
 		</Grid>
 	);
-};
-
-const rightClickControl = (event: MouseEvent) => {
-	return (dispatch: any, getState: Function) => {
-		const state = getState();
-
-		// this was set via left-click
-		const selectedStr = selection.selectors.getCurrentSelectedString(state);
-
-		if (selectedStr === "") return;
-
-		event.preventDefault();
-
-		// this is the dispatch for the ContextMenu inside the editor
-		dispatch(selection.actions.updateSelectionPosition(event.x, event.y));
-		dispatch(extraction.actions.openContextMenu());
-	};
 };
