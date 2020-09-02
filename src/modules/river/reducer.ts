@@ -20,7 +20,6 @@ const initialState: CardRiverState = {
 	highlightedCardID: null,
 	highlightedCardField: null,
 	riverContentState: "ALL",
-	sourceCard: null,
 	contentFilter: "",
 };
 
@@ -53,7 +52,7 @@ const removeCardFromRivers = (state: CardRiverState, cardID: CardID): CardRiverS
 	return { ...state, riverMakeUps };
 };
 
-const cardRiverState = (state = initialState, { type, payload }: { type: string; payload: any }) => {
+const cardRiverState = (state = initialState, { type, payload }: { type: string; payload: any }): CardRiverState => {
 	let riverMakeUp;
 	let riverMakeUps;
 	switch (type) {
@@ -81,10 +80,7 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 			riverMakeUps = { ...state.riverMakeUps };
 			riverMakeUps[state.pushToRiverID] = riverMakeUp;
 
-			// need to reset source card on CARD_PUSH and UPDATE just in case it was used
-			return { ...state, riverMakeUps: riverMakeUps, sourceCard: null };
-		case cards.actionTypes.CARD_UPDATE:
-			return { ...state, sourceCard: null };
+			return { ...state, riverMakeUps: riverMakeUps };
 		case cards.actionTypes.CARD_REMOVE:
 			return removeCardFromRivers(state, payload as string);
 		case t.RIVER_SHOW_STATE:
@@ -122,8 +118,6 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 			} else {
 				return state;
 			}
-		case t.RIVER_CARD_SOURCE:
-			return { ...state, sourceCard: payload };
 		case t.RIVER_CONTENT_FILTER:
 			return { ...state, contentFilter: payload };
 		default:

@@ -2,9 +2,11 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import { createTransform } from "redux-persist";
 import { CreationData } from "./modules/extraction/model";
 import { createRef } from "react";
-import creation from "./modules/extraction";
+import extraction from "./modules/extraction";
 import { DisplayData, DisplayStatus, PerPageSpans } from "./modules/display/model";
 import display from "./modules/display";
+import { SelectionData } from "./modules/selection/model";
+import selection from "./modules/selection";
 
 // to get the correct object with reselect, I added .present to all getAll that belong do undoable modules
 
@@ -31,7 +33,7 @@ const addDOMObjectsToCreationData = (outboundState: {
 	};
 };
 
-const creationTransform = createTransform(
+const extractionTransform = createTransform(
 	(inboundState: { future: CreationData[]; past: CreationData[]; present: CreationData }) => {
 		return {
 			...inboundState,
@@ -48,7 +50,7 @@ const creationTransform = createTransform(
 			present: addDOMObjectsToCreationData(outboundState.present),
 		};
 	},
-	{ whitelist: [creation.constants.NAME] }
+	{ whitelist: [extraction.constants.NAME] }
 );
 
 //TODO-NICE: find way to save PDF in browser, maybe manually use indexeddb and use that in transform?
@@ -107,8 +109,29 @@ const displayTransform = createTransform(
 	{ whitelist: [display.constants.NAME] }
 );
 
+// for selection we just use the initialState and dont persist future/past
+const selectionTransform = createTransform(
+	(inboundState: { future: SelectionData[]; past: SelectionData[]; present: SelectionData }) => {
+		return {
+			...inboundState,
+			future: [],
+			past: [],
+			present: {
+				manuallySelectedString: "",
+				selectedParentSpan: null,
+				selectionPosition: { x: 0, y: 0 },
+				sourceCard: null,
+			},
+		};
+	},
+	(outboundState): { future: SelectionData[]; past: SelectionData[]; present: SelectionData } => {
+		return outboundState;
+	},
+	{ whitelist: [selection.constants.NAME] }
+);
+
 export const persistConfig = {
 	key: "root",
 	storage,
-	transforms: [creationTransform, displayTransform],
+	transforms: [extractionTransform, displayTransform, selectionTransform],
 };

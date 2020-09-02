@@ -52,7 +52,8 @@ const mouseUpCardField = (dispatch: Dispatch, setSourceCard: () => void) => {
 	const selectionData = selection.services.getSelection();
 	if (selectionData) {
 		const selectedStr = selectionData.text;
-		dispatch(selection.actions.updateManuallySelectedString(selectedStr));
+
 		setSourceCard();
+		dispatch(selection.actions.updateManuallySelectedString(selectedStr));
 	}
 };

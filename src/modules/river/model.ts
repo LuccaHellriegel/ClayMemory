@@ -1,6 +1,5 @@
 import { CardID } from "../cards/model/model";
 import { CardField } from "../cards/model/model-content";
-import { CardOrigin } from "../cards/model/model-origin";
 
 export type RiverMakeUp = { riverID: string; cardIDs: CardID[] };
 
@@ -11,9 +10,6 @@ export type RiverShowState = "SHOW" | "HIDE";
 export type RiverContentState = "ALL" | "NOTES" | "QAS" | "NONE";
 
 //TODO-NICE: rename pushto/active river
-
-// SourceCard is used when selecting/extracting from a card
-export type SourceCard = { origin?: CardOrigin; sourceField: CardField };
 
 export type ContentFilter = string;
 
@@ -29,8 +25,6 @@ export type CardRiverState = {
 	// this is used to determine which card should be highlighted in reaction to hovering over it in the context-menu
 	highlightedCardID: null | CardID;
 	highlightedCardField: null | CardField;
-	// is used to determine if we are extracting from a card
-	sourceCard: SourceCard | null;
 	contentFilter: ContentFilter | "";
 };
 

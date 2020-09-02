@@ -2,7 +2,9 @@ import * as t from "./actionTypes";
 import { CardType, CreationType } from "../cards/model/model";
 import { CardOrigin, hasNonEmptyOrigin } from "../cards/model/model-origin";
 import cards from "../cards";
-import { getCurrentSelectedString } from "./selectors";
+import { getCurrentSelectedString, getSourceCard } from "./selectors";
+import { Dispatch } from "redux";
+import { CardField } from "../cards/model/model-content";
 
 export const selectionToCardAppend = (
 	type: CardType,
@@ -155,4 +157,27 @@ export const selectedParent = (span: null | HTMLSpanElement) => {
 
 export const updateSelectionPosition = (x: number, y: number) => {
 	return { type: t.DOCUMENT_POSITION, payload: { x, y } };
+};
+
+export const setSourceCard = (sourceField: CardField, origin?: CardOrigin) => {
+	return { type: t.SOURCE_CARD, payload: { origin, sourceField } };
+};
+
+export const trySetSourceCard = (sourceField: CardField, origin?: CardOrigin) => {
+	return (dispatch: Dispatch, getState: Function) => {
+		const sourceCard = getSourceCard(getState());
+		if (!sourceCard || sourceCard.sourceField !== sourceField || sourceCard.origin !== origin)
+			dispatch(setSourceCard(sourceField, origin));
+	};
+};
+
+export const resetSourceCard = () => {
+	return { type: t.SOURCE_CARD, payload: null };
+};
+
+export const tryResetSourceCard = () => {
+	return (dispatch: Dispatch, getState: Function) => {
+		const sourceCardExits = getSourceCard(getState()) !== null;
+		if (sourceCardExits) dispatch(resetSourceCard());
+	};
 };

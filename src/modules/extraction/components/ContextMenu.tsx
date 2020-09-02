@@ -1,7 +1,7 @@
 import React, { RefObject } from "react";
 import Menu from "@material-ui/core/Menu";
 import { Divider, MenuItem } from "@material-ui/core";
-import { useDispatch, connect, useSelector } from "react-redux";
+import { useDispatch, connect, useSelector, useStore } from "react-redux";
 import { getContextMenuInitData, getContextMenuFullCardsRef } from "../selectors";
 import { closeContextMenu } from "../actions";
 import { incrementer } from "../../../shared/utils";
@@ -10,11 +10,10 @@ import { QACardContent } from "../../cards/model/model-content";
 import { CardConfigItem, noteCardIsEmpty, qaCardIsNotFull } from "./CardItems";
 import { NewButtons } from "./NewButtons";
 import NestedMenuItem from "material-ui-nested-menu-item";
-import river from "../../river";
-import { SourceCard } from "../../river/model";
 import selection from "../../selection";
 import { CardOrigin } from "../../cards/model/model-origin";
 import display from "../../display";
+import { SourceCard } from "../../selection/model";
 
 function ContextMenu({
 	position,
@@ -32,11 +31,15 @@ function ContextMenu({
 	const fullCardsRef = useSelector(getContextMenuFullCardsRef);
 
 	const dispatch = useDispatch();
-	const sourceCard = useSelector(river.selectors.getSourceCard);
+	const sourceCard = useSelector(selection.selectors.getSourceCard);
 
 	//TODO-NICE: open menu in editor to the right not over the document
 
 	const openState = state;
+
+	const selectedParent = useSelector(selection.selectors.getCurrentSelectedParent);
+	const store = useStore();
+
 	const dispatchRiver = (type: CardType, creationType: CreationType, cardID?: string) => {
 		dispatch(closeContextMenu());
 
@@ -50,11 +53,12 @@ function ContextMenu({
 					cardID
 				)
 			);
-			dispatch(river.actions.resetSourceCard());
+			dispatch(selection.actions.resetSourceCard());
 		} else {
-			const selectedParent = selection.selectors.getCurrentSelectedParent(state);
 			// always overwrite origin, even if isUpdate, because updateType==replace
-			const origin: CardOrigin | undefined = selectedParent ? display.selectors.getCurrentOrigin(state) : undefined;
+			const origin: CardOrigin | undefined = selectedParent
+				? display.selectors.getCurrentOrigin(store.getState())
+				: undefined;
 
 			dispatch(selection.actions.selectionToCard(type, creationType, origin, cardID));
 		}

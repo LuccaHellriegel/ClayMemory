@@ -10,11 +10,11 @@ import { GrabForFieldButton } from "../Buttons/GrabForFieldButton";
 import { isNullOrUndefined } from "util";
 import { getHoveredCardData } from "../../../selectors";
 import focus from "../../../../focus";
-import { setSourceCard } from "../../../actions";
 import { Card, Paper } from "@material-ui/core";
 import { CardProps, borderStyle } from "./ClayCard";
 import text from "../../../../text";
 import { AppendButton } from "../Buttons/AppendButton";
+import selection from "../../../../selection";
 
 //TODO-NICE:
 // make dropdown / menu for selection to create card from selection snackbar?
@@ -63,7 +63,7 @@ export const QACard = ({ config }: CardProps) => {
 											style={{ backgroundColor: "#FFBF69" }}
 											InputLabelProps={{ style: { color: "#000000" } }}
 											setSourceCard={() => {
-												dispatch(setSourceCard("q", config.origin));
+												dispatch(selection.actions.setSourceCard("q", config.origin));
 											}}
 										></HybridCardField>
 									</div>
@@ -99,7 +99,7 @@ export const QACard = ({ config }: CardProps) => {
 											style={{ backgroundColor: "#2EC4B6" }}
 											InputLabelProps={{ style: { color: "#000000" } }}
 											setSourceCard={() => {
-												dispatch(setSourceCard("a", config.origin));
+												dispatch(selection.actions.setSourceCard("a", config.origin));
 											}}
 										></HybridCardField>
 									</div>

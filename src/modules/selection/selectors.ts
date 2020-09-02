@@ -9,3 +9,5 @@ export const getCurrentSelectionPosition = createSelector(getAll, (state: Select
 export const getCurrentSelectedString = createSelector(getAll, (state: SelectionData) => state.manuallySelectedString);
 
 export const getCurrentSelectedParent = createSelector(getAll, (state: SelectionData) => state.selectedParentSpan);
+
+export const getSourceCard = createSelector(getAll, (state) => state.sourceCard);

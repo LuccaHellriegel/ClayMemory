@@ -18,6 +18,10 @@ import selection from "./modules/selection";
 //TODO-NICE: make snackbar for which action is undone/redone
 //TODO-NICE: this undo-buisness is not very transparent, I just list each action that is state-relevant and not view, make action list in constants.ts?
 
+//TODO-NICE: can undo selected-string but then the source-card might still be set
+// I think this is not a problem, because then when something else is selected the old-source-Card is overwritten
+// but not as clean as it could be
+
 const rootReducer = combineReducers({
 	[focus.constants.NAME]: focus.reducer,
 	[selection.constants.NAME]: undoable(selection.reducer, {
