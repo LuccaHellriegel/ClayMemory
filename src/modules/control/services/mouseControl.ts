@@ -8,6 +8,7 @@ export const mouseDownControl = (event: MouseEvent) => {
 		const clickOutSideOfMenu = !creation.services.contextMenuContainsTargetNode(getState(), event);
 		if (clickOutSideOfMenu) {
 			dispatch(creation.actions.closeContextMenu());
+			dispatch(river.actions.resetHoveredCard());
 		}
 	};
 };
@@ -20,27 +21,22 @@ export const mouseDownControl = (event: MouseEvent) => {
 export const rightClickControl = (event: MouseEvent) => {
 	return (dispatch: any, getState: Function) => {
 		const state = getState();
-		const userFocus = focus.selectors.getFocus(state);
 
 		// this is set via left-click
 		const selectedStr = selection.selectors.getCurrentSelectedString(state);
+
+		const displayFocus = focus.selectors.getDisplayFocus(state);
 
 		if (selectedStr === "") return;
 
 		event.preventDefault();
 
-		// this is the dispatch for the ContextMenu inside the editor
-		if (userFocus === "RIVER") {
-			dispatch(selection.actions.updateSelectionPosition(event.x, event.y));
-			dispatch(creation.actions.openContextMenu());
-		}
+		dispatch(selection.actions.updateSelectionPosition(event.x, event.y));
+		dispatch(creation.actions.openContextMenu());
 
-		if (userFocus === "DOCUMENT") {
+		if (displayFocus === "ACTIVE_RIVER") {
 			//if the user is focused on the document, the push-to river should always be the active=page-wise river
 			dispatch(river.actions.setPushToRiver(river.selectors.getActiveRiverMakeUpID(state)));
-
-			dispatch(selection.actions.updateSelectionPosition(event.x, event.y));
-			dispatch(creation.actions.openContextMenu());
 		}
 	};
 };

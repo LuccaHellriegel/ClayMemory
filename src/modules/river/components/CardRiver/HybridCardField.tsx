@@ -7,10 +7,12 @@ import { Dispatch } from "redux";
 export const HybridCardField = ({
 	storeValue = "",
 	saveChanges,
+	setSourceCard,
 	style,
 	...rest
 }: {
 	storeValue?: string;
+	setSourceCard: () => void;
 	saveChanges: (value: string) => void;
 	style: any;
 } & TextFieldProps) => {
@@ -37,7 +39,7 @@ export const HybridCardField = ({
 				saveChanges(event.target.value);
 			}}
 			onMouseUp={() => {
-				mouseUpCardField(dispatch);
+				mouseUpCardField(dispatch, setSourceCard);
 			}}
 			style={style}
 			{...rest}
@@ -45,11 +47,12 @@ export const HybridCardField = ({
 	);
 };
 
-const mouseUpCardField = (dispatch: Dispatch) => {
+const mouseUpCardField = (dispatch: Dispatch, setSourceCard: () => void) => {
 	//TODO-NICE: allow grabbing from other cards
 	const selectionData = selection.services.getSelection();
 	if (selectionData) {
 		const selectedStr = selectionData.text;
 		dispatch(selection.actions.updateManuallySelectedString(selectedStr));
+		setSourceCard();
 	}
 };

@@ -27,68 +27,65 @@ export const ControlBar = () => {
 	const materialName = useSelector(display.selectors.getPDFName);
 
 	return (
-		<Grid
-			item
-			onMouseEnter={() => {
-				dispatch(focus.actions.tryUpdateFocus("CONTROL"));
-			}}
-		>
-			<AppBar>
-				<Toolbar variant="regular">
-					<Grid item>
-						<Grid container spacing={1} direction="row" alignItems="center" justify="flex-start">
-							<Grid item style={{ width: "15%" }}>
-								<display.components.PageChooser></display.components.PageChooser>
-							</Grid>
+		<Grid item>
+			<display.components.PageKeyboardControl>
+				<AppBar>
+					<Toolbar variant="regular">
+						<Grid item>
+							<Grid container spacing={1} direction="row" alignItems="center" justify="flex-start">
+								<Grid item style={{ width: "15%" }}>
+									<display.components.PageChooser></display.components.PageChooser>
+								</Grid>
 
-							<Grid item>
-								<display.components.PageNavigation></display.components.PageNavigation>
-							</Grid>
+								<Grid item>
+									<display.components.PageNavigation></display.components.PageNavigation>
+								</Grid>
 
-							<Grid item>
-								<Card variant="outlined">
-									<Tabs value={value} onChange={handleChange}>
-										<Tab
-											label={
-												<Tooltip
-													title={text.constants.switchToActiveRiverTooltip}
-													enterDelay={text.constants.defaultEnterDelay}
-													enterNextDelay={500}
-													disableFocusListener={true}
-												>
-													<span>ActiveRiver</span>
-												</Tooltip>
-											}
-										></Tab>
-										<Tab
-											label={
-												<Tooltip
-													title={text.constants.switchToSummaryRiverTooltip}
-													enterDelay={text.constants.defaultEnterDelay}
-													enterNextDelay={500}
-													disableFocusListener={true}
-												>
-													<span>SummaryRiver</span>
-												</Tooltip>
-											}
-										/>
-									</Tabs>
-								</Card>
-							</Grid>
+								<Grid item>
+									<Card variant="outlined">
+										<Tabs value={value} onChange={handleChange}>
+											<Tab
+												label={
+													<Tooltip
+														title={text.constants.switchToActiveRiverTooltip}
+														enterDelay={text.constants.defaultEnterDelay}
+														enterNextDelay={500}
+														disableFocusListener={true}
+													>
+														<span>ActiveRiver</span>
+													</Tooltip>
+												}
+											></Tab>
+											<Tab
+												label={
+													<Tooltip
+														title={text.constants.switchToSummaryRiverTooltip}
+														enterDelay={text.constants.defaultEnterDelay}
+														enterNextDelay={500}
+														disableFocusListener={true}
+													>
+														<span>SummaryRiver</span>
+													</Tooltip>
+												}
+											/>
+										</Tabs>
+									</Card>
+								</Grid>
 
-							<Grid item>
-								<UndoRedoCard></UndoRedoCard>
+								<Grid item>
+									<UndoRedoCard></UndoRedoCard>
+								</Grid>
 							</Grid>
 						</Grid>
-					</Grid>
 
-					<Typography style={{ flexGrow: 1 }}>{materialName?.replace(".pdf", "")}</Typography>
+						<Typography style={{ flexGrow: 1 }}>{materialName?.replace(".pdf", "")}</Typography>
 
-					<CardSearchBar></CardSearchBar>
-					<ShowHideButton></ShowHideButton>
-					<Options></Options>
-				</Toolbar>
-			</AppBar>
+						<CardSearchBar></CardSearchBar>
+						<ShowHideButton></ShowHideButton>
+						<Options></Options>
+					</Toolbar>
+				</AppBar>
+			</display.components.PageKeyboardControl>
 		</Grid>
 	);
 };

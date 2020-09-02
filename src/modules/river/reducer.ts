@@ -3,8 +3,6 @@ import { FinalizedCardPayload, CardID } from "../cards/model/model";
 import cards from "../cards";
 import * as t from "./actionTypes";
 import display from "../display";
-import focus from "../focus";
-import { UserFocus } from "../focus/model";
 import { ArchiveRiver } from "../db/model";
 import db from "../db";
 
@@ -83,7 +81,10 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 			riverMakeUps = { ...state.riverMakeUps };
 			riverMakeUps[state.pushToRiverID] = riverMakeUp;
 
-			return { ...state, riverMakeUps: riverMakeUps };
+			// need to reset source card on CARD_PUSH and UPDATE just in case it was used
+			return { ...state, riverMakeUps: riverMakeUps, sourceCard: null };
+		case cards.actionTypes.CARD_UPDATE:
+			return { ...state, sourceCard: null };
 		case cards.actionTypes.CARD_REMOVE:
 			return removeCardFromRivers(state, payload as string);
 		case t.RIVER_SHOW_STATE:
@@ -94,22 +95,6 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 			return { ...state, pushToRiverID: payload };
 		case t.RIVER_HOVERED_CARD:
 			return { ...state, highlightedCardID: payload.id, highlightedCardField: payload.field };
-		case focus.actionTypes.FOCUS_UPDATE:
-			let sourceCard = state.sourceCard;
-
-			//TODO-NICE: untangle the focus logic, might be that I can just reset in the first case
-			// need to reset sourceCard because we want to trigger the correct Selection-Grab when in the document
-			if ((payload as UserFocus) === "DOCUMENT" && sourceCard) {
-				sourceCard = null;
-			}
-
-			// reset hovered-card once we are not focused on the context menu
-			//TODO-NICE: investigate a better factoring for the relation between river and creation
-			if (state.highlightedCardID !== null && (payload as UserFocus) !== "CONTEXT_MENU") {
-				return { ...state, highlightedCardID: null, highlightedCardField: null, sourceCard };
-			} else {
-				return { ...state, sourceCard };
-			}
 		case db.actionTypes.DOCUMENT_CHANGE:
 			if (payload) {
 				return {

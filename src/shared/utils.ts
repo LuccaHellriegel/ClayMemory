@@ -1,3 +1,5 @@
+import { KeyboardEvent } from "react";
+
 export const incrementer = () => {
 	let counter = 0;
 	return () => {
@@ -5,4 +7,19 @@ export const incrementer = () => {
 		counter++;
 		return curCounter;
 	};
+};
+
+export type KeyActionMap = { [key: string]: any };
+
+type KeyEventDispatcher = (event: KeyboardEvent<Element>, dispatch: any, state?: any) => void;
+
+export const keyEventDispatcherCreator = (keyMap: KeyActionMap): KeyEventDispatcher => (
+	event: KeyboardEvent,
+	dispatch: any
+) => {
+	const action = keyMap[event.key];
+	if (action) {
+		event.preventDefault();
+		dispatch(action);
+	}
 };

@@ -10,7 +10,7 @@ import {
 	getMaterialSpans,
 	getPDFName,
 } from "./selectors";
-import { incrementer } from "../../shared/utils";
+import { incrementer, keyEventDispatcherCreator, KeyActionMap } from "../../shared/utils";
 import { materialData } from "./services/materialData";
 import db from "../db";
 import { ActionCreators } from "redux-undo";
@@ -106,6 +106,13 @@ export const movePage = (type: PageMove) => {
 };
 export const nextPage = () => movePage("NEXT");
 export const previousPage = () => movePage("PREVIOUS");
+
+const pageControlKeyMap: KeyActionMap = {
+	ArrowLeft: previousPage(),
+	ArrowRight: nextPage(),
+};
+
+export const pageControlDispatcher = keyEventDispatcherCreator(pageControlKeyMap);
 
 export const toggleDisplayState = () => {
 	return (dispatch: Dispatch, getState: Function) => {

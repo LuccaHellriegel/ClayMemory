@@ -4,7 +4,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { resetManuallySelectedString } from "../actions";
 import { getCurrentSelectedString } from "../selectors";
-import focus from "../../focus";
 
 export const SelectionSnackbar = () => {
 	const [open, setOpen] = useState(false);
@@ -39,9 +38,6 @@ export const SelectionSnackbar = () => {
 
 	return (
 		<Snackbar
-			onMouseEnter={() => {
-				dispatch(focus.actions.tryUpdateFocus("CONTROL"));
-			}}
 			anchorOrigin={{ vertical: "top", horizontal: "center" }}
 			open={open}
 			onClose={handleClose}

@@ -72,14 +72,8 @@ export const CardRiverAccordion = ({
 			<AccordionDetails>
 				<Grid container direction="column" spacing={2} justify="center" alignItems="stretch">
 					<Grid item>
-						<focus.components.RiverControlFocusUpdater>
-							<cards.components.AddQAButton></cards.components.AddQAButton>
-						</focus.components.RiverControlFocusUpdater>
-
-						<focus.components.RiverControlFocusUpdater>
-							<cards.components.AddNoteButton></cards.components.AddNoteButton>
-						</focus.components.RiverControlFocusUpdater>
-
+						<cards.components.AddQAButton></cards.components.AddQAButton>
+						<cards.components.AddNoteButton></cards.components.AddNoteButton>
 						<Divider></Divider>
 					</Grid>
 

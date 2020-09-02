@@ -37,6 +37,10 @@ export const trySetHoveredCard = (cardID: CardID, field: CardField) => {
 	};
 };
 
+export const resetHoveredCard = () => {
+	return { payload: { id: null, field: null }, type: t.RIVER_HOVERED_CARD };
+};
+
 export const setSourceCard = (sourceField: CardField, origin?: CardOrigin) => {
 	return { type: t.RIVER_CARD_SOURCE, payload: { origin, sourceField } };
 };

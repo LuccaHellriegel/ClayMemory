@@ -8,6 +8,7 @@ import { getRenderCritialData, getMaterialHeight, getZoomQueue } from "../../sel
 import text from "../../../text";
 import cards from "../../../cards";
 import selection from "../../../selection";
+import { PageKeyboardControl } from "./PageKeyboardControl";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 //TODO-NICE: implent more pdf-reader functionality, like zoom
@@ -73,30 +74,32 @@ function PDFDocument({
 				if (pdf) dispatch(mouseUpDocument());
 			}}
 		>
-			<Document
-				file={pdf}
-				options={options}
-				onLoadSuccess={({ numPages }) => {
-					materialLoaded(numPages);
-				}}
-				inputRef={documentRef}
-				onItemClick={({ pageNumber }) => {
-					dispatch(setPage(parseInt(pageNumber)));
-				}}
-				loading={text.constants.loadingMaterialText}
-				noData={text.constants.noMaterialText}
-			>
-				{pdf && (
-					<Page
-						width={parentSize.width}
-						pageNumber={currentPage}
-						onRenderSuccess={() => {
-							removeTextLayerOffset();
-							captureMaterialData(documentRef);
-						}}
-					/>
-				)}
-			</Document>
+			<PageKeyboardControl>
+				<Document
+					file={pdf}
+					options={options}
+					onLoadSuccess={({ numPages }) => {
+						materialLoaded(numPages);
+					}}
+					inputRef={documentRef}
+					onItemClick={({ pageNumber }) => {
+						dispatch(setPage(parseInt(pageNumber)));
+					}}
+					loading={text.constants.loadingMaterialText}
+					noData={text.constants.noMaterialText}
+				>
+					{pdf && (
+						<Page
+							width={parentSize.width}
+							pageNumber={currentPage}
+							onRenderSuccess={() => {
+								removeTextLayerOffset();
+								captureMaterialData(documentRef);
+							}}
+						/>
+					)}
+				</Document>
+			</PageKeyboardControl>
 		</span>
 	);
 }

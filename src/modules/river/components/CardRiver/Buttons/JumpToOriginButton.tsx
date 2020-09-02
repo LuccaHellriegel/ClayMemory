@@ -22,9 +22,6 @@ export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin })
 					dispatch(focus.actions.updateDisplayFocus("ACTIVE_RIVER"));
 					dispatch(display.actions.zoomToCardOrigin(cardOrigin.spanIndex, cardOrigin.page));
 				}}
-				onMouseEnter={() => {
-					dispatch(focus.actions.tryUpdateFocus("RIVER_CONTROL"));
-				}}
 			>
 				<FindInPageIcon fontSize="small"></FindInPageIcon>
 			</IconButton>

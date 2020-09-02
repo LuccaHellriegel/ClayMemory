@@ -7,7 +7,7 @@ import { JumpToOriginButton } from "../Buttons/JumpToOriginButton";
 import { GrabForFieldButton } from "../Buttons/GrabForFieldButton";
 import { getHoveredCardData } from "../../../selectors";
 import focus from "../../../../focus";
-import { trySetSourceCard } from "../../../actions";
+import { setSourceCard } from "../../../actions";
 import { Card, Paper, Grid } from "@material-ui/core";
 import { CardProps, borderStyle } from "./ClayCard";
 import text from "../../../../text";
@@ -51,9 +51,8 @@ export const NoteCard = ({ config }: CardProps) => {
 								variant="filled"
 								style={{ backgroundColor: "#CBF3F0" }}
 								InputLabelProps={{ style: { color: "#000000" } }}
-								onMouseEnter={() => {
-									dispatch(focus.actions.tryUpdateFocus("RIVER"));
-									dispatch(trySetSourceCard("note", config.origin));
+								setSourceCard={() => {
+									dispatch(setSourceCard("note", config.origin));
 								}}
 							></HybridCardField>
 						</Grid>
@@ -62,18 +61,12 @@ export const NoteCard = ({ config }: CardProps) => {
 								<Grid container direction="row">
 									<Grid item>
 										{isActiveRiver && (
-											<focus.components.RiverControlFocusUpdater>
-												<AppendButton type={config.type} creationType="q" cardID={config.cardID}></AppendButton>
-											</focus.components.RiverControlFocusUpdater>
+											<AppendButton type={config.type} creationType="q" cardID={config.cardID}></AppendButton>
 										)}
 									</Grid>
 
 									<Grid item>
-										{isActiveRiver && (
-											<focus.components.RiverControlFocusUpdater>
-												<GrabForFieldButton cardConfig={config} creationType="note"></GrabForFieldButton>
-											</focus.components.RiverControlFocusUpdater>
-										)}
+										{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="note"></GrabForFieldButton>}
 									</Grid>
 									<Grid item>
 										{config.origin && (
@@ -87,9 +80,7 @@ export const NoteCard = ({ config }: CardProps) => {
 				</Grid>
 
 				<Grid item>
-					<focus.components.RiverControlFocusUpdater>
-						<cards.components.DeleteCardButton cardID={config.cardID}></cards.components.DeleteCardButton>
-					</focus.components.RiverControlFocusUpdater>
+					<cards.components.DeleteCardButton cardID={config.cardID}></cards.components.DeleteCardButton>
 				</Grid>
 			</Grid>
 		</Card>

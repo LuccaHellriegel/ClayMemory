@@ -10,7 +10,7 @@ import { GrabForFieldButton } from "../Buttons/GrabForFieldButton";
 import { isNullOrUndefined } from "util";
 import { getHoveredCardData } from "../../../selectors";
 import focus from "../../../../focus";
-import { trySetSourceCard } from "../../../actions";
+import { setSourceCard } from "../../../actions";
 import { Card, Paper } from "@material-ui/core";
 import { CardProps, borderStyle } from "./ClayCard";
 import text from "../../../../text";
@@ -62,9 +62,8 @@ export const QACard = ({ config }: CardProps) => {
 											variant="filled"
 											style={{ backgroundColor: "#FFBF69" }}
 											InputLabelProps={{ style: { color: "#000000" } }}
-											onMouseEnter={() => {
-												dispatch(focus.actions.tryUpdateFocus("RIVER"));
-												dispatch(trySetSourceCard("q", config.origin));
+											setSourceCard={() => {
+												dispatch(setSourceCard("q", config.origin));
 											}}
 										></HybridCardField>
 									</div>
@@ -74,15 +73,9 @@ export const QACard = ({ config }: CardProps) => {
 									<Paper variant="outlined">
 										<Grid container direction="row">
 											{isActiveRiver && (
-												<focus.components.RiverControlFocusUpdater>
-													<AppendButton type={config.type} creationType="q" cardID={config.cardID}></AppendButton>
-												</focus.components.RiverControlFocusUpdater>
+												<AppendButton type={config.type} creationType="q" cardID={config.cardID}></AppendButton>
 											)}
-											{isActiveRiver && (
-												<focus.components.RiverControlFocusUpdater>
-													<GrabForFieldButton cardConfig={config} creationType="q"></GrabForFieldButton>
-												</focus.components.RiverControlFocusUpdater>
-											)}
+											{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="q"></GrabForFieldButton>}
 											{config.origin && !isNullOrUndefined((config.origin as QOnlyQAOrigin).q?.spanIndex) && (
 												<JumpToOriginButton
 													cardOrigin={(config.origin as QAOrigin).q as SingleOrigin}
@@ -105,9 +98,8 @@ export const QACard = ({ config }: CardProps) => {
 											label={text.constants.answerText}
 											style={{ backgroundColor: "#2EC4B6" }}
 											InputLabelProps={{ style: { color: "#000000" } }}
-											onMouseEnter={() => {
-												dispatch(focus.actions.tryUpdateFocus("RIVER"));
-												dispatch(trySetSourceCard("a", config.origin));
+											setSourceCard={() => {
+												dispatch(setSourceCard("a", config.origin));
 											}}
 										></HybridCardField>
 									</div>
@@ -116,16 +108,10 @@ export const QACard = ({ config }: CardProps) => {
 									<Paper variant="outlined">
 										<Grid container direction="row">
 											{isActiveRiver && (
-												<focus.components.RiverControlFocusUpdater>
-													<AppendButton type={config.type} creationType="a" cardID={config.cardID}></AppendButton>
-												</focus.components.RiverControlFocusUpdater>
+												<AppendButton type={config.type} creationType="a" cardID={config.cardID}></AppendButton>
 											)}
 
-											{isActiveRiver && (
-												<focus.components.RiverControlFocusUpdater>
-													<GrabForFieldButton cardConfig={config} creationType="a"></GrabForFieldButton>
-												</focus.components.RiverControlFocusUpdater>
-											)}
+											{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="a"></GrabForFieldButton>}
 											{config.origin && !isNullOrUndefined((config.origin as AOnlyQAOrigin).a?.spanIndex) && (
 												<JumpToOriginButton
 													cardOrigin={(config.origin as QAOrigin).a as SingleOrigin}
@@ -140,9 +126,7 @@ export const QACard = ({ config }: CardProps) => {
 				</Grid>
 
 				<Grid item>
-					<focus.components.RiverControlFocusUpdater>
-						<cards.components.DeleteCardButton cardID={config.cardID}></cards.components.DeleteCardButton>
-					</focus.components.RiverControlFocusUpdater>
+					<cards.components.DeleteCardButton cardID={config.cardID}></cards.components.DeleteCardButton>
 				</Grid>
 			</Grid>
 		</Card>
