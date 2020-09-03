@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2878967f704083ae119a0968aac5bdf9",
+    "revision": "09a0cc1544eb0beb9189abe3fd1692ba",
     "url": "/ClayMemory/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ClayMemory/static/css/2.c2650841.chunk.css"
   },
   {
-    "revision": "53fa4ef8a9d04c9e368f",
+    "revision": "1a14ca6a4bc191d71f1a",
     "url": "/ClayMemory/static/css/main.c123f778.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ClayMemory/static/js/2.65cf6bce.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "53fa4ef8a9d04c9e368f",
-    "url": "/ClayMemory/static/js/main.2f0f1592.chunk.js"
+    "revision": "1a14ca6a4bc191d71f1a",
+    "url": "/ClayMemory/static/js/main.153a9bc1.chunk.js"
   },
   {
     "revision": "eb0f6719957fd134c496",
