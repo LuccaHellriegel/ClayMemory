@@ -47,7 +47,11 @@ const cards = (state = intialState, { type, payload }: { type: string; payload?:
 			cardObj = { ...state.cards };
 			cardObj[cardID] = (payload as FinalizedCardPayload).card;
 
-			return { ...state, cards: cardObj };
+			// either the update was for a goalCard, then we want to reset it
+			// or the update was not for a goalCard, then there should not be a goalCard anyways
+			const goalCard = null;
+
+			return { ...state, cards: cardObj, goalCard };
 		case t.CARD_REMOVE:
 			return removeCard(state, payload as string);
 		case t.CARD_GOAL:

@@ -5,8 +5,10 @@ import creation from "../modules/extraction";
 import { makeStyles, Theme, createStyles, useScrollTrigger, Zoom, Toolbar, Fab } from "@material-ui/core";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import selection from "../modules/selection";
-import { ActiveRiverView } from "./ActiveRiverView";
-import { SummaryRiverView } from "./SummaryRiverView";
+import river from "../modules/river";
+import focus from "../modules/focus";
+import { useSelector } from "react-redux";
+import display from "../modules/display";
 
 //TODO: make show/hide depdendant on tab, also Page choice, control-bar dependant on tab
 
@@ -46,15 +48,36 @@ function ScrollTop(props: any) {
 }
 
 export function ReaderScene() {
+	const displayFocus = useSelector(focus.selectors.getDisplayFocus);
+	const showMaterial = useSelector(display.selectors.displayStatusIsShow);
+	const showRiver = useSelector(river.selectors.riverShowStateIsShow);
+
 	return (
 		<div>
-			<control.components.ControlContainer></control.components.ControlContainer>
 			<Grid container justify="center" direction="column" alignItems="stretch" spacing={1}>
 				<control.components.ControlBar></control.components.ControlBar>
 				<Toolbar id="back-to-top-anchor" />
 
-				<ActiveRiverView></ActiveRiverView>
-				<SummaryRiverView></SummaryRiverView>
+				<Grid item hidden={displayFocus !== "ACTIVE_RIVER"}>
+					<Grid container justify="space-around" direction="row" alignItems="stretch">
+						<Grid
+							item
+							style={{
+								width: "38%",
+							}}
+							hidden={!showRiver}
+						>
+							<river.components.ActiveCardRiver></river.components.ActiveCardRiver>
+						</Grid>
+						<display.components.MaterialDisplayColumnWithSize
+							hidden={!showMaterial}
+						></display.components.MaterialDisplayColumnWithSize>
+					</Grid>
+				</Grid>
+
+				<Grid item hidden={displayFocus !== "SUMMARY_RIVER"}>
+					<river.components.SummaryRiver></river.components.SummaryRiver>
+				</Grid>
 			</Grid>
 			<ScrollTop>
 				<Fab color="secondary" size="small" aria-label="scroll back to top">

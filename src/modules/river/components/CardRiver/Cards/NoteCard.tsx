@@ -66,7 +66,7 @@ export const NoteCard = ({ config }: CardProps) => {
 									</Grid>
 
 									<Grid item>
-										{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="note"></GrabForFieldButton>}
+										{isActiveRiver && <GrabForFieldButton cardConfig={config} cardField="note"></GrabForFieldButton>}
 									</Grid>
 									<Grid item>
 										{config.origin && (

@@ -22,9 +22,6 @@ import selection from "../../../../selection";
 // make REPLACE-button for River
 // replace Context-Menu with APPEND/REPLACE button flow? / allow both?
 
-//TODO-RC: use only right-click for context-menu (better for APPEND/REPLACE-button usage)
-//TODO-RC: replace Focus-module with scoped listeners
-
 //TODO-NICE: think of way to not have menu over the cards, because you cant read them this way? end of card?
 //TODO-NICE: use dark color pallet (theme?)
 
@@ -75,7 +72,7 @@ export const QACard = ({ config }: CardProps) => {
 											{isActiveRiver && (
 												<AppendButton type={config.type} creationType="q" cardID={config.cardID}></AppendButton>
 											)}
-											{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="q"></GrabForFieldButton>}
+											{isActiveRiver && <GrabForFieldButton cardConfig={config} cardField="q"></GrabForFieldButton>}
 											{config.origin && !isNullOrUndefined((config.origin as QOnlyQAOrigin).q?.spanIndex) && (
 												<JumpToOriginButton
 													cardOrigin={(config.origin as QAOrigin).q as SingleOrigin}
@@ -111,7 +108,7 @@ export const QACard = ({ config }: CardProps) => {
 												<AppendButton type={config.type} creationType="a" cardID={config.cardID}></AppendButton>
 											)}
 
-											{isActiveRiver && <GrabForFieldButton cardConfig={config} creationType="a"></GrabForFieldButton>}
+											{isActiveRiver && <GrabForFieldButton cardConfig={config} cardField="a"></GrabForFieldButton>}
 											{config.origin && !isNullOrUndefined((config.origin as AOnlyQAOrigin).a?.spanIndex) && (
 												<JumpToOriginButton
 													cardOrigin={(config.origin as QAOrigin).a as SingleOrigin}

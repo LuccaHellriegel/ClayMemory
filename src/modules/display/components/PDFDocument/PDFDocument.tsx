@@ -87,6 +87,7 @@ function PDFDocument({
 					}}
 					loading={text.constants.loadingMaterialText}
 					noData={text.constants.noMaterialText}
+					renderMode="svg"
 				>
 					{pdf && (
 						<Page
@@ -118,6 +119,8 @@ const mouseUpDocument = () => {
 			const selectionObject = selectionData.selection;
 
 			const state = getState();
+
+			// check if we activated a Grab-button
 			const goalCard = cards.selectors.getGoalCard(state);
 
 			if (goalCard) {
@@ -136,8 +139,6 @@ const mouseUpDocument = () => {
 						goalCard.origin
 					)
 				);
-
-				dispatch(cards.actions.resetGoalCard());
 			} else {
 				dispatch(selection.actions.selectedParent(selectionObject.anchorNode?.parentNode as HTMLSpanElement));
 				dispatch(selection.actions.updateManuallySelectedString(selectedStr));

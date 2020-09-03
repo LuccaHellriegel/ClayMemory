@@ -16,12 +16,12 @@ export const CardSearchBar = () => {
 			value={state}
 			placeholder="Search in cards"
 			onChange={(newValue) => {
-				// reset on delete
-				if (newValue === "") dispatch(river.actions.setContentFilter(""));
+				// auto-reset on empty
+				if (newValue === "") dispatch(river.actions.resetContentFilter());
 				setState(newValue);
 			}}
 			onCancelSearch={() => {
-				dispatch(river.actions.setContentFilter(""));
+				dispatch(river.actions.resetContentFilter());
 			}}
 			onRequestSearch={() => dispatch(river.actions.setContentFilter(state))}
 		/>

@@ -6,7 +6,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { nextPage, previousPage } from "../actions";
 import text from "../../text";
 
-export const PreviousButton = () => {
+const PreviousButton = () => {
 	const dispatch = useDispatch();
 	return (
 		<Tooltip
@@ -26,7 +26,7 @@ export const PreviousButton = () => {
 	);
 };
 
-export const NextButton = () => {
+const NextButton = () => {
 	const dispatch = useDispatch();
 	return (
 		<Tooltip

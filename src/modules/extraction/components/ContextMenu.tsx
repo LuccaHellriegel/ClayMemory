@@ -3,7 +3,7 @@ import Menu from "@material-ui/core/Menu";
 import { Divider, MenuItem } from "@material-ui/core";
 import { useDispatch, connect, useSelector, useStore } from "react-redux";
 import { getContextMenuInitData, getContextMenuFullCardsRef } from "../selectors";
-import { closeContextMenu } from "../actions";
+import { closeContextMenu, openContextMenu } from "../actions";
 import { incrementer } from "../../../shared/utils";
 import { CardConfig, CardType, CreationType } from "../../cards/model/model";
 import { QACardContent } from "../../cards/model/model-content";
@@ -14,6 +14,10 @@ import selection from "../../selection";
 import { CardOrigin } from "../../cards/model/model-origin";
 import display from "../../display";
 import { SourceCard } from "../../selection/model";
+import river from "../../river";
+import focus from "../../focus";
+import { useEventListener } from "../../../shared/useEventListener";
+import { contextMenuContainsTargetNode } from "../services";
 
 function ContextMenu({
 	position,
@@ -28,9 +32,18 @@ function ContextMenu({
 	qaRefs: RefObject<any>[];
 	riverCards: CardConfig[];
 }) {
+	const dispatch = useDispatch();
+
+	useEventListener("mousedown", (event: MouseEvent) => {
+		dispatch(mouseDownControl(event));
+	});
+
+	useEventListener("contextmenu", (event: MouseEvent) => {
+		dispatch(rightClickControl(event));
+	});
+
 	const fullCardsRef = useSelector(getContextMenuFullCardsRef);
 
-	const dispatch = useDispatch();
 	const sourceCard = useSelector(selection.selectors.getSourceCard);
 
 	//TODO-NICE: open menu in editor to the right not over the document
@@ -142,5 +155,39 @@ function ContextMenu({
 		</Menu>
 	);
 }
+
+const mouseDownControl = (event: MouseEvent) => {
+	return (dispatch: any, getState: Function) => {
+		const clickOutSideOfMenu = !contextMenuContainsTargetNode(getState(), event);
+		if (clickOutSideOfMenu) {
+			dispatch(closeContextMenu());
+			dispatch(river.actions.resetHoveredCard());
+		}
+	};
+};
+
+//TODO-NICE: make selection-dropable on buttons, so that they can be send to cards, make this the default instead of context-menu?
+// imagine: toolbar with new Note, new A, new Q | all the cards and you can drop off
+
+//TODO-NICE: delete extracted str in source
+
+const rightClickControl = (event: MouseEvent) => {
+	return (dispatch: any, getState: Function) => {
+		const state = getState();
+
+		if (!selection.selectors.currentSelectionExists(state)) return;
+		event.preventDefault();
+
+		const displayFocus = focus.selectors.getDisplayFocus(state);
+
+		dispatch(selection.actions.updateSelectionPosition(event.x, event.y));
+		dispatch(openContextMenu());
+
+		if (displayFocus === "ACTIVE_RIVER") {
+			//if the user is focused on the document, the push-to river should always be the active=page-wise river
+			dispatch(river.actions.setPushToRiver(river.selectors.getActiveRiverMakeUpID(state)));
+		}
+	};
+};
 
 export const ContextMenuContainer = connect(getContextMenuInitData)(ContextMenu);

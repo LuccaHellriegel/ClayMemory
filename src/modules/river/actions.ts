@@ -43,3 +43,7 @@ export const resetHoveredCard = () => {
 export const setContentFilter = (filter: ContentFilter) => {
 	return { type: t.RIVER_CONTENT_FILTER, payload: filter };
 };
+
+export const resetContentFilter = () => {
+	return { type: t.RIVER_CONTENT_FILTER, payload: "" };
+};

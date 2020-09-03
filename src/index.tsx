@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ReaderScene } from "./scenes/ReaderScene";
+import { ReaderScene } from "./scene/ReaderScene";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store";
 import { PersistGate } from "redux-persist/es/integration/react";
