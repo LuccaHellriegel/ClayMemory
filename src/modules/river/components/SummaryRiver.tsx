@@ -9,8 +9,6 @@ import { incrementer } from "../../../shared/utils";
 import { ChildCardRiver } from "./CardRiver/ChildCardRiver";
 import { riverMakeUpIDToPageNumber } from "../model";
 
-//TODO-PREF: memoize Rivers (not necessary right now, because we just hide)
-
 export const SummaryRiver = () => {
 	const displayFocus = useSelector(focus.selectors.getDisplayFocus);
 	const currentPage = useSelector(display.selectors.getCurrentPage);

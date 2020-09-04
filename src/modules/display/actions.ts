@@ -1,19 +1,19 @@
 import { ChangeEvent, RefObject } from "react";
 import { Dispatch } from "redux";
 import * as t from "./actionTypes";
-import { PageMove, MaterialData } from "./model";
+import { PageMove, MaterialData, pageCorrections } from "./model";
 import {
 	getPageControlData,
 	getDisplayStatus,
-	getZoomQueue,
+	getZoomTarget,
 	getTimeStamp,
 	getMaterialSpans,
-	getPDFName,
+	getCurrentOrigin,
 } from "./selectors";
-import { incrementer, keyEventDispatcherCreator, KeyActionMap } from "../../shared/utils";
+import { keyEventDispatcherCreator, KeyActionMap, tryInterval } from "../../shared/utils";
 import { materialData } from "./services/materialData";
-import db from "../db";
-import { ActionCreators } from "redux-undo";
+import selection from "../selection";
+import cards from "../cards";
 
 export const pdfUpload = (pdf: File) => {
 	return { type: t.PDF_UPLOADED, payload: pdf };
@@ -29,18 +29,6 @@ export const materialUploaded = (event: ChangeEvent<HTMLInputElement>) => {
 
 export const materialLoaded = (totalPages: number) => {
 	return { type: t.MATERIAL_LOADED, payload: totalPages };
-};
-
-export const tryInterval = (tries: number, ms: number, func: () => boolean) => {
-	const increment = incrementer();
-	const timeout = setInterval(() => {
-		if (increment() > tries) {
-			clearInterval(timeout);
-			return;
-		}
-
-		if (func()) clearInterval(timeout);
-	}, ms);
 };
 
 // text-layer is not really guaranteed to be rendered on render "success",
@@ -80,14 +68,8 @@ export function captureMaterialData(documentRef: RefObject<any>) {
 	};
 }
 
-// assumes outside validation/correction
 export const setPage = (page: number) => {
 	return { type: t.PAGE_UPDATE, payload: page };
-};
-
-const pageCorrections = {
-	ADD: (newPage: number, totalPages: number) => (newPage === totalPages + 1 ? 1 : newPage),
-	REMOVE: (newPage: number, totalPages: number) => (newPage === 0 ? totalPages : newPage),
 };
 
 //TODO-PERF: maybe hide all rendered pages but not shown instead of re-rendering for faster switching?
@@ -96,22 +78,20 @@ export const movePage = (type: PageMove) => {
 		const { currentPage, totalPages } = getPageControlData(getState());
 		switch (type) {
 			case "NEXT":
-				dispatch({ type: t.PAGE_UPDATE, payload: pageCorrections["ADD"](currentPage + 1, totalPages) });
+				dispatch(setPage(pageCorrections["ADD"](currentPage + 1, totalPages)));
 				break;
 			case "PREVIOUS":
-				dispatch({ type: t.PAGE_UPDATE, payload: pageCorrections["REMOVE"](currentPage - 1, totalPages) });
+				dispatch(setPage(pageCorrections["REMOVE"](currentPage - 1, totalPages)));
 				break;
 		}
 	};
 };
 export const nextPage = () => movePage("NEXT");
 export const previousPage = () => movePage("PREVIOUS");
-
 const pageControlKeyMap: KeyActionMap = {
 	ArrowLeft: previousPage(),
 	ArrowRight: nextPage(),
 };
-
 export const pageControlDispatcher = keyEventDispatcherCreator(pageControlKeyMap);
 
 export const toggleDisplayState = () => {
@@ -122,7 +102,7 @@ export const toggleDisplayState = () => {
 	};
 };
 
-export const setZoomQueue = (spanIndex: number | null) => {
+export const setZoomTarget = (spanIndex: number | null) => {
 	return { type: t.ZOOM_QUEUE, payload: spanIndex };
 };
 
@@ -130,14 +110,14 @@ export const zoomToCardOrigin = (spanIndex: number, page: number) => {
 	return (dispatch: Dispatch) => {
 		console.log(page, spanIndex);
 		dispatch(setPage(page));
-		dispatch(setZoomQueue(spanIndex));
+		dispatch(setZoomTarget(spanIndex));
 	};
 };
 
-export const emptyZoomQueue = () => {
+export const scrollToZoomTarget = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
-		const spanIndex = getZoomQueue(state);
+		const spanIndex = getZoomTarget(state);
 		if (!!spanIndex) {
 			const materialSpans = getMaterialSpans(state);
 			if (materialSpans) {
@@ -145,7 +125,7 @@ export const emptyZoomQueue = () => {
 				const originSpan = materialSpans[spanIndex];
 				originSpan.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
 			}
-			dispatch(setZoomQueue(null));
+			dispatch(setZoomTarget(null));
 		}
 	};
 };
@@ -154,19 +134,35 @@ export const setMaterialHeight = (height: number) => {
 	return { type: t.MATERIAL_HEIGHT, payload: height };
 };
 
-export const deleteDocument = (document: string) => {
-	return (dispatch: Dispatch, getState: Function) => {
-		const state = getState();
-		const activeDocument = getPDFName(state);
-		if (activeDocument && activeDocument === document) {
-			// reset data
-			dispatch({ type: db.actionTypes.DOCUMENT_CHANGE });
+export const mouseUpDocument = () => {
+	return (dispatch: any, getState: Function) => {
+		const selectionData = selection.services.getSelection();
 
-			// keeping the undo history leads to weird edge cases and makes no sense
-			dispatch(ActionCreators.clearHistory());
+		if (selectionData) {
+			const selectedStr = selectionData.text;
+			const selectionObject = selectionData.selection;
+
+			const state = getState();
+
+			// check if we activated a Grab-button
+			const goalCard = cards.selectors.getGoalCard(state);
+
+			const selectedParent = selectionObject.anchorNode?.parentNode as HTMLSpanElement;
+			dispatch(selection.actions.selectedParent(selectedParent));
+
+			if (goalCard) {
+				// this is the dispatch for the grab for field button
+				//(which has been pressed before the mouse-up if goalCard is not null), here we actually update the goal card
+
+				//TODO-NICE: allow grabbing from other cards
+				// for now we dont allow grabbing from other cards to simplifiy the card->card workflow
+
+				dispatch(
+					cards.actions.replaceCardField(goalCard.creationType, goalCard, selectedStr, getCurrentOrigin(getState()))
+				);
+			} else {
+				dispatch(selection.actions.updateManuallySelectedString(selectedStr));
+			}
 		}
-
-		// note: no undo of this
-		dispatch(db.actions.deleteDocumentDataSet(document));
 	};
 };

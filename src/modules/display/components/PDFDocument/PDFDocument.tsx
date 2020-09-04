@@ -1,13 +1,11 @@
 import "./PDFDocument.css";
 import "./AnnotationLayer.css";
-import React, { RefObject, useEffect, useLayoutEffect } from "react";
+import React, { RefObject, useEffect } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { materialLoaded, setPage, captureMaterialData, setMaterialHeight, emptyZoomQueue } from "../../actions";
-import { getRenderCritialData, getMaterialHeight, getZoomQueue } from "../../selectors";
+import { materialLoaded, setPage, captureMaterialData, scrollToZoomTarget, mouseUpDocument } from "../../actions";
+import { getRenderCritialData, getZoomTarget } from "../../selectors";
 import text from "../../../text";
-import cards from "../../../cards";
-import selection from "../../../selection";
 import { PageKeyboardControl } from "./PageKeyboardControl";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -45,28 +43,13 @@ function PDFDocument({
 }) {
 	const dispatch = useDispatch();
 
-	const materialHeight = useSelector(getMaterialHeight);
-
-	useLayoutEffect(() => {
-		// first setting
-		if (!materialHeight) {
-			dispatch(setMaterialHeight(parentSize.height));
-		}
-
-		// setting if changed
-		if (materialHeight && materialHeight !== parentSize.height) {
-			dispatch(setMaterialHeight(parentSize.height));
-		}
-	}, [dispatch, materialHeight, parentSize.height]);
-
-	//TODO-NICE: this is not a queue...
-	const zoomQueue = useSelector(getZoomQueue);
+	const zoomTargetSpanIndex = useSelector(getZoomTarget);
 
 	useEffect(() => {
-		if (!!zoomQueue && pdf) {
-			dispatch(emptyZoomQueue());
+		if (!!zoomTargetSpanIndex && pdf) {
+			dispatch(scrollToZoomTarget());
 		}
-	}, [zoomQueue, pdf, dispatch]);
+	}, [zoomTargetSpanIndex, pdf, dispatch]);
 
 	return (
 		<span
@@ -87,7 +70,7 @@ function PDFDocument({
 					}}
 					loading={text.constants.loadingMaterialText}
 					noData={text.constants.noMaterialText}
-					renderMode="svg"
+					renderMode="canvas"
 				>
 					{pdf && (
 						<Page
@@ -109,40 +92,3 @@ export const PDFDocumentContainer = connect(getRenderCritialData, {
 	materialLoaded,
 	captureMaterialData,
 })(PDFDocument);
-
-const mouseUpDocument = () => {
-	return (dispatch: any, getState: Function) => {
-		const selectionData = selection.services.getSelection();
-
-		if (selectionData) {
-			const selectedStr = selectionData.text;
-			const selectionObject = selectionData.selection;
-
-			const state = getState();
-
-			// check if we activated a Grab-button
-			const goalCard = cards.selectors.getGoalCard(state);
-
-			if (goalCard) {
-				// this is the dispatch for the grab for field button
-				//(which has been pressed before the mouse-up if goalCard is not null), here we actually update the goal card
-
-				//TODO-NICE: allow grabbing from other cards
-				// for now we dont allow grabbing from other cards to simplifiy the card->card workflow
-
-				dispatch(
-					cards.actions.updateCardContent(
-						selectedStr,
-						goalCard.cardID,
-						goalCard.creationType,
-						"REPLACE",
-						goalCard.origin
-					)
-				);
-			} else {
-				dispatch(selection.actions.selectedParent(selectionObject.anchorNode?.parentNode as HTMLSpanElement));
-				dispatch(selection.actions.updateManuallySelectedString(selectedStr));
-			}
-		}
-	};
-};

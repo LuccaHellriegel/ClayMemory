@@ -21,11 +21,11 @@ const QAOrigin3 = { a: singleOrigin2, q: singleOrigin };
 const QAOrigin4 = { a: singleOrigin2, q: singleOrigin2 };
 
 test("No goal origin: transforms input origin with same CreationType correctly", () => {
-	expect(transformInputOrigin(noteOrigin, "note", "note")).toBe(noteOrigin);
-	expect(transformInputOrigin(noteOrigin2, "note", "note")).toBe(noteOrigin2);
+	expect(transformInputOrigin(noteOrigin, "note", "note")).toEqual(noteOrigin);
+	expect(transformInputOrigin(noteOrigin2, "note", "note")).toEqual(noteOrigin2);
 
-	expect(transformInputOrigin(qaQOrigin, "q", "q")).toBe(qaQOrigin);
-	expect(transformInputOrigin(qaQOrigin2, "q", "q")).toBe(qaQOrigin2);
+	expect(transformInputOrigin(qaQOrigin, "q", "q")).toEqual(qaQOrigin);
+	expect(transformInputOrigin(qaQOrigin2, "q", "q")).toEqual(qaQOrigin2);
 });
 
 test("No goal origin: transforms input origin with note sourceField correctly", () => {

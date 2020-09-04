@@ -1,4 +1,10 @@
-import { DocumentDBState, DocumentData, DocumentDB } from "./model";
+import {
+	DocumentDBState,
+	DocumentData,
+	updateDocumentDataInDocumentDB,
+	updateDocumentDataSetsInDocumentDB,
+	removeDocumentDataFromDocumentDB,
+} from "./model";
 import * as t from "./actionTypes";
 
 const initialState: DocumentDBState = { documentDB: {} };
@@ -12,26 +18,14 @@ const documentDB = (
 	switch (type) {
 		// dont need to undo this, because if we change the active river and then change the document, the archive version gets overwritten
 		case t.ARCHIVE_CURRENT_DATA:
-			return {
-				...state,
-				documentDB: { ...state.documentDB, [(payload as DocumentData).name]: payload as DocumentData },
-			};
+			return updateDocumentDataInDocumentDB(state, payload as DocumentData);
 		case t.LOAD_DOCUMENT_DATA_SETS:
-			return {
-				...state,
-				documentDB: {
-					...state.documentDB,
-					...((payload as { dbData: DocumentData[] }).dbData as DocumentData[]).reduce((prev, dbData) => {
-						prev[dbData.name] = dbData;
-						return prev;
-					}, {} as DocumentDB),
-				},
-			};
+			return updateDocumentDataSetsInDocumentDB(
+				state,
+				(payload as { dbData: DocumentData[] }).dbData as DocumentData[]
+			);
 		case t.DELETE_DOCUMENT_DATA_SET:
-			return {
-				...state,
-				documentDB: Object.fromEntries(Object.entries(state.documentDB).filter((arr) => arr[0] !== payload)),
-			};
+			return removeDocumentDataFromDocumentDB(state, payload as string);
 		default:
 			return state;
 	}

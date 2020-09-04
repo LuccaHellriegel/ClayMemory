@@ -1,7 +1,7 @@
 import * as t from "./actionTypes";
 import { riverShowStateIsShow, getPushToRiver, getHoveredCardData } from "./selectors";
 import { Dispatch } from "redux";
-import { CardID } from "../cards/model/model";
+import { CardID } from "../cards/model/model-config";
 import { CardField } from "../cards/model/model-content";
 import { RiverContentState, ContentFilter } from "./model";
 

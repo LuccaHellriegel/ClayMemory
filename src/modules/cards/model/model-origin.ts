@@ -1,36 +1,39 @@
-import { isNullOrUndefined } from "util";
-import { QACardField } from "./model-content";
+import { CardField } from "./model-content";
+import { createReplace, changeCardObject } from "./model-permutation";
 
 export type SingleOrigin = { spanIndex: number; page: number };
 export type QOnlyQAOrigin = { q: SingleOrigin; a: {} };
 export type AOnlyQAOrigin = { q: {}; a: SingleOrigin };
 export type PartialQAOrigin = QOnlyQAOrigin | AOnlyQAOrigin;
-export const partialQAOrigin = (inputOrigin: SingleOrigin, field: QACardField): PartialQAOrigin => {
-	return { q: {}, a: {}, [field]: inputOrigin } as PartialQAOrigin;
+const emptyQAOrigin = () => {
+	return { q: {}, a: {} };
 };
-export type FullQAOrigin = { q: SingleOrigin; a: SingleOrigin };
-export const extractSingleOrigin = (inputOrigin: QAOrigin, field: QACardField): SingleOrigin => {
-	// existence needs to be checked prior
-	return (inputOrigin as FullQAOrigin)[field];
+type EmptyOrigin = { q: {}; a: {} } | "";
+const EmptyOriginMap: { [field in CardField]: () => EmptyOrigin } = {
+	q: emptyQAOrigin,
+	a: emptyQAOrigin,
+	note: () => "",
 };
-export const flipQACardField = (field: QACardField): QACardField => (field === "q" ? "a" : "q");
-export const flipPartialQAOrigin = (
-	inputOrigin: PartialQAOrigin,
-	inputField: QACardField,
-	outputField: QACardField
-): PartialQAOrigin => {
-	return { [inputField]: {}, [outputField]: inputOrigin[inputField] } as PartialQAOrigin;
+export const emptyOrigin = (field: CardField) => {
+	return EmptyOriginMap[field]();
 };
+type FullQAOrigin = { q: SingleOrigin; a: SingleOrigin };
 export type QAOrigin = FullQAOrigin | PartialQAOrigin;
-export const isQAOrigin = (inputOrigin: CardOrigin) => !isNullOrUndefined((inputOrigin as QAOrigin).q);
 export type NoteOrigin = SingleOrigin;
 export type CardOrigin = NoteOrigin | QAOrigin;
-export const mergeSimilarCardOrigins = (inputOrigin: CardOrigin, oldOrigin: CardOrigin): CardOrigin => {
-	return { ...oldOrigin, ...inputOrigin };
-};
 
-export const hasNonEmptyOrigin = (origin?: CardOrigin) =>
-	!!origin &&
-	(!isNullOrUndefined((origin as SingleOrigin).spanIndex) ||
-		!isNullOrUndefined((origin as AOnlyQAOrigin).a?.spanIndex) ||
-		!isNullOrUndefined((origin as QOnlyQAOrigin).q?.spanIndex));
+export const singleOriginToCardOrigin = (
+	singleOrigin: SingleOrigin,
+	outputField: CardField,
+	baseOrigin?: CardOrigin
+): CardOrigin => {
+	const changeSpec = {
+		inputObject: singleOrigin,
+		inputField: "note" as CardField,
+		fieldToBeChanged: outputField,
+		objectToBeChanged: baseOrigin ? baseOrigin : emptyOrigin(outputField),
+		createModify: createReplace,
+	};
+
+	return changeCardObject(changeSpec);
+};

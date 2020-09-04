@@ -10,9 +10,9 @@ import {
 	DialogActions,
 	Button,
 } from "@material-ui/core";
-import display from "../../display";
 import DeleteIcon from "@material-ui/icons/Delete";
-import text from "../../text";
+import text from "../../../text";
+import { deleteDocument } from "../../actions";
 
 const DeleteDocumentDialogAlert = ({
 	document,
@@ -42,7 +42,7 @@ const DeleteDocumentDialogAlert = ({
 				</Button>
 				<Button
 					onClick={() => {
-						dispatch(display.actions.deleteDocument(document));
+						dispatch(deleteDocument(document));
 						handleClose();
 					}}
 					color="primary"

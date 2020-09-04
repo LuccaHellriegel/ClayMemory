@@ -1,73 +1,42 @@
-import {
-	CardPayload,
-	FinalizedCardPayload,
-	CreationType,
-	UpdateType,
-	CardType,
-	CardConfig,
-	CardID,
-	nextCardID,
-	emptyCardPayloadConfig,
-} from "./model/model";
-import { CardOrigin } from "./model/model-origin";
+import { CreationType, CardConfig, CardID, strToCardConfig, originToCardConfig } from "./model/model-config";
+import { CardPayload, cardPayloadToCardConfig, emptyNotePayload, emptyQAPayload } from "./model/model-payload";
 import * as t from "./actionTypes";
 import { Dispatch } from "redux";
-import { getLastCardIDNumber, getCards } from "./selectors";
-import { contentStringToConfig } from "./services/contentStringToConfig";
+import { CardField, strToCardContent, StringCardContent } from "./model/model-content";
+import { SingleOrigin, singleOriginToCardOrigin } from "./model/model-origin";
 
 export const cardPush = (cardPayload: CardPayload) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		dispatch({
 			type: t.CARD_PUSH,
-			payload: {
-				...cardPayload,
-				card: { ...cardPayload.card, cardID: nextCardID(getLastCardIDNumber(getState())) },
-			} as FinalizedCardPayload,
+			payload: cardPayloadToCardConfig(cardPayload, getState()),
 		});
 	};
 };
+export const emptyNoteCard = () => cardPush(emptyNotePayload());
+export const emptyQACard = () => cardPush(emptyQAPayload());
 
-export const emptyCard = (type: CardType) => {
-	return cardPush({ card: emptyCardPayloadConfig(type) });
-};
-export const emptyNoteCard = () => emptyCard("Note");
-export const emptyQACard = () => emptyCard("Q-A");
-
-export const cardUpdate = (card: CardPayload) => {
+export const cardUpdate = (card: CardConfig) => {
 	return { type: t.CARD_UPDATE, payload: card };
 };
-
-export const updateCardContent = (
-	contentString: string,
-	cardID: CardID,
-	creationType: CreationType,
-	updateType: UpdateType,
-	origin?: CardOrigin
-) => {
-	return (dispatch: Dispatch, getState: Function) => {
-		const state = getState();
-
-		const currentCard = getCards(state)[cardID as string];
-		const config = contentStringToConfig(contentString, currentCard.type, creationType, updateType, currentCard);
-
-		dispatch(
-			cardUpdate({
-				card: { ...config, origin },
-			})
-		);
-	};
+export const replaceCardFieldContent = (cardField: CardField, cardConfig: CardConfig, newValue: string) => {
+	return cardUpdate(strToCardConfig(newValue, cardField, "REPLACE", cardConfig));
 };
-
-export const pushCardContent = (
-	contentString: string,
-	creationType: CreationType,
-	updateType: UpdateType,
-	type: CardType,
-	origin?: CardOrigin
+export const replaceCardFieldOrigin = (cardField: CardField, cardConfig: CardConfig, newOrigin: SingleOrigin) => {
+	return cardUpdate(originToCardConfig(newOrigin, cardField, cardConfig));
+};
+export const replaceCardField = (
+	cardField: CardField,
+	cardConfig: CardConfig,
+	newValue: StringCardContent,
+	newOrigin: SingleOrigin
 ) => {
-	const config = contentStringToConfig(contentString, type, creationType, updateType);
-
-	return cardPush({ card: { ...config, origin } });
+	const config = {
+		...cardConfig,
+		content: strToCardContent(newValue, cardField, "REPLACE", cardConfig.content),
+		origin: singleOriginToCardOrigin(newOrigin, cardField, cardConfig.origin),
+	};
+	return cardUpdate(config as CardConfig);
 };
 
 export const removeCard = (cardID: CardID) => {

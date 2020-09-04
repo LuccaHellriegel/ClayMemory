@@ -1,8 +1,8 @@
 import * as t from "./actionTypes";
 import { CreationData } from "./model";
 import { createRef } from "react";
-import { CardPayload } from "../cards/model/model";
 import cards from "../cards";
+import { CardConfig } from "../cards/model/model-config";
 
 const initialState: CreationData = {
 	open: false,
@@ -23,7 +23,8 @@ const creationData = (state = initialState, { type, payload }: { type: string; p
 			//TODO-NICE: reliance on order of refs (needs to be the same as order of qaRefs) and coupling to the fact that a new card was pushed
 			// might need to change if I allow moving the cards
 			//TODO-NICE: no support for multiple rivers
-			if ((payload as CardPayload).card.type === "Q-A") return { ...state, qaRefs: [...state.qaRefs, createRef()] };
+			// need to check cards, this could lead to unnecessary amounts of refs because I dont check if enough are ready
+			if ((payload as CardConfig).type === "Q-A") return { ...state, qaRefs: [...state.qaRefs, createRef()] };
 			return state;
 		default:
 			return state;

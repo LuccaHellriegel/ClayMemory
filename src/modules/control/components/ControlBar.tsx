@@ -1,29 +1,15 @@
 import display from "../../display";
-import focus from "../../focus";
-import React, { ChangeEvent } from "react";
-import { AppBar, Toolbar, Tabs, Tab, Grid, Card, Typography, Tooltip } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
-import { Options } from "./Options";
+import React from "react";
+import { AppBar, Toolbar, Grid, Typography } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { Options } from "./Options/Options";
 import { CardSearchBar } from "./CardSearchBar";
 import { UndoRedoCard } from "./UndoRedoButtons";
 import { ShowHideButton } from "./ShowHideButton";
-import text from "../../text";
+import { ViewTabs } from "./ViewTabs";
 
 //TODO-NICE: download/load csv for Anki
 export const ControlBar = () => {
-	const dispatch = useDispatch();
-	const displayFocus = useSelector(focus.selectors.getDisplayFocus);
-
-	const value = displayFocus === "ACTIVE_RIVER" ? 0 : 1;
-
-	const handleChange = (_: ChangeEvent<{}>, newValue: number) => {
-		dispatch(
-			newValue === 0
-				? focus.actions.updateDisplayFocus("ACTIVE_RIVER")
-				: focus.actions.updateDisplayFocus("SUMMARY_RIVER")
-		);
-	};
-
 	const materialName = useSelector(display.selectors.getPDFName);
 
 	return (
@@ -42,34 +28,7 @@ export const ControlBar = () => {
 								</Grid>
 
 								<Grid item>
-									<Card variant="outlined">
-										<Tabs value={value} onChange={handleChange}>
-											<Tab
-												label={
-													<Tooltip
-														title={text.constants.switchToActiveRiverTooltip}
-														enterDelay={text.constants.defaultEnterDelay}
-														enterNextDelay={500}
-														disableFocusListener={true}
-													>
-														<span>ActiveRiver</span>
-													</Tooltip>
-												}
-											></Tab>
-											<Tab
-												label={
-													<Tooltip
-														title={text.constants.switchToSummaryRiverTooltip}
-														enterDelay={text.constants.defaultEnterDelay}
-														enterNextDelay={500}
-														disableFocusListener={true}
-													>
-														<span>SummaryRiver</span>
-													</Tooltip>
-												}
-											/>
-										</Tabs>
-									</Card>
+									<ViewTabs></ViewTabs>
 								</Grid>
 
 								<Grid item>

@@ -6,6 +6,7 @@ import { IconButton, Menu, FormControlLabel, Typography, Divider, Grid } from "@
 import { useSelector, useDispatch } from "react-redux";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import { GreenCheckbox } from "../../../shared/GreenCheckbox";
+
 const ShowRiverCheckbox = () => {
 	const dispatch = useDispatch();
 	const riverShowState = useSelector(river.selectors.getRiverShowState);
@@ -24,6 +25,7 @@ const ShowRiverCheckbox = () => {
 		/>
 	);
 };
+
 const ShowMaterialCheckbox = () => {
 	const dispatch = useDispatch();
 	const displayShowState = useSelector(display.selectors.getDisplayStatus);
@@ -42,6 +44,7 @@ const ShowMaterialCheckbox = () => {
 		/>
 	);
 };
+
 export const ShowHideButton = () => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 

@@ -1,4 +1,4 @@
-import { CardConfig, NoteConfig, QAConfig } from "../../../cards/model/model";
+import { CardConfig, NoteConfig, QAConfig } from "../../../cards/model/model-config";
 import { toCardGridItemsWithDividers } from "./toCardGridItemsWithDividers";
 import { useMemo } from "react";
 import { CardRiverAccordion } from "./CardRiverAccordion";

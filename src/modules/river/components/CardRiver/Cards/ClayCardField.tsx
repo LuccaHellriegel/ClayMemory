@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { TextField, TextFieldProps } from "@material-ui/core";
-import selection from "../../../selection";
+import selection from "../../../../selection";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 
-export const HybridCardField = ({
+export const ClayCardField = ({
 	storeValue = "",
 	saveChanges,
 	setSourceCard,

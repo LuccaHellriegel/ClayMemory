@@ -9,7 +9,7 @@ const initialState: DisplayData = {
 	currentPage: 1,
 	documentRef: createRef(),
 	pageSpans: {},
-	zoomQueue: null,
+	zoomTargetSpanIndex: null,
 	materialData: { materialDataTimeStamp: -Infinity },
 };
 
@@ -54,7 +54,7 @@ const displayData = (state = initialState, { type, payload }: { type: string; pa
 		case t.ZOOM_QUEUE:
 			return {
 				...state,
-				zoomQueue: payload,
+				zoomTargetSpanIndex: payload,
 			};
 		default:
 			return state;

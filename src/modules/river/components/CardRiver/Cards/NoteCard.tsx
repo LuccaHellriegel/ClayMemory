@@ -1,17 +1,14 @@
 import React, { useRef, useEffect, MutableRefObject } from "react";
-import { HybridCardField } from "../HybridCardField";
-import { NoteOrigin } from "../../../../cards/model/model-origin";
+import { ClayCardField } from "./ClayCardField";
 import { useDispatch, useSelector } from "react-redux";
 import cards from "../../../../cards";
-import { JumpToOriginButton } from "../Buttons/JumpToOriginButton";
-import { GrabForFieldButton } from "../Buttons/GrabForFieldButton";
 import { getHoveredCardData } from "../../../selectors";
-import focus from "../../../../focus";
-import { Card, Paper, Grid } from "@material-ui/core";
+import { Card, Grid } from "@material-ui/core";
 import { CardProps, borderStyle } from "./ClayCard";
 import text from "../../../../text";
-import { AppendButton } from "../Buttons/AppendButton";
 import selection from "../../../../selection";
+import { NoteConfig } from "../../../../cards/model/model-config";
+import { ClayCardFieldButtons } from "./ClayCardFieldButtons";
 
 //TODO-PERF: investigate if this hover-store approach is too slow, useRef instead?
 export const NoteCard = ({ config }: CardProps) => {
@@ -22,7 +19,6 @@ export const NoteCard = ({ config }: CardProps) => {
 	// we only offer one way to use card-content in other cards: extract
 	// we do not allow grabbing from other cards, just from the document, so we only need the grab button in the ActiveRiver
 	//TODO-NICE: allow grabbing from other cards
-	const isActiveRiver = useSelector(focus.selectors.getDisplayFocus) === "ACTIVE_RIVER";
 
 	const ref: MutableRefObject<undefined | HTMLDivElement> = useRef();
 	useEffect(() => {
@@ -42,9 +38,9 @@ export const NoteCard = ({ config }: CardProps) => {
 				<Grid item>
 					<Grid container direction="row" spacing={1}>
 						<Grid item>
-							<HybridCardField
+							<ClayCardField
 								saveChanges={(value) => {
-									dispatch(cards.actions.updateCardContent(value, config.cardID, "note", "REPLACE", config.origin));
+									dispatch(cards.actions.cardUpdate({ ...config, content: value } as NoteConfig));
 								}}
 								storeValue={config.content as string}
 								label={text.constants.noteText}
@@ -54,27 +50,10 @@ export const NoteCard = ({ config }: CardProps) => {
 								setSourceCard={() => {
 									dispatch(selection.actions.setSourceCard("note", config.origin));
 								}}
-							></HybridCardField>
+							></ClayCardField>
 						</Grid>
 						<Grid item>
-							<Paper variant="outlined">
-								<Grid container direction="row">
-									<Grid item>
-										{isActiveRiver && (
-											<AppendButton type={config.type} creationType="note" cardID={config.cardID}></AppendButton>
-										)}
-									</Grid>
-
-									<Grid item>
-										{isActiveRiver && <GrabForFieldButton cardConfig={config} cardField="note"></GrabForFieldButton>}
-									</Grid>
-									<Grid item>
-										{config.origin && (
-											<JumpToOriginButton cardOrigin={config.origin as NoteOrigin}></JumpToOriginButton>
-										)}
-									</Grid>
-								</Grid>
-							</Paper>
+							<ClayCardFieldButtons cardField="note" config={config}></ClayCardFieldButtons>
 						</Grid>
 					</Grid>
 				</Grid>

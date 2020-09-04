@@ -6,6 +6,8 @@
 	"devDependencies": {
 		"@types/react-pdf": "4.0.5",
 		"@types/react-redux": "^7.1.9",
+		"@types/react-window": "^1.8.2",
+		"@types/throttle-debounce": "^2.1.0",
 		"dependency-cruiser": "^9.12.0"
 	},
 	"dependencies": {
@@ -28,12 +30,14 @@
 		"react-redux": "^7.2.0",
 		"react-scripts": "3.4.1",
 		"react-sizeme": "^2.6.12",
+		"react-window": "^1.8.5",
 		"redux": "^4.0.5",
 		"redux-devtools-extension": "^2.13.8",
 		"redux-persist": "^6.0.0",
 		"redux-thunk": "^2.3.0",
 		"redux-undo": "^1.0.1",
 		"reselect": "^4.0.0",
+		"throttle-debounce": "^2.3.0",
 		"typeface-roboto": "0.0.75",
 		"typescript": "^3.9.6",
 		"xhr2": "^0.2.0"

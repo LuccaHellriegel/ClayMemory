@@ -1,3 +1,4 @@
-import { getSelection } from "./getSelection";
+import { getSelection } from "./get-selection";
+import * as use_selection from "./use-selection";
 
-export { getSelection };
+export { getSelection, use_selection };

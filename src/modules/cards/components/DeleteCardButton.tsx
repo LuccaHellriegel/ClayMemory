@@ -2,7 +2,7 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import React from "react";
 import { IconButton } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { CardID } from "../model/model";
+import { CardID } from "../model/model-config";
 import text from "../../text";
 import { removeCard } from "../actions";
 

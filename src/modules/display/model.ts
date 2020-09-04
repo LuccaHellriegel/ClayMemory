@@ -27,9 +27,14 @@ export type DisplayData = {
 	//TODO-NICE:might need amount of spans per page for validation? if yes, use this
 	pageSpans: PerPageSpans;
 	documentRef: RefObject<HTMLDivElement>;
-	zoomQueue: number | null;
+	zoomTargetSpanIndex: number | null;
 	materialData: MaterialData;
 	materialHeight?: number;
 };
 
 export type PageMove = "PREVIOUS" | "NEXT";
+
+export const pageCorrections = {
+	ADD: (newPage: number, totalPages: number) => (newPage === totalPages + 1 ? 1 : newPage),
+	REMOVE: (newPage: number, totalPages: number) => (newPage === 0 ? totalPages : newPage),
+};

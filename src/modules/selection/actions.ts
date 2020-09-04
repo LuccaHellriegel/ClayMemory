@@ -1,147 +1,9 @@
 import * as t from "./actionTypes";
-import { CardType, CreationType } from "../cards/model/model";
-import { CardOrigin, hasNonEmptyOrigin } from "../cards/model/model-origin";
-import cards from "../cards";
-import { getCurrentSelectedString, getSourceCard } from "./selectors";
+import { CardOrigin } from "../cards/model/model-origin";
+import { getSourceCard } from "./selectors";
 import { Dispatch } from "redux";
 import { CardField } from "../cards/model/model-content";
-
-export const selectionToCardAppend = (
-	type: CardType,
-	creationType: CreationType,
-	origin?: CardOrigin,
-	cardID?: string
-) => {
-	return (dispatch: Function, getState: Function) => {
-		const state = getState();
-
-		const updateType = "APPEND";
-		const isUpdate = cardID !== undefined;
-
-		// this should be from the document
-		const selectedString = getCurrentSelectedString(state);
-
-		let transformedOrigin;
-		if (origin) {
-			// we exploit that the input from the document is always just a SingleOrigin=NoteOrigin
-			// need to transform it because we can create also QA-Cards from document
-			transformedOrigin = cards.services.transformInputOrigin(
-				origin,
-				"note",
-				creationType,
-				isUpdate ? (cards.selectors.getCards(state)[cardID as string].origin as CardOrigin) : undefined
-			);
-		}
-
-		if (isUpdate) {
-			dispatch(
-				cards.actions.updateCardContent(
-					selectedString,
-					cardID as string,
-					creationType,
-					updateType,
-					transformedOrigin as CardOrigin
-				)
-			);
-		} else {
-			dispatch(
-				cards.actions.pushCardContent(selectedString, creationType, updateType, type, transformedOrigin as CardOrigin)
-			);
-		}
-
-		dispatch(resetManuallySelectedString());
-	};
-};
-
-export const selectionToCard = (type: CardType, creationType: CreationType, origin?: CardOrigin, cardID?: string) => {
-	return (dispatch: Function, getState: Function) => {
-		const state = getState();
-
-		//TODO-NICE: think of a way to make this intuitive
-		//const updateType = type === "Q-A" ? "REPLACE" : "APPEND";
-		const updateType = "REPLACE";
-		const isUpdate = cardID !== undefined;
-
-		// this should be from the document
-		const selectedString = getCurrentSelectedString(state);
-
-		let transformedOrigin;
-		if (origin) {
-			// we exploit that the input from the document is always just a SingleOrigin=NoteOrigin
-			// need to transform it because we can create also QA-Cards from document
-			transformedOrigin = cards.services.transformInputOrigin(
-				origin,
-				"note",
-				creationType,
-				isUpdate ? (cards.selectors.getCards(state)[cardID as string].origin as CardOrigin) : undefined
-			);
-		}
-
-		if (isUpdate) {
-			dispatch(
-				cards.actions.updateCardContent(
-					selectedString,
-					cardID as string,
-					creationType,
-					updateType,
-					transformedOrigin as CardOrigin
-				)
-			);
-		} else {
-			dispatch(
-				cards.actions.pushCardContent(selectedString, creationType, updateType, type, transformedOrigin as CardOrigin)
-			);
-		}
-
-		dispatch(resetManuallySelectedString());
-	};
-};
-
-export const selectionToCardForSourceCard = (
-	type: CardType,
-	creationType: CreationType,
-	sourceField: CreationType,
-	origin?: CardOrigin,
-	cardID?: string
-) => {
-	return (dispatch: Function, getState: Function) => {
-		const state = getState();
-
-		const updateType = "REPLACE";
-		const isUpdate = cardID !== undefined;
-
-		//  this should be from the SourceCard in which the extract button has been clicked
-		//	the SourceCard can or can not have an origin
-		const sourceHasNonEmptyOrigin = hasNonEmptyOrigin(origin);
-		const newOrigin = sourceHasNonEmptyOrigin
-			? cards.services.transformInputOrigin(
-					origin as CardOrigin,
-					sourceField,
-					creationType,
-					isUpdate ? (cards.selectors.getCards(state)[cardID as string].origin as CardOrigin) : undefined
-			  )
-			: undefined;
-		const selectedString = getCurrentSelectedString(state);
-
-		//TODO-NICE: untangle the types so that the as CardOrigin is not necessary in the dispatch,
-		//maybe merge content and origin to avoid two object hierarchies?
-		if (isUpdate) {
-			dispatch(
-				cards.actions.updateCardContent(
-					selectedString,
-					cardID as string,
-					creationType,
-					updateType,
-					newOrigin as CardOrigin
-				)
-			);
-		} else {
-			dispatch(cards.actions.pushCardContent(selectedString, creationType, updateType, type, newOrigin as CardOrigin));
-		}
-
-		dispatch(resetManuallySelectedString());
-	};
-};
+import { isDifferentSourceCard } from "./model";
 
 export const updateManuallySelectedString = (str: string) => {
 	return { type: t.SELECTED_STRING, payload: str };
@@ -166,8 +28,7 @@ export const setSourceCard = (sourceField: CardField, origin?: CardOrigin) => {
 export const trySetSourceCard = (sourceField: CardField, origin?: CardOrigin) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const sourceCard = getSourceCard(getState());
-		if (!sourceCard || sourceCard.sourceField !== sourceField || sourceCard.origin !== origin)
-			dispatch(setSourceCard(sourceField, origin));
+		if (isDifferentSourceCard(sourceCard, sourceField, origin)) dispatch(setSourceCard(sourceField, origin));
 	};
 };
 

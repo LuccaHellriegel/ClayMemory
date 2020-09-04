@@ -87,3 +87,20 @@ export const loadSavedDocument = (document: string) => {
 		dispatch(ActionCreators.clearHistory());
 	};
 };
+
+export const deleteDocument = (document: string) => {
+	return (dispatch: Dispatch, getState: Function) => {
+		const state = getState();
+		const activeDocument = display.selectors.getPDFName(state);
+		if (activeDocument && activeDocument === document) {
+			// reset data
+			dispatch({ type: db.actionTypes.DOCUMENT_CHANGE });
+
+			// keeping the undo history leads to weird edge cases and makes no sense
+			dispatch(ActionCreators.clearHistory());
+		}
+
+		// note: no undo of this
+		dispatch(db.actions.deleteDocumentDataSet(document));
+	};
+};

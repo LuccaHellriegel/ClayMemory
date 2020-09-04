@@ -2,8 +2,8 @@ import { useDispatch } from "react-redux";
 import React from "react";
 import { IconButton, Tooltip } from "@material-ui/core";
 import ImportContactsIcon from "@material-ui/icons/ImportContacts";
-import { loadSavedDocument } from "../actions";
-import text from "../../text";
+import { loadSavedDocument } from "../../actions";
+import text from "../../../text";
 export const LoadDocumentDataButton = ({ document }: { document: string }) => {
 	const dispatch = useDispatch();
 	return (

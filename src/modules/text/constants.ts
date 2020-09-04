@@ -1,3 +1,5 @@
+/// Tooltip-Text
+
 export const switchToActiveRiverTooltip = "Switch to the Active-River view";
 export const switchToSummaryRiverTooltip = "Switch to the Summary-River view";
 
@@ -18,7 +20,7 @@ export const newNoteCardTooltip = "Create new Note-card";
 export const deleteDocumentTooltip = "Delete this document and all its corresponding cards";
 export const loadSavedDocumentTooltip = "Load the card data of this document";
 
-///
+/// Text
 
 export const noMaterialText = "No PDF file specified.";
 export const loadingMaterialText = "Loading PDF…";
@@ -33,7 +35,7 @@ export const noteText = "Note";
 export const questionText = "Question";
 export const answerText = "Answer";
 
-///
+/// Delay
 
 export const defaultEnterDelay = 500;
 export const defaultEnterNextDelay = 1000;

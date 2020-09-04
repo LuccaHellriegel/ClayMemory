@@ -1,19 +1,33 @@
 import { Fragment } from "react";
 import { MenuItem } from "@material-ui/core";
 import React from "react";
-
-//TODO-NICE: clear qa-field button
+import { useDispatch } from "react-redux";
+import { dispatchCreationFromContextMenu } from "../actions";
 
 const NewQACardQ = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Q (Q-A)</MenuItem>;
 const NewQACardA = ({ onClick }: any) => <MenuItem onClick={onClick}>New: A (Q-A)</MenuItem>;
 const NewNoteCard = ({ onClick }: any) => <MenuItem onClick={onClick}>New: Note</MenuItem>;
 
-export const NewButtons = ({ noteDispatch, qDispatch, aDispatch }: any) => {
+export const NewButtons = () => {
+	const dispatch = useDispatch();
+
 	return (
 		<Fragment>
-			<NewNoteCard onClick={noteDispatch}></NewNoteCard>
-			<NewQACardQ onClick={qDispatch}></NewQACardQ>
-			<NewQACardA onClick={aDispatch}></NewQACardA>
+			<NewNoteCard
+				onClick={() => {
+					dispatch(dispatchCreationFromContextMenu("note"));
+				}}
+			></NewNoteCard>
+			<NewQACardQ
+				onClick={() => {
+					dispatch(dispatchCreationFromContextMenu("q"));
+				}}
+			></NewQACardQ>
+			<NewQACardA
+				onClick={() => {
+					dispatch(dispatchCreationFromContextMenu("a"));
+				}}
+			></NewQACardA>
 		</Fragment>
 	);
 };

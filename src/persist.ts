@@ -88,7 +88,7 @@ const addDOMObjectsToDisplayData = (outboundState: {
 	//TODO-NICE:might need amount of spans per page for validation? if yes, use this
 	pageSpans: PerPageSpans;
 	documentRef: null;
-	zoomQueue: number | null;
+	zoomTargetSpanIndex: number | null;
 	materialData: null;
 }): DisplayData => {
 	return {

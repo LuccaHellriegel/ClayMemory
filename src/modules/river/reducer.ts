@@ -1,5 +1,14 @@
-import { CardRiverState, RiverShowState, pageNumberToRiverMakeUpID, RiverMakeUp, RiverContentState } from "./model";
-import { FinalizedCardPayload, CardID } from "../cards/model/model";
+import {
+	CardRiverState,
+	RiverShowState,
+	pageNumberToRiverMakeUpID,
+	RiverContentState,
+	emptyCardRiver,
+	deactivateActiveCardRiver,
+	updateStateWithMakeUps,
+	removeCardFromRivers,
+} from "./model";
+import { CardConfig } from "../cards/model/model-config";
 import cards from "../cards";
 import * as t from "./actionTypes";
 import display from "../display";
@@ -21,35 +30,6 @@ const initialState: CardRiverState = {
 	highlightedCardField: null,
 	riverContentState: "ALL",
 	contentFilter: "",
-};
-
-const emptyCardRiver = (page: number): RiverMakeUp => {
-	return {
-		riverID: pageNumberToRiverMakeUpID(page),
-		cardIDs: [],
-	};
-};
-
-const updateStateWithMakeUps = (state: CardRiverState, ...makeUps: RiverMakeUp[]) => {
-	const updatedState = { ...state };
-	makeUps.forEach((makeUp) => {
-		updatedState.riverMakeUps[makeUp.riverID] = makeUp;
-	});
-	return updatedState;
-};
-
-const deactivateActiveCardRiver = (state: CardRiverState) => {
-	return { ...state.riverMakeUps[state.activeRiverMakeUpID], active: false };
-};
-
-const removeCardFromRivers = (state: CardRiverState, cardID: CardID): CardRiverState => {
-	const riverMakeUps = Object.fromEntries(
-		Object.entries(state.riverMakeUps).map((entry) => [
-			entry[0],
-			{ ...entry[1], cardIDs: entry[1].cardIDs.filter((id) => id !== cardID) },
-		])
-	);
-	return { ...state, riverMakeUps };
 };
 
 const cardRiverState = (state = initialState, { type, payload }: { type: string; payload: any }): CardRiverState => {
@@ -75,7 +55,7 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 		case cards.actionTypes.CARD_PUSH:
 			riverMakeUp = {
 				...state.riverMakeUps[state.pushToRiverID],
-				cardIDs: [...state.riverMakeUps[state.pushToRiverID].cardIDs, (payload as FinalizedCardPayload).card.cardID],
+				cardIDs: [...state.riverMakeUps[state.pushToRiverID].cardIDs, (payload as CardConfig).cardID],
 			};
 			riverMakeUps = { ...state.riverMakeUps };
 			riverMakeUps[state.pushToRiverID] = riverMakeUp;
