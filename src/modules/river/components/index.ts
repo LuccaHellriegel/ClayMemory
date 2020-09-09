@@ -1,5 +1,5 @@
 import { RiverContentFormGroup } from "./RiverContentFormGroup";
-import { SummaryRiver } from "./SummaryRiver";
-import { ActiveCardRiver } from "./ActiveCardRiver";
+import { CardRiver } from "./CardRiver/CardRiver";
+import { SwitchActiveRiver } from "./SwitchActiveRiver";
 
-export { ActiveCardRiver, SummaryRiver, RiverContentFormGroup };
+export { RiverContentFormGroup, CardRiver, SwitchActiveRiver };

@@ -1,4 +1,4 @@
-import { NoteOrigin, QAOrigin, SingleOrigin, emptyOrigin } from "./model-origin";
+import { NoteOrigin, QAOrigin } from "./model-origin";
 import {
 	NoteCardContent,
 	QACardContent,
@@ -7,7 +7,6 @@ import {
 	strToCardContent,
 	CardField,
 } from "./model-content";
-import { createReplace, changeCardObject } from "./model-permutation";
 
 export type CardID = string;
 export const cardIDToNumber = (cardID: CardID) => parseInt(cardID);
@@ -38,19 +37,12 @@ export const strToCardConfig = (
 	return { ...baseCard, content: changedContent } as CardConfig;
 };
 
-export const originToCardConfig = (
-	singleOrigin: SingleOrigin,
-	outputField: CardField,
-	baseCard: CardConfig
-): CardConfig => {
-	const changeSpec = {
-		inputObject: singleOrigin,
-		inputField: "note" as CardField,
-		fieldToBeChanged: outputField,
-		objectToBeChanged: baseCard.origin ? baseCard.origin : emptyOrigin(outputField),
-		createModify: createReplace,
-	};
-
-	const changedOrigin = changeCardObject(changeSpec);
-	return { ...baseCard, origin: changedOrigin } as CardConfig;
+const CardFieldToTypeMap: { [field in CardField]: CardType } = {
+	q: "Q-A",
+	a: "Q-A",
+	note: "Note",
 };
+
+export const cardFieldToType = (field: CardField) => CardFieldToTypeMap[field];
+
+export type CardFieldIdentifier = { cardID: CardID; cardField: CardField };

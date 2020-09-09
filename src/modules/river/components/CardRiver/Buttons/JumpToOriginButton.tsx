@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { SingleOrigin } from "../../../../cards/model/model-origin";
 import text from "../../../../text";
 
-//TODO-NICE: replace/simplify focus system with element specific mouse-listeners
 export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin }) => {
 	const dispatch = useDispatch();
 	return (

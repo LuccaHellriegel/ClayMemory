@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import { TextField, TextFieldProps } from "@material-ui/core";
 import selection from "../../../../selection";
 import { useDispatch } from "react-redux";
-import { Dispatch } from "redux";
+import { SingleOrigin } from "../../../../cards/model/model-origin";
 
 export const ClayCardField = ({
 	storeValue = "",
 	saveChanges,
-	setSourceCard,
+	fieldOrigin,
 	style,
 	...rest
 }: {
 	storeValue?: string;
-	setSourceCard: () => void;
+	// {} is an empty field of the QA-origin
+	fieldOrigin?: SingleOrigin | {};
 	saveChanges: (value: string) => void;
 	style: any;
 } & TextFieldProps) => {
@@ -26,34 +27,26 @@ export const ClayCardField = ({
 
 	// need the onChange-pattern, because we want to be able to pre-fill the field from the store
 	return (
-		<TextField
-			InputProps={{ disableUnderline: true, style: { minWidth: "400px" } }}
-			multiline
-			variant="filled"
-			value={state.mutableValue}
-			onChange={(event) => {
-				const submittedValue = (event.target as HTMLTextAreaElement).value;
-				setState({ ...state, mutableValue: submittedValue });
-			}}
-			onBlur={(event: any) => {
-				saveChanges(event.target.value);
-			}}
-			onMouseUp={() => {
-				mouseUpCardField(dispatch, setSourceCard);
-			}}
-			style={style}
-			{...rest}
-		></TextField>
+		<selection.components.CardFieldMouseUp
+			fieldOrigin={
+				fieldOrigin && (fieldOrigin as SingleOrigin).spanIndex !== undefined ? (fieldOrigin as SingleOrigin) : undefined
+			}
+		>
+			<TextField
+				InputProps={{ disableUnderline: true, style: { minWidth: "400px" } }}
+				multiline
+				variant="filled"
+				value={state.mutableValue}
+				onChange={(event) => {
+					const submittedValue = (event.target as HTMLTextAreaElement).value;
+					setState({ ...state, mutableValue: submittedValue });
+				}}
+				onBlur={(event: any) => {
+					saveChanges(event.target.value);
+				}}
+				style={style}
+				{...rest}
+			></TextField>
+		</selection.components.CardFieldMouseUp>
 	);
-};
-
-const mouseUpCardField = (dispatch: Dispatch, setSourceCard: () => void) => {
-	//TODO-NICE: allow grabbing from other cards
-	const selectionData = selection.services.getSelection();
-	if (selectionData) {
-		const selectedStr = selectionData.text;
-
-		setSourceCard();
-		dispatch(selection.actions.updateManuallySelectedString(selectedStr));
-	}
 };

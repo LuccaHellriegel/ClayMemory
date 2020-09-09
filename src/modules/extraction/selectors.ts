@@ -2,11 +2,8 @@ import { NAME } from "./constants";
 import { createSelector } from "reselect";
 import { CreationData } from "./model";
 import river from "../river";
-import selection from "../selection";
 
-export const getAll = (state: any) => state[NAME].present;
-
-export const getContextMenuState = createSelector(getAll, (state: CreationData) => state.open);
+export const getAll = (state: any): CreationData => state[NAME].present;
 
 export const getContextMenuRef = createSelector(getAll, (state: CreationData) => state.menuRef);
 
@@ -14,13 +11,14 @@ export const getContextMenuFullCardsRef = createSelector(getAll, (state: Creatio
 
 export const getContextMenuQARefs = createSelector(getAll, (state: CreationData) => state.qaRefs);
 
+export const getContextMenuPosition = createSelector(getAll, (state) => state.position);
+
 export const getContextMenuInitData = createSelector(
-	selection.selectors.getCurrentSelectionPosition,
-	getContextMenuState,
+	getContextMenuPosition,
 	getContextMenuRef,
 	getContextMenuQARefs,
-	river.selectors.getPushToRiverCards,
-	(position, state, menuRef, qaRefs, riverCards) => {
-		return { position, state, menuRef, qaRefs, riverCards };
+	river.selectors.getActiveRiverCards,
+	(position, menuRef, qaRefs, riverCards) => {
+		return { position, menuRef, qaRefs, riverCards };
 	}
 );

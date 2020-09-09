@@ -1,5 +1,5 @@
 import * as t from "./actionTypes";
-import type { DisplayData, DisplayStatus, MaterialGroupData } from "./model";
+import type { DisplayData, DisplayStatus } from "./model";
 import { createRef } from "react";
 import db from "../db";
 
@@ -8,9 +8,7 @@ const initialState: DisplayData = {
 	totalPages: 1000,
 	currentPage: 1,
 	documentRef: createRef(),
-	pageSpans: {},
 	zoomTargetSpanIndex: null,
-	materialData: { materialDataTimeStamp: -Infinity },
 };
 
 const displayData = (state = initialState, { type, payload }: { type: string; payload: any }): DisplayData => {
@@ -40,17 +38,6 @@ const displayData = (state = initialState, { type, payload }: { type: string; pa
 			return { ...state, currentPage: payload as number };
 		case t.DISPLAY_STATUS:
 			return { ...state, displayStatus: payload as DisplayStatus };
-		case t.MATERIAL_DATA:
-			return {
-				...state,
-				materialData: payload,
-				pageSpans: { ...state.pageSpans, [state.currentPage]: (payload as MaterialGroupData).materialSpans.length - 1 },
-			};
-		case t.MATERIAL_HEIGHT:
-			return {
-				...state,
-				materialHeight: payload,
-			};
 		case t.ZOOM_QUEUE:
 			return {
 				...state,

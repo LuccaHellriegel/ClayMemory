@@ -3,27 +3,25 @@ import PanToolOutlinedIcon from "@material-ui/icons/PanToolOutlined";
 import React, { useState } from "react";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { CardConfig } from "../../../../cards/model/model-config";
-import { GoalCard } from "../../../../cards/model/model-state";
+import { CardConfig, CardFieldIdentifier } from "../../../../cards/model/model-config";
 import cards from "../../../../cards";
 import text from "../../../../text";
 import { CardField } from "../../../../cards/model/model-content";
-
-const isGoalCard = (cardConfig: CardConfig, cardField: CardField, goalCard: GoalCard) =>
-	cardConfig.cardID === goalCard.cardID && cardField === goalCard.creationType;
+import selection from "../../../../selection";
 
 export const GrabForFieldButton = ({ cardConfig, cardField }: { cardConfig: CardConfig; cardField: CardField }) => {
 	const dispatch = useDispatch();
-	const goalCard = useSelector(cards.selectors.getGoalCard);
+	const goalConfig = useSelector(selection.selectors.getGoalConfig);
 	const [outlined, setOutlined] = useState(true);
 
-	if (goalCard) {
-		const isGoal = isGoalCard(cardConfig, cardField, goalCard);
-		if (isGoal) {
-			if (outlined) setOutlined(false);
-		} else {
-			if (!outlined) setOutlined(true);
-		}
+	const isGoal =
+		!!goalConfig &&
+		!!(goalConfig as CardFieldIdentifier).cardID &&
+		(goalConfig as CardFieldIdentifier).cardID === cardConfig.cardID &&
+		goalConfig.cardField === cardField;
+
+	if (isGoal) {
+		if (outlined) setOutlined(false);
 	} else {
 		if (!outlined) setOutlined(true);
 	}
@@ -37,10 +35,14 @@ export const GrabForFieldButton = ({ cardConfig, cardField }: { cardConfig: Card
 			<IconButton
 				type="button"
 				onClick={() => {
-					if (outlined) {
-						dispatch(cards.actions.setGoalCard(cardConfig, cardField));
-					} else {
-						dispatch(cards.actions.resetGoalCard());
+					if (outlined && !!!goalConfig) {
+						dispatch(
+							selection.actions.addCardSelectionSource(
+								cards.model.model_permutation.toFieldValue(cardField, cardConfig.origin)
+							)
+						);
+					} else if (isGoal) {
+						dispatch(selection.actions.resetSelectionGoal());
 					}
 				}}
 			>

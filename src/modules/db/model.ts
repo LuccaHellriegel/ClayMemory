@@ -2,10 +2,7 @@ import { CardRiverState } from "../river/model";
 import { CardsState } from "../cards/model/model-state";
 import { DisplayData } from "../display/model";
 
-export type ArchiveRiver = Pick<
-	CardRiverState,
-	"riverMakeUps" | "activeRiverMakeUpID" | "pushToRiverID" | "lastRiverIDNumber"
->;
+export type ArchiveRiver = Pick<CardRiverState, "riverMakeUps" | "lastRiverIDNumber">;
 
 export type ArchiveCards = Pick<CardsState, "cards" | "lastCardIDNumber">;
 

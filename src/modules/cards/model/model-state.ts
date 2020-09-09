@@ -1,13 +1,10 @@
-import { CardConfig, CreationType, CardID } from "./model-config";
+import { CardConfig, CardID } from "./model-config";
 
-export type GoalCard = CardConfig & { creationType: CreationType };
-
-export type Cards = { [cardID: string]: CardConfig };
+type Cards = { [cardID: string]: CardConfig };
 
 export type CardsState = {
 	cards: Cards;
 	lastCardIDNumber: number;
-	goalCard: GoalCard | null;
 };
 export const removeCardFromCardsState = (state: CardsState, cardID: CardID) => {
 	const cards = { ...state.cards };

@@ -1,12 +1,10 @@
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { createTransform } from "redux-persist";
-import { CreationData } from "./modules/extraction/model";
+import { CreationData, Position } from "./modules/extraction/model";
 import { createRef } from "react";
 import extraction from "./modules/extraction";
-import { DisplayData, DisplayStatus, PerPageSpans } from "./modules/display/model";
+import { DisplayData, DisplayStatus } from "./modules/display/model";
 import display from "./modules/display";
-import { SelectionData } from "./modules/selection/model";
-import selection from "./modules/selection";
 
 // to get the correct object with reselect, I added .present to all getAll that belong do undoable modules
 
@@ -20,10 +18,10 @@ const removeDOMObjectsFromCreationData = (inboundState: CreationData) => {
 };
 
 const addDOMObjectsToCreationData = (outboundState: {
-	open: boolean;
 	menuRef: null;
 	fullCardRef: null;
 	qaRefs: null[];
+	position: Position | null;
 }): CreationData => {
 	return {
 		...outboundState,
@@ -86,16 +84,13 @@ const addDOMObjectsToDisplayData = (outboundState: {
 	currentPage: number;
 	totalPages: number;
 	//TODO-NICE:might need amount of spans per page for validation? if yes, use this
-	pageSpans: PerPageSpans;
 	documentRef: null;
 	zoomTargetSpanIndex: number | null;
-	materialData: null;
 }): DisplayData => {
 	return {
 		...outboundState,
 		pdf: undefined,
 		documentRef: createRef(),
-		materialData: { materialDataTimeStamp: -Infinity },
 	};
 };
 
@@ -109,29 +104,8 @@ const displayTransform = createTransform(
 	{ whitelist: [display.constants.NAME] }
 );
 
-// for selection we just use the initialState and dont persist future/past
-const selectionTransform = createTransform(
-	(inboundState: { future: SelectionData[]; past: SelectionData[]; present: SelectionData }) => {
-		return {
-			...inboundState,
-			future: [],
-			past: [],
-			present: {
-				manuallySelectedString: "",
-				selectedParentSpan: null,
-				selectionPosition: { x: 0, y: 0 },
-				sourceCard: null,
-			},
-		};
-	},
-	(outboundState): { future: SelectionData[]; past: SelectionData[]; present: SelectionData } => {
-		return outboundState;
-	},
-	{ whitelist: [selection.constants.NAME] }
-);
-
 export const persistConfig = {
 	key: "root",
 	storage,
-	transforms: [extractionTransform, displayTransform, selectionTransform],
+	transforms: [extractionTransform, displayTransform],
 };

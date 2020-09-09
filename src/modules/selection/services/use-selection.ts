@@ -1,73 +1,63 @@
-import { CreationType, UpdateType, CardID, CardConfig } from "../../cards/model/model-config";
-import { CardOrigin } from "../../cards/model/model-origin";
-import { getCurrentSelectedString, getSourceCard } from "../selectors";
+import { CardConfig } from "../../cards/model/model-config";
 import cards from "../../cards";
-import { resetManuallySelectedString, resetSourceCard } from "../actions";
-import { CardField } from "../../cards/model/model-content";
+import { SelectionGoalConfig, SelectionSourceConfig, goalIsCreation, SelectionExistingCardGoalConfig } from "../model";
+import { CardPayload } from "../../cards/model/model-payload";
 
-const selectionToCardBase = (
-	creationType: CreationType,
-	updateType: UpdateType,
-	origin?: CardOrigin,
-	cardID?: string
-) => {
-	return (dispatch: Function, getState: Function) => {
-		const state = getState();
+const selectionConfigToCardPayload = (sourceConfig: SelectionSourceConfig, goalConfig: SelectionGoalConfig) => {
+	const inputOrigin = sourceConfig.contentOrigin;
+	const inputValue = sourceConfig.contentStr;
 
-		const isUpdate = cardID !== undefined;
+	const outputField = goalConfig.cardField;
 
-		let inputField: CardField;
-		let inputOrigin;
-
-		const sourceCard = getSourceCard(state);
-		if (sourceCard) {
-			dispatch(resetSourceCard());
-			// if a soureCard exists, then we are working with a selection from a card and not the document,
-			// so we need to use the sourceCard field
-			inputField = sourceCard.sourceField;
-			// origin should be from the SourceCard  in which the extract button has been clicked
-			// if it exists
-			// the SourceCard can or can not have an origin
-			inputOrigin = sourceCard.origin;
-		} else {
-			// we exploit that the input from the document is always just a SingleOrigin=NoteOrigin
-			// need to transform it because we can create also QA-Cards from document
-			inputField = "note";
-			// this origin is created by the caller of this function from the document
-			inputOrigin = origin;
-		}
-
-		const selectedString = getCurrentSelectedString(state);
-
-		if (isUpdate) {
-			const currentCard = cards.selectors.getCardByID(getState(), cardID as CardID);
-			const outputOrigin = inputOrigin
-				? cards.services.transformInputOrigin(inputOrigin, inputField, creationType, currentCard.origin)
-				: undefined;
-			const config = cards.model.model_config.strToCardConfig(selectedString, creationType, updateType, currentCard);
-
-			dispatch(cards.actions.cardUpdate({ ...config, origin: outputOrigin } as CardConfig));
-		} else {
-			const outputOrigin = inputOrigin
-				? cards.services.transformInputOrigin(inputOrigin, inputField, creationType)
-				: undefined;
-			const emptyPayload = cards.model.model_payload.cardFieldToEmptyPayload(creationType);
-			const cardPayload = cards.model.model_payload.strToCardPayload(
-				selectedString,
-				creationType,
-				updateType,
-				emptyPayload
-			);
-
-			dispatch(cards.actions.cardPush({ ...cardPayload, origin: outputOrigin }));
-		}
-
-		dispatch(resetManuallySelectedString());
+	return {
+		type: cards.model.model_config.cardFieldToType(outputField),
+		content: cards.model.model_content.strToNewCardContent(inputValue, outputField),
+		origin: inputOrigin ? cards.model.model_origin.singleOriginToCardOrigin(inputOrigin, outputField) : undefined,
 	};
 };
 
-export const selectionToCardAppend = (creationType: CreationType, origin?: CardOrigin, cardID?: string) =>
-	selectionToCardBase(creationType, "APPEND", origin, cardID);
+const selectionConfigToActualizedCardConfig = (
+	sourceConfig: SelectionSourceConfig,
+	goalConfig: SelectionExistingCardGoalConfig,
+	state: any
+): CardConfig => {
+	const existingCard = cards.selectors.getCardByID(state, goalConfig.cardID);
 
-export const selectionToCardReplace = (creationType: CreationType, origin?: CardOrigin, cardID?: string) =>
-	selectionToCardBase(creationType, "REPLACE", origin, cardID);
+	const inputOrigin = sourceConfig.contentOrigin;
+	const inputValue = sourceConfig.contentStr;
+
+	const outputField = goalConfig.cardField;
+
+	return {
+		...existingCard,
+		content: cards.model.model_content.strToCardContent(
+			inputValue,
+			outputField,
+			goalConfig.updateType,
+			existingCard.content
+		),
+		origin: inputOrigin
+			? cards.model.model_origin.singleOriginToCardOrigin(inputOrigin, outputField, existingCard.origin)
+			: existingCard.origin,
+	} as CardConfig;
+};
+
+export const selectionToCard = (
+	sourceConfig: SelectionSourceConfig,
+	goalConfig: SelectionGoalConfig,
+	dispatch: any,
+	state?: any
+) => {
+	const isCreation = goalIsCreation(goalConfig);
+	if (isCreation) {
+		const cardPayload: CardPayload = selectionConfigToCardPayload(sourceConfig, goalConfig);
+		dispatch(cards.actions.cardPush(cardPayload));
+	} else {
+		const cardConfig = selectionConfigToActualizedCardConfig(
+			sourceConfig,
+			goalConfig as SelectionExistingCardGoalConfig,
+			state
+		);
+		dispatch(cards.actions.cardReplace(cardConfig));
+	}
+};

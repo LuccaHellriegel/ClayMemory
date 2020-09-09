@@ -1,5 +1,5 @@
 import * as t from "./actionTypes";
-import { riverShowStateIsShow, getPushToRiver, getHoveredCardData } from "./selectors";
+import { riverShowStateIsShow, getHoveredCardData, getActiveRiverMakeUpID } from "./selectors";
 import { Dispatch } from "redux";
 import { CardID } from "../cards/model/model-config";
 import { CardField } from "../cards/model/model-content";
@@ -13,13 +13,14 @@ export const setRiverContentState = (state: RiverContentState) => {
 	return { type: t.RIVER_CONTENT_STATE, payload: state };
 };
 
-export const setPushToRiver = (id: string) => {
-	return { type: t.RIVER_PUSH_STATE, payload: id };
+export const setActiveRiver = (id: string) => {
+	return { type: t.RIVER_ACTIVE_ID, payload: id };
 };
 
-export const trySetPushToRiver = (id: string) => {
+export const trySetActiveRiver = (id: string) => {
 	return (dispatch: Dispatch, getState: Function) => {
-		if (getPushToRiver(getState()) !== id) dispatch(setPushToRiver(id));
+		console.log(id, getActiveRiverMakeUpID(getState()) !== id);
+		if (getActiveRiverMakeUpID(getState()) !== id) dispatch(setActiveRiver(id));
 	};
 };
 

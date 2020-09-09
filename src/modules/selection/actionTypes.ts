@@ -1,6 +1,3 @@
 import { NAME } from "./constants";
-
-export const SELECTED_STRING = NAME + "/SELECTED_STRING";
-export const SELECTED_PARENT = NAME + "/SELECTED_PARENT";
-export const DOCUMENT_POSITION = NAME + "/SELECTION_POSITION";
-export const SOURCE_CARD = NAME + "/SOURCE_CARD";
+export const SELECTION_SOURCE = NAME + "/SELECTION_SOURCE";
+export const SELECTION_GOAL = NAME + "/SELECTION_GOAL";

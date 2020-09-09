@@ -11,21 +11,23 @@ import { NewButtons } from "./NewButtons";
 import NestedMenuItem from "material-ui-nested-menu-item";
 import { useEventListener } from "../../../shared/useEventListener";
 import cards from "../../cards";
+import { Position } from "../model";
+import { getActiveRiverMakeUpID } from "../../river/selectors";
 
 function ContextMenu({
 	position,
-	state,
 	menuRef,
 	qaRefs,
 	riverCards,
 }: {
-	position: { x: number; y: number };
-	state: boolean;
+	position: { x: number; y: number } | null;
 	menuRef: RefObject<any>;
 	qaRefs: RefObject<any>[];
 	riverCards: CardConfig[];
 }) {
 	const dispatch = useDispatch();
+
+	console.log(useSelector(getActiveRiverMakeUpID));
 
 	useEventListener("mousedown", (event: MouseEvent) => {
 		dispatch(mouseDownControl(event));
@@ -37,12 +39,12 @@ function ContextMenu({
 
 	const fullCardsRef = useSelector(getContextMenuFullCardsRef);
 
-	const openState = state;
+	const openState = !!position;
 
 	const increment = incrementer();
 	const qaRefIndex = incrementer();
 
-	const anchorPosition = openState ? { top: position.y, left: position.x } : undefined;
+	const anchorPosition = openState ? { top: (position as Position).y, left: (position as Position).x } : undefined;
 
 	const [nonFullRiverCards, fullRiverCards] = partition(riverCards, cards.model.model_config.cardIsNotFull);
 

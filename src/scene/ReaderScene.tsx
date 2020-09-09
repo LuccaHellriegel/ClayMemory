@@ -2,88 +2,29 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import control from "../modules/control";
 import creation from "../modules/extraction";
-import { makeStyles, Theme, createStyles, useScrollTrigger, Zoom, Toolbar, Fab } from "@material-ui/core";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import { Toolbar } from "@material-ui/core";
 import selection from "../modules/selection";
-import river from "../modules/river";
-import focus from "../modules/focus";
-import { useSelector } from "react-redux";
 import display from "../modules/display";
 
-//TODO: make show/hide depdendant on tab, also Page choice, control-bar dependant on tab
-
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		root: {
-			position: "fixed",
-			bottom: theme.spacing(2),
-			right: theme.spacing(2),
-		},
-	})
-);
-
-function ScrollTop(props: any) {
-	const { children } = props;
-	const classes = useStyles();
-	const trigger = useScrollTrigger({
-		disableHysteresis: true,
-		threshold: 100,
-	});
-
-	const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-		const anchor = ((event.target as HTMLDivElement).ownerDocument || document).querySelector("#back-to-top-anchor");
-
-		if (anchor) {
-			anchor.scrollIntoView({ behavior: "smooth", block: "center" });
-		}
-	};
-
-	return (
-		<Zoom in={trigger}>
-			<div onClick={handleClick} role="presentation" className={classes.root}>
-				{children}
-			</div>
-		</Zoom>
-	);
-}
-
 export function ReaderScene() {
-	const displayFocus = useSelector(focus.selectors.getDisplayFocus);
-	const showMaterial = useSelector(display.selectors.displayStatusIsShow);
-	const showRiver = useSelector(river.selectors.riverShowStateIsShow);
+	//TODO-RC: these need to be set in the PDFDocument?
+	//TODO-RC: think about hide mechanism
+	// const showMaterial = useSelector(display.selectors.displayStatusIsShow);
+	// const showRiver = useSelector(river.selectors.riverShowStateIsShow);
 
 	return (
 		<div>
 			<Grid container justify="center" direction="column" alignItems="stretch" spacing={1}>
-				<control.components.ControlBar></control.components.ControlBar>
-				<Toolbar id="back-to-top-anchor" />
-
-				<Grid item hidden={displayFocus !== "ACTIVE_RIVER"}>
-					<Grid container justify="space-around" direction="row" alignItems="stretch">
-						<Grid
-							item
-							style={{
-								width: "38%",
-							}}
-							hidden={!showRiver}
-						>
-							<river.components.ActiveCardRiver></river.components.ActiveCardRiver>
-						</Grid>
-						<display.components.MaterialDisplayColumnWithSize
-							hidden={!showMaterial}
-						></display.components.MaterialDisplayColumnWithSize>
-					</Grid>
+				<Grid item>
+					<control.components.ControlBar></control.components.ControlBar>
 				</Grid>
-
-				<Grid item hidden={displayFocus !== "SUMMARY_RIVER"}>
-					<river.components.SummaryRiver></river.components.SummaryRiver>
+				{/* TODO-RC: need this to keep the document from overlapping the AppBar, but why? */}
+				<Toolbar id="back-to-top-anchor" />
+				<Grid item>
+					<display.components.PDFDocument></display.components.PDFDocument>
 				</Grid>
 			</Grid>
-			<ScrollTop>
-				<Fab color="secondary" size="small" aria-label="scroll back to top">
-					<KeyboardArrowUpIcon />
-				</Fab>
-			</ScrollTop>
+			{/* //TODO-RC: switch between single and multiple pages? And then scroll to top makes sense?	*/}
 			<creation.components.ContextMenuContainer></creation.components.ContextMenuContainer>
 			<selection.components.SelectionSnackbar></selection.components.SelectionSnackbar>
 		</div>

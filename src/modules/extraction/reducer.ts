@@ -5,20 +5,18 @@ import cards from "../cards";
 import { CardConfig } from "../cards/model/model-config";
 
 const initialState: CreationData = {
-	open: false,
 	menuRef: createRef(),
 	fullCardRef: createRef(),
 	qaRefs: [createRef(), createRef()],
+	position: null,
 };
 
 const creationData = (state = initialState, { type, payload }: { type: string; payload: any }): CreationData => {
 	switch (type) {
-		case t.TOGGLE_CONTEXT_MENU:
-			return { ...state, open: !state.open };
 		case t.CLOSE_CONTEXT_MENU:
-			return { ...state, open: false };
+			return { ...state, position: null };
 		case t.OPEN_CONTEXT_MENU:
-			return { ...state, open: true };
+			return { ...state, position: payload };
 		case cards.actionTypes.CARD_PUSH:
 			//TODO-NICE: reliance on order of refs (needs to be the same as order of qaRefs) and coupling to the fact that a new card was pushed
 			// might need to change if I allow moving the cards

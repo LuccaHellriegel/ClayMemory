@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import cards from "../../../../cards";
 import { getHoveredCardData } from "../../../selectors";
 import { Card } from "@material-ui/core";
-import { CardProps, borderStyle } from "./ClayCard";
+import { borderStyle } from "./ClayCard";
 import text from "../../../../text";
-import selection from "../../../../selection";
 import { ClayCardFieldButtons } from "./ClayCardFieldButtons";
+import { QAConfig } from "../../../../cards/model/model-config";
 
 //TODO-NICE:
 // make dropdown / menu for selection to create card from selection snackbar?
@@ -20,7 +20,7 @@ import { ClayCardFieldButtons } from "./ClayCardFieldButtons";
 //TODO-NICE: think of way to not have menu over the cards, because you cant read them this way? end of card?
 //TODO-NICE: use dark color pallet (theme?)
 
-export const QACard = ({ config }: CardProps) => {
+export const QACard = ({ config }: { config: QAConfig }) => {
 	const dispatch = useDispatch();
 	const { id, field } = useSelector(getHoveredCardData);
 	const isHoveredCard = config.cardID === id;
@@ -50,9 +50,7 @@ export const QACard = ({ config }: CardProps) => {
 											variant="filled"
 											style={{ backgroundColor: "#FFBF69" }}
 											InputLabelProps={{ style: { color: "#000000" } }}
-											setSourceCard={() => {
-												dispatch(selection.actions.setSourceCard("q", config.origin));
-											}}
+											fieldOrigin={config.origin?.q}
 										></ClayCardField>
 									</div>
 								</Grid>
@@ -74,9 +72,7 @@ export const QACard = ({ config }: CardProps) => {
 											label={text.constants.answerText}
 											style={{ backgroundColor: "#2EC4B6" }}
 											InputLabelProps={{ style: { color: "#000000" } }}
-											setSourceCard={() => {
-												dispatch(selection.actions.setSourceCard("a", config.origin));
-											}}
+											fieldOrigin={config.origin?.a}
 										></ClayCardField>
 									</div>
 								</Grid>

@@ -1,94 +1,92 @@
 import "./PDFDocument.css";
 import "./AnnotationLayer.css";
-import React, { RefObject, useEffect } from "react";
-import { pdfjs, Document, Page } from "react-pdf";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { materialLoaded, setPage, captureMaterialData, scrollToZoomTarget, mouseUpDocument } from "../../actions";
-import { getRenderCritialData, getZoomTarget } from "../../selectors";
+import React, { useState, useRef } from "react";
+import { pdfjs, Document } from "react-pdf";
+import { useDispatch, useSelector } from "react-redux";
+import { materialLoaded, setPage } from "../../actions";
+import { getPDF, getDocumentRef } from "../../selectors";
 import text from "../../../text";
-import { PageKeyboardControl } from "./PageKeyboardControl";
+import { cachePageDimensions } from "./cachePageDimensions";
+import { PageMaterialPairList } from "./PageMaterialPairList";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-//TODO-NICE: implent more pdf-reader functionality, like zoom
+export type CachedPageDimensions = Map<number, [number, number]>;
 
-function removeTextLayerOffset() {
-	const textLayers = document.querySelectorAll(".react-pdf__Page__textContent");
-	textLayers.forEach((layer) => {
-		const { style }: any = layer;
-		style.top = "0";
-		style.left = "0";
-		style.transform = "";
-	});
-}
+export type PageDimensions = {
+	// width and height per page
+	cachedPageDimensions: CachedPageDimensions;
+	initialContainerHeight: number;
+	pages: Pages;
+	pageNumbers: PageNumbers;
+};
+
+export type SizeData = { containerHeight: number; responsiveScale: number };
+
+// this saves the dom nodes for all the pages
+// to measure client-height when computing the current responsive scale
+// it is a WeakMap because if the refs change, we want them to be garbage collected still
+// e.g. on resize
+export type Pages = WeakMap<any, any>;
+// this saves {pageNumber : number} for all the pageNumbers as keys for the Pages-WeakMap
+export type PageNumbers = Map<any, any>;
 
 const options = {
 	cMapUrl: "cmaps/",
 	cMapPacked: true,
 };
 
-function PDFDocument({
-	parentSize,
-	pdf,
-	currentPage,
-	materialLoaded,
-	captureMaterialData,
-	documentRef,
-}: {
-	parentSize: any;
-	pdf: File | undefined;
-	currentPage: number;
-	materialLoaded: (numPages: number) => void;
-	captureMaterialData: Function;
-	documentRef: RefObject<any>;
-}) {
+//TODO-NICE: implement more pdf-reader functionality, like zoom
+
+//TODO-RC: zoom to current page if it is already set on reload
+
+export const PDFDocument = () => {
+	const pdf = useSelector(getPDF);
+	const documentRef = useSelector(getDocumentRef);
+
+	const [pageDimensions, setPageDimensions] = useState<PageDimensions | undefined>();
+
+	const pdfProxyRef = useRef<pdfjs.PDFDocumentProxy | undefined>();
+
 	const dispatch = useDispatch();
 
-	const zoomTargetSpanIndex = useSelector(getZoomTarget);
+	// used for abborting pageDimension-cache-collection
+	const pdfName = pdf?.name;
+	const pdfNameRef = useRef(pdfName);
+	if (pdfNameRef.current !== pdfName) {
+		pdfNameRef.current = pdfName;
+	}
 
-	useEffect(() => {
-		if (!!zoomTargetSpanIndex && pdf) {
-			dispatch(scrollToZoomTarget());
-		}
-	}, [zoomTargetSpanIndex, pdf, dispatch]);
+	//TODO-RC: race condition if loading a longer PDF after a shorter one?
+
+	//TODO-RC:
+	// const zoomTargetSpanIndex = useSelector(getZoomTarget);
+
+	// useEffect(() => {
+	// 	if (!!zoomTargetSpanIndex && pdf) {
+	// 		dispatch(scrollToZoomTarget());
+	// 	}
+	// }, [zoomTargetSpanIndex, pdf, dispatch]);
 
 	return (
-		<span
-			onMouseUp={() => {
-				if (pdf) dispatch(mouseUpDocument());
+		<Document
+			loading={text.constants.loadingMaterialText}
+			noData={text.constants.noMaterialText}
+			options={options}
+			file={pdf}
+			renderMode="canvas"
+			inputRef={documentRef}
+			onLoadSuccess={(pdfProxy) => {
+				dispatch(materialLoaded(pdfProxy.numPages));
+				if (pdf) cachePageDimensions(pdfProxy, pdfName as string, pdfNameRef, setPageDimensions);
+				pdfProxyRef.current = pdfProxy;
+			}}
+			onItemClick={({ pageNumber }) => {
+				dispatch(setPage(parseInt(pageNumber)));
 			}}
 		>
-			<PageKeyboardControl>
-				<Document
-					file={pdf}
-					options={options}
-					onLoadSuccess={({ numPages }) => {
-						materialLoaded(numPages);
-					}}
-					inputRef={documentRef}
-					onItemClick={({ pageNumber }) => {
-						dispatch(setPage(parseInt(pageNumber)));
-					}}
-					loading={text.constants.loadingMaterialText}
-					noData={text.constants.noMaterialText}
-					renderMode="canvas"
-				>
-					{pdf && (
-						<Page
-							width={parentSize.width}
-							pageNumber={currentPage}
-							onRenderSuccess={() => {
-								removeTextLayerOffset();
-								captureMaterialData(documentRef);
-							}}
-						/>
-					)}
-				</Document>
-			</PageKeyboardControl>
-		</span>
+			{pageDimensions && pdfNameRef.current === pdfName && (
+				<PageMaterialPairList pdfProxyRef={pdfProxyRef} pageDimensions={pageDimensions}></PageMaterialPairList>
+			)}
+		</Document>
 	);
-}
-
-export const PDFDocumentContainer = connect(getRenderCritialData, {
-	materialLoaded,
-	captureMaterialData,
-})(PDFDocument);
+};

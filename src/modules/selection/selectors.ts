@@ -4,12 +4,7 @@ import { SelectionData } from "./model";
 
 export const getAll = (state: any): SelectionData => state[NAME].present;
 
-export const getCurrentSelectionPosition = createSelector(getAll, (state: SelectionData) => state.selectionPosition);
+export const getGoalConfig = createSelector(getAll, (state) => state.goalConfig);
+export const getSourceConfig = createSelector(getAll, (state) => state.sourceConfig);
 
-export const getCurrentSelectedString = createSelector(getAll, (state: SelectionData) => state.manuallySelectedString);
-
-export const currentSelectionExists = createSelector(getCurrentSelectedString, (str) => str !== "");
-
-export const getCurrentSelectedParent = createSelector(getAll, (state: SelectionData) => state.selectedParentSpan);
-
-export const getSourceCard = createSelector(getAll, (state) => state.sourceCard);
+export const sourceConfigExists = createSelector(getSourceConfig, (config) => !!config);

@@ -1,7 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { getActiveRiverCards, getActiveRiverMakeUpID } from "../selectors";
-import { ChildCardRiver } from "./CardRiver/ChildCardRiver";
+// import { useSelector } from "react-redux";
+// import { getActiveRiverCards, getActiveRiverMakeUpID } from "../selectors";
+// import { ChildCardRiver } from "./CardRiver/ChildCardRiver";
 
 //TODO-NICE: selection in CardRiver should stay highlighted when the contextMenu opens?
 
@@ -13,9 +13,9 @@ import { ChildCardRiver } from "./CardRiver/ChildCardRiver";
 //TODO-NICE: make reconciliation algorithm for origin when new PDF versions come out
 // (basically, just search the text, and if it is not in the same span, just move the span - expand page forward and backward then search there)
 
-export const ActiveCardRiver = () => {
-	const riverID = useSelector(getActiveRiverMakeUpID);
-	const riverCards = useSelector(getActiveRiverCards);
+// export const ActiveCardRiver = () => {
+// 	const riverID = useSelector(getActiveRiverMakeUpID);
+// 	const riverCards = useSelector(getActiveRiverCards);
 
-	return <ChildCardRiver riverID={riverID} riverCards={riverCards}></ChildCardRiver>;
-};
+// 	return <ChildCardRiver riverID={riverID} riverCards={riverCards}></ChildCardRiver>;
+// };

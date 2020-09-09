@@ -11,7 +11,7 @@ import { NoteConfig } from "../../../../cards/model/model-config";
 import { ClayCardFieldButtons } from "./ClayCardFieldButtons";
 
 //TODO-PERF: investigate if this hover-store approach is too slow, useRef instead?
-export const NoteCard = ({ config }: CardProps) => {
+export const NoteCard = ({ config }: { config: NoteConfig }) => {
 	const dispatch = useDispatch();
 	const { id } = useSelector(getHoveredCardData);
 	const isHoveredCard = config.cardID === id;
@@ -40,16 +40,14 @@ export const NoteCard = ({ config }: CardProps) => {
 						<Grid item>
 							<ClayCardField
 								saveChanges={(value) => {
-									dispatch(cards.actions.cardUpdate({ ...config, content: value } as NoteConfig));
+									dispatch(cards.actions.cardReplace({ ...config, content: value } as NoteConfig));
 								}}
 								storeValue={config.content as string}
 								label={text.constants.noteText}
 								variant="filled"
 								style={{ backgroundColor: "#CBF3F0" }}
 								InputLabelProps={{ style: { color: "#000000" } }}
-								setSourceCard={() => {
-									dispatch(selection.actions.setSourceCard("note", config.origin));
-								}}
+								fieldOrigin={config.origin}
 							></ClayCardField>
 						</Grid>
 						<Grid item>

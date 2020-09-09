@@ -1,24 +1,14 @@
 import { createSelector } from "reselect";
-import { DisplayData, MaterialData, MaterialGroupData } from "./model";
+import { DisplayData } from "./model";
 import { NAME } from "./constants";
-import selection from "../selection";
-import { SingleOrigin } from "../cards/model/model-origin";
+// import selection from "../selection";
+// import { SingleOrigin } from "../cards/model/model-origin";
 
 export const getAll = (state: any): DisplayData => state[NAME];
 
-export const getPDF = createSelector(getAll, (state: DisplayData) => {
-	return { pdf: state.pdf ? state.pdf : null };
-});
+export const getPDF = createSelector(getAll, (state: DisplayData) => state.pdf);
 
 export const getPDFName = createSelector(getAll, (state) => state.pdfName);
-
-export const getRenderCritialData = createSelector(getAll, (state: DisplayData) => {
-	return {
-		pdf: state.pdf,
-		currentPage: state.currentPage,
-		documentRef: state.documentRef,
-	};
-});
 
 export const getTotalPages = createSelector(getAll, (state: DisplayData) => state.totalPages);
 
@@ -30,43 +20,8 @@ export const getPageControlData = createSelector(getTotalPages, getCurrentPage, 
 
 export const getDocumentRef = createSelector(getAll, (state: DisplayData) => state.documentRef);
 
-export const getMaterialData = createSelector(getAll, (state: DisplayData) => state.materialData);
-
-export const getTimeStamp = createSelector(getMaterialData, (state: MaterialData) => state.materialDataTimeStamp);
-
-export const getMaterialSpans = createSelector(
-	getMaterialData as (state: any) => MaterialGroupData,
-	(state: MaterialGroupData) => state.materialSpans
-);
-
-export const getSpanIndex = (state: any, span: HTMLSpanElement) => {
-	const spans = getMaterialSpans(state);
-	return spans.indexOf(span);
-};
-
-export const getMaterialBoundingRects = createSelector(
-	getMaterialData as (state: any) => MaterialGroupData,
-	(state: MaterialGroupData) => state.materialBoundingRects
-);
-
-export const getDataExists = createSelector(getTimeStamp, (timestamp) => timestamp > 0);
-
 export const getDisplayStatus = createSelector(getAll, (state: DisplayData) => state.displayStatus);
 
 export const displayStatusIsShow = createSelector(getDisplayStatus, (status) => status === "SHOW");
 
 export const getZoomTarget = createSelector(getAll, (state: DisplayData) => state.zoomTargetSpanIndex);
-
-export const getMaterialHeight = createSelector(getAll, (state: DisplayData) => state.materialHeight);
-
-export const getCurrentOrigin = createSelector(
-	(state: any) => state,
-	getCurrentPage,
-	selection.selectors.getCurrentSelectedParent,
-	(state, currentPage, selectedParent): SingleOrigin => {
-		return {
-			spanIndex: getSpanIndex(state, selectedParent as HTMLSpanElement),
-			page: currentPage,
-		};
-	}
-);

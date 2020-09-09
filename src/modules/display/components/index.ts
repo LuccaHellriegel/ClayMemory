@@ -1,6 +1,6 @@
 import { PageNavigation } from "./NavigationButtons";
 import { PageChooser } from "./PageChooser/PageChooser";
-import { MaterialDisplayColumnWithSize } from "./MaterialDisplayColumn";
 import { PageKeyboardControl } from "./PDFDocument/PageKeyboardControl";
+import { PDFDocument } from "./PDFDocument/PDFDocument";
 
-export { PageChooser, PageNavigation, MaterialDisplayColumnWithSize, PageKeyboardControl };
+export { PageChooser, PageNavigation, PageKeyboardControl, PDFDocument };

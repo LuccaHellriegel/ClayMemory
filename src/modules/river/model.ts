@@ -16,7 +16,7 @@ export type ContentFilter = string;
 export type CardRiverState = {
 	riverMakeUps: RiverMakeUps;
 	activeRiverMakeUpID: string;
-	pushToRiverID: string;
+	//pushToRiverID: string;
 	lastRiverIDNumber: number;
 	// show/hide river
 	riverShowState: RiverShowState;
@@ -47,9 +47,9 @@ export const updateStateWithMakeUps = (state: CardRiverState, ...makeUps: RiverM
 	return updatedState;
 };
 
-export const deactivateActiveCardRiver = (state: CardRiverState) => {
-	return { ...state.riverMakeUps[state.activeRiverMakeUpID], active: false };
-};
+// export const deactivateActiveCardRiver = (state: CardRiverState) => {
+// 	return { ...state.riverMakeUps[state.activeRiverMakeUpID], active: false };
+// };
 
 export const removeCardFromRivers = (state: CardRiverState, cardID: CardID): CardRiverState => {
 	const riverMakeUps = Object.fromEntries(

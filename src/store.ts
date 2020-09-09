@@ -23,7 +23,7 @@ import selection from "./modules/selection";
 
 const rootReducer = combineReducers({
 	[selection.constants.NAME]: undoable(selection.reducer, {
-		filter: includeAction([selection.actionTypes.SELECTED_STRING]),
+		filter: includeAction([selection.actionTypes.SELECTION_GOAL, selection.actionTypes.SELECTION_SOURCE]),
 	}),
 	[creation.constants.NAME]: undoable(creation.reducer, {
 		filter: includeAction([cards.actionTypes.CARD_PUSH]),
@@ -40,10 +40,8 @@ const rootReducer = combineReducers({
 		filter: includeAction([
 			db.actionTypes.LOAD_DOCUMENT_DATA_SETS,
 			cards.actionTypes.CARD_PUSH,
-			cards.actionTypes.CARD_UPDATE,
+			cards.actionTypes.CARD_REPLACE,
 			cards.actionTypes.CARD_REMOVE,
-			//this needs to be here, because we use display it to the user with the grab-icon
-			cards.actionTypes.CARD_GOAL,
 		]),
 	}),
 	[db.constants.NAME]: undoable(db.reducer, {

@@ -6,5 +6,3 @@ import reducer from "./reducer";
 import * as selectors from "./selectors";
 
 export default { actions, actionTypes, components, constants, reducer, selectors };
-
-//TODO-RC: make scrollable...

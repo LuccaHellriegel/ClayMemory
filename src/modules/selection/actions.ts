@@ -1,44 +1,63 @@
 import * as t from "./actionTypes";
-import { CardOrigin } from "../cards/model/model-origin";
-import { getSourceCard } from "./selectors";
+import { SingleOrigin } from "../cards/model/model-origin";
+import { SelectionSourceConfig, SelectionGoalConfig } from "./model";
 import { Dispatch } from "redux";
-import { CardField } from "../cards/model/model-content";
-import { isDifferentSourceCard } from "./model";
+import { getGoalConfig, getSourceConfig } from "./selectors";
+import { selectionToCard } from "./services/use-selection";
+import { getSelectionSourceFromMaterial, getSelectionSourceFromCard } from "./services/get-selection";
 
-export const updateManuallySelectedString = (str: string) => {
-	return { type: t.SELECTED_STRING, payload: str };
+const setSelectionSource = (config: SelectionSourceConfig) => {
+	return { type: t.SELECTION_SOURCE, payload: config };
+};
+export const resetSelectionSource = () => {
+	return { type: t.SELECTION_SOURCE, payload: null };
+};
+const setSelectionGoal = (config: SelectionGoalConfig) => {
+	return { type: t.SELECTION_GOAL, payload: config };
+};
+export const resetSelectionGoal = () => {
+	return { type: t.SELECTION_GOAL, payload: null };
 };
 
-export const resetManuallySelectedString = () => {
-	return updateManuallySelectedString("");
-};
-
-export const selectedParent = (span: null | HTMLSpanElement) => {
-	return { type: t.SELECTED_PARENT, payload: span };
-};
-
-export const updateSelectionPosition = (x: number, y: number) => {
-	return { type: t.DOCUMENT_POSITION, payload: { x, y } };
-};
-
-export const setSourceCard = (sourceField: CardField, origin?: CardOrigin) => {
-	return { type: t.SOURCE_CARD, payload: { origin, sourceField } };
-};
-
-export const trySetSourceCard = (sourceField: CardField, origin?: CardOrigin) => {
+// we want to support either direction, first adding Goal or first adding Source
+export const addSelectionSource = (config: SelectionSourceConfig) => {
 	return (dispatch: Dispatch, getState: Function) => {
-		const sourceCard = getSourceCard(getState());
-		if (isDifferentSourceCard(sourceCard, sourceField, origin)) dispatch(setSourceCard(sourceField, origin));
+		const state = getState();
+		const goalConfig = getGoalConfig(state);
+		if (!goalConfig) {
+			dispatch(setSelectionSource(config));
+			return;
+		}
+		selectionToCard(config, goalConfig as SelectionGoalConfig, dispatch, state);
+		dispatch(resetSelectionGoal());
 	};
 };
 
-export const resetSourceCard = () => {
-	return { type: t.SOURCE_CARD, payload: null };
+export const addMaterialSelectionSource = (page: number) => {
+	const sourceConfig = getSelectionSourceFromMaterial(page);
+	if (sourceConfig) {
+		return addSelectionSource(sourceConfig);
+	}
+	return false;
 };
 
-export const tryResetSourceCard = () => {
+export const addCardSelectionSource = (contentOrigin?: SingleOrigin) => {
+	const sourceConfig = getSelectionSourceFromCard(contentOrigin);
+	if (sourceConfig) {
+		return addSelectionSource(sourceConfig);
+	}
+	return false;
+};
+
+export const addSelectionGoal = (config: SelectionGoalConfig) => {
 	return (dispatch: Dispatch, getState: Function) => {
-		const sourceCardExits = getSourceCard(getState()) !== null;
-		if (sourceCardExits) dispatch(resetSourceCard());
+		const state = getState();
+		const sourceConfig = getSourceConfig(state);
+		if (!sourceConfig) {
+			dispatch(setSelectionGoal(config));
+			return;
+		}
+		selectionToCard(sourceConfig as SelectionSourceConfig, config, dispatch, state);
+		dispatch(resetSelectionSource());
 	};
 };

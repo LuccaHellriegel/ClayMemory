@@ -3,15 +3,11 @@ import {
 	RiverShowState,
 	pageNumberToRiverMakeUpID,
 	RiverContentState,
-	emptyCardRiver,
-	deactivateActiveCardRiver,
-	updateStateWithMakeUps,
 	removeCardFromRivers,
 } from "./model";
 import { CardConfig } from "../cards/model/model-config";
 import cards from "../cards";
 import * as t from "./actionTypes";
-import display from "../display";
 import { ArchiveRiver } from "../db/model";
 import db from "../db";
 
@@ -22,7 +18,6 @@ const initialState: CardRiverState = {
 			cardIDs: ["2", "0", "1"],
 		},
 	},
-	pushToRiverID: pageNumberToRiverMakeUpID(1),
 	activeRiverMakeUpID: pageNumberToRiverMakeUpID(1),
 	lastRiverIDNumber: 1,
 	riverShowState: "SHOW",
@@ -31,53 +26,43 @@ const initialState: CardRiverState = {
 	riverContentState: "ALL",
 	contentFilter: "",
 };
-
+// TODO-RC: adding to one river forces all of them to update, memo?
 const cardRiverState = (state = initialState, { type, payload }: { type: string; payload: any }): CardRiverState => {
 	let riverMakeUp;
 	let riverMakeUps;
 	switch (type) {
-		case display.actionTypes.PAGE_UPDATE:
-			let activeRiver;
-			if (!state.riverMakeUps[pageNumberToRiverMakeUpID(payload as number)]) {
-				activeRiver = emptyCardRiver(payload as number);
-			} else {
-				activeRiver = { ...state.riverMakeUps[pageNumberToRiverMakeUpID(payload as number)] };
-			}
-
-			const oldRiver = deactivateActiveCardRiver(state);
-
-			return {
-				...updateStateWithMakeUps(state, activeRiver, oldRiver),
-				activeRiverMakeUpID: activeRiver.riverID,
-				pushToRiverID: activeRiver.riverID,
-			};
-
-		case cards.actionTypes.CARD_PUSH:
-			riverMakeUp = {
-				...state.riverMakeUps[state.pushToRiverID],
-				cardIDs: [...state.riverMakeUps[state.pushToRiverID].cardIDs, (payload as CardConfig).cardID],
-			};
-			riverMakeUps = { ...state.riverMakeUps };
-			riverMakeUps[state.pushToRiverID] = riverMakeUp;
-
-			return { ...state, riverMakeUps: riverMakeUps };
-		case cards.actionTypes.CARD_REMOVE:
-			return removeCardFromRivers(state, payload as string);
+		case t.RIVER_ACTIVE_ID:
+			return { ...state, activeRiverMakeUpID: payload };
 		case t.RIVER_SHOW_STATE:
 			return { ...state, riverShowState: payload as RiverShowState };
 		case t.RIVER_CONTENT_STATE:
 			return { ...state, riverContentState: payload as RiverContentState };
-		case t.RIVER_PUSH_STATE:
-			return { ...state, pushToRiverID: payload };
 		case t.RIVER_HOVERED_CARD:
 			return { ...state, highlightedCardID: payload.id, highlightedCardField: payload.field };
+		case cards.actionTypes.CARD_PUSH:
+			if (state.riverMakeUps[state.activeRiverMakeUpID]) {
+				riverMakeUp = {
+					...state.riverMakeUps[state.activeRiverMakeUpID],
+					cardIDs: [...state.riverMakeUps[state.activeRiverMakeUpID].cardIDs, (payload as CardConfig).cardID],
+				};
+			} else {
+				// create new river
+				riverMakeUp = {
+					riverID: state.activeRiverMakeUpID,
+					cardIDs: [(payload as CardConfig).cardID],
+				};
+			}
+			riverMakeUps = { ...state.riverMakeUps };
+			riverMakeUps[state.activeRiverMakeUpID] = riverMakeUp;
+
+			return { ...state, riverMakeUps: riverMakeUps };
+		case cards.actionTypes.CARD_REMOVE:
+			return removeCardFromRivers(state, payload as string);
 		case db.actionTypes.DOCUMENT_CHANGE:
 			if (payload) {
 				return {
 					...initialState,
 					riverMakeUps: (payload as ArchiveRiver).riverMakeUps,
-					activeRiverMakeUpID: (payload as ArchiveRiver).activeRiverMakeUpID,
-					pushToRiverID: (payload as ArchiveRiver).pushToRiverID,
 					lastRiverIDNumber: (payload as ArchiveRiver).lastRiverIDNumber,
 				};
 			} else {
@@ -91,8 +76,6 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 				return {
 					...initialState,
 					riverMakeUps: (payload.newActiveDataSet as ArchiveRiver).riverMakeUps,
-					activeRiverMakeUpID: (payload.newActiveDataSet as ArchiveRiver).activeRiverMakeUpID,
-					pushToRiverID: (payload.newActiveDataSet as ArchiveRiver).pushToRiverID,
 					lastRiverIDNumber: (payload.newActiveDataSet as ArchiveRiver).lastRiverIDNumber,
 				};
 			} else {
