@@ -1,5 +1,4 @@
 import display from "../../display";
-import focus from "../../focus";
 import river from "../../river";
 import React from "react";
 import { IconButton, Menu, FormControlLabel, Typography, Divider, Grid } from "@material-ui/core";
@@ -56,8 +55,6 @@ export const ShowHideButton = () => {
 		setAnchorEl(null);
 	};
 
-	const displayFocus = useSelector(focus.selectors.getDisplayFocus);
-
 	return (
 		<div>
 			<IconButton type="button" onClick={handleClick}>
@@ -74,7 +71,7 @@ export const ShowHideButton = () => {
 						<Divider orientation="vertical"></Divider>
 					</Grid>
 					<Grid item>
-						{displayFocus === "ACTIVE_RIVER" && (
+						{
 							<Grid container direction="column">
 								<Grid item>
 									<ShowRiverCheckbox></ShowRiverCheckbox>
@@ -83,7 +80,7 @@ export const ShowHideButton = () => {
 									<ShowMaterialCheckbox></ShowMaterialCheckbox>
 								</Grid>
 							</Grid>
-						)}
+						}
 					</Grid>
 				</Grid>
 			</Menu>

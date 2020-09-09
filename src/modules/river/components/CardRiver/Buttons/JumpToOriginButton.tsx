@@ -2,9 +2,8 @@ import FindInPageIcon from "@material-ui/icons/FindInPage";
 import React from "react";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import display from "../../../../display";
+//import display from "../../../../display";
 import { SingleOrigin } from "../../../../cards/model/model-origin";
-import focus from "../../../../focus";
 import text from "../../../../text";
 
 //TODO-NICE: replace/simplify focus system with element specific mouse-listeners
@@ -19,8 +18,9 @@ export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin })
 			<IconButton
 				type="button"
 				onClick={() => {
-					dispatch(focus.actions.updateDisplayFocus("ACTIVE_RIVER"));
-					dispatch(display.actions.zoomToCardOrigin(cardOrigin.spanIndex, cardOrigin.page));
+					//TODO-RC: needs to show the Document. If it is hiden this does not make sense.
+					//TODO-RC: needs to change with multiple pages
+					//dispatch(display.actions.zoomToCardOrigin(cardOrigin.spanIndex, cardOrigin.page));
 				}}
 			>
 				<FindInPageIcon fontSize="small"></FindInPageIcon>

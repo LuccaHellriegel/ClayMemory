@@ -3,7 +3,6 @@ import { applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { combineReducers } from "redux";
-import focus from "./modules/focus";
 import creation from "./modules/extraction";
 import river from "./modules/river";
 import display from "./modules/display";
@@ -23,7 +22,6 @@ import selection from "./modules/selection";
 // but not as clean as it could be
 
 const rootReducer = combineReducers({
-	[focus.constants.NAME]: focus.reducer,
 	[selection.constants.NAME]: undoable(selection.reducer, {
 		filter: includeAction([selection.actionTypes.SELECTED_STRING]),
 	}),

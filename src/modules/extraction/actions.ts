@@ -6,7 +6,6 @@ import { CardOrigin } from "../cards/model/model-origin";
 import { CreationType } from "../cards/model/model-config";
 import { contextMenuContainsTargetNode } from "./services";
 import river from "../river";
-import focus from "../focus";
 
 export const toggleContextMenu = () => {
 	return (dispatch: any, getState: Function) => {
@@ -49,15 +48,12 @@ export const rightClickControl = (event: MouseEvent) => {
 
 		event.preventDefault();
 
-		const displayFocus = focus.selectors.getDisplayFocus(state);
-
 		dispatch(selection.actions.updateSelectionPosition(event.x, event.y));
 		dispatch(openContextMenu());
 
-		if (displayFocus === "ACTIVE_RIVER") {
-			//if the user is focused on the document, the push-to river should always be the active=page-wise river
-			dispatch(river.actions.setPushToRiver(river.selectors.getActiveRiverMakeUpID(state)));
-		}
+		//TODO-RC: this does not work anymore with multiple pages, simplify?
+		//if the user is focused on the document, the push-to river should always be the active=page-wise river
+		dispatch(river.actions.setPushToRiver(river.selectors.getActiveRiverMakeUpID(state)));
 	};
 };
 
