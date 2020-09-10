@@ -1,20 +1,19 @@
 import { RefObject } from "react";
 import { pdfjs } from "react-pdf";
-import { PageDimensions } from "./PDFDocument";
+import { CachedPageDimensions } from "./PDFDocument";
 
 //TODO-NICE: use more robust method than pdfName to differentiate pdfs
-
+//TODO-NICE: test if this abort actually works? once the function was entered,
+// is it guaranteed that it will finish before other changes?
 export const cachePageDimensions = (
 	pdfProxy: pdfjs.PDFDocumentProxy,
 	pdfName: string,
 	pdfNameRef: RefObject<string | null | undefined>,
-	setPageDimensions: (dims: PageDimensions) => void
+	setPageDimensions: (dims: CachedPageDimensions) => void
 ) => {
 	const promises = Array.from({ length: pdfProxy.numPages }, (_, i) => i + 1).map((pageNumber) =>
 		pdfProxy.getPage(pageNumber)
 	);
-
-	let height = 0;
 
 	// Assuming all pages may have different heights. Otherwise we can just
 	// load the first page and use its height for determining all the row
@@ -35,14 +34,8 @@ export const cachePageDimensions = (
 
 			// react-pdf 4.0.5 types are incorrect, _pageIndex is correct and not just pageIndex
 			pageDimensions.set(((page as unknown) as { _pageIndex: number })._pageIndex + 1, [w, h]);
-			height += h;
 		}
 
-		setPageDimensions({
-			cachedPageDimensions: pageDimensions,
-			initialContainerHeight: height,
-			pages: new WeakMap(),
-			pageNumbers: new Map(),
-		});
+		setPageDimensions(pageDimensions);
 	});
 };

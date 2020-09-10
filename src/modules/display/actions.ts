@@ -1,8 +1,12 @@
 import { Dispatch } from "redux";
 import * as t from "./actionTypes";
 import { PageMove, pageCorrections } from "./model";
-import { getPageControlData, getDisplayStatus, getZoomTarget } from "./selectors";
+import { getPageControlData, getDisplayStatus } from "./selectors";
 import { keyEventDispatcherCreator, KeyActionMap } from "../../shared/utils";
+
+export const widthPixels = (windowMeasurements: { width: number; height: number }) => {
+	return { type: t.WINDOW_LAYOUT, payload: windowMeasurements };
+};
 
 export const pdfUpload = (pdf: File) => {
 	return { type: t.PDF_UPLOADED, payload: pdf };

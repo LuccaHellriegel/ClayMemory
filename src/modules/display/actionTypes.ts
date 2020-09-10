@@ -7,3 +7,5 @@ export const DISPLAY_STATUS = NAME + "/DISPLAY_STATUS";
 
 export const PAGE_UPDATE = NAME + "/PAGE_UPDATE";
 export const ZOOM_QUEUE = NAME + "/ZOOM_QUEUE";
+
+export const WINDOW_LAYOUT = NAME + "/WINDOW_LAYOUT";

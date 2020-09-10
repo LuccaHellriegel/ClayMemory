@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 import control from "../modules/control";
 import creation from "../modules/extraction";
@@ -13,7 +13,8 @@ export function ReaderScene() {
 	// const showRiver = useSelector(river.selectors.riverShowStateIsShow);
 
 	return (
-		<div>
+		<Fragment>
+			<display.components.WindowMeasurer></display.components.WindowMeasurer>
 			<Grid container justify="center" direction="column" alignItems="stretch" spacing={1}>
 				<Grid item>
 					<control.components.ControlBar></control.components.ControlBar>
@@ -27,6 +28,6 @@ export function ReaderScene() {
 			{/* //TODO-RC: switch between single and multiple pages? And then scroll to top makes sense?	*/}
 			<creation.components.ContextMenuContainer></creation.components.ContextMenuContainer>
 			<selection.components.SelectionSnackbar></selection.components.SelectionSnackbar>
-		</div>
+		</Fragment>
 	);
 }

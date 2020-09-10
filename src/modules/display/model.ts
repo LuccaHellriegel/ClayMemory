@@ -1,5 +1,3 @@
-import { RefObject } from "react";
-
 export type DisplayStatus = "SHOW" | "HIDE";
 
 export type DisplayData = {
@@ -8,8 +6,8 @@ export type DisplayData = {
 	displayStatus: DisplayStatus;
 	currentPage: number;
 	totalPages: number;
-	documentRef: RefObject<HTMLDivElement>;
 	zoomTargetSpanIndex: number | null;
+	windowMeasurements: { width: number; height: number } | null;
 };
 
 export type PageMove = "PREVIOUS" | "NEXT";

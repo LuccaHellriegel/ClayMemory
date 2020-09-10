@@ -83,14 +83,13 @@ const addDOMObjectsToDisplayData = (outboundState: {
 	displayStatus: DisplayStatus;
 	currentPage: number;
 	totalPages: number;
-	//TODO-NICE:might need amount of spans per page for validation? if yes, use this
-	documentRef: null;
 	zoomTargetSpanIndex: number | null;
+	windowMeasurements: { width: number; height: number } | null;
 }): DisplayData => {
 	return {
 		...outboundState,
 		pdf: undefined,
-		documentRef: createRef(),
+		windowMeasurements: null,
 	};
 };
 

@@ -7,8 +7,8 @@ const initialState: DisplayData = {
 	displayStatus: "SHOW",
 	totalPages: 1000,
 	currentPage: 1,
-	documentRef: createRef(),
 	zoomTargetSpanIndex: null,
+	windowMeasurements: null,
 };
 
 const displayData = (state = initialState, { type, payload }: { type: string; payload: any }): DisplayData => {
@@ -42,6 +42,11 @@ const displayData = (state = initialState, { type, payload }: { type: string; pa
 			return {
 				...state,
 				zoomTargetSpanIndex: payload,
+			};
+		case t.WINDOW_LAYOUT:
+			return {
+				...state,
+				windowMeasurements: payload,
 			};
 		default:
 			return state;

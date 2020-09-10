@@ -3,17 +3,16 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Grid from "@material-ui/core/Grid";
-import React, { useMemo, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getRiverContentState, getRiverContentFilter, getActiveRiverMakeUpID } from "../../selectors";
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { getRiverContentState, getRiverContentFilter, getRiverMakeUps } from "../../selectors";
 import cards from "../../../cards";
-import { NoteConfig, QAConfig, CardConfig } from "../../../cards/model/model-config";
-import { ContentFilter, pageNumberToRiverMakeUpID } from "../../model";
+import { NoteConfig, QAConfig } from "../../../cards/model/model-config";
+import { ContentFilter } from "../../model";
 import { toCardGridItemsWithDividers } from "./toCardGridItemsWithDividers";
 
 //TODO-NICE: make it not be accordion but closeable?
 //TODO-NICE: make local show / hide notes
-//TODO-NICE: untangle these components, dont need to so many subs?
 
 const noteContainsContentFilter = (noteConfig: NoteConfig, contentFilter: ContentFilter) =>
 	noteConfig.content.includes(contentFilter);
@@ -21,15 +20,11 @@ const noteContainsContentFilter = (noteConfig: NoteConfig, contentFilter: Conten
 const qaContainsContentFilter = (qaConfig: QAConfig, contentFilter: ContentFilter) =>
 	qaConfig.content.a.includes(contentFilter) || qaConfig.content.q.includes(contentFilter);
 
-export const CardRiver = ({
-	riverID,
-	riverCards,
-	materialHeight,
-}: {
-	riverID: string;
-	riverCards: CardConfig[];
-	materialHeight: number;
-}) => {
+export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materialHeight: number }) => {
+	const cardConfigs = useSelector(cards.selectors.getCards);
+
+	const riverMakeUp = useSelector(getRiverMakeUps)[riverID];
+	const riverCards = riverMakeUp ? riverMakeUp.cardIDs.map((id) => cardConfigs[id]) : [];
 	const riverContentState = useSelector(getRiverContentState);
 
 	//TODO-NICE: use regex for upper/lower-case
@@ -66,13 +61,7 @@ export const CardRiver = ({
 		return toCardGridItemsWithDividers(inputCards, riverID);
 	}, [riverCards, riverID, riverContentState, contentFilter]);
 
-	useEffect(() => {
-		if (riverID === pageNumberToRiverMakeUpID(1)) console.log("rendering " + riverID, materialHeight);
-	});
-
-	//TODO-RC: perf is really bad with 200+ pages, need to prevent re-renders for everything in the middle
-
-	const dispatch = useDispatch();
+	//TODO-RC: perf is still kinda bad with 200+ pages, need to prevent re-renders for the pair
 
 	//TODO-NICE: make HalfFull-sub-menu for half-full QAs
 	//TODO-NICE: if you start without any document and then load one, the current cards should be merged into that one
@@ -81,9 +70,6 @@ export const CardRiver = ({
 	return (
 		<Accordion
 			defaultExpanded={true}
-			//TODO-NICE: I use 1400 to prevent non-overflow on reloading (the site would be stretched)
-			// if the river is bigger than the pdf-page would be, then the site is stretchted and the pdf-page-element assumes the size of the river
-			// this solution assumes the pdf page is always bigger than 1400 (true on 22'), need solution to get height of pdf-page-element itself and not its parent
 			style={{
 				overflowY: "auto",
 				maxHeight: materialHeight,

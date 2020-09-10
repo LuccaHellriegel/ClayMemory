@@ -1,12 +1,12 @@
 import { createSelector } from "reselect";
 import { DisplayData } from "./model";
 import { NAME } from "./constants";
-// import selection from "../selection";
-// import { SingleOrigin } from "../cards/model/model-origin";
 
 export const getAll = (state: any): DisplayData => state[NAME];
 
 export const getPDF = createSelector(getAll, (state: DisplayData) => state.pdf);
+
+export const getWindowMeasurements = createSelector(getAll, (state) => state.windowMeasurements);
 
 export const getPDFName = createSelector(getAll, (state) => state.pdfName);
 
@@ -17,8 +17,6 @@ export const getCurrentPage = createSelector(getAll, (state: DisplayData) => sta
 export const getPageControlData = createSelector(getTotalPages, getCurrentPage, (totalPages, currentPage) => {
 	return { currentPage, totalPages };
 });
-
-export const getDocumentRef = createSelector(getAll, (state: DisplayData) => state.documentRef);
 
 export const getDisplayStatus = createSelector(getAll, (state: DisplayData) => state.displayStatus);
 

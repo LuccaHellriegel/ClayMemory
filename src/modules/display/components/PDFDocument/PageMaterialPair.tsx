@@ -1,9 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import { Divider, Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import cards from "../../../cards";
 import river from "../../../river";
-import { GridItemPDFPage } from "./GridItemPDFPage";
+import { PDFPage } from "./PDFPage";
+import { getWindowMeasurements } from "../../selectors";
+import { CachedPageDimensions } from "./PDFDocument";
+
+export const RiverMultiplier = 0.38;
+export const MaterialMultiplier = 0.57;
+
+export const calculateMaterialHeight = (
+	pageNumber: number,
+	cachedPageDimensions: CachedPageDimensions,
+	windowWidth: number
+) => {
+	const pageDims = cachedPageDimensions.get(pageNumber) as [number, number];
+	const materialWidth = windowWidth * MaterialMultiplier;
+
+	const userSpaceUnitWidth = pageDims[0];
+	const pixelPerUserSpaceUnit = materialWidth / userSpaceUnitWidth;
+	const materialHeight = pageDims[1] * pixelPerUserSpaceUnit;
+
+	const extraSpaceBetweenMaterialPages = 20;
+	return materialHeight + extraSpaceBetweenMaterialPages;
+};
 
 export const PageMaterialPair = ({
 	index,
@@ -12,74 +32,40 @@ export const PageMaterialPair = ({
 }: {
 	index: number;
 	data: {
-		currentPage: number;
-		numPages: number;
-		pages: WeakMap<any, any>;
-		pageNumbers: Map<any, any>;
-		triggerResize: () => void;
+		cachedPageDimensions: CachedPageDimensions;
 	};
 	style: any;
 }) => {
-	const cardConfigs = useSelector(cards.selectors.getCards);
 	const pageNumber = index + 1;
 	const riverID = river.model.pageNumberToRiverMakeUpID(pageNumber);
-	const riverMakeUp = useSelector(river.selectors.getRiverMakeUps)[riverID];
-	const riverCards = riverMakeUp ? riverMakeUp.cardIDs.map((id) => cardConfigs[id]) : [];
-	const { numPages, triggerResize, pages, pageNumbers } = data;
-
-	const [materialHeight, setMaterialHeight] = useState(1400);
+	const { cachedPageDimensions } = data;
+	const windowMeasurements = useSelector(getWindowMeasurements);
+	const materialHeight = calculateMaterialHeight(pageNumber, cachedPageDimensions, windowMeasurements?.width as number);
 
 	//TODO-RC: if I leave the river, selection should be deleted or save riverID in selection?
 	// seems to be more robust, but then selection is mixed with river?
 	// maybe just save Page for origin? Right now I compile the page once we actually save it,
 	// but this is not robust
-
 	return (
 		<div {...{ style }}>
-			<div
-				ref={(ref) => {
-					if (!pageNumbers.has(pageNumber)) {
-						const key = { pageNumber };
-						pageNumbers.set(pageNumber, key);
-					}
-					pages.set(pageNumbers.get(pageNumber), ref);
-				}}
-			>
+			{windowMeasurements && (
 				<river.components.SwitchActiveRiver riverID={riverID}>
-					<Grid container justify="space-around" direction="row" alignItems="stretch">
-						<Grid
-							item
-							style={{
-								width: "38%",
-							}}
-						>
+					<Grid container justify="space-between" direction="row" alignItems="flex-start">
+						<Grid item>
 							<river.components.CardRiver
 								riverID={riverID}
-								riverCards={riverCards}
 								materialHeight={materialHeight}
 							></river.components.CardRiver>
 						</Grid>
 
-						<GridItemPDFPage
-							pdfPageOuterProps={{ pageNumber, numPages, triggerResize }}
-							style={{
-								width: "60%",
-							}}
-							materialHeight={materialHeight}
-							setMaterialHeight={setMaterialHeight}
-						></GridItemPDFPage>
+						<Grid item>
+							<PDFPage pageNumber={pageNumber}></PDFPage>
+						</Grid>
 					</Grid>
 				</river.components.SwitchActiveRiver>
+			)}
 
-				<Divider
-					style={
-						{
-							//TOOD-RC: fix this somehow, this leads to constant re-render loop?
-							// margin: "6px",
-						}
-					}
-				></Divider>
-			</div>
+			<Divider></Divider>
 		</div>
 	);
 };
