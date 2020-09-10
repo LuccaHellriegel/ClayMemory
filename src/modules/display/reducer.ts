@@ -1,6 +1,5 @@
 import * as t from "./actionTypes";
 import type { DisplayData, DisplayStatus } from "./model";
-import { createRef } from "react";
 import db from "../db";
 
 const initialState: DisplayData = {

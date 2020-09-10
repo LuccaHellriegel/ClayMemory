@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { TextField, TextFieldProps } from "@material-ui/core";
 import selection from "../../../../selection";
-import { useDispatch } from "react-redux";
 import { SingleOrigin } from "../../../../cards/model/model-origin";
 
 export const ClayCardField = ({
@@ -18,7 +17,6 @@ export const ClayCardField = ({
 	style: any;
 } & TextFieldProps) => {
 	const [state, setState] = useState({ storeValue, mutableValue: storeValue });
-	const dispatch = useDispatch();
 
 	// reset if new storeValue, otherwise keep user-mutated value
 	if (state.storeValue !== storeValue) {

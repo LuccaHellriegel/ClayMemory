@@ -12,7 +12,12 @@ export const goalIsCreation = (goalConfig: SelectionGoalConfig) => {
 	return !idExists;
 };
 
-// Selection is made up of two parts: selecting and executing
+// Selection is made up of two parts: selecting a source and selecting a goal
+// If both are done, then a Card needs to be created or updated
+// By clarifying this concept, I was able to reduce the selection code and make it more composable
+// See: AppendButton can be used before or after selecting a source without any extra code
+// This shows that a correct conceptualisation of the problem domain operations is the most important
+// thing in programming (note to self :))
 
 export type SelectionData = {
 	sourceConfig: SelectionSourceConfig | null;

@@ -1,10 +1,12 @@
 import * as t from "./actionTypes";
 import { SingleOrigin } from "../cards/model/model-origin";
-import { SelectionSourceConfig, SelectionGoalConfig } from "./model";
+import { SelectionSourceConfig, SelectionGoalConfig, SelectionExistingCardGoalConfig } from "./model";
 import { Dispatch } from "redux";
 import { getGoalConfig, getSourceConfig } from "./selectors";
 import { selectionToCard } from "./services/use-selection";
 import { getSelectionSourceFromMaterial, getSelectionSourceFromCard } from "./services/get-selection";
+import { CardID } from "../cards/model/model-config";
+import { CardField } from "../cards/model/model-content";
 
 const setSelectionSource = (config: SelectionSourceConfig) => {
 	return { type: t.SELECTION_SOURCE, payload: config };
@@ -60,4 +62,9 @@ export const addSelectionGoal = (config: SelectionGoalConfig) => {
 		selectionToCard(sourceConfig as SelectionSourceConfig, config, dispatch, state);
 		dispatch(resetSelectionSource());
 	};
+};
+
+export const addCardAppendSelectionGoal = (cardID: CardID, cardField: CardField) => {
+	const config: SelectionExistingCardGoalConfig = { cardID, cardField, updateType: "APPEND" };
+	return addSelectionGoal(config);
 };

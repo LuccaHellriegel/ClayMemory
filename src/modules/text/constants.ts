@@ -12,7 +12,7 @@ export const previousPageTooltip = "Previous page";
 export const deleteCardTooltip = "Delete this card";
 export const grabForCardTooltip = "Activate the document-selection grab for this card(-field)";
 export const jumpToOriginTooltip = "Jump to the origin of the card content";
-export const appendToCardTooltip = "Add the current selection to this card (only from document)";
+export const appendToCardTooltip = "Add the current or next selection to this card (only from document)";
 
 export const newQACardTooltip = "Create new QA-card";
 export const newNoteCardTooltip = "Create new Note-card";

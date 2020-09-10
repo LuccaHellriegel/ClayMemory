@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import cards from "../../../../cards";
 import { getHoveredCardData } from "../../../selectors";
 import { Card, Grid } from "@material-ui/core";
-import { CardProps, borderStyle } from "./ClayCard";
+import { borderStyle } from "./ClayCard";
 import text from "../../../../text";
-import selection from "../../../../selection";
 import { NoteConfig } from "../../../../cards/model/model-config";
 import { ClayCardFieldButtons } from "./ClayCardFieldButtons";
 
