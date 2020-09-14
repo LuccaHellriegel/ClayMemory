@@ -22,9 +22,9 @@ export const PageMaterialPair = ({
 	// seems to be more robust, but then selection is mixed with river?
 	// maybe just save Page for origin? Right now I compile the page once we actually save it,
 	// but this is not robust
+	// Show Origin in Selection, then the user can decide if he wants to cross Rivers
 	return (
 		<div {...{ style }}>
-			(
 			<river.components.SwitchActiveRiver riverID={riverID}>
 				<Grid container justify="space-between" direction="row" alignItems="flex-start">
 					<Grid item>
@@ -39,7 +39,7 @@ export const PageMaterialPair = ({
 					</Grid>
 				</Grid>
 			</river.components.SwitchActiveRiver>
-			)<Divider></Divider>
+			<Divider></Divider>
 		</div>
 	);
 };

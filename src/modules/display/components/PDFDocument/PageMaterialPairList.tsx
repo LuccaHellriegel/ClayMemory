@@ -6,14 +6,19 @@ import { CachedPageDimensions } from "./PDFDocument";
 import { getCurrentPage, getWindowMeasurements } from "../../selectors";
 import { useSelector } from "react-redux";
 
-const PageZoomControl = ({ listRef }: { listRef: RefObject<any> }) => {
+const PageZoomControl = ({ listRef }: { listRef: RefObject<VariableSizeList> }) => {
 	//TODO-RC: zoom queue
 	//TODO-RC: correct for AppBar height (useRef?)
 	const currentPage = useSelector(getCurrentPage);
-	// TODO-RC: first scroll, necessary?
-	listRef.current?.scrollToItem(currentPage - 1, "smart");
+	//const lastZoomedRef = useRef(currentPage);
 	useEffect(() => {
 		listRef.current?.scrollToItem(currentPage - 1, "smart");
+	}, []);
+
+	useEffect(() => {
+		//if (lastZoomedRef.current !== currentPage)
+		listRef.current?.scrollToItem(currentPage - 1, "smart");
+		//lastZoomedRef.current = currentPage;
 	}, [listRef, currentPage]);
 
 	return null;
@@ -64,7 +69,6 @@ export const PageMaterialPairList = ({
 					itemData={{
 						materialHeights,
 					}}
-					overscanCount={2}
 					ref={listRef as RefObject<VariableSizeList>}
 					width="100%"
 				>

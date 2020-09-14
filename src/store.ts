@@ -1,6 +1,5 @@
 import { createStore } from "redux";
 import { applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { combineReducers } from "redux";
 import creation from "./modules/extraction";
@@ -12,6 +11,7 @@ import undoable, { includeAction } from "redux-undo";
 import { persistConfig } from "./persist";
 import db from "./modules/db";
 import selection from "./modules/selection";
+import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProduction";
 
 //TODO-NICE: make limit for undo (right now its fine, if we reset on document-upload)
 //TODO-NICE: make snackbar for which action is undone/redone
