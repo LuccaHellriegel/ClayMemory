@@ -1,7 +1,7 @@
 import React, { RefObject, useRef, Fragment, useEffect } from "react";
 import { pdfjs } from "react-pdf";
 import { VariableSizeList } from "react-window";
-import { PageMaterialPair, calculateMaterialHeight } from "./PageMaterialPair";
+import { PageMaterialPair } from "./PageMaterialPair";
 import { CachedPageDimensions } from "./PDFDocument";
 import { getCurrentPage, getWindowMeasurements } from "../../selectors";
 import { useSelector } from "react-redux";
@@ -19,6 +19,24 @@ const PageZoomControl = ({ listRef }: { listRef: RefObject<any> }) => {
 	return null;
 };
 
+export const MaterialMultiplier = 0.57;
+
+const calculateMaterialHeight = (
+	pageNumber: number,
+	cachedPageDimensions: CachedPageDimensions,
+	windowWidth: number
+) => {
+	const pageDims = cachedPageDimensions.get(pageNumber) as [number, number];
+	const materialWidth = windowWidth * MaterialMultiplier;
+
+	const userSpaceUnitWidth = pageDims[0];
+	const pixelPerUserSpaceUnit = materialWidth / userSpaceUnitWidth;
+	const materialHeight = pageDims[1] * pixelPerUserSpaceUnit;
+
+	const extraSpaceBetweenMaterialPages = 20;
+	return materialHeight + extraSpaceBetweenMaterialPages;
+};
+
 export const PageMaterialPairList = ({
 	pdfProxyRef,
 	cachedPageDimensions,
@@ -29,20 +47,24 @@ export const PageMaterialPairList = ({
 	const listRef = useRef<VariableSizeList>();
 
 	const windowMeasurements = useSelector(getWindowMeasurements);
+	const materialHeights = windowMeasurements
+		? Array.from(cachedPageDimensions.keys()).reduce((prev, pageNumber) => {
+				prev.set(pageNumber, calculateMaterialHeight(pageNumber, cachedPageDimensions, windowMeasurements.width));
+				return prev;
+		  }, new Map<number, number>())
+		: undefined;
 
 	return (
 		<Fragment>
-			{windowMeasurements && (
+			{windowMeasurements && materialHeights && (
 				<VariableSizeList
 					height={windowMeasurements.height}
 					itemCount={(pdfProxyRef.current as pdfjs.PDFDocumentProxy).numPages}
-					itemSize={(index: number) =>
-						calculateMaterialHeight(index + 1, cachedPageDimensions, windowMeasurements.width)
-					}
+					itemSize={(index: number) => materialHeights.get(index + 1) as number}
 					itemData={{
-						cachedPageDimensions,
+						materialHeights,
 					}}
-					overscanCount={3}
+					overscanCount={2}
 					ref={listRef as RefObject<VariableSizeList>}
 					width="100%"
 				>

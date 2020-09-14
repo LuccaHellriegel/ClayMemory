@@ -1,10 +1,10 @@
 import "./PDFDocument.css";
 import "./AnnotationLayer.css";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { pdfjs, Document } from "react-pdf";
 import { useDispatch, useSelector } from "react-redux";
 import { materialLoaded, setPage } from "../../actions";
-import { getPDF } from "../../selectors";
+import { getPDF, getWindowMeasurements } from "../../selectors";
 import text from "../../../text";
 import { cachePageDimensions } from "./cachePageDimensions";
 import { PageMaterialPairList } from "./PageMaterialPairList";

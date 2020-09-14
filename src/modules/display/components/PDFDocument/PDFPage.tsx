@@ -4,17 +4,7 @@ import { PageKeyboardControl } from "./PageKeyboardControl";
 import selection from "../../../selection";
 import { useSelector } from "react-redux";
 import { getWindowMeasurements } from "../../selectors";
-import { MaterialMultiplier } from "./PageMaterialPair";
-
-const removeTextLayerOffset = () => {
-	const textLayers = document.querySelectorAll(".react-pdf__Page__textContent");
-	textLayers.forEach((layer) => {
-		const { style }: any = layer;
-		style.top = "0";
-		style.left = "0";
-		style.transform = "";
-	});
-};
+import { MaterialMultiplier } from "./PageMaterialPairList";
 
 export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 	//assumption is that the list checks for width before rendering
@@ -27,8 +17,7 @@ export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 					pageNumber={pageNumber}
 					width={materialWidth * MaterialMultiplier}
 					onRenderSuccess={() => {
-						//TODO-RC: check if this still works
-						removeTextLayerOffset();
+						console.log("rendered Page " + pageNumber);
 					}}
 				/>
 			</PageKeyboardControl>
