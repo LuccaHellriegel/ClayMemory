@@ -1,0 +1,1 @@
+{"version":3,"sources":["PDFDocument.css"],"names":[],"mappings":"AAAA,mCACC,UACD,CAEA,8CACC,qBACD,CAEA,qBACC,kBACD","file":"main.7e2ec7c8.chunk.css","sourcesContent":[".react-pdf__Page__textContent span {\n\topacity: 0.1;\n}\n\n.react-pdf__Page__textContent span::selection {\n\tbackground-color: blue;\n}\n\n.react-pdf__Document {\n\tline-height: initial;\n}\n"]}
