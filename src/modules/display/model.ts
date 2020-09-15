@@ -5,6 +5,7 @@ export type DisplayData = {
 	pdfName?: string;
 	displayStatus: DisplayStatus;
 	currentPage: number;
+	scrollToPage: number | null;
 	totalPages: number;
 	zoomTargetSpanIndex: number | null;
 	windowMeasurements: { width: number; height: number } | null;

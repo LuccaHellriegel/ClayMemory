@@ -7,7 +7,7 @@ import { materialLoaded, setPage } from "../../actions";
 import { getPDF, getWindowMeasurements } from "../../selectors";
 import text from "../../../text";
 import { cachePageDimensions } from "./cachePageDimensions";
-import { PageMaterialPairList } from "./PageMaterialPairList";
+import { RiverMaterialPairList } from "./RiverMaterialPairList";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export type CachedPageDimensions = Map<number, [number, number]>;
@@ -18,8 +18,6 @@ const options = {
 };
 
 //TODO-NICE: implement more pdf-reader functionality, like zoom
-
-//TODO-RC: zoom to current page if it is already set on reload
 
 export const PDFDocument = () => {
 	const pdf = useSelector(getPDF);
@@ -36,8 +34,6 @@ export const PDFDocument = () => {
 	if (pdfNameRef.current !== pdfName) {
 		pdfNameRef.current = pdfName;
 	}
-
-	//TODO-RC: actualize currentPage so that pageChooser is correct
 
 	//TODO-RC:
 	// const zoomTargetSpanIndex = useSelector(getZoomTarget);
@@ -61,14 +57,14 @@ export const PDFDocument = () => {
 				pdfProxyRef.current = pdfProxy;
 			}}
 			onItemClick={({ pageNumber }) => {
-				dispatch(setPage(parseInt(pageNumber)));
+				dispatch(setPage(parseInt(pageNumber), true));
 			}}
 		>
 			{cachedPageDimensions && pdfNameRef.current === pdfName && (
-				<PageMaterialPairList
+				<RiverMaterialPairList
 					pdfProxyRef={pdfProxyRef}
 					cachedPageDimensions={cachedPageDimensions}
-				></PageMaterialPairList>
+				></RiverMaterialPairList>
 			)}
 		</Document>
 	);

@@ -1,25 +1,32 @@
 import React, { RefObject, useRef, Fragment, useEffect } from "react";
 import { pdfjs } from "react-pdf";
 import { VariableSizeList } from "react-window";
-import { PageMaterialPair } from "./PageMaterialPair";
+import { RiverMaterialPair } from "./RiverMaterialPair";
 import { CachedPageDimensions } from "./PDFDocument";
-import { getCurrentPage, getWindowMeasurements } from "../../selectors";
-import { useSelector } from "react-redux";
+import { getCurrentPage, getScrollToPage, getWindowMeasurements } from "../../selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { setPage } from "../../actions";
 
 const PageZoomControl = ({ listRef }: { listRef: RefObject<VariableSizeList> }) => {
 	//TODO-RC: zoom queue
 	//TODO-RC: correct for AppBar height (useRef?)
+	const scrollToPage = useSelector(getScrollToPage);
 	const currentPage = useSelector(getCurrentPage);
 	//const lastZoomedRef = useRef(currentPage);
 	useEffect(() => {
 		listRef.current?.scrollToItem(currentPage - 1, "smart");
 	}, []);
 
+	const dispatch = useDispatch();
+
 	useEffect(() => {
-		//if (lastZoomedRef.current !== currentPage)
-		listRef.current?.scrollToItem(currentPage - 1, "smart");
-		//lastZoomedRef.current = currentPage;
-	}, [listRef, currentPage]);
+		if (scrollToPage) {
+			//if (lastZoomedRef.current !== currentPage)
+			listRef.current?.scrollToItem(scrollToPage - 1, "smart");
+			dispatch(setPage(scrollToPage, false));
+			//lastZoomedRef.current = currentPage;
+		}
+	}, [listRef, scrollToPage]);
 
 	return null;
 };
@@ -42,7 +49,7 @@ const calculateMaterialHeight = (
 	return materialHeight + extraSpaceBetweenMaterialPages;
 };
 
-export const PageMaterialPairList = ({
+export const RiverMaterialPairList = ({
 	pdfProxyRef,
 	cachedPageDimensions,
 }: {
@@ -59,6 +66,8 @@ export const PageMaterialPairList = ({
 		  }, new Map<number, number>())
 		: undefined;
 
+	const dispatch = useDispatch();
+
 	return (
 		<Fragment>
 			{windowMeasurements && materialHeights && (
@@ -71,8 +80,13 @@ export const PageMaterialPairList = ({
 					}}
 					ref={listRef as RefObject<VariableSizeList>}
 					width="100%"
+					onItemsRendered={(props) => {
+						//TODO-NICE: find way to switch the page if it is halfway in sight
+						// this only switches once the new page is at the top of the page
+						dispatch(setPage(props.visibleStartIndex + 1, false));
+					}}
 				>
-					{PageMaterialPair}
+					{RiverMaterialPair}
 				</VariableSizeList>
 			)}
 			<PageZoomControl listRef={listRef as RefObject<VariableSizeList>}></PageZoomControl>

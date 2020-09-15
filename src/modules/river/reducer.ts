@@ -26,7 +26,9 @@ const initialState: CardRiverState = {
 	riverContentState: "ALL",
 	contentFilter: "",
 };
-// TODO-RC: adding to one river forces all of them to update, memo?
+
+// TODO-NICE: adding to one river forces all of them to update, should not be a problem, because we only render 2-3 rivers,
+// but memo just in case?
 const cardRiverState = (state = initialState, { type, payload }: { type: string; payload: any }): CardRiverState => {
 	let riverMakeUp;
 	let riverMakeUps;

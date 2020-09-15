@@ -6,6 +6,7 @@ const initialState: DisplayData = {
 	displayStatus: "SHOW",
 	totalPages: 1000,
 	currentPage: 1,
+	scrollToPage: null,
 	zoomTargetSpanIndex: null,
 	windowMeasurements: null,
 };
@@ -34,7 +35,7 @@ const displayData = (state = initialState, { type, payload }: { type: string; pa
 		case t.MATERIAL_LOADED:
 			return { ...state, totalPages: payload as number };
 		case t.PAGE_UPDATE:
-			return { ...state, currentPage: payload as number };
+			return { ...state, currentPage: payload.page, scrollToPage: payload.shouldScroll ? payload.page : null };
 		case t.DISPLAY_STATUS:
 			return { ...state, displayStatus: payload as DisplayStatus };
 		case t.ZOOM_QUEUE:

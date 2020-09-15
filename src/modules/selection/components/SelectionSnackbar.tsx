@@ -33,6 +33,7 @@ export const SelectionSnackbar = () => {
 		<Fragment>
 			<div>{"Current Selection: "}</div>
 			<div style={{ color: "green" }}> {sourceConfig?.contentStr}</div>
+			{sourceConfig?.contentOrigin && <div style={{ color: "red" }}> From Page {sourceConfig.contentOrigin.page}</div>}
 		</Fragment>
 	);
 

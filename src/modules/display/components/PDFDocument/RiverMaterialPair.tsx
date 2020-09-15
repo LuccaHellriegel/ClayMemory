@@ -3,7 +3,7 @@ import { Divider, Grid } from "@material-ui/core";
 import river from "../../../river";
 import { PDFPage } from "./PDFPage";
 
-export const PageMaterialPair = ({
+export const RiverMaterialPair = ({
 	index,
 	data,
 	style,
@@ -18,12 +18,6 @@ export const PageMaterialPair = ({
 	const riverID = river.model.pageNumberToRiverMakeUpID(pageNumber);
 	const { materialHeights } = data;
 
-	//TODO-RC: rename to RiverMaterialPair
-	//TODO-RC: if I leave the river, selection should be deleted or save riverID in selection?
-	// seems to be more robust, but then selection is mixed with river?
-	// maybe just save Page for origin? Right now I compile the page once we actually save it,
-	// but this is not robust
-	// Show Origin in Selection, then the user can decide if he wants to cross Rivers
 	return (
 		<div {...{ style }}>
 			<river.components.SwitchActiveRiver riverID={riverID}>

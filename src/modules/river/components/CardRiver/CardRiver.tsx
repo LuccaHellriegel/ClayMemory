@@ -61,8 +61,6 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 		return toCardGridItemsWithDividers(inputCards, riverID);
 	}, [riverCards, riverID, riverContentState, contentFilter]);
 
-	//TODO-RC: perf is still kinda bad with 200+ pages, need to prevent re-renders for the pair.
-	// Especially time-to-use for the river-buttons is terrible, worse than time-to-selectable for the page
 	//TODO-RC: resize still does not work, the river just stays big?
 	//TODO-NICE: make HalfFull-sub-menu for half-full QAs
 	//TODO-NICE: if you start without any document and then load one, the current cards should be merged into that one

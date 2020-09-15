@@ -56,7 +56,7 @@ export const PageChooser = () => {
 									event.preventDefault();
 									const submittedValue = (event.target as HTMLFormElement).value;
 									if (!state.error) {
-										dispatch(setPage(parseInt(submittedValue)));
+										dispatch(setPage(parseInt(submittedValue), true));
 									}
 								}
 							}}

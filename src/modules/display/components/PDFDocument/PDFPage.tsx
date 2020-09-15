@@ -4,7 +4,7 @@ import { PageKeyboardControl } from "./PageKeyboardControl";
 import selection from "../../../selection";
 import { useSelector } from "react-redux";
 import { getWindowMeasurements } from "../../selectors";
-import { MaterialMultiplier } from "./PageMaterialPairList";
+import { MaterialMultiplier } from "./RiverMaterialPairList";
 
 export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 	//assumption is that the list checks for width before rendering

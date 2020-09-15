@@ -16,8 +16,8 @@ export const materialLoaded = (totalPages: number) => {
 	return { type: t.MATERIAL_LOADED, payload: totalPages };
 };
 
-export const setPage = (page: number) => {
-	return { type: t.PAGE_UPDATE, payload: page };
+export const setPage = (page: number, shouldScroll: boolean) => {
+	return { type: t.PAGE_UPDATE, payload: { page, shouldScroll } };
 };
 
 //TODO-PERF: maybe hide all rendered pages but not shown instead of re-rendering for faster switching?
@@ -26,10 +26,10 @@ export const movePage = (type: PageMove) => {
 		const { currentPage, totalPages } = getPageControlData(getState());
 		switch (type) {
 			case "NEXT":
-				dispatch(setPage(pageCorrections["ADD"](currentPage + 1, totalPages)));
+				dispatch(setPage(pageCorrections["ADD"](currentPage + 1, totalPages), true));
 				break;
 			case "PREVIOUS":
-				dispatch(setPage(pageCorrections["REMOVE"](currentPage - 1, totalPages)));
+				dispatch(setPage(pageCorrections["REMOVE"](currentPage - 1, totalPages), true));
 				break;
 		}
 	};
@@ -54,13 +54,13 @@ export const setZoomTarget = (spanIndex: number | null) => {
 	return { type: t.ZOOM_QUEUE, payload: spanIndex };
 };
 
-export const zoomToCardOrigin = (spanIndex: number, page: number) => {
-	return (dispatch: Dispatch) => {
-		console.log(page, spanIndex);
-		dispatch(setPage(page));
-		dispatch(setZoomTarget(spanIndex));
-	};
-};
+// export const zoomToCardOrigin = (spanIndex: number, page: number) => {
+// 	return (dispatch: Dispatch) => {
+// 		console.log(page, spanIndex);
+// 		dispatch(setPage(page));
+// 		dispatch(setZoomTarget(spanIndex));
+// 	};
+// };
 
 export const scrollToZoomTarget = () => {
 	return (dispatch: Dispatch, getState: Function) => {

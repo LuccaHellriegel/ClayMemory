@@ -31,10 +31,6 @@ export const rightClickControl = (event: MouseEvent) => {
 		event.preventDefault();
 
 		dispatch(openContextMenu({ x: event.x, y: event.y }));
-
-		//TODO-RC: this does not work anymore with multiple pages, simplify?
-		//if the user is focused on the document, the push-to river should always be the active=page-wise river
-		//dispatch(river.actions.setPushToRiver(river.selectors.getActiveRiverMakeUpID(state)));
 	};
 };
 
