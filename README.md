@@ -11,6 +11,7 @@ ClayMemory tries to explore a better alternative to using multiple programs and 
 ### Mouse controls
 
 - Selecting in the PDF (and letting the left mouse-button go) triggers the Extraction-UI for creating flash cards
+  - Known issue: text selection behavior in Chrome is (generally?) weird, Firefox is fine
 - Right-click in a card text-field while having something selected (see Current Selection-Overlay) triggers the Extraction-UI for the river
   - It could not be the same as in the PDF, because in the text you might want to select for other reasons than just extraction
 

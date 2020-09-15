@@ -18,6 +18,7 @@ export const PageMaterialPair = ({
 	const riverID = river.model.pageNumberToRiverMakeUpID(pageNumber);
 	const { materialHeights } = data;
 
+	//TODO-RC: rename to RiverMaterialPair
 	//TODO-RC: if I leave the river, selection should be deleted or save riverID in selection?
 	// seems to be more robust, but then selection is mixed with river?
 	// maybe just save Page for origin? Right now I compile the page once we actually save it,

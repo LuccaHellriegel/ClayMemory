@@ -1,5 +1,5 @@
 import "./PDFDocument.css";
-import "./AnnotationLayer.css";
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import React, { useState, useRef, useEffect } from "react";
 import { pdfjs, Document } from "react-pdf";
 import { useDispatch, useSelector } from "react-redux";
