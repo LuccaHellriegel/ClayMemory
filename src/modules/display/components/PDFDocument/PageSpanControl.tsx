@@ -33,7 +33,7 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 			if (textLayer) {
 				const originSpan = textLayer.children.item((spanOrigin as SingleOrigin).spanIndex);
 				if (originSpan) {
-					originSpan.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
+					originSpan.scrollIntoView({ behavior: "auto", block: "center", inline: "center" });
 					dispatch(resetSpanOrigin());
 					count.current = 0;
 					clearInterval(intervalID);
@@ -44,6 +44,8 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 		}, 10);
 	}, [dispatch, count, spanOrigin, pageRef]);
 
+	//TODO-RC: test if nearest is viable after all?
+
 	useEffect(() => {
 		if (spanOrigin && spanOrigin.page === page && pageRef.current) {
 			// assumption of fixed order
@@ -51,7 +53,7 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 			if (textLayer) {
 				const originSpan = textLayer.children.item(spanOrigin.spanIndex);
 				if (originSpan) {
-					originSpan.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
+					originSpan.scrollIntoView({ behavior: "auto", block: "center", inline: "center" });
 					dispatch(resetSpanOrigin());
 					count.current = 0;
 				} else {

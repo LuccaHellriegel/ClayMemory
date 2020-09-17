@@ -36,6 +36,8 @@ export const SelectionSnackbar = () => {
 			{sourceConfig?.contentOrigin && <div style={{ color: "red" }}> From Page {sourceConfig.contentOrigin.page}</div>}
 		</Fragment>
 	);
+	//TODO-RC: make unselectable via ESC button
+	//TODO-RC: REPLACE-button, also make APPEND with empty space between stuff, maybe Newline?
 
 	return (
 		<Snackbar
