@@ -40,9 +40,9 @@ const materialSelectionDataToSourceConfig = (
 ): SelectionSourceConfig | false => {
 	//TODO-NICE: think about race-conditions for the delayed rendering, this might mess up the index
 	//TODO-NICE: this also depends on the rendering order of the spans to be the same, might not be a good idea
-	//maybe can do this async if it gets more complex?
+	//TODO-NICE: maybe can do this async if it gets more complex?
 
-	const selectedParent = selectionData.selection.anchorNode?.parentNode as HTMLSpanElement;
+	const selectedParent = selectionData.selection.focusNode?.parentNode as HTMLSpanElement;
 	if (!!!selectedParent || selectedParent.nodeName !== "SPAN") return false;
 
 	const divTextLayerParent = selectedParent.parentNode;

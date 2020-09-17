@@ -6,7 +6,6 @@ import { setPage, setSpanOrigin } from "../../actions";
 import river from "../../../river";
 
 export const PageScrollControl = ({ listRef }: { listRef: RefObject<VariableSizeList> }) => {
-	//TODO-RC: correct for AppBar height (useRef?)
 	const scrollToPage = useSelector(getScrollToPage);
 	const currentPage = useSelector(getCurrentPage);
 	const requestedOrigin = useSelector(river.selectors.getOriginRequest);
