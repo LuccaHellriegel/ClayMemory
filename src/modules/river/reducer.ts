@@ -12,6 +12,7 @@ import { ArchiveRiver } from "../db/model";
 import db from "../db";
 
 const initialState: CardRiverState = {
+	requestedOrigin: null,
 	riverMakeUps: {
 		[pageNumberToRiverMakeUpID(1)]: {
 			riverID: pageNumberToRiverMakeUpID(1),
@@ -85,6 +86,8 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 			}
 		case t.RIVER_CONTENT_FILTER:
 			return { ...state, contentFilter: payload };
+		case t.ORIGIN_REQUEST:
+			return { ...state, requestedOrigin: payload };
 		default:
 			return state;
 	}

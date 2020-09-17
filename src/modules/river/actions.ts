@@ -4,6 +4,7 @@ import { Dispatch } from "redux";
 import { CardID } from "../cards/model/model-config";
 import { CardField } from "../cards/model/model-content";
 import { RiverContentState, ContentFilter } from "./model";
+import { SingleOrigin } from "../cards/model/model-origin";
 
 export const toggleRiverShowState = () => (dispatch: Dispatch, getState: Function) => {
 	dispatch({ type: t.RIVER_SHOW_STATE, payload: riverShowStateIsShow(getState()) ? "HIDE" : "SHOW" });
@@ -47,4 +48,12 @@ export const setContentFilter = (filter: ContentFilter) => {
 
 export const resetContentFilter = () => {
 	return { type: t.RIVER_CONTENT_FILTER, payload: "" };
+};
+
+export const setOriginRequest = (origin: SingleOrigin | null) => {
+	return { type: t.ORIGIN_REQUEST, payload: origin };
+};
+
+export const resetOriginRequest = () => {
+	return setOriginRequest(null);
 };

@@ -24,4 +24,4 @@ export const getDisplayStatus = createSelector(getAll, (state: DisplayData) => s
 
 export const displayStatusIsShow = createSelector(getDisplayStatus, (status) => status === "SHOW");
 
-export const getZoomTarget = createSelector(getAll, (state: DisplayData) => state.zoomTargetSpanIndex);
+export const getSpanOrigin = createSelector(getAll, (state) => state.spanOrigin);

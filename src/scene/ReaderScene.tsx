@@ -19,7 +19,7 @@ export function ReaderScene() {
 				<Grid item>
 					<control.components.ControlBar></control.components.ControlBar>
 				</Grid>
-				{/* TODO-RC: need this to keep the document from overlapping the AppBar, but why? */}
+				{/* TODO-NICE: need this to keep the document from overlapping the AppBar, but why? */}
 				<Toolbar id="back-to-top-anchor" />
 				<Grid item>
 					<display.components.PDFDocument></display.components.PDFDocument>

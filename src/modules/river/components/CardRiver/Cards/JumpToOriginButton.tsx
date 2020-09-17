@@ -4,6 +4,7 @@ import { IconButton, Tooltip } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { SingleOrigin } from "../../../../cards/model/model-origin";
 import text from "../../../../text";
+import { setOriginRequest } from "../../../actions";
 
 export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin }) => {
 	const dispatch = useDispatch();
@@ -16,9 +17,8 @@ export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin })
 			<IconButton
 				type="button"
 				onClick={() => {
-					//TODO-RC: needs to show the Document. If it is hiden this does not make sense.
-					//TODO-RC: needs to change with multiple pages
-					//dispatch(display.actions.zoomToCardOrigin(cardOrigin.spanIndex, cardOrigin.page));
+					dispatch(setOriginRequest(cardOrigin));
+					//TODO-RC: hide this if the Material is hidden
 				}}
 			>
 				<FindInPageIcon fontSize="small"></FindInPageIcon>

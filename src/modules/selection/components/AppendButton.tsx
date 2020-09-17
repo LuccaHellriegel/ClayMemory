@@ -39,7 +39,6 @@ export const AppendButton = ({ cardField, cardID }: { cardField: CreationType; c
 					} else if (isGoal) {
 						dispatch(resetSelectionGoal());
 					}
-					//TODO-RC: allow append from other cards (origin seems to be copied wrong?)
 				}}
 			>
 				{outlined ? (

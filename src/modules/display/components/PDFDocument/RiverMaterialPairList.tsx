@@ -1,35 +1,12 @@
-import React, { RefObject, useRef, Fragment, useEffect } from "react";
+import React, { RefObject, useRef, Fragment } from "react";
 import { pdfjs } from "react-pdf";
 import { VariableSizeList } from "react-window";
 import { RiverMaterialPair } from "./RiverMaterialPair";
 import { CachedPageDimensions } from "./PDFDocument";
-import { getCurrentPage, getScrollToPage, getWindowMeasurements } from "../../selectors";
+import { getWindowMeasurements } from "../../selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { setPage } from "../../actions";
-
-const PageZoomControl = ({ listRef }: { listRef: RefObject<VariableSizeList> }) => {
-	//TODO-RC: zoom queue
-	//TODO-RC: correct for AppBar height (useRef?)
-	const scrollToPage = useSelector(getScrollToPage);
-	const currentPage = useSelector(getCurrentPage);
-	//const lastZoomedRef = useRef(currentPage);
-	useEffect(() => {
-		listRef.current?.scrollToItem(currentPage - 1, "smart");
-	}, []);
-
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		if (scrollToPage) {
-			//if (lastZoomedRef.current !== currentPage)
-			listRef.current?.scrollToItem(scrollToPage - 1, "smart");
-			dispatch(setPage(scrollToPage, false));
-			//lastZoomedRef.current = currentPage;
-		}
-	}, [listRef, scrollToPage]);
-
-	return null;
-};
+import { PageScrollControl } from "./PageScrollControl";
 
 export const MaterialMultiplier = 0.57;
 
@@ -82,14 +59,13 @@ export const RiverMaterialPairList = ({
 					width="100%"
 					onItemsRendered={(props) => {
 						//TODO-NICE: find way to switch the page if it is halfway in sight
-						// this only switches once the new page is at the top of the page
-						dispatch(setPage(props.visibleStartIndex + 1, false));
+						dispatch(setPage(props.visibleStopIndex + 1, false));
 					}}
 				>
 					{RiverMaterialPair}
 				</VariableSizeList>
 			)}
-			<PageZoomControl listRef={listRef as RefObject<VariableSizeList>}></PageZoomControl>
+			<PageScrollControl listRef={listRef as RefObject<VariableSizeList>}></PageScrollControl>
 		</Fragment>
 	);
 };

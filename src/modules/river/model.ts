@@ -1,5 +1,6 @@
 import { CardID } from "../cards/model/model-config";
 import { CardField } from "../cards/model/model-content";
+import { SingleOrigin } from "../cards/model/model-origin";
 
 export type RiverMakeUp = { riverID: string; cardIDs: CardID[] };
 
@@ -9,14 +10,20 @@ export type RiverShowState = "SHOW" | "HIDE";
 
 export type RiverContentState = "ALL" | "NOTES" | "QAS" | "NONE";
 
-//TODO-NICE: rename pushto/active river
-
 export type ContentFilter = string;
 
 export type CardRiverState = {
+	// works by first setting it here via button
+	// then we scroll to the page
+	// then we set the origin in the display-store
+	// then we scroll to origin
+	// all happens in the display module
+	// TODO-NICE: move this somehow to display?
+	// problem is that we depend on the display components (list-ref)
+	// for scrolling
+	requestedOrigin: SingleOrigin | null;
 	riverMakeUps: RiverMakeUps;
 	activeRiverMakeUpID: string;
-	//pushToRiverID: string;
 	lastRiverIDNumber: number;
 	// show/hide river
 	riverShowState: RiverShowState;

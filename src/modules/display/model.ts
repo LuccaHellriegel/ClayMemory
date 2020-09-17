@@ -1,3 +1,5 @@
+import { SingleOrigin } from "../cards/model/model-origin";
+
 export type DisplayStatus = "SHOW" | "HIDE";
 
 export type DisplayData = {
@@ -7,7 +9,7 @@ export type DisplayData = {
 	currentPage: number;
 	scrollToPage: number | null;
 	totalPages: number;
-	zoomTargetSpanIndex: number | null;
+	spanOrigin: SingleOrigin | null;
 	windowMeasurements: { width: number; height: number } | null;
 };
 

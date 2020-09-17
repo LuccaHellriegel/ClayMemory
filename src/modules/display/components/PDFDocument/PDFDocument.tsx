@@ -1,10 +1,10 @@
 import "./PDFDocument.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { pdfjs, Document } from "react-pdf";
 import { useDispatch, useSelector } from "react-redux";
 import { materialLoaded, setPage } from "../../actions";
-import { getPDF, getWindowMeasurements } from "../../selectors";
+import { getPDF } from "../../selectors";
 import text from "../../../text";
 import { cachePageDimensions } from "./cachePageDimensions";
 import { RiverMaterialPairList } from "./RiverMaterialPairList";
@@ -34,15 +34,6 @@ export const PDFDocument = () => {
 	if (pdfNameRef.current !== pdfName) {
 		pdfNameRef.current = pdfName;
 	}
-
-	//TODO-RC:
-	// const zoomTargetSpanIndex = useSelector(getZoomTarget);
-
-	// useEffect(() => {
-	// 	if (!!zoomTargetSpanIndex && pdf) {
-	// 		dispatch(scrollToZoomTarget());
-	// 	}
-	// }, [zoomTargetSpanIndex, pdf, dispatch]);
 
 	return (
 		<Document

@@ -5,6 +5,7 @@ import { createRef } from "react";
 import extraction from "./modules/extraction";
 import { DisplayData, DisplayStatus } from "./modules/display/model";
 import display from "./modules/display";
+import { SingleOrigin } from "./modules/cards/model/model-origin";
 
 // to get the correct object with reselect, I added .present to all getAll that belong do undoable modules
 
@@ -84,12 +85,13 @@ const addDOMObjectsToDisplayData = (outboundState: {
 	currentPage: number;
 	scrollToPage: number | null;
 	totalPages: number;
-	zoomTargetSpanIndex: number | null;
 	windowMeasurements: { width: number; height: number } | null;
+	spanOrigin: null | SingleOrigin;
 }): DisplayData => {
 	return {
 		...outboundState,
 		pdf: undefined,
+		spanOrigin: null,
 		windowMeasurements: null,
 	};
 };

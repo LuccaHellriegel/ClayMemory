@@ -7,8 +7,8 @@ const initialState: DisplayData = {
 	totalPages: 1000,
 	currentPage: 1,
 	scrollToPage: null,
-	zoomTargetSpanIndex: null,
 	windowMeasurements: null,
+	spanOrigin: null,
 };
 
 const displayData = (state = initialState, { type, payload }: { type: string; payload: any }): DisplayData => {
@@ -38,11 +38,8 @@ const displayData = (state = initialState, { type, payload }: { type: string; pa
 			return { ...state, currentPage: payload.page, scrollToPage: payload.shouldScroll ? payload.page : null };
 		case t.DISPLAY_STATUS:
 			return { ...state, displayStatus: payload as DisplayStatus };
-		case t.ZOOM_QUEUE:
-			return {
-				...state,
-				zoomTargetSpanIndex: payload,
-			};
+		case t.SPAN_ORIGIN:
+			return { ...state, spanOrigin: payload };
 		case t.WINDOW_LAYOUT:
 			return {
 				...state,

@@ -3,6 +3,7 @@ import * as t from "./actionTypes";
 import { PageMove, pageCorrections } from "./model";
 import { getPageControlData, getDisplayStatus } from "./selectors";
 import { keyEventDispatcherCreator, KeyActionMap } from "../../shared/utils";
+import { SingleOrigin } from "../cards/model/model-origin";
 
 export const widthPixels = (windowMeasurements: { width: number; height: number }) => {
 	return { type: t.WINDOW_LAYOUT, payload: windowMeasurements };
@@ -20,7 +21,6 @@ export const setPage = (page: number, shouldScroll: boolean) => {
 	return { type: t.PAGE_UPDATE, payload: { page, shouldScroll } };
 };
 
-//TODO-PERF: maybe hide all rendered pages but not shown instead of re-rendering for faster switching?
 export const movePage = (type: PageMove) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const { currentPage, totalPages } = getPageControlData(getState());
@@ -50,30 +50,10 @@ export const toggleDisplayState = () => {
 	};
 };
 
-export const setZoomTarget = (spanIndex: number | null) => {
-	return { type: t.ZOOM_QUEUE, payload: spanIndex };
+export const setSpanOrigin = (origin: SingleOrigin | null) => {
+	return { type: t.SPAN_ORIGIN, payload: origin };
 };
 
-// export const zoomToCardOrigin = (spanIndex: number, page: number) => {
-// 	return (dispatch: Dispatch) => {
-// 		console.log(page, spanIndex);
-// 		dispatch(setPage(page));
-// 		dispatch(setZoomTarget(spanIndex));
-// 	};
-// };
-
-export const scrollToZoomTarget = () => {
-	return (dispatch: Dispatch, getState: Function) => {
-		// 	const state = getState();
-		// 	const spanIndex = getZoomTarget(state);
-		// 	if (!!spanIndex) {
-		// 		const materialSpans = getMaterialSpans(state);
-		// 		if (materialSpans) {
-		// 			// this way when no pdf was present we prevent the race-condition of pdf being loaded later
-		// 			const originSpan = materialSpans[spanIndex];
-		// 			originSpan.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
-		// 		}
-		// 		dispatch(setZoomTarget(null));
-		// 	}
-	};
+export const resetSpanOrigin = () => {
+	return setSpanOrigin(null);
 };
