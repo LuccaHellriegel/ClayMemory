@@ -2,7 +2,7 @@ import * as t from "./actionTypes";
 import { riverShowStateIsShow, getActiveRiverMakeUpID } from "./selectors";
 import { Dispatch } from "redux";
 import { RiverContentState, ContentFilter } from "./model";
-import { SingleOrigin } from "../cards/model/model-origin";
+import { SingleOrigin } from "../cards/model/origin";
 
 export const toggleRiverShowState = () => (dispatch: Dispatch, getState: Function) => {
 	dispatch({ type: t.RIVER_SHOW_STATE, payload: riverShowStateIsShow(getState()) ? "HIDE" : "SHOW" });

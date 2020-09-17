@@ -1,7 +1,6 @@
-import * as model_config from "./model-config";
-import * as model_origin from "./model-origin";
-import * as model_permutation from "./model-permutation";
-import * as model_content from "./model-content";
-import * as model_payload from "./model-payload";
+import * as config from "./config";
+import * as origin from "./origin";
+import * as permutation from "./permutation";
+import * as content from "./content";
 
-export { model_config, model_origin, model_permutation, model_content, model_payload };
+export { config, origin, permutation, content };

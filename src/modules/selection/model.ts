@@ -1,6 +1,6 @@
-import { SingleOrigin } from "../cards/model/model-origin";
-import { CardField } from "../cards/model/model-content";
-import { CardFieldIdentifier, UpdateType } from "../cards/model/model-config";
+import { SingleOrigin } from "../cards/model/origin";
+import { CardField } from "../cards/model/content";
+import { CardFieldIdentifier, UpdateType } from "../cards/model/config";
 
 export type SelectionSourceConfig = { contentStr: string; contentOrigin?: SingleOrigin };
 

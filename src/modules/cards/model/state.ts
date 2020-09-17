@@ -1,4 +1,4 @@
-import { CardConfig, CardID } from "./model-config";
+import { CardConfig, CardID } from "./config";
 
 type Cards = { [cardID: string]: CardConfig };
 

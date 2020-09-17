@@ -1,7 +1,7 @@
-import { CardConfig } from "../../cards/model/model-config";
+import { CardConfig } from "../../cards/model/config";
 import cards from "../../cards";
 import { SelectionGoalConfig, SelectionSourceConfig, goalIsCreation, SelectionExistingCardGoalConfig } from "../model";
-import { CardPayload } from "../../cards/model/model-payload";
+import { CardPayload } from "../../cards/model/payload";
 
 const selectionConfigToCardPayload = (sourceConfig: SelectionSourceConfig, goalConfig: SelectionGoalConfig) => {
 	const inputOrigin = sourceConfig.contentOrigin;
@@ -10,9 +10,9 @@ const selectionConfigToCardPayload = (sourceConfig: SelectionSourceConfig, goalC
 	const outputField = goalConfig.cardField;
 
 	return {
-		type: cards.model.model_config.cardFieldToType(outputField),
-		content: cards.model.model_content.strToNewCardContent(inputValue, outputField),
-		origin: inputOrigin ? cards.model.model_origin.singleOriginToCardOrigin(inputOrigin, outputField) : undefined,
+		type: cards.model.config.cardFieldToType(outputField),
+		content: cards.model.content.strToNewCardContent(inputValue, outputField),
+		origin: inputOrigin ? cards.model.origin.singleOriginToCardOrigin(inputOrigin, outputField) : undefined,
 	};
 };
 
@@ -30,14 +30,9 @@ const selectionConfigToActualizedCardConfig = (
 
 	return {
 		...existingCard,
-		content: cards.model.model_content.strToCardContent(
-			inputValue,
-			outputField,
-			goalConfig.updateType,
-			existingCard.content
-		),
+		content: cards.model.content.strToCardContent(inputValue, outputField, goalConfig.updateType, existingCard.content),
 		origin: inputOrigin
-			? cards.model.model_origin.singleOriginToCardOrigin(inputOrigin, outputField, existingCard.origin)
+			? cards.model.origin.singleOriginToCardOrigin(inputOrigin, outputField, existingCard.origin)
 			: existingCard.origin,
 	} as CardConfig;
 };

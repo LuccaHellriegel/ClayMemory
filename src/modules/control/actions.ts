@@ -36,7 +36,7 @@ export const changeDocument = (pdf: File) => {
 		const state = getState();
 		const currentPDFName = display.selectors.getPDFName(state);
 
-		const documentDB = db.selectors.getDocumentDB(state);
+		const documentDB = db.selectors.getAll(state);
 
 		// save current data only if pdf has been uploaded / there is an active document
 		if (currentPDFName !== undefined) {
@@ -71,7 +71,7 @@ export const loadSavedDocument = (document: string) => {
 		const state = getState();
 		const currentPDFName = display.selectors.getPDFName(state);
 
-		const documentDB = db.selectors.getDocumentDB(state);
+		const documentDB = db.selectors.getAll(state);
 
 		// save current data only if pdf has been uploaded / there is an active document
 		if (currentPDFName !== undefined) {

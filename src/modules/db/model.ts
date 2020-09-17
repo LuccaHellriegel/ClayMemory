@@ -1,5 +1,5 @@
 import { CardRiverState } from "../river/model";
-import { CardsState } from "../cards/model/model-state";
+import { CardsState } from "../cards/model/state";
 import { DisplayData } from "../display/model";
 
 export type ArchiveRiver = Pick<CardRiverState, "riverMakeUps" | "lastRiverIDNumber">;
@@ -14,36 +14,22 @@ export type DocumentData = {
 	ArchiveRiver &
 	ArchiveCards;
 
-type DocumentDB = { [name: string]: DocumentData };
+export type DocumentDB = { [name: string]: DocumentData };
 
-export type DocumentDBState = { documentDB: DocumentDB };
+export const updateDocumentDataInDocumentDB = (state: DocumentDB, documentData: DocumentData): DocumentDB => {
+	return { ...state, [documentData.name]: documentData };
+};
 
-export const updateDocumentDataInDocumentDB = (state: DocumentDBState, documentData: DocumentData): DocumentDBState => {
+export const updateDocumentDataSetsInDocumentDB = (state: DocumentDB, documentDataSets: DocumentData[]): DocumentDB => {
 	return {
 		...state,
-		documentDB: { ...state.documentDB, [documentData.name]: documentData },
+		...documentDataSets.reduce((prev, dbData) => {
+			prev[dbData.name] = dbData;
+			return prev;
+		}, {} as DocumentDB),
 	};
 };
 
-export const updateDocumentDataSetsInDocumentDB = (
-	state: DocumentDBState,
-	documentDataSets: DocumentData[]
-): DocumentDBState => {
-	return {
-		...state,
-		documentDB: {
-			...state.documentDB,
-			...documentDataSets.reduce((prev, dbData) => {
-				prev[dbData.name] = dbData;
-				return prev;
-			}, {} as DocumentDB),
-		},
-	};
-};
-
-export const removeDocumentDataFromDocumentDB = (state: DocumentDBState, document: string): DocumentDBState => {
-	return {
-		...state,
-		documentDB: Object.fromEntries(Object.entries(state.documentDB).filter((arr) => arr[0] !== document)),
-	};
+export const removeDocumentDataFromDocumentDB = (state: DocumentDB, document: string): DocumentDB => {
+	return Object.fromEntries(Object.entries(state).filter((arr) => arr[0] !== document));
 };

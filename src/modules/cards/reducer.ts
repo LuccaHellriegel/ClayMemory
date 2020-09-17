@@ -1,12 +1,12 @@
 import * as t from "./actionTypes";
-import { cardIDToNumber } from "./model/model-config";
+import { cardIDToNumber } from "./model/config";
 import {
 	CardsState,
 	removeCardFromCardsState,
 	updateCardInCards,
 	addCardToCards,
 	replaceCardsInCardsState,
-} from "./model/model-state";
+} from "./model/state";
 import { ArchiveCards } from "../db/model";
 import db from "../db";
 

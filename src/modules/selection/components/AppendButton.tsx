@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { IconButton } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import text from "../../text";
-import { CreationType, CardFieldIdentifier } from "../../cards/model/model-config";
+import { CreationType, CardFieldIdentifier } from "../../cards/model/config";
 import { getGoalConfig } from "../selectors";
 import { addCardAppendSelectionGoal, resetSelectionGoal } from "../actions";
 

@@ -1,8 +1,8 @@
-import { CardConfig, CardID, strToCardConfig } from "./model/model-config";
-import { CardPayload, cardPayloadToCardConfig, emptyNotePayload, emptyQAPayload } from "./model/model-payload";
+import { CardConfig, CardID, strToCardConfig } from "./model/config";
+import { CardPayload, cardPayloadToCardConfig, emptyNotePayload, emptyQAPayload } from "./model/payload";
 import * as t from "./actionTypes";
 import { Dispatch } from "redux";
-import { CardField } from "./model/model-content";
+import { CardField } from "./model/content";
 
 export const cardPush = (cardPayload: CardPayload) => {
 	return (dispatch: Dispatch, getState: Function) => {

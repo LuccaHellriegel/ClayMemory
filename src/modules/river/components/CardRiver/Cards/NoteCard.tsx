@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import cards from "../../../../cards";
 import { Card, Grid } from "@material-ui/core";
 import text from "../../../../text";
-import { NoteConfig } from "../../../../cards/model/model-config";
+import { NoteConfig } from "../../../../cards/model/config";
 import { ClayCardFieldButtons } from "./ClayCardFieldButtons";
 
 export const NoteCard = ({ config }: { config: NoteConfig }) => {

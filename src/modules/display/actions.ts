@@ -3,7 +3,7 @@ import * as t from "./actionTypes";
 import { PageMove, pageCorrections } from "./model";
 import { getPageControlData, getDisplayStatus } from "./selectors";
 import { keyEventDispatcherCreator, KeyActionMap } from "../../shared/utils";
-import { SingleOrigin } from "../cards/model/model-origin";
+import { SingleOrigin } from "../cards/model/origin";
 
 export const widthPixels = (windowMeasurements: { width: number; height: number }) => {
 	return { type: t.WINDOW_LAYOUT, payload: windowMeasurements };

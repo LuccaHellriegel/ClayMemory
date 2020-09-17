@@ -1,5 +1,5 @@
-import { CardID } from "../cards/model/model-config";
-import { SingleOrigin } from "../cards/model/model-origin";
+import { CardID } from "../cards/model/config";
+import { SingleOrigin } from "../cards/model/origin";
 
 export type RiverMakeUp = { riverID: string; cardIDs: CardID[] };
 

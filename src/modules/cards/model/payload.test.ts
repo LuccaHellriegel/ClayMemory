@@ -1,9 +1,9 @@
 "use strict";
 
-import { CardField } from "./model-content";
-import { UpdateType, CardType } from "./model-config";
-import { CardPayload, cardFieldToEmptyPayload, strToCardPayload } from "./model-payload";
-import { QAOrigin } from "./model-origin";
+import { CardField } from "./content";
+import { UpdateType, CardType } from "./config";
+import { CardPayload, cardFieldToEmptyPayload, strToCardPayload } from "./payload";
+import { QAOrigin } from "./origin";
 
 const contentStringToPayload = (
 	contentStr: string,

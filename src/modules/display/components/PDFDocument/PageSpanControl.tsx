@@ -2,13 +2,13 @@ import { RefObject, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpanOrigin } from "../../selectors";
 import { resetSpanOrigin } from "../../actions";
-import { SingleOrigin } from "../../../cards/model/model-origin";
+import { SingleOrigin } from "../../../cards/model/origin";
 
 export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefObject<null | HTMLDivElement> }) => {
 	const spanOrigin = useSelector(getSpanOrigin);
 	const count = useRef(0);
 
-	//TODO-RC: color origin somehow
+	//TODO-RC: color origin somehow, use my custom renderer, split up Material Module?
 	const dispatch = useDispatch();
 
 	// it is not guaranteed that the effect fires after the page was fully rendered

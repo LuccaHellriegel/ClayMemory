@@ -5,7 +5,7 @@ import {
 	RiverContentState,
 	removeCardFromRivers,
 } from "./model";
-import { CardConfig } from "../cards/model/model-config";
+import { CardConfig } from "../cards/model/config";
 import cards from "../cards";
 import * as t from "./actionTypes";
 import { ArchiveRiver } from "../db/model";

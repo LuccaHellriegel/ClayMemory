@@ -1,4 +1,4 @@
-import { CardField, QACardField } from "./model-content";
+import { CardField, QACardField } from "./content";
 
 // for origin and content the same object structure is used,
 // so same permutation api should be used

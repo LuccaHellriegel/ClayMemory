@@ -1,8 +1,9 @@
 import React, { Fragment, RefObject, useCallback, useEffect, useRef, useState } from "react";
 import Menu from "@material-ui/core/Menu";
 import { useDispatch, useSelector } from "react-redux";
-import selection from "../../selection";
 import { Divider, MenuItem } from "@material-ui/core";
+import { addSelectionGoal } from "../actions";
+import { sourceConfigExists } from "../selectors";
 
 // the root div for the menu invisibly covers the whole screen
 // the actual div that is visible is this
@@ -33,16 +34,16 @@ export const ContextMenu = () => {
 		};
 	}, [shouldClose]);
 
-	const sourceConfigExists = useSelector(selection.selectors.sourceConfigExists);
+	const doesSourceConfigExists = useSelector(sourceConfigExists);
 	const shouldOpen = useCallback(
 		(event: MouseEvent) => {
-			if (!sourceConfigExists) return;
+			if (!doesSourceConfigExists) return;
 
 			event.preventDefault();
 
 			setMenuPosition({ left: event.x, top: event.y });
 		},
-		[sourceConfigExists, setMenuPosition]
+		[doesSourceConfigExists, setMenuPosition]
 	);
 	useEffect(() => {
 		document.addEventListener("contextmenu", shouldOpen);
@@ -63,7 +64,7 @@ export const ContextMenu = () => {
 				<Fragment>
 					<MenuItem
 						onClick={() => {
-							dispatch(selection.actions.addSelectionGoal({ cardField: "note", updateType: "REPLACE" }));
+							dispatch(addSelectionGoal({ cardField: "note", updateType: "REPLACE" }));
 							setMenuPosition(undefined);
 						}}
 					>
@@ -73,7 +74,7 @@ export const ContextMenu = () => {
 					<Divider></Divider>
 					<MenuItem
 						onClick={() => {
-							dispatch(selection.actions.addSelectionGoal({ cardField: "q", updateType: "REPLACE" }));
+							dispatch(addSelectionGoal({ cardField: "q", updateType: "REPLACE" }));
 							setMenuPosition(undefined);
 						}}
 					>
@@ -81,7 +82,7 @@ export const ContextMenu = () => {
 					</MenuItem>
 					<MenuItem
 						onClick={() => {
-							dispatch(selection.actions.addSelectionGoal({ cardField: "a", updateType: "REPLACE" }));
+							dispatch(addSelectionGoal({ cardField: "a", updateType: "REPLACE" }));
 							setMenuPosition(undefined);
 						}}
 					>

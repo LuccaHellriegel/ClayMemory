@@ -1,5 +1,5 @@
-import { CardField } from "./model-content";
-import { createReplace, changeCardObject } from "./model-permutation";
+import { CardField } from "./content";
+import { createReplace, changeCardObject } from "./permutation";
 
 export type SingleOrigin = { spanIndex: number; page: number };
 export type QOnlyQAOrigin = { q: SingleOrigin; a: {} };

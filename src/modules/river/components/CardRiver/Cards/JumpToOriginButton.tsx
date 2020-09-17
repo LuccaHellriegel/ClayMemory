@@ -2,7 +2,7 @@ import FindInPageIcon from "@material-ui/icons/FindInPage";
 import React from "react";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { SingleOrigin } from "../../../../cards/model/model-origin";
+import { SingleOrigin } from "../../../../cards/model/origin";
 import text from "../../../../text";
 import { setOriginRequest } from "../../../actions";
 

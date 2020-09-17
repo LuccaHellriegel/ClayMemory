@@ -1,7 +1,7 @@
 "use strict";
 
-import { changeCardObject, CardObjectChangeSpec, createReplace } from "./model-permutation";
-import { CardField } from "./model-content";
+import { changeCardObject, CardObjectChangeSpec, createReplace } from "./permutation";
+import { CardField } from "./content";
 
 test("note input: replace note correctly", () => {
 	const note = "1";

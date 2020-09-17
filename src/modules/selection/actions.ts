@@ -1,12 +1,12 @@
 import * as t from "./actionTypes";
-import { SingleOrigin } from "../cards/model/model-origin";
+import { SingleOrigin } from "../cards/model/origin";
 import { SelectionSourceConfig, SelectionGoalConfig, SelectionExistingCardGoalConfig } from "./model";
 import { Dispatch } from "redux";
 import { getGoalConfig, getSourceConfig } from "./selectors";
 import { selectionToCard } from "./services/use-selection";
 import { getSelectionSourceFromMaterial, getSelectionSourceFromCard } from "./services/get-selection";
-import { CardID } from "../cards/model/model-config";
-import { CardField } from "../cards/model/model-content";
+import { CardID } from "../cards/model/config";
+import { CardField } from "../cards/model/content";
 
 const setSelectionSource = (config: SelectionSourceConfig) => {
 	return { type: t.SELECTION_SOURCE, payload: config };

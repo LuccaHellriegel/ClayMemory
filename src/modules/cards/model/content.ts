@@ -1,5 +1,5 @@
-import { CreateModify, changeCardObject, createReplace } from "./model-permutation";
-import { UpdateType } from "./model-config";
+import { CreateModify, changeCardObject, createReplace } from "./permutation";
+import { UpdateType } from "./config";
 
 export type QACardField = "q" | "a";
 export type CardField = "note" | QACardField;

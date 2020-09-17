@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextField, TextFieldProps } from "@material-ui/core";
 import selection from "../../../../selection";
-import { SingleOrigin } from "../../../../cards/model/model-origin";
+import { SingleOrigin } from "../../../../cards/model/origin";
 
 export const ClayCardField = ({
 	storeValue = "",

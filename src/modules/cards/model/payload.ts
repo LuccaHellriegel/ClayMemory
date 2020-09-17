@@ -1,7 +1,7 @@
-import { CardField, strToCardContent } from "./model-content";
+import { CardField, strToCardContent } from "./content";
 import { getLastCardIDNumber } from "../selectors";
-import { CardConfig, nextCardID, UpdateType } from "./model-config";
-import { CardsState } from "./model-state";
+import { CardConfig, nextCardID, UpdateType } from "./config";
+import { CardsState } from "./state";
 
 export type CardPayload = Omit<CardConfig, "cardID">;
 export const emptyNotePayload = (): CardPayload => {

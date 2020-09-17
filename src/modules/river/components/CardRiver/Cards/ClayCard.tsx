@@ -1,5 +1,5 @@
 import React from "react";
-import { CardConfig, NoteConfig, QAConfig } from "../../../../cards/model/model-config";
+import { CardConfig, NoteConfig, QAConfig } from "../../../../cards/model/config";
 import { QACard } from "./QACard";
 import { NoteCard } from "./NoteCard";
 

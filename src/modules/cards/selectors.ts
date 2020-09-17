@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { CardsState } from "./model/model-state";
+import { CardsState } from "./model/state";
 import { NAME } from "./constants";
 
 export const getAll = (state: any) => state[NAME].present;

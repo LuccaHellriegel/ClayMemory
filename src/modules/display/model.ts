@@ -1,4 +1,4 @@
-import { SingleOrigin } from "../cards/model/model-origin";
+import { SingleOrigin } from "../cards/model/origin";
 
 export type DisplayStatus = "SHOW" | "HIDE";
 

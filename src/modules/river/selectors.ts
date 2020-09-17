@@ -2,7 +2,7 @@ import { NAME } from "./constants";
 import { createSelector } from "reselect";
 import { CardRiverState } from "./model";
 import cards from "../cards";
-import { CardID } from "../cards/model/model-config";
+import { CardID } from "../cards/model/config";
 
 export const getAll = (state: any): CardRiverState => state[NAME].present;
 

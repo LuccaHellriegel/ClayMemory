@@ -1,4 +1,4 @@
-import { NoteOrigin, QAOrigin } from "./model-origin";
+import { NoteOrigin, QAOrigin } from "./origin";
 import {
 	NoteCardContent,
 	QACardContent,
@@ -6,7 +6,7 @@ import {
 	qaContentIsNotFull,
 	strToCardContent,
 	CardField,
-} from "./model-content";
+} from "./content";
 
 export type CardID = string;
 export const cardIDToNumber = (cardID: CardID) => parseInt(cardID);

@@ -2,7 +2,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import { createTransform } from "redux-persist";
 import { DisplayData, DisplayStatus } from "./modules/display/model";
 import display from "./modules/display";
-import { SingleOrigin } from "./modules/cards/model/model-origin";
+import { SingleOrigin } from "./modules/cards/model/origin";
 
 // to get the correct object with reselect, I added .present to all getAll that belong do undoable modules
 

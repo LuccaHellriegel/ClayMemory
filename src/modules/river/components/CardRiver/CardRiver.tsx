@@ -7,7 +7,7 @@ import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { getRiverContentState, getRiverContentFilter, getRiverMakeUps } from "../../selectors";
 import cards from "../../../cards";
-import { NoteConfig, QAConfig } from "../../../cards/model/model-config";
+import { NoteConfig, QAConfig } from "../../../cards/model/config";
 import { ContentFilter } from "../../model";
 import { toCardGridItemsWithDividers } from "./toCardGridItemsWithDividers";
 

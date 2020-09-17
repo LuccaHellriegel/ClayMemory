@@ -2,7 +2,7 @@ import Grid from "@material-ui/core/Grid";
 import React from "react";
 import { incrementer } from "../../../../shared/utils";
 import { ClayCard } from "./Cards/ClayCard";
-import { CardConfig } from "../../../cards/model/model-config";
+import { CardConfig } from "../../../cards/model/config";
 import { Divider } from "@material-ui/core";
 
 const GridItemDivider = () => (
