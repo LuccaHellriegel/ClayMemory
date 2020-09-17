@@ -15,7 +15,6 @@ export const getActiveRiverMakeUp = createSelector(getRiverMakeUps, getActiveRiv
 	return makeUp ? makeUp : { cardIDs: [] };
 });
 
-//TODO-NICE: rename active=page-wise or smth like that for clarity
 export const getActiveRiverCardIDs = createSelector(getActiveRiverMakeUp, (makeUp): CardID[] => makeUp.cardIDs);
 
 export const getActiveRiverCards = createSelector(
@@ -27,10 +26,6 @@ export const getActiveRiverCards = createSelector(
 export const getRiverShowState = createSelector(getAll, (state: CardRiverState) => state.riverShowState);
 
 export const riverShowStateIsShow = createSelector(getRiverShowState, (state) => state === "SHOW");
-
-export const getHoveredCardData = createSelector(getAll, (state: CardRiverState) => {
-	return { id: state.highlightedCardID, field: state.highlightedCardField };
-});
 
 export const getLastRiverIDNumber = createSelector(getAll, (state: CardRiverState) => state.lastRiverIDNumber);
 

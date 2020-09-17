@@ -1,39 +1,17 @@
-import React, { useRef, useEffect, MutableRefObject } from "react";
+import React from "react";
 import { ClayCardField } from "./ClayCardField";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import cards from "../../../../cards";
-import { getHoveredCardData } from "../../../selectors";
 import { Card, Grid } from "@material-ui/core";
-import { borderStyle } from "./ClayCard";
 import text from "../../../../text";
 import { NoteConfig } from "../../../../cards/model/model-config";
 import { ClayCardFieldButtons } from "./ClayCardFieldButtons";
 
-//TODO-PERF: investigate if this hover-store approach is too slow, useRef instead?
 export const NoteCard = ({ config }: { config: NoteConfig }) => {
 	const dispatch = useDispatch();
-	const { id } = useSelector(getHoveredCardData);
-	const isHoveredCard = config.cardID === id;
-
-	// we only offer one way to use card-content in other cards: extract
-	// we do not allow grabbing from other cards, just from the document, so we only need the grab button in the ActiveRiver
-	//TODO-NICE: allow grabbing from other cards
-
-	//TODO-RC: for perf make hovering depend on ref not on store
-	const ref: MutableRefObject<undefined | HTMLDivElement> = useRef();
-	useEffect(() => {
-		if (ref.current && isHoveredCard) {
-			(ref.current as HTMLDivElement).scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
-		}
-	});
 
 	return (
-		<Card
-			variant="elevation"
-			elevation={5}
-			style={isHoveredCard ? { ...borderStyle, padding: "3px" } : { padding: "3px" }}
-			ref={ref}
-		>
+		<Card variant="elevation" elevation={5} style={{ padding: "3px" }}>
 			<Grid container direction="row" justify="space-between">
 				<Grid item>
 					<Grid container direction="row" spacing={1}>

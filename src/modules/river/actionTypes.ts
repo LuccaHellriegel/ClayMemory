@@ -1,7 +1,5 @@
 import { NAME } from "./constants";
 
-export const RIVER_HOVERED_CARD = NAME + "/RIVER_HOVERED_CARD";
-
 export const RIVER_ACTIVE_ID = NAME + "/RIVER_ACTIVE_ID";
 
 export const RIVER_SHOW_STATE = NAME + "/RIVER_SHOW_STATE";

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { MenuItem } from "@material-ui/core";
+import { MenuItem, Divider } from "@material-ui/core";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { dispatchCreationFromContextMenu } from "../actions";
@@ -18,6 +18,7 @@ export const NewButtons = () => {
 					dispatch(dispatchCreationFromContextMenu("note"));
 				}}
 			></NewNoteCard>
+			<Divider></Divider>
 			<NewQACardQ
 				onClick={() => {
 					dispatch(dispatchCreationFromContextMenu("q"));

@@ -23,22 +23,3 @@ export const keyEventDispatcherCreator = (keyMap: KeyActionMap): KeyEventDispatc
 		dispatch(action);
 	}
 };
-
-export function partition(array: Array<any>, filter: (val: any) => boolean) {
-	let pass: any[] = [],
-		fail: any[] = [];
-	array.forEach((e) => (filter(e) ? pass : fail).push(e));
-	return [pass, fail];
-}
-
-export const tryInterval = (tries: number, ms: number, func: () => boolean) => {
-	const increment = incrementer();
-	const timeout = setInterval(() => {
-		if (increment() > tries) {
-			clearInterval(timeout);
-			return;
-		}
-
-		if (func()) clearInterval(timeout);
-	}, ms);
-};

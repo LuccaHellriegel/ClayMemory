@@ -13,22 +13,13 @@ const removeDOMObjectsFromCreationData = (inboundState: CreationData) => {
 	return {
 		...inboundState,
 		menuRef: null,
-		fullCardRef: null,
-		qaRefs: inboundState.qaRefs.map((_) => null),
 	};
 };
 
-const addDOMObjectsToCreationData = (outboundState: {
-	menuRef: null;
-	fullCardRef: null;
-	qaRefs: null[];
-	position: Position | null;
-}): CreationData => {
+const addDOMObjectsToCreationData = (outboundState: { menuRef: null; position: Position | null }): CreationData => {
 	return {
 		...outboundState,
 		menuRef: createRef(),
-		fullCardRef: createRef(),
-		qaRefs: outboundState.qaRefs.map((_) => createRef()),
 	};
 };
 

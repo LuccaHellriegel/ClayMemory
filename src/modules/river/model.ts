@@ -1,5 +1,4 @@
 import { CardID } from "../cards/model/model-config";
-import { CardField } from "../cards/model/model-content";
 import { SingleOrigin } from "../cards/model/model-origin";
 
 export type RiverMakeUp = { riverID: string; cardIDs: CardID[] };
@@ -29,9 +28,6 @@ export type CardRiverState = {
 	riverShowState: RiverShowState;
 	// filter content
 	riverContentState: RiverContentState;
-	// this is used to determine which card should be highlighted in reaction to hovering over it in the context-menu
-	highlightedCardID: null | CardID;
-	highlightedCardField: null | CardField;
 	contentFilter: ContentFilter | "";
 };
 
@@ -54,10 +50,6 @@ export const updateStateWithMakeUps = (state: CardRiverState, ...makeUps: RiverM
 	return updatedState;
 };
 
-// export const deactivateActiveCardRiver = (state: CardRiverState) => {
-// 	return { ...state.riverMakeUps[state.activeRiverMakeUpID], active: false };
-// };
-
 export const removeCardFromRivers = (state: CardRiverState, cardID: CardID): CardRiverState => {
 	const riverMakeUps = Object.fromEntries(
 		Object.entries(state.riverMakeUps).map((entry) => [
@@ -67,3 +59,5 @@ export const removeCardFromRivers = (state: CardRiverState, cardID: CardID): Car
 	);
 	return { ...state, riverMakeUps };
 };
+
+//TODO-RC: make option to not show card instead of delete

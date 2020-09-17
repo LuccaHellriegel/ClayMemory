@@ -22,8 +22,6 @@ const initialState: CardRiverState = {
 	activeRiverMakeUpID: pageNumberToRiverMakeUpID(1),
 	lastRiverIDNumber: 1,
 	riverShowState: "SHOW",
-	highlightedCardID: null,
-	highlightedCardField: null,
 	riverContentState: "ALL",
 	contentFilter: "",
 };
@@ -40,8 +38,6 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 			return { ...state, riverShowState: payload as RiverShowState };
 		case t.RIVER_CONTENT_STATE:
 			return { ...state, riverContentState: payload as RiverContentState };
-		case t.RIVER_HOVERED_CARD:
-			return { ...state, highlightedCardID: payload.id, highlightedCardField: payload.field };
 		case cards.actionTypes.CARD_PUSH:
 			if (state.riverMakeUps[state.activeRiverMakeUpID]) {
 				riverMakeUp = {

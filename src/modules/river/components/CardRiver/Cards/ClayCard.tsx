@@ -3,9 +3,7 @@ import { CardConfig, NoteConfig, QAConfig } from "../../../../cards/model/model-
 import { QACard } from "./QACard";
 import { NoteCard } from "./NoteCard";
 
-export type CardProps = { config: CardConfig; riverID: string };
-
-export const borderStyle = { border: "4px solid green", borderRadius: "4px" };
+type CardProps = { config: CardConfig; riverID: string };
 
 export const ClayCard = ({ config, riverID }: CardProps) => {
 	switch (config.type) {

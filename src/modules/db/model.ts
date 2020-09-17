@@ -14,7 +14,7 @@ export type DocumentData = {
 	ArchiveRiver &
 	ArchiveCards;
 
-export type DocumentDB = { [name: string]: DocumentData };
+type DocumentDB = { [name: string]: DocumentData };
 
 export type DocumentDBState = { documentDB: DocumentDB };
 

@@ -26,7 +26,7 @@ export function ReaderScene() {
 				</Grid>
 			</Grid>
 			{/* //TODO-RC: switch between single and multiple pages? And then scroll to top makes sense?	*/}
-			<creation.components.ContextMenuContainer></creation.components.ContextMenuContainer>
+			<creation.components.ContextMenu></creation.components.ContextMenu>
 			<selection.components.SelectionSnackbar></selection.components.SelectionSnackbar>
 		</Fragment>
 	);

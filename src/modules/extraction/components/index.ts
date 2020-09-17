@@ -1,3 +1,3 @@
-import { ContextMenuContainer } from "./ContextMenu";
+import { ContextMenu } from "./ContextMenu";
 
-export { ContextMenuContainer };
+export { ContextMenu };
