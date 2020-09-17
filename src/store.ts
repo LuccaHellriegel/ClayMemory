@@ -2,7 +2,6 @@ import { createStore } from "redux";
 import { applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { combineReducers } from "redux";
-import creation from "./modules/extraction";
 import river from "./modules/river";
 import display from "./modules/display";
 import cards from "./modules/cards";
@@ -20,9 +19,6 @@ import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProductio
 const rootReducer = combineReducers({
 	[selection.constants.NAME]: undoable(selection.reducer, {
 		filter: includeAction([selection.actionTypes.SELECTION_GOAL, selection.actionTypes.SELECTION_SOURCE]),
-	}),
-	[creation.constants.NAME]: undoable(creation.reducer, {
-		filter: includeAction([cards.actionTypes.CARD_PUSH]),
 	}),
 	[river.constants.NAME]: undoable(river.reducer, {
 		filter: includeAction([

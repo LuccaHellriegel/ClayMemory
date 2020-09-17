@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 import control from "../modules/control";
-import creation from "../modules/extraction";
 import { Toolbar } from "@material-ui/core";
 import selection from "../modules/selection";
 import display from "../modules/display";
@@ -25,8 +24,7 @@ export function ReaderScene() {
 					<display.components.PDFDocument></display.components.PDFDocument>
 				</Grid>
 			</Grid>
-			{/* //TODO-RC: switch between single and multiple pages? And then scroll to top makes sense?	*/}
-			<creation.components.ContextMenu></creation.components.ContextMenu>
+			<selection.components.ContextMenu></selection.components.ContextMenu>
 			<selection.components.SelectionSnackbar></selection.components.SelectionSnackbar>
 		</Fragment>
 	);

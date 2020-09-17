@@ -61,3 +61,4 @@ export const removeCardFromRivers = (state: CardRiverState, cardID: CardID): Car
 };
 
 //TODO-RC: make option to not show card instead of delete
+// make nice small option in river to hide / show hidden cards (default: hide)
