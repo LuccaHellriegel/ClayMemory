@@ -28,7 +28,6 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 			}
 
 			//TODO-RC: when there are a lot of cards and we scroll, the river changes size while scrolling
-			//TODO-RC: out of sight cards dont scroll into view anymore once they are hovered?
 
 			const textLayer = pageRef.current?.children.item(1);
 			if (textLayer) {

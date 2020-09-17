@@ -28,7 +28,7 @@ export const QACard = ({ config }: { config: QAConfig }) => {
 	const ref: MutableRefObject<undefined | HTMLDivElement> = useRef();
 	useEffect(() => {
 		if (ref.current && isHoveredCard) {
-			(ref.current as HTMLDivElement).scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+			(ref.current as HTMLDivElement).scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
 		}
 	});
 

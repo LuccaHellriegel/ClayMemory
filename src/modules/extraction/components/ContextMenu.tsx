@@ -12,7 +12,6 @@ import NestedMenuItem from "material-ui-nested-menu-item";
 import { useEventListener } from "../../../shared/useEventListener";
 import cards from "../../cards";
 import { Position } from "../model";
-import { getActiveRiverMakeUpID } from "../../river/selectors";
 
 function ContextMenu({
 	position,
@@ -26,8 +25,6 @@ function ContextMenu({
 	riverCards: CardConfig[];
 }) {
 	const dispatch = useDispatch();
-
-	console.log(useSelector(getActiveRiverMakeUpID));
 
 	useEventListener("mousedown", (event: MouseEvent) => {
 		dispatch(mouseDownControl(event));

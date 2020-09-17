@@ -19,10 +19,11 @@ export const NoteCard = ({ config }: { config: NoteConfig }) => {
 	// we do not allow grabbing from other cards, just from the document, so we only need the grab button in the ActiveRiver
 	//TODO-NICE: allow grabbing from other cards
 
+	//TODO-RC: for perf make hovering depend on ref not on store
 	const ref: MutableRefObject<undefined | HTMLDivElement> = useRef();
 	useEffect(() => {
 		if (ref.current && isHoveredCard) {
-			(ref.current as HTMLDivElement).scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+			(ref.current as HTMLDivElement).scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
 		}
 	});
 

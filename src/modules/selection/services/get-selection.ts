@@ -32,8 +32,6 @@ export const getSelectionWorkaround = (): SelectionData | null => {
 	}
 };
 
-// TODO-RC: selection from other cards
-
 const materialSelectionDataToSourceConfig = (
 	selectionData: SelectionData,
 	page: number
