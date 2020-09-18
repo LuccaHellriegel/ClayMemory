@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect, useCallback } from "react";
 import { Snackbar, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,8 +36,22 @@ export const SelectionSnackbar = () => {
 			{sourceConfig?.contentOrigin && <div style={{ color: "red" }}> From Page {sourceConfig.contentOrigin.page}</div>}
 		</Fragment>
 	);
-	//TODO-RC: make unselectable via ESC button
 	//TODO-RC: REPLACE-button, also make APPEND with empty space between stuff, maybe Newline?
+
+	//TODO-NICE: support IE/Edge values for ArrowRight etc
+
+	const escPress = (event: KeyboardEvent) => {
+		if (open && (event.key === "Escape" || event.key === "Esc")) {
+			handleDismiss();
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("keydown", escPress);
+		return () => {
+			document.removeEventListener("keydown", escPress);
+		};
+	});
 
 	return (
 		<Snackbar
