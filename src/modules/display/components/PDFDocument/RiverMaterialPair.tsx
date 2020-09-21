@@ -3,8 +3,18 @@ import { Divider, Grid } from "@material-ui/core";
 import river from "../../../river";
 import { PDFPage } from "./PDFPage";
 import { useSelector } from "react-redux";
-import { getDisplayStatus } from "../../selectors";
-import { pairTopBottomPadding } from "./RiverMaterialPairList";
+import { getDisplayStatus, getWindowMeasurements } from "../../selectors";
+import { pairTopBottomPadding, RiverMultiplier } from "./RiverMaterialPairList";
+
+const RiverPairItem = ({ riverID, materialHeight }: { riverID: string; materialHeight: number }) => {
+	const width = useSelector(getWindowMeasurements)?.width as number;
+
+	return (
+		<div style={{ maxWidth: width * RiverMultiplier }}>
+			<river.components.CardRiver riverID={riverID} materialHeight={materialHeight}></river.components.CardRiver>
+		</div>
+	);
+};
 
 export const RiverMaterialPair = ({
 	index,
@@ -24,14 +34,11 @@ export const RiverMaterialPair = ({
 	const showMaterial = useSelector(getDisplayStatus);
 
 	return (
-		<div style={{ ...style, margin: "4px" }}>
+		<div style={{ ...style }}>
 			<river.components.SwitchActiveRiver riverID={riverID}>
 				<Grid container justify="space-between" direction="row" alignItems="flex-start">
 					<Grid item hidden={showRiver === "HIDE"}>
-						<river.components.CardRiver
-							riverID={riverID}
-							materialHeight={materialHeights.get(pageNumber) as number}
-						></river.components.CardRiver>
+						<RiverPairItem riverID={riverID} materialHeight={materialHeights.get(pageNumber) as number}></RiverPairItem>
 					</Grid>
 
 					<Grid item hidden={showMaterial === "HIDE"}>

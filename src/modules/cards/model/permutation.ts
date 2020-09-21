@@ -3,8 +3,8 @@ import { CardField, QACardField } from "./content";
 // for origin and content the same object structure is used,
 // so same permutation api should be used
 
-type NoteObject = any;
-type QAObject = { [key in QACardField]: any };
+type NoteObject = NonNullable<any>;
+type QAObject = { [key in QACardField]: NonNullable<any> };
 type CardObject = NoteObject | QAObject;
 
 const FieldValueAccessorMap: { [field in CardField]: (cardObject: CardObject) => any } = {

@@ -36,7 +36,6 @@ const UpdateTypeCreateModifyMap: { [updateType in UpdateType]: CreateModify } = 
 const updateTypeToCreateModify = (updateType: UpdateType) => UpdateTypeCreateModifyMap[updateType];
 
 // noteObjects are a single value like the selectedString, so we use them as a field for convenience
-// TODO-NICE: make single value generic CardObject definition
 const inputField: CardField = "note";
 
 export const strToCardContent = (

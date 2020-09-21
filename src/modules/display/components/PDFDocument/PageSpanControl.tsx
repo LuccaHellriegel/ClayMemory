@@ -27,8 +27,6 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 				return;
 			}
 
-			//TODO-RC: when there are a lot of cards and we scroll, the river changes size while scrolling
-
 			const textLayer = pageRef.current?.children.item(1);
 			if (textLayer) {
 				const originSpan = textLayer.children.item((spanOrigin as SingleOrigin).spanIndex);

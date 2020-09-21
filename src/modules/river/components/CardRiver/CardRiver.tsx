@@ -64,7 +64,7 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 		return toCardGridItemsWithDividers(inputCards, riverID);
 	}, [riverCards, riverID, riverContentState, contentFilter]);
 
-	//TODO-RC: resize still does not work, the river just stays big?
+	//TODO-NICE: resize still does not work, the calculated list-heights are not changing, just the content
 	//TODO-NICE: if you start without any document and then load one, the current cards should be merged into that one
 	//TODO-NICE: scroll-to-top for overflowing river
 

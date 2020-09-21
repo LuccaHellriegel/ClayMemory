@@ -10,9 +10,11 @@ export const nextPageTooltip = "Next page";
 export const previousPageTooltip = "Previous page";
 
 export const deleteCardTooltip = "Delete this card";
-export const grabForCardTooltip = "Activate the document-selection grab for this card(-field)";
 export const jumpToOriginTooltip = "Jump to the origin of the card content";
-export const appendToCardTooltip = "Add the current or next selection to this card (only from document)";
+
+export const ChoiceCardAsGoal = "Mark this card as the goal of the next selection";
+export const AppendToCardTooltip = "Add the current selection to this card";
+export const CardIsGoalTooltip = "The next selection will be added to this card (click to unselect)";
 
 export const newQACardTooltip = "Create new QA-card";
 export const newNoteCardTooltip = "Create new Note-card";

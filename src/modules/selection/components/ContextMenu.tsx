@@ -89,4 +89,3 @@ export const ContextMenu = () => {
 };
 
 //TODO-NICE: delete extracted str in source
-//TODO-RC: if I open the menu, the height changes (and width?), this leads to janky behavior of the selection-bar

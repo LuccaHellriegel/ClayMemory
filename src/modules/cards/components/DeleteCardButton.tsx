@@ -6,8 +6,6 @@ import { CardID } from "../model/config";
 import text from "../../text";
 import { removeCard } from "../actions";
 
-//TODO-NICE: use storybook for visual component testing
-
 export const DeleteCardButton = ({ cardID }: { cardID: CardID }) => {
 	const dispatch = useDispatch();
 	return (

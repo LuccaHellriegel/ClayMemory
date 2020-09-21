@@ -25,7 +25,7 @@ test("output note correctly", () => {
 	);
 	expect(contentStringToPayload(contentString, "note", "APPEND", { type: "Note", content: "2" })).toEqual({
 		type: "Note",
-		content: "21",
+		content: "2 1",
 	});
 });
 

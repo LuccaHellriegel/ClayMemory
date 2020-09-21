@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from "react";
+import React, { useRef } from "react";
 import { Page } from "react-pdf";
 import { PageKeyboardControl } from "./PageKeyboardControl";
 import selection from "../../../selection";
@@ -119,7 +119,8 @@ export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 
 	const pageRef = useRef<null | HTMLDivElement>(null);
 
-	//TODO-RC: make min-width / height to trigger overflow, no one wants to read miniature pdfs
+	//TODO-NICE: make pdf zoomable, right now it just sizes with the screen
+	// good enough right now because one can hide the river if one needs more space
 
 	return (
 		<div style={{ overflow: "auto" }}>
