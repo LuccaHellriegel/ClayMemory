@@ -28,7 +28,7 @@ export const noteContentIsEmpty = (content: string) => content === "";
 export const qaContentIsNotFull = (content: QACardContent) =>
 	(content as QACardContent).q === "" || (content as QACardContent).a === "";
 
-const createAppendStr: CreateModify = (inputValue: string) => (oldValue: string) => oldValue + inputValue;
+const createAppendStr: CreateModify = (inputValue: string) => (oldValue: string) => oldValue + " " + inputValue;
 const UpdateTypeCreateModifyMap: { [updateType in UpdateType]: CreateModify } = {
 	APPEND: createAppendStr,
 	REPLACE: createReplace,
