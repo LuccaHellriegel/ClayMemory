@@ -72,7 +72,7 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 		<Accordion
 			defaultExpanded={true}
 			style={{
-				overflowY: "auto",
+				overflow: "auto",
 				// this was maxHeight but then if we hide the Material an empty river looks weird
 				// because it is surrounded by white-space
 				height: materialHeight,

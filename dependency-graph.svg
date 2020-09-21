@@ -1928,18 +1928,18 @@
 </g>
 <text text-anchor="middle" x="1503.7182" y="-612.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#ffa500">no&#45;circular</text>
 </g>
-<!-- src/modules/display/components/PDFDocument/WindowMeasurer.tsx -->
+<!-- src/modules/display/components/PDFDocument/HTMLElementMeasurer.tsx -->
 <g id="node65" class="node">
-<title>src/modules/display/components/PDFDocument/WindowMeasurer.tsx</title>
-<g id="a_node65"><a xlink:href="src/modules/display/components/PDFDocument/WindowMeasurer.tsx" xlink:title="WindowMeasurer.tsx">
+<title>src/modules/display/components/PDFDocument/HTMLElementMeasurer.tsx</title>
+<g id="a_node65"><a xlink:href="src/modules/display/components/PDFDocument/HTMLElementMeasurer.tsx" xlink:title="HTMLElementMeasurer.tsx">
 <path fill="#bbfeff" stroke="#000000" d="M1160,-580C1160,-580 1070,-580 1070,-580 1067,-580 1064,-577 1064,-574 1064,-574 1064,-568 1064,-568 1064,-565 1067,-562 1070,-562 1070,-562 1160,-562 1160,-562 1163,-562 1166,-565 1166,-568 1166,-568 1166,-574 1166,-574 1166,-577 1163,-580 1160,-580"/>
-<text text-anchor="middle" x="1115" y="-568.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">WindowMeasurer.tsx</text>
+<text text-anchor="middle" x="1115" y="-568.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">HTMLElementMeasurer.tsx</text>
 </a>
 </g>
 </g>
-<!-- src/modules/display/components/PDFDocument/WindowMeasurer.tsx&#45;&gt;src/modules/display/actions.ts -->
+<!-- src/modules/display/components/PDFDocument/HTMLElementMeasurer.tsx&#45;&gt;src/modules/display/actions.ts -->
 <g id="edge142" class="edge">
-<title>src/modules/display/components/PDFDocument/WindowMeasurer.tsx&#45;&gt;src/modules/display/actions.ts</title>
+<title>src/modules/display/components/PDFDocument/HTMLElementMeasurer.tsx&#45;&gt;src/modules/display/actions.ts</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M1115,-561.9722C1115,-556.2805 1115,-550 1115,-550 1115,-550 1746.7516,-550 1746.7516,-550"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="1746.7516,-552.1001 1752.7516,-550 1746.7515,-547.9001 1746.7516,-552.1001"/>
 </g>
@@ -1982,9 +1982,9 @@
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M1048.2193,-554C1167.2403,-554 1636,-554 1636,-554 1636,-554 1636,-577.9546 1636,-577.9546"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="1633.9001,-577.9546 1636,-583.9546 1638.1001,-577.9546 1633.9001,-577.9546"/>
 </g>
-<!-- src/modules/display/components/index.ts&#45;&gt;src/modules/display/components/PDFDocument/WindowMeasurer.tsx -->
+<!-- src/modules/display/components/index.ts&#45;&gt;src/modules/display/components/PDFDocument/HTMLElementMeasurer.tsx -->
 <g id="edge150" class="edge">
-<title>src/modules/display/components/index.ts&#45;&gt;src/modules/display/components/PDFDocument/WindowMeasurer.tsx</title>
+<title>src/modules/display/components/index.ts&#45;&gt;src/modules/display/components/PDFDocument/HTMLElementMeasurer.tsx</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M1035,-563.16C1035,-567.3942 1035,-571.5 1035,-571.5 1035,-571.5 1057.8818,-571.5 1057.8818,-571.5"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="1057.8819,-573.6001 1063.8818,-571.5 1057.8818,-569.4001 1057.8819,-573.6001"/>
 </g>

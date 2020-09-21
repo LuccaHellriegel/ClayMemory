@@ -2,6 +2,6 @@ import { PageNavigation } from "./NavigationButtons";
 import { PageChooser } from "./PageChooser/PageChooser";
 import { PageKeyboardControl } from "./PDFDocument/PageKeyboardControl";
 import { PDFDocument } from "./PDFDocument/PDFDocument";
-import { WindowMeasurer } from "./PDFDocument/WindowMeasurer";
+import { HTMLElementMeasurer } from "./PDFDocument/HTMLElementMeasurer";
 
-export { PageChooser, PageNavigation, PageKeyboardControl, PDFDocument, WindowMeasurer };
+export { PageChooser, PageNavigation, PageKeyboardControl, PDFDocument, HTMLElementMeasurer };

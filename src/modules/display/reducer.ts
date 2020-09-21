@@ -10,6 +10,7 @@ const initialState: DisplayData = {
 	windowMeasurements: null,
 	spanOrigin: null,
 	documentSearch: "",
+	topOffset: 0,
 };
 
 const displayData = (state = initialState, { type, payload }: { type: string; payload: any }): DisplayData => {
@@ -43,6 +44,8 @@ const displayData = (state = initialState, { type, payload }: { type: string; pa
 			return { ...state, spanOrigin: payload };
 		case t.DOCUMENT_SEARCH:
 			return { ...state, documentSearch: payload };
+		case t.TOP_OFFSET:
+			return { ...state, topOffset: payload };
 		case t.WINDOW_LAYOUT:
 			return {
 				...state,

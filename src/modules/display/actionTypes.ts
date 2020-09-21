@@ -10,3 +10,4 @@ export const SPAN_ORIGIN = NAME + "/SPAN_ORIGIN";
 export const DOCUMENT_SEARCH = NAME + "/DOCUMENT_SEARCH";
 
 export const WINDOW_LAYOUT = NAME + "/WINDOW_LAYOUT";
+export const TOP_OFFSET = NAME + "/TOP_OFFSET";

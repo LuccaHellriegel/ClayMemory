@@ -65,3 +65,7 @@ export const setDocumentSearch = (search: string | null) => {
 export const resetDocumentSearch = () => {
 	return setDocumentSearch("");
 };
+
+export const setTopOffset = (offset: number) => {
+	return { type: t.TOP_OFFSET, payload: offset };
+};

@@ -44,6 +44,7 @@ const addDOMObjectsToDisplayData = (outboundState: {
 	windowMeasurements: { width: number; height: number } | null;
 	spanOrigin: null | SingleOrigin;
 	documentSearch: string;
+	topOffset: number;
 }): DisplayData => {
 	return {
 		...outboundState,

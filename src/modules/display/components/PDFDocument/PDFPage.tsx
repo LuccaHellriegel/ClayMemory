@@ -119,8 +119,10 @@ export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 
 	const pageRef = useRef<null | HTMLDivElement>(null);
 
+	//TODO-RC: make min-width / height to trigger overflow, no one wants to read miniature pdfs
+
 	return (
-		<Fragment>
+		<div style={{ overflow: "auto" }}>
 			<selection.components.MaterialMouseUp page={pageNumber}>
 				<PageKeyboardControl>
 					<Page
@@ -137,7 +139,7 @@ export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 				</PageKeyboardControl>
 			</selection.components.MaterialMouseUp>
 			<PageSpanControl page={pageNumber} pageRef={pageRef}></PageSpanControl>
-		</Fragment>
+		</div>
 	);
 };
 

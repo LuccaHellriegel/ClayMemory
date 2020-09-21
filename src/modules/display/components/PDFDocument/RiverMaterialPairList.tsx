@@ -3,7 +3,7 @@ import { pdfjs } from "react-pdf";
 import { VariableSizeList } from "react-window";
 import { RiverMaterialPair } from "./RiverMaterialPair";
 import { CachedPageDimensions } from "./PDFDocument";
-import { getWindowMeasurements } from "../../selectors";
+import { getTopOffset, getWindowMeasurements } from "../../selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { setPage } from "../../actions";
 import { PageScrollControl } from "./PageScrollControl";
@@ -46,12 +46,15 @@ export const RiverMaterialPairList = ({
 		: undefined;
 
 	const dispatch = useDispatch();
+	const topOffset = useSelector(getTopOffset);
+
+	//TODO-RC: creating a new card from context-menu seems to focus / snap us on current-page
 
 	return (
 		<Fragment>
 			{windowMeasurements && materialHeights && (
 				<VariableSizeList
-					height={windowMeasurements.height}
+					height={windowMeasurements.height - topOffset}
 					itemCount={(pdfProxyRef.current as pdfjs.PDFDocumentProxy).numPages}
 					itemSize={(index: number) => (materialHeights.get(index + 1) as number) + pairTopBottomPadding}
 					itemData={{

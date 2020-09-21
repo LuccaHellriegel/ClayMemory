@@ -6,12 +6,13 @@ import { debounce } from "throttle-debounce";
 //TODO-NICE: make PR to react-pdf-sample or make my own, because the Memory/height bug makes his unusable
 // height = real total height = render everything = can not scroll, because we are "showing" everything already
 
-export const WindowMeasurer = () => {
+export const HTMLElementMeasurer = () => {
 	const dispatch = useDispatch();
 
 	const measure = debounce(50, () => {
-		const currentWidth = window.innerWidth;
-		const currentHeight = window.innerHeight;
+		const htmlElement = document.documentElement;
+		const currentWidth = htmlElement.clientWidth;
+		const currentHeight = htmlElement.clientHeight;
 		dispatch(widthPixels({ width: currentWidth, height: currentHeight }));
 	});
 
