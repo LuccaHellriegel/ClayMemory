@@ -5,10 +5,15 @@ import { Paper, Grid } from "@material-ui/core";
 import { CardConfig } from "../../../../cards/model/config";
 import { CardField } from "../../../../cards/model/content";
 import selection from "../../../../selection";
+import { SingleOrigin } from "../../../../cards/model/origin";
 
 export const ClayCardFieldButtons = ({ config, cardField }: { config: CardConfig; cardField: CardField }) => {
 	//TODO-RC: make CardExplorer
 
+	const origin: SingleOrigin | null = config.origin
+		? cards.model.permutation.toFieldValue(cardField, config.origin)
+		: null;
+	const originExists = origin?.page !== undefined;
 	return (
 		<Paper variant="outlined">
 			<Grid container direction="row">
@@ -27,11 +32,7 @@ export const ClayCardFieldButtons = ({ config, cardField }: { config: CardConfig
 				</Grid>
 
 				<Grid item>
-					{config.origin && (
-						<JumpToOriginButton
-							cardOrigin={cards.model.permutation.toFieldValue(cardField, config.origin)}
-						></JumpToOriginButton>
-					)}
+					{originExists && <JumpToOriginButton cardOrigin={origin as SingleOrigin}></JumpToOriginButton>}
 				</Grid>
 			</Grid>
 		</Paper>
