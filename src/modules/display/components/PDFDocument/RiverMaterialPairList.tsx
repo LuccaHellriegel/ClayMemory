@@ -1,4 +1,4 @@
-import React, { RefObject, useRef, Fragment } from "react";
+import React, { RefObject, useRef, Fragment, useEffect } from "react";
 import { pdfjs } from "react-pdf";
 import { VariableSizeList } from "react-window";
 import { RiverMaterialPair } from "./RiverMaterialPair";
@@ -29,6 +29,25 @@ const calculateMaterialHeight = (
 
 export const pairTopBottomPadding = 20;
 
+const Resetter = ({
+	listRef,
+	materialHeights,
+}: {
+	listRef: RefObject<VariableSizeList>;
+	materialHeights: Map<number, number>;
+}) => {
+	const ref = useRef(materialHeights);
+
+	useEffect(() => {
+		if (materialHeights !== ref.current) {
+			listRef.current?.resetAfterIndex(0);
+			ref.current = materialHeights;
+		}
+	});
+
+	return null;
+};
+
 export const RiverMaterialPairList = ({
 	pdfProxyRef,
 	cachedPageDimensions,
@@ -39,6 +58,7 @@ export const RiverMaterialPairList = ({
 	const listRef = useRef<VariableSizeList>();
 
 	const windowMeasurements = useSelector(getWindowMeasurements);
+	//TODO-PERF: check if this needs to be memoized
 	const materialHeights = windowMeasurements
 		? Array.from(cachedPageDimensions.keys()).reduce((prev, pageNumber) => {
 				prev.set(pageNumber, calculateMaterialHeight(pageNumber, cachedPageDimensions, windowMeasurements.width));
@@ -70,6 +90,9 @@ export const RiverMaterialPairList = ({
 				>
 					{RiverMaterialPair}
 				</VariableSizeList>
+			)}
+			{materialHeights && (
+				<Resetter listRef={listRef as RefObject<VariableSizeList>} materialHeights={materialHeights}></Resetter>
 			)}
 			<PageScrollControl listRef={listRef as RefObject<VariableSizeList>}></PageScrollControl>
 		</Fragment>
