@@ -57,3 +57,11 @@ export const setSpanOrigin = (origin: SingleOrigin | null) => {
 export const resetSpanOrigin = () => {
 	return setSpanOrigin(null);
 };
+
+export const setDocumentSearch = (search: string | null) => {
+	return { type: t.DOCUMENT_SEARCH, payload: search };
+};
+
+export const resetDocumentSearch = () => {
+	return setDocumentSearch("");
+};

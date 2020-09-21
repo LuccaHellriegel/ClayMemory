@@ -25,3 +25,5 @@ export const getDisplayStatus = createSelector(getAll, (state: DisplayData) => s
 export const displayStatusIsShow = createSelector(getDisplayStatus, (status) => status === "SHOW");
 
 export const getSpanOrigin = createSelector(getAll, (state) => state.spanOrigin);
+
+export const getDocumentSearch = createSelector(getAll, (state) => state.documentSearch);

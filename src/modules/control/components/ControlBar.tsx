@@ -3,7 +3,7 @@ import React from "react";
 import { AppBar, Toolbar, Grid, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { Options } from "./Options/Options";
-import { CardSearchBar } from "./CardSearchBar";
+import { ClayMemorySearchBar } from "./ClayMemorySearchBar";
 import { UndoRedoCard } from "./UndoRedoButtons";
 import { ShowHideButton } from "./ShowHideButton";
 
@@ -32,8 +32,9 @@ export const ControlBar = () => {
 					</Grid>
 
 					<Typography style={{ flexGrow: 1 }}>{materialName?.replace(".pdf", "")}</Typography>
-
-					<CardSearchBar></CardSearchBar>
+					<Grid item>
+						<ClayMemorySearchBar></ClayMemorySearchBar>
+					</Grid>
 					<ShowHideButton></ShowHideButton>
 					<Options></Options>
 				</Toolbar>

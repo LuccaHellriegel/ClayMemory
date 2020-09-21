@@ -9,6 +9,7 @@ const initialState: DisplayData = {
 	scrollToPage: null,
 	windowMeasurements: null,
 	spanOrigin: null,
+	documentSearch: "",
 };
 
 const displayData = (state = initialState, { type, payload }: { type: string; payload: any }): DisplayData => {
@@ -40,6 +41,8 @@ const displayData = (state = initialState, { type, payload }: { type: string; pa
 			return { ...state, displayStatus: payload as DisplayStatus };
 		case t.SPAN_ORIGIN:
 			return { ...state, spanOrigin: payload };
+		case t.DOCUMENT_SEARCH:
+			return { ...state, documentSearch: payload };
 		case t.WINDOW_LAYOUT:
 			return {
 				...state,

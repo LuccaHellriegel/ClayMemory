@@ -11,6 +11,7 @@ export type DisplayData = {
 	totalPages: number;
 	spanOrigin: SingleOrigin | null;
 	windowMeasurements: { width: number; height: number } | null;
+	documentSearch: string | "";
 };
 
 export type PageMove = "PREVIOUS" | "NEXT";

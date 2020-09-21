@@ -3,6 +3,8 @@ import { createTransform } from "redux-persist";
 import { DisplayData, DisplayStatus } from "./modules/display/model";
 import display from "./modules/display";
 import { SingleOrigin } from "./modules/cards/model/origin";
+import { CardRiverState } from "./modules/river/model";
+import river from "./modules/river";
 
 // to get the correct object with reselect, I added .present to all getAll that belong do undoable modules
 
@@ -41,12 +43,14 @@ const addDOMObjectsToDisplayData = (outboundState: {
 	totalPages: number;
 	windowMeasurements: { width: number; height: number } | null;
 	spanOrigin: null | SingleOrigin;
+	documentSearch: string;
 }): DisplayData => {
 	return {
 		...outboundState,
 		pdf: undefined,
 		spanOrigin: null,
 		windowMeasurements: null,
+		documentSearch: "",
 	};
 };
 
@@ -60,8 +64,26 @@ const displayTransform = createTransform(
 	{ whitelist: [display.constants.NAME] }
 );
 
+const removeContentFilter = (state: CardRiverState): CardRiverState => {
+	return { ...state, contentFilter: "" };
+};
+
+const riverTransform = createTransform(
+	(inboundState: { present: CardRiverState; future: CardRiverState[]; past: CardRiverState[] }) => {
+		return inboundState;
+	},
+	(outboundState): { present: CardRiverState; future: CardRiverState[]; past: CardRiverState[] } => {
+		return {
+			present: removeContentFilter(outboundState.present),
+			future: outboundState.future.map(removeContentFilter),
+			past: outboundState.past.map(removeContentFilter),
+		};
+	},
+	{ whitelist: [river.constants.NAME] }
+);
+
 export const persistConfig = {
 	key: "root",
 	storage,
-	transforms: [displayTransform],
+	transforms: [displayTransform, riverTransform],
 };
