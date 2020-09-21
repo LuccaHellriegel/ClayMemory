@@ -8,8 +8,6 @@ import { MaterialMultiplier } from "./RiverMaterialPairList";
 import { PageSpanControl } from "./PageSpanControl";
 import { TextLayerItemInternal } from "react-pdf/dist/Page";
 
-//TODO-NICE: strg +f should jump to the searchbox? Only if I replace the search fully
-
 // highlight what is in searchbox
 
 export const backgroundStyle = { backgroundColor: "blue" };
@@ -102,8 +100,6 @@ export const highlightPattern = (text: string, pattern: string) => {
 	return result as any;
 };
 
-//TODO-NICE: multiline matches is not support / matches that cross textItems
-
 function makeTextRenderer(searchText: string) {
 	return function textRenderer(textItem: TextLayerItemInternal) {
 		return highlightPattern(textItem.str, searchText);
@@ -118,9 +114,6 @@ export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 	const textRenderer = documentSearch !== "" ? makeTextRenderer(documentSearch) : undefined;
 
 	const pageRef = useRef<null | HTMLDivElement>(null);
-
-	//TODO-NICE: make pdf zoomable, right now it just sizes with the screen
-	// good enough right now because one can hide the river if one needs more space
 
 	return (
 		<div style={{ overflow: "auto" }}>
@@ -143,7 +136,3 @@ export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 		</div>
 	);
 };
-
-//TODO-NICE: react-pdf alignment is broken for some pdfs and generally for non-body text,
-// seems to be connected to choosing the wrong font
-// font is chosen per page not per item (e.g. body-font for heading/cursive)

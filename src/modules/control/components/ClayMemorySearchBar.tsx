@@ -5,19 +5,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { Grid, Select } from "@material-ui/core";
 import display from "../../display";
 
-//TODO-NICE: counter of found words
-//TODO-NICE: count also in PDF
+//TODO-NICE: react-pdf alignment is broken for some pdfs and generally for non-body text,
+// seems to be connected to choosing the wrong font
+// font is chosen per page not per item (e.g. body-font for heading/cursive)
+// needs to be fixed before making search
+// otherwise coloring findings not possible / good enough
+
+//TODO-NICE: make search for PDF (right now this would need some work to find the correct text-node and partially color it)
+// https://github.com/wojtekmaj/react-pdf/issues/212
+// counter of found words
+// count also in PDF
 // PDFPageProxy
 // getTextContent
 // if not rendered
 // count via Proxy
 // if rendered count via CustomRenderer
 // two dicts to hold which one
-//TODO-NICE: make window with next/last found
-
-//TODO-NICE: make search for PDF (right now this would need some work to find the correct text-node and partially color it)
-// https://github.com/wojtekmaj/react-pdf/issues/212
-//TODO-NICE: extract text properly (?)
+// make window with next/last found
+// current renderer: multiline matches is not support / matches that cross textItems
+// strg +f should jump to the searchbox? Only if I replace the search fully
+// upper / lower case
 
 export const ClayMemorySearchBar = () => {
 	const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import { RefObject } from "react";
 import { pdfjs } from "react-pdf";
 import { CachedPageDimensions } from "./PDFDocument";
 
-//TODO-NICE: use more robust method than pdfName to differentiate pdfs
+//TODO-NICE: use more robust method than pdfName to differentiate pdfs in this abort
 //TODO-NICE: test if this abort actually works? once the function was entered,
 // is it guaranteed that it will finish before other changes?
 export const cachePageDimensions = (

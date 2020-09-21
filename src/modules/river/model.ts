@@ -17,7 +17,7 @@ export type CardRiverState = {
 	// then we set the origin in the display-store
 	// then we scroll to origin
 	// all happens in the display module
-	// TODO-NICE: move this somehow to display?
+	// move this somehow to display?
 	// problem is that we depend on the display components (list-ref)
 	// for scrolling
 	requestedOrigin: SingleOrigin | null;

@@ -9,10 +9,6 @@ import text from "../../../../text";
 import { ClayCardFieldButtons } from "./ClayCardFieldButtons";
 import { QAConfig } from "../../../../cards/model/config";
 
-//TODO-NICE:
-// make dropdown / menu for selection to create card from selection snackbar?
-// show if selection has origin / button jump to origin at snackbar?
-
 //TODO-NICE: use dark color pallet (theme?)
 
 export const QACard = ({ config }: { config: QAConfig }) => {

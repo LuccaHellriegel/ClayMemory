@@ -4,6 +4,8 @@ React-based reader and editor for creating notes and flash cards directly from P
 
 Try it: [https://luccahellriegel.github.io/ClayMemory](https://luccahellriegel.github.io/ClayMemory)
 
+Only tested on Firefox and Chromium.
+
 ## Controls
 
 ClayMemory tries to explore a better alternative to using multiple programs and copy-pasting via clipboard, so the controls might take some getting used to. Most of the functionality is hinted at via tooltips and it does not hurt to play around. Be sure to drop any bugs you notice (+ screenshots, video or detailed description) in the issues.

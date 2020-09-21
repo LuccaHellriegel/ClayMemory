@@ -9,7 +9,7 @@ import * as t from "./actionTypes";
 
 const initialState: DocumentDB = {};
 
-//TODO-NICE: PDF-date gets saved with name, better use some hash or something (rename of document file is likely) -> use size or last-modified or smth like that instead of name
+//TODO-NICE: PDF-data gets saved with name, better use some hash or something (rename of document file is likely) -> use size or last-modified or smth like that instead of name
 
 const documentDB = (
 	state = initialState,

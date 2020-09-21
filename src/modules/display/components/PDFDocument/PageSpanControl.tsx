@@ -9,6 +9,7 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 	const count = useRef(0);
 
 	//TODO-RC: color origin somehow, use my custom renderer, split up Material Module?
+	// mark Origin-Span or maybe rect over whole page-section?
 	const dispatch = useDispatch();
 
 	// it is not guaranteed that the effect fires after the page was fully rendered

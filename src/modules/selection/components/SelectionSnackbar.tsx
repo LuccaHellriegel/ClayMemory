@@ -36,9 +36,7 @@ export const SelectionSnackbar = () => {
 			{sourceConfig?.contentOrigin && <div style={{ color: "red" }}> From Page {sourceConfig.contentOrigin.page}</div>}
 		</Fragment>
 	);
-	//TODO-RC: REPLACE-button, also make APPEND with empty space between stuff, maybe Newline?
-
-	//TODO-NICE: support IE/Edge values for ArrowRight etc
+	//TODO-RC: REPLACE-button
 
 	const escPress = (event: KeyboardEvent) => {
 		if (open && (event.key === "Escape" || event.key === "Esc")) {
