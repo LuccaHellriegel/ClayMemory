@@ -15,10 +15,13 @@ import { toCardGridItemsWithDividers } from "./toCardGridItemsWithDividers";
 //TODO-NICE: make local show / hide notes
 
 const noteContainsContentFilter = (noteConfig: NoteConfig, contentFilter: ContentFilter) =>
-	noteConfig.content.includes(contentFilter);
+	noteConfig.content === "" || noteConfig.content.includes(contentFilter);
 
 const qaContainsContentFilter = (qaConfig: QAConfig, contentFilter: ContentFilter) =>
-	qaConfig.content.a.includes(contentFilter) || qaConfig.content.q.includes(contentFilter);
+	qaConfig.content.a === "" ||
+	qaConfig.content.q === "" ||
+	qaConfig.content.a.includes(contentFilter) ||
+	qaConfig.content.q.includes(contentFilter);
 
 export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materialHeight: number }) => {
 	const cardConfigs = useSelector(cards.selectors.getCards);

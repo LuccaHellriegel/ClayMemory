@@ -22,11 +22,11 @@ import display from "../../display";
 export const ClayMemorySearchBar = () => {
 	const dispatch = useDispatch();
 
-	const documentSearch = useSelector(display.selectors.getDocumentSearch);
+	const contentString = useSelector(river.selectors.getRiverContentFilter);
 
-	const [state, setState] = useState(documentSearch);
+	const [state, setState] = useState(contentString);
 
-	const [searchFocus, setSearchFocus] = useState("document");
+	const [searchFocus, setSearchFocus] = useState("cards");
 
 	const onChangeCards = (newValue: string) => {
 		// auto-reset on empty
