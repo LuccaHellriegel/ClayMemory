@@ -69,8 +69,6 @@ export const RiverMaterialPairList = ({
 	const dispatch = useDispatch();
 	const topOffset = useSelector(getTopOffset);
 
-	//TODO-RC: creating a new card from context-menu seems to focus / snap us on current-page
-
 	return (
 		<Fragment>
 			{windowMeasurements && materialHeights && (

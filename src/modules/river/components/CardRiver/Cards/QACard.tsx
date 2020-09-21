@@ -11,8 +11,6 @@ import { QAConfig } from "../../../../cards/model/config";
 
 //TODO-NICE: use dark color pallet (theme?)
 
-//TODO-RC: show only if specific origin exists, right now seems to show always? {} is invalid origin
-
 export const QACard = ({ config }: { config: QAConfig }) => {
 	const dispatch = useDispatch();
 
