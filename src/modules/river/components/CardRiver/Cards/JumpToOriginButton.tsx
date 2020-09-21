@@ -18,7 +18,6 @@ export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin })
 				type="button"
 				onClick={() => {
 					dispatch(setOriginRequest(cardOrigin));
-					//TODO-RC: hide this if the Material is hidden
 				}}
 			>
 				<FindInPageIcon fontSize="small"></FindInPageIcon>

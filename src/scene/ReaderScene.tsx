@@ -6,11 +6,6 @@ import selection from "../modules/selection";
 import display from "../modules/display";
 
 export function ReaderScene() {
-	//TODO-RC: these need to be set in the PDFDocument?
-	//TODO-RC: think about hide mechanism
-	// const showMaterial = useSelector(display.selectors.displayStatusIsShow);
-	// const showRiver = useSelector(river.selectors.riverShowStateIsShow);
-
 	return (
 		<Fragment>
 			<display.components.WindowMeasurer></display.components.WindowMeasurer>

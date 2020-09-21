@@ -7,11 +7,7 @@ import { CardField } from "../../../../cards/model/content";
 import selection from "../../../../selection";
 
 export const ClayCardFieldButtons = ({ config, cardField }: { config: CardConfig; cardField: CardField }) => {
-	//TODO-RC: new view concept
-	// can show / hide rivers (indivdual?) and filter cards (indivdual?)
-	// now with scrolling I dont need the SummaryRiver
-	// but need to be able to switch orientation ?
-	// the good thing of the SummaryRiver is that it is more compact and sideways
+	//TODO-RC: make CardExplorer
 
 	return (
 		<Paper variant="outlined">

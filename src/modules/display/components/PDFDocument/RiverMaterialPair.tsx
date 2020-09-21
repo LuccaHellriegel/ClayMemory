@@ -2,6 +2,9 @@ import React from "react";
 import { Divider, Grid } from "@material-ui/core";
 import river from "../../../river";
 import { PDFPage } from "./PDFPage";
+import { useSelector } from "react-redux";
+import { getDisplayStatus } from "../../selectors";
+import { pairTopBottomPadding } from "./RiverMaterialPairList";
 
 export const RiverMaterialPair = ({
 	index,
@@ -17,24 +20,26 @@ export const RiverMaterialPair = ({
 	const pageNumber = index + 1;
 	const riverID = river.model.pageNumberToRiverMakeUpID(pageNumber);
 	const { materialHeights } = data;
+	const showRiver = useSelector(river.selectors.getRiverShowState);
+	const showMaterial = useSelector(getDisplayStatus);
 
 	return (
-		<div {...{ style }}>
+		<div style={{ ...style, margin: "4px" }}>
 			<river.components.SwitchActiveRiver riverID={riverID}>
 				<Grid container justify="space-between" direction="row" alignItems="flex-start">
-					<Grid item>
+					<Grid item hidden={showRiver === "HIDE"}>
 						<river.components.CardRiver
 							riverID={riverID}
 							materialHeight={materialHeights.get(pageNumber) as number}
 						></river.components.CardRiver>
 					</Grid>
 
-					<Grid item>
+					<Grid item hidden={showMaterial === "HIDE"}>
 						<PDFPage pageNumber={pageNumber}></PDFPage>
 					</Grid>
 				</Grid>
 			</river.components.SwitchActiveRiver>
-			<Divider></Divider>
+			<Divider style={{ marginTop: pairTopBottomPadding / 2 }}></Divider>
 		</div>
 	);
 };

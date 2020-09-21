@@ -26,6 +26,8 @@ const calculateMaterialHeight = (
 	return materialHeight + extraSpaceBetweenMaterialPages;
 };
 
+export const pairTopBottomPadding = 20;
+
 export const RiverMaterialPairList = ({
 	pdfProxyRef,
 	cachedPageDimensions,
@@ -51,7 +53,7 @@ export const RiverMaterialPairList = ({
 				<VariableSizeList
 					height={windowMeasurements.height}
 					itemCount={(pdfProxyRef.current as pdfjs.PDFDocumentProxy).numPages}
-					itemSize={(index: number) => materialHeights.get(index + 1) as number}
+					itemSize={(index: number) => (materialHeights.get(index + 1) as number) + pairTopBottomPadding}
 					itemData={{
 						materialHeights,
 					}}

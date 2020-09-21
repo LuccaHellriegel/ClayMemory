@@ -15,7 +15,7 @@ import display from "../../display";
 // two dicts to hold which one
 //TODO-NICE: make window with next/last found
 
-//TODO-RC: make search for PDF (right now this would need some work to find the correct text-node and partially color it)
+//TODO-NICE: make search for PDF (right now this would need some work to find the correct text-node and partially color it)
 // https://github.com/wojtekmaj/react-pdf/issues/212
 //TODO-NICE: extract text properly (?)
 

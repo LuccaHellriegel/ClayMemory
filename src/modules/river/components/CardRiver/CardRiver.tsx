@@ -65,7 +65,6 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 	}, [riverCards, riverID, riverContentState, contentFilter]);
 
 	//TODO-RC: resize still does not work, the river just stays big?
-	//TODO-NICE: make HalfFull-sub-menu for half-full QAs
 	//TODO-NICE: if you start without any document and then load one, the current cards should be merged into that one
 	//TODO-NICE: scroll-to-top for overflowing river
 
@@ -74,7 +73,9 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 			defaultExpanded={true}
 			style={{
 				overflowY: "auto",
-				maxHeight: materialHeight,
+				// this was maxHeight but then if we hide the Material an empty river looks weird
+				// because it is surrounded by white-space
+				height: materialHeight,
 			}}
 			elevation={5}
 		>

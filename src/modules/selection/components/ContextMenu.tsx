@@ -54,44 +54,41 @@ export const ContextMenu = () => {
 
 	const openState = !!menuPosition;
 
-	//TODO-RC: check if I need the state check now
-
 	const dispatch = useDispatch();
 
 	return (
 		<Menu ref={ref} keepMounted open={openState} anchorReference="anchorPosition" anchorPosition={menuPosition}>
-			{openState && (
-				<Fragment>
-					<MenuItem
-						onClick={() => {
-							dispatch(addSelectionGoal({ cardField: "note", updateType: "REPLACE" }));
-							setMenuPosition(undefined);
-						}}
-					>
-						New: Note
-					</MenuItem>
+			<Fragment>
+				<MenuItem
+					onClick={() => {
+						dispatch(addSelectionGoal({ cardField: "note", updateType: "REPLACE" }));
+						setMenuPosition(undefined);
+					}}
+				>
+					New: Note
+				</MenuItem>
 
-					<Divider></Divider>
-					<MenuItem
-						onClick={() => {
-							dispatch(addSelectionGoal({ cardField: "q", updateType: "REPLACE" }));
-							setMenuPosition(undefined);
-						}}
-					>
-						New: Q (Q-A)
-					</MenuItem>
-					<MenuItem
-						onClick={() => {
-							dispatch(addSelectionGoal({ cardField: "a", updateType: "REPLACE" }));
-							setMenuPosition(undefined);
-						}}
-					>
-						New: A (Q-A)
-					</MenuItem>
-				</Fragment>
-			)}
+				<Divider></Divider>
+				<MenuItem
+					onClick={() => {
+						dispatch(addSelectionGoal({ cardField: "q", updateType: "REPLACE" }));
+						setMenuPosition(undefined);
+					}}
+				>
+					New: Q (Q-A)
+				</MenuItem>
+				<MenuItem
+					onClick={() => {
+						dispatch(addSelectionGoal({ cardField: "a", updateType: "REPLACE" }));
+						setMenuPosition(undefined);
+					}}
+				>
+					New: A (Q-A)
+				</MenuItem>
+			</Fragment>
 		</Menu>
 	);
 };
 
 //TODO-NICE: delete extracted str in source
+//TODO-RC: if I open the menu, the height changes (and width?), this leads to janky behavior of the selection-bar

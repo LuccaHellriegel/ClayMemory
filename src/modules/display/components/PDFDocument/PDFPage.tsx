@@ -8,7 +8,7 @@ import { MaterialMultiplier } from "./RiverMaterialPairList";
 import { PageSpanControl } from "./PageSpanControl";
 import { TextLayerItemInternal } from "react-pdf/dist/Page";
 
-//TODO-RC: strg +f should jump to the searchbox
+//TODO-NICE: strg +f should jump to the searchbox? Only if I replace the search fully
 
 // highlight what is in searchbox
 
@@ -140,8 +140,6 @@ export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 		</Fragment>
 	);
 };
-
-//TODO-RC: glitches when I select something and then click somewhere, it is still selected
 
 //TODO-NICE: react-pdf alignment is broken for some pdfs and generally for non-body text,
 // seems to be connected to choosing the wrong font
