@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9ab76989f6abf59ccbde984cf2a8b59d",
+    "revision": "b84614227142f79e2df6dfc1c64e8913",
     "url": "/ClayMemory/index.html"
   },
   {
-    "revision": "f2d054103b5b20d638bd",
+    "revision": "87ea1de9f0ac90dfb7c1",
     "url": "/ClayMemory/static/css/2.ef331865.chunk.css"
   },
   {
-    "revision": "bfc65bd01e3499e6c8f1",
-    "url": "/ClayMemory/static/css/main.7e2ec7c8.chunk.css"
+    "revision": "7e9505601bbddc7725a8",
+    "url": "/ClayMemory/static/css/main.97762074.chunk.css"
   },
   {
-    "revision": "f2d054103b5b20d638bd",
-    "url": "/ClayMemory/static/js/2.cc13a912.chunk.js"
+    "revision": "87ea1de9f0ac90dfb7c1",
+    "url": "/ClayMemory/static/js/2.75f93141.chunk.js"
   },
   {
     "revision": "d494f0b3aa6722014acfe8e39d3f07e2",
-    "url": "/ClayMemory/static/js/2.cc13a912.chunk.js.LICENSE.txt"
+    "url": "/ClayMemory/static/js/2.75f93141.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "bfc65bd01e3499e6c8f1",
-    "url": "/ClayMemory/static/js/main.5069b5f9.chunk.js"
+    "revision": "7e9505601bbddc7725a8",
+    "url": "/ClayMemory/static/js/main.ec143d7f.chunk.js"
   },
   {
     "revision": "eb0f6719957fd134c496",
