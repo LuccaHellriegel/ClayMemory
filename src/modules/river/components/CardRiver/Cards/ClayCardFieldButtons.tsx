@@ -20,6 +20,13 @@ export const ClayCardFieldButtons = ({ config, cardField }: { config: CardConfig
 				</Grid>
 
 				<Grid item>
+					<selection.components.ReplaceButton
+						cardID={config.cardID}
+						cardField={cardField}
+					></selection.components.ReplaceButton>
+				</Grid>
+
+				<Grid item>
 					{config.origin && (
 						<JumpToOriginButton
 							cardOrigin={cards.model.permutation.toFieldValue(cardField, config.origin)}

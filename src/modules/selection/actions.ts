@@ -68,3 +68,8 @@ export const addCardAppendSelectionGoal = (cardID: CardID, cardField: CardField)
 	const config: SelectionExistingCardGoalConfig = { cardID, cardField, updateType: "APPEND" };
 	return addSelectionGoal(config);
 };
+
+export const addCardReplaceSelectionGoal = (cardID: CardID, cardField: CardField) => {
+	const config: SelectionExistingCardGoalConfig = { cardID, cardField, updateType: "REPLACE" };
+	return addSelectionGoal(config);
+};

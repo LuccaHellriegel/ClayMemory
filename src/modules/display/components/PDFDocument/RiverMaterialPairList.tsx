@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPage } from "../../actions";
 import { PageScrollControl } from "./PageScrollControl";
 
-export const MaterialMultiplier = 0.66;
-export const RiverMultiplier = 0.32;
+export const MaterialMultiplier = 0.63;
+export const RiverMultiplier = 0.35;
 
 const calculateMaterialHeight = (
 	pageNumber: number,

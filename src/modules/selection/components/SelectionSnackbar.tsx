@@ -36,7 +36,6 @@ export const SelectionSnackbar = () => {
 			{sourceConfig?.contentOrigin && <div style={{ color: "red" }}> From Page {sourceConfig.contentOrigin.page}</div>}
 		</Fragment>
 	);
-	//TODO-RC: REPLACE-button
 
 	const escPress = (event: KeyboardEvent) => {
 		if (open && (event.key === "Escape" || event.key === "Esc")) {

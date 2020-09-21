@@ -1,15 +1,15 @@
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import AddCircleOutlinedIcon from "@material-ui/icons/AddCircleOutlined";
+import RestorePageIcon from "@material-ui/icons/RestorePage";
+import RestorePageOutlinedIcon from "@material-ui/icons/RestorePageOutlined";
 import React, { useState } from "react";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import text from "../../text";
 import { CreationType, CardFieldIdentifier } from "../../cards/model/config";
 import { getGoalConfig, getSourceConfig } from "../selectors";
-import { addCardAppendSelectionGoal, resetSelectionGoal } from "../actions";
+import { addCardReplaceSelectionGoal, resetSelectionGoal } from "../actions";
 import { SelectionExistingCardGoalConfig } from "../model";
 
-export const AppendButton = ({ cardField, cardID }: { cardField: CreationType; cardID: string }) => {
+export const ReplaceButton = ({ cardField, cardID }: { cardField: CreationType; cardID: string }) => {
 	const dispatch = useDispatch();
 
 	const sourceConfig = useSelector(getSourceConfig);
@@ -22,23 +22,22 @@ export const AppendButton = ({ cardField, cardID }: { cardField: CreationType; c
 		!!(goalConfig as CardFieldIdentifier).cardID &&
 		(goalConfig as CardFieldIdentifier).cardID === cardID &&
 		goalConfig.cardField === cardField &&
-		(goalConfig as SelectionExistingCardGoalConfig).updateType === "APPEND";
+		(goalConfig as SelectionExistingCardGoalConfig).updateType === "REPLACE";
 
 	if (isGoal) {
 		if (!outlined) setOutlined(true);
 	} else {
 		if (outlined) setOutlined(false);
 	}
-	//TODO-RC: test all variations of origin  (setting/copying) again (how to automate the test?)
 
 	return (
 		<Tooltip
 			title={
 				isGoal
-					? text.constants.CardIsAppendGoalTooltip
+					? text.constants.CardIsReplaceGoalTooltip
 					: !!sourceConfig
-					? text.constants.AppendToCardTooltip
-					: text.constants.ChoiceCardAsAppendGoal
+					? text.constants.ReplaceCardTooltip
+					: text.constants.ChoiceCardAsReplaceGoal
 			}
 			enterDelay={text.constants.defaultEnterDelay}
 			enterNextDelay={text.constants.defaultEnterNextDelay}
@@ -47,16 +46,16 @@ export const AppendButton = ({ cardField, cardID }: { cardField: CreationType; c
 				type="button"
 				onClick={() => {
 					if (!outlined && !!!goalConfig) {
-						dispatch(addCardAppendSelectionGoal(cardID, cardField));
+						dispatch(addCardReplaceSelectionGoal(cardID, cardField));
 					} else if (isGoal) {
 						dispatch(resetSelectionGoal());
 					}
 				}}
 			>
 				{outlined ? (
-					<AddCircleOutlinedIcon fontSize="small"></AddCircleOutlinedIcon>
+					<RestorePageIcon fontSize="small"></RestorePageIcon>
 				) : (
-					<AddCircleOutlineIcon fontSize="small"></AddCircleOutlineIcon>
+					<RestorePageOutlinedIcon fontSize="small"></RestorePageOutlinedIcon>
 				)}
 			</IconButton>
 		</Tooltip>
