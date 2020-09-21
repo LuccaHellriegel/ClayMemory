@@ -33,6 +33,7 @@ export const highlightPattern = (text: string, pattern: string) => {
 	const index = text.indexOf(pattern);
 	if (index === -1) return text;
 
+	// react says to use unqiue elements with keys, I choose not to for speed reasons
 	const markedPattern = <mark style={backgroundStyle}>{pattern}</mark>;
 	const slice1 = index > 0 ? text.slice(0, index) : false;
 
@@ -101,9 +102,7 @@ export const highlightPattern = (text: string, pattern: string) => {
 	return result as any;
 };
 
-//TODO-RC: multiple matches does not work?
-//TODO-RC: Creative Worldview Page 8 search Memory, partially wrong selection?
-//TODO-RC: way to slow even in prod
+//TODO-NICE: multiline matches is not support / matches that cross textItems
 
 function makeTextRenderer(searchText: string) {
 	return function textRenderer(textItem: TextLayerItemInternal) {
@@ -143,11 +142,7 @@ export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 };
 
 //TODO-RC: glitches when I select something and then click somewhere, it is still selected
-//TODO-RC: adding the marks changes the text and after that the the lines that had been marked
-// have weird selection behavior :(
-//TODO-RC: give the mark elements a key, so can not just use the same element...?
 
-//TODO-NICE: seems like the font-choice in react-pdf is slightly broken, might need to detect it from browser or pdf?
-// right now I assume the standard is Times  + sans-serif (in chrome / firefox)?
-// it detects the font per page and changes it accordingly, but for headers and cursive this does not work
-// because it is differnt than the page
+//TODO-NICE: react-pdf alignment is broken for some pdfs and generally for non-body text,
+// seems to be connected to choosing the wrong font
+// font is chosen per page not per item (e.g. body-font for heading/cursive)

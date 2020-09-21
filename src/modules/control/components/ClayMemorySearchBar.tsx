@@ -5,19 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { Grid, Select } from "@material-ui/core";
 import display from "../../display";
 
-//TODO-RC: counter of found words
-//TODO-RC: count also in PDF
+//TODO-NICE: counter of found words
+//TODO-NICE: count also in PDF
 // PDFPageProxy
 // getTextContent
 // if not rendered
 // count via Proxy
 // if rendered count via CustomRenderer
 // two dicts to hold which one
-//TODO-RC: make window with next/last found
+//TODO-NICE: make window with next/last found
 
 //TODO-RC: make search for PDF (right now this would need some work to find the correct text-node and partially color it)
 // https://github.com/wojtekmaj/react-pdf/issues/212
-//TODO-RC: extract text properly
+//TODO-NICE: extract text properly (?)
 
 export const ClayMemorySearchBar = () => {
 	const dispatch = useDispatch();
