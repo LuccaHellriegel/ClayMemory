@@ -1,4 +1,4 @@
-import React, { Fragment, RefObject, useCallback, useEffect, useRef, useState } from "react";
+import React, { RefObject, useCallback, useEffect, useRef, useState } from "react";
 import Menu from "@material-ui/core/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { Divider, MenuItem } from "@material-ui/core";
@@ -58,34 +58,32 @@ export const ContextMenu = () => {
 
 	return (
 		<Menu ref={ref} keepMounted open={openState} anchorReference="anchorPosition" anchorPosition={menuPosition}>
-			<Fragment>
-				<MenuItem
-					onClick={() => {
-						dispatch(addSelectionGoal({ cardField: "note", updateType: "REPLACE" }));
-						setMenuPosition(undefined);
-					}}
-				>
-					New: Note
-				</MenuItem>
+			<MenuItem
+				onClick={() => {
+					dispatch(addSelectionGoal({ cardField: "note", updateType: "REPLACE" }));
+					setMenuPosition(undefined);
+				}}
+			>
+				New: Note
+			</MenuItem>
 
-				<Divider></Divider>
-				<MenuItem
-					onClick={() => {
-						dispatch(addSelectionGoal({ cardField: "q", updateType: "REPLACE" }));
-						setMenuPosition(undefined);
-					}}
-				>
-					New: Q (Q-A)
-				</MenuItem>
-				<MenuItem
-					onClick={() => {
-						dispatch(addSelectionGoal({ cardField: "a", updateType: "REPLACE" }));
-						setMenuPosition(undefined);
-					}}
-				>
-					New: A (Q-A)
-				</MenuItem>
-			</Fragment>
+			<Divider></Divider>
+			<MenuItem
+				onClick={() => {
+					dispatch(addSelectionGoal({ cardField: "q", updateType: "REPLACE" }));
+					setMenuPosition(undefined);
+				}}
+			>
+				New: Q (Q-A)
+			</MenuItem>
+			<MenuItem
+				onClick={() => {
+					dispatch(addSelectionGoal({ cardField: "a", updateType: "REPLACE" }));
+					setMenuPosition(undefined);
+				}}
+			>
+				New: A (Q-A)
+			</MenuItem>
 		</Menu>
 	);
 };

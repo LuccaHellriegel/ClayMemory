@@ -1,7 +1,7 @@
 import display from "../../display";
 import river from "../../river";
 import React from "react";
-import { IconButton, Menu, FormControlLabel, Typography, Divider, Grid } from "@material-ui/core";
+import { IconButton, Menu, Typography, Grid, Card, Button, FormControlLabel } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import { GreenCheckbox } from "../../../shared/GreenCheckbox";
@@ -11,17 +11,19 @@ const ShowRiverCheckbox = () => {
 	const riverShowState = useSelector(river.selectors.getRiverShowState);
 
 	return (
-		<FormControlLabel
-			control={
-				<GreenCheckbox
-					checked={riverShowState === "SHOW"}
-					onClick={() => {
-						dispatch(river.actions.toggleRiverShowState());
-					}}
-				/>
+		<Button
+			startIcon={
+				<FormControlLabel
+					label="River"
+					control={<GreenCheckbox checked={riverShowState === "SHOW"} />}
+				></FormControlLabel>
 			}
-			label="River"
-		/>
+			variant="contained"
+			color="primary"
+			onClick={() => {
+				dispatch(river.actions.toggleRiverShowState());
+			}}
+		></Button>
 	);
 };
 
@@ -30,17 +32,19 @@ const ShowMaterialCheckbox = () => {
 	const displayShowState = useSelector(display.selectors.getDisplayStatus);
 
 	return (
-		<FormControlLabel
-			control={
-				<GreenCheckbox
-					checked={displayShowState === "SHOW"}
-					onClick={() => {
-						dispatch(display.actions.toggleDisplayState());
-					}}
-				/>
+		<Button
+			startIcon={
+				<FormControlLabel
+					label="Material"
+					control={<GreenCheckbox checked={displayShowState === "SHOW"} />}
+				></FormControlLabel>
 			}
-			label="Material"
-		/>
+			variant="contained"
+			color="primary"
+			onClick={() => {
+				dispatch(display.actions.toggleDisplayState());
+			}}
+		></Button>
 	);
 };
 
@@ -60,19 +64,24 @@ export const ShowHideButton = () => {
 			<IconButton type="button" onClick={handleClick}>
 				<VisibilityIcon></VisibilityIcon>
 			</IconButton>
-			<Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-				<Typography>Show:</Typography>
-				<Divider></Divider>
-				<Grid container direction="row">
+			<Menu
+				anchorEl={anchorEl}
+				keepMounted
+				open={Boolean(anchorEl)}
+				onClose={handleClose}
+				MenuListProps={{ style: { paddingLeft: "8px", paddingRight: "8px" } }}
+			>
+				<Typography variant="h6">Show:</Typography>
+				<Grid container direction="row" justify="space-between" spacing={1}>
 					<Grid item>
-						<river.components.RiverContentFormGroup></river.components.RiverContentFormGroup>
+						<Card variant="outlined" style={{ paddingLeft: "4px", paddingRight: "4px" }}>
+							<river.components.RiverContentFormGroup></river.components.RiverContentFormGroup>
+						</Card>
 					</Grid>
+
 					<Grid item>
-						<Divider orientation="vertical"></Divider>
-					</Grid>
-					<Grid item>
-						{
-							<Grid container direction="column">
+						<Card variant="outlined" style={{ padding: "4px" }}>
+							<Grid container direction="column" spacing={1}>
 								<Grid item>
 									<ShowRiverCheckbox></ShowRiverCheckbox>
 								</Grid>
@@ -80,7 +89,7 @@ export const ShowHideButton = () => {
 									<ShowMaterialCheckbox></ShowMaterialCheckbox>
 								</Grid>
 							</Grid>
-						}
+						</Card>
 					</Grid>
 				</Grid>
 			</Menu>
