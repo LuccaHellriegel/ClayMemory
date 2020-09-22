@@ -18,7 +18,6 @@ export const setActiveRiver = (id: string) => {
 
 export const trySetActiveRiver = (id: string) => {
 	return (dispatch: Dispatch, getState: Function) => {
-		console.log(id, getActiveRiverMakeUpID(getState()) !== id);
 		if (getActiveRiverMakeUpID(getState()) !== id) dispatch(setActiveRiver(id));
 	};
 };

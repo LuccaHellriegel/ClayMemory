@@ -146,9 +146,6 @@ export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 						}}
 						pageNumber={pageNumber}
 						width={materialWidth * MaterialMultiplier}
-						onRenderSuccess={() => {
-							console.log("rendered Page " + pageNumber);
-						}}
 						customTextRenderer={textRenderer}
 					/>
 				</PageKeyboardControl>
