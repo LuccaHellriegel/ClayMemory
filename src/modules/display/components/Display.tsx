@@ -9,16 +9,8 @@ import { RiverExplorer } from "./RiverExplorer";
 export const Display = () => {
 	const currentView = useSelector(getCurrentView);
 
-	// console.log(currentView);
-
-	// switch (currentView) {
-	// 	case View.RiverMaterial:
-	// 		return <PDFDocument></PDFDocument>;
-	// 	case View.RiverExplorer:
-	// 		return <RiverExplorer></RiverExplorer>;
-	// 	case View.CardExplorer:
-	// 		return <CardExplorer></CardExplorer>;
-	// }
+	// TODO-NICE: cant hide the CardExplorer because the Material UI TextField does not render correctly
+	// after hidding
 
 	return (
 		<Fragment>
@@ -30,9 +22,7 @@ export const Display = () => {
 				<RiverExplorer></RiverExplorer>
 			</div>
 
-			<div hidden={currentView !== View.CardExplorer} style={{ width: "100%", height: "100%" }}>
-				<CardExplorer></CardExplorer>
-			</div>
+			{currentView === View.CardExplorer && <CardExplorer></CardExplorer>}
 		</Fragment>
 	);
 };
