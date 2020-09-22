@@ -2108,30 +2108,30 @@
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M1282.0177,-829C1359.4893,-829 1535,-829 1535,-829 1535,-829 1535,-941.7946 1535,-941.7946"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="1532.9001,-941.7945 1535,-947.7946 1537.1001,-941.7946 1532.9001,-941.7945"/>
 </g>
-<!-- src/modules/river/components/CardRiver/toCardGridItemsWithDividers.tsx -->
+<!-- src/modules/river/components/CardRiver/ClayCardGridItems.tsx -->
 <g id="node74" class="node">
-<title>src/modules/river/components/CardRiver/toCardGridItemsWithDividers.tsx</title>
-<g id="a_node74"><a xlink:href="src/modules/river/components/CardRiver/toCardGridItemsWithDividers.tsx" xlink:title="toCardGridItemsWithDividers.tsx">
+<title>src/modules/river/components/CardRiver/ClayCardGridItems.tsx</title>
+<g id="a_node74"><a xlink:href="src/modules/river/components/CardRiver/ClayCardGridItems.tsx" xlink:title="ClayCardGridItems.tsx">
 <path fill="#bbfeff" stroke="#000000" d="M1467.5,-768C1467.5,-768 1330.5,-768 1330.5,-768 1327.5,-768 1324.5,-765 1324.5,-762 1324.5,-762 1324.5,-756 1324.5,-756 1324.5,-753 1327.5,-750 1330.5,-750 1330.5,-750 1467.5,-750 1467.5,-750 1470.5,-750 1473.5,-753 1473.5,-756 1473.5,-756 1473.5,-762 1473.5,-762 1473.5,-765 1470.5,-768 1467.5,-768"/>
-<text text-anchor="middle" x="1399" y="-756.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">toCardGridItemsWithDividers.tsx</text>
+<text text-anchor="middle" x="1399" y="-756.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">ClayCardGridItems.tsx</text>
 </a>
 </g>
 </g>
-<!-- src/modules/river/components/CardRiver/CardRiver.tsx&#45;&gt;src/modules/river/components/CardRiver/toCardGridItemsWithDividers.tsx -->
+<!-- src/modules/river/components/CardRiver/CardRiver.tsx&#45;&gt;src/modules/river/components/CardRiver/ClayCardGridItems.tsx -->
 <g id="edge172" class="edge">
-<title>src/modules/river/components/CardRiver/CardRiver.tsx&#45;&gt;src/modules/river/components/CardRiver/toCardGridItemsWithDividers.tsx</title>
+<title>src/modules/river/components/CardRiver/CardRiver.tsx&#45;&gt;src/modules/river/components/CardRiver/ClayCardGridItems.tsx</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M1282.2486,-817C1311.5663,-817 1348,-817 1348,-817 1348,-817 1348,-774.0625 1348,-774.0625"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="1350.1001,-774.0625 1348,-768.0625 1345.9001,-774.0625 1350.1001,-774.0625"/>
 </g>
-<!-- src/modules/river/components/CardRiver/toCardGridItemsWithDividers.tsx&#45;&gt;src/modules/cards/model/model&#45;config.ts -->
+<!-- src/modules/river/components/CardRiver/ClayCardGridItems.tsx&#45;&gt;src/modules/cards/model/model&#45;config.ts -->
 <g id="edge198" class="edge">
-<title>src/modules/river/components/CardRiver/toCardGridItemsWithDividers.tsx&#45;&gt;src/modules/cards/model/model&#45;config.ts</title>
+<title>src/modules/river/components/CardRiver/ClayCardGridItems.tsx&#45;&gt;src/modules/cards/model/model&#45;config.ts</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M1473.8823,-754C1709.9431,-754 2423,-754 2423,-754 2423,-754 2423,-1585.7765 2423,-1585.7765"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="2420.9001,-1585.7764 2423,-1591.7765 2425.1001,-1585.7765 2420.9001,-1585.7764"/>
 </g>
-<!-- src/modules/river/components/CardRiver/toCardGridItemsWithDividers.tsx&#45;&gt;src/shared/utils.ts -->
+<!-- src/modules/river/components/CardRiver/ClayCardGridItems.tsx&#45;&gt;src/shared/utils.ts -->
 <g id="edge197" class="edge">
-<title>src/modules/river/components/CardRiver/toCardGridItemsWithDividers.tsx&#45;&gt;src/shared/utils.ts</title>
+<title>src/modules/river/components/CardRiver/ClayCardGridItems.tsx&#45;&gt;src/shared/utils.ts</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M1467,-749.9454C1467,-668.3633 1467,-63 1467,-63 1467,-63 1877.4247,-63 1877.4247,-63"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="1877.4247,-65.1001 1883.4247,-63 1877.4247,-60.9001 1877.4247,-65.1001"/>
 </g>
@@ -2144,9 +2144,9 @@
 </a>
 </g>
 </g>
-<!-- src/modules/river/components/CardRiver/toCardGridItemsWithDividers.tsx&#45;&gt;src/modules/river/components/CardRiver/Cards/ClayCard.tsx -->
+<!-- src/modules/river/components/CardRiver/ClayCardGridItems.tsx&#45;&gt;src/modules/river/components/CardRiver/Cards/ClayCard.tsx -->
 <g id="edge199" class="edge">
-<title>src/modules/river/components/CardRiver/toCardGridItemsWithDividers.tsx&#45;&gt;src/modules/river/components/CardRiver/Cards/ClayCard.tsx</title>
+<title>src/modules/river/components/CardRiver/ClayCardGridItems.tsx&#45;&gt;src/modules/river/components/CardRiver/Cards/ClayCard.tsx</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M1451,-768.0902C1451,-774.5191 1451,-782 1451,-782 1451,-782 1483.2104,-782 1483.2104,-782"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="1483.2104,-784.1001 1489.2104,-782 1483.2103,-779.9001 1483.2104,-784.1001"/>
 </g>

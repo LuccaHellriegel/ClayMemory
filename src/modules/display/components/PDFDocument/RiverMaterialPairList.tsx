@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPage } from "../../actions";
 import { PageScrollControl } from "./PageScrollControl";
 
+//TODO-NICE: replace this with Material-UI breakpoints
 export const MaterialMultiplier = 0.63;
 export const RiverMultiplier = 0.35;
 

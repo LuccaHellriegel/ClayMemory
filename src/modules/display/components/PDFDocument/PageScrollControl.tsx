@@ -1,11 +1,14 @@
 import { RefObject, useEffect } from "react";
 import { VariableSizeList } from "react-window";
-import { getCurrentPage, getScrollToPage } from "../../selectors";
+import { getCurrentPage, getCurrentView, getScrollToPage } from "../../selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { setPage, setSpanOrigin } from "../../actions";
+import { setPage, setSpanOrigin, setView } from "../../actions";
 import river from "../../../river";
+import { View } from "../../model";
 
 export const PageScrollControl = ({ listRef }: { listRef: RefObject<VariableSizeList> }) => {
+	const currentView = useSelector(getCurrentView);
+
 	const scrollToPage = useSelector(getScrollToPage);
 	const currentPage = useSelector(getCurrentPage);
 	const requestedOrigin = useSelector(river.selectors.getOriginRequest);
@@ -16,6 +19,10 @@ export const PageScrollControl = ({ listRef }: { listRef: RefObject<VariableSize
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		if ((requestedOrigin || scrollToPage) && currentView !== View.RiverMaterial) {
+			dispatch(setView(View.RiverMaterial));
+		}
+
 		if (requestedOrigin) {
 			listRef.current?.scrollToItem(requestedOrigin.page - 1, "auto");
 			dispatch(setSpanOrigin(requestedOrigin));
@@ -28,7 +35,7 @@ export const PageScrollControl = ({ listRef }: { listRef: RefObject<VariableSize
 			listRef.current?.scrollToItem(scrollToPage - 1, "start");
 			dispatch(setPage(scrollToPage, false));
 		}
-	}, [dispatch, listRef, scrollToPage, requestedOrigin]);
+	}, [dispatch, listRef, scrollToPage, requestedOrigin, currentView]);
 
 	return null;
 };

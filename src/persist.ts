@@ -1,6 +1,6 @@
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { createTransform } from "redux-persist";
-import { DisplayData, DisplayStatus } from "./modules/display/model";
+import { DisplayData, DisplayStatus, View } from "./modules/display/model";
 import display from "./modules/display";
 import { SingleOrigin } from "./modules/cards/model/origin";
 import { CardRiverState } from "./modules/river/model";
@@ -45,6 +45,7 @@ const addDOMObjectsToDisplayData = (outboundState: {
 	spanOrigin: null | SingleOrigin;
 	documentSearch: string;
 	topOffset: number;
+	currentView: View;
 }): DisplayData => {
 	return {
 		...outboundState,

@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import * as t from "./actionTypes";
-import { PageMove, pageCorrections } from "./model";
+import { PageMove, pageCorrections, View } from "./model";
 import { getPageControlData, getDisplayStatus } from "./selectors";
 import { keyEventDispatcherCreator, KeyActionMap } from "../../shared/utils";
 import { SingleOrigin } from "../cards/model/origin";
@@ -68,4 +68,8 @@ export const resetDocumentSearch = () => {
 
 export const setTopOffset = (offset: number) => {
 	return { type: t.TOP_OFFSET, payload: offset };
+};
+
+export const setView = (view: View) => {
+	return { type: t.VIEW_CHANGE, payload: view };
 };

@@ -1,5 +1,5 @@
 import * as t from "./actionTypes";
-import type { DisplayData, DisplayStatus } from "./model";
+import { DisplayData, DisplayStatus, View } from "./model";
 import db from "../db";
 
 const initialState: DisplayData = {
@@ -11,6 +11,7 @@ const initialState: DisplayData = {
 	spanOrigin: null,
 	documentSearch: "",
 	topOffset: 0,
+	currentView: View.RiverMaterial,
 };
 
 const displayData = (state = initialState, { type, payload }: { type: string; payload: any }): DisplayData => {
@@ -51,6 +52,8 @@ const displayData = (state = initialState, { type, payload }: { type: string; pa
 				...state,
 				windowMeasurements: payload,
 			};
+		case t.VIEW_CHANGE:
+			return { ...state, currentView: payload };
 		default:
 			return state;
 	}

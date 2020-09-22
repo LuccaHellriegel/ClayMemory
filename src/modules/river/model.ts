@@ -52,10 +52,9 @@ export const updateStateWithMakeUps = (state: CardRiverState, ...makeUps: RiverM
 
 export const removeCardFromRivers = (state: CardRiverState, cardID: CardID): CardRiverState => {
 	const riverMakeUps = Object.fromEntries(
-		Object.entries(state.riverMakeUps).map((entry) => [
-			entry[0],
-			{ ...entry[1], cardIDs: entry[1].cardIDs.filter((id) => id !== cardID) },
-		])
+		Object.entries(state.riverMakeUps)
+			.map((entry) => [entry[0], { ...entry[1], cardIDs: entry[1].cardIDs.filter((id) => id !== cardID) }])
+			.filter((entry) => (entry[1] as RiverMakeUp).cardIDs.length !== 0)
 	);
 	return { ...state, riverMakeUps };
 };

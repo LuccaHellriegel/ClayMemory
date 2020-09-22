@@ -3,9 +3,7 @@ import { CardConfig, NoteConfig, QAConfig } from "../../../../cards/model/config
 import { QACard } from "./QACard";
 import { NoteCard } from "./NoteCard";
 
-type CardProps = { config: CardConfig; riverID: string };
-
-export const ClayCard = ({ config, riverID }: CardProps) => {
+export const ClayCard = ({ config }: { config: CardConfig }) => {
 	switch (config.type) {
 		case "Note":
 			return <NoteCard config={config as NoteConfig}></NoteCard>;

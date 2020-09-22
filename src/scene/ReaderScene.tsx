@@ -20,7 +20,7 @@ export function ReaderScene() {
 				</Grid>
 
 				<Grid item>
-					<display.components.PDFDocument></display.components.PDFDocument>
+					<display.components.Display></display.components.Display>
 				</Grid>
 			</Grid>
 			<selection.components.ContextMenu></selection.components.ContextMenu>

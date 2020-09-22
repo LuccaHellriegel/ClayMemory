@@ -8,20 +8,10 @@ import { useSelector } from "react-redux";
 import { getRiverContentState, getRiverContentFilter, getRiverMakeUps } from "../../selectors";
 import cards from "../../../cards";
 import { NoteConfig, QAConfig } from "../../../cards/model/config";
-import { ContentFilter } from "../../model";
-import { toCardGridItemsWithDividers } from "./toCardGridItemsWithDividers";
+import { ClayCardGridItems } from "./ClayCardGridItems";
 
 //TODO-NICE: make it not be accordion but closeable?
 //TODO-NICE: make local show / hide notes
-
-const noteContainsContentFilter = (noteConfig: NoteConfig, contentFilter: ContentFilter) =>
-	noteConfig.content === "" || noteConfig.content.includes(contentFilter);
-
-const qaContainsContentFilter = (qaConfig: QAConfig, contentFilter: ContentFilter) =>
-	qaConfig.content.a === "" ||
-	qaConfig.content.q === "" ||
-	qaConfig.content.a.includes(contentFilter) ||
-	qaConfig.content.q.includes(contentFilter);
 
 export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materialHeight: number }) => {
 	const cardConfigs = useSelector(cards.selectors.getCards);
@@ -54,21 +44,22 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 			inputCards = inputCards.filter((card) => {
 				switch (card.type) {
 					case "Note":
-						return noteContainsContentFilter(card as NoteConfig, contentFilter);
+						return cards.model.content.noteContentContainsStringOrEmpty(card as NoteConfig, contentFilter);
 					case "Q-A":
-						return qaContainsContentFilter(card as QAConfig, contentFilter);
+						return cards.model.content.qaContentContainsStringOrEmpty(card as QAConfig, contentFilter);
 				}
 				return false;
 			});
 
-		return toCardGridItemsWithDividers(inputCards, riverID);
-	}, [riverCards, riverID, riverContentState, contentFilter]);
+		return ClayCardGridItems(inputCards);
+	}, [riverCards, riverContentState, contentFilter]);
 
 	//TODO-NICE: if you start without any document and then load one, the current cards should be merged into that one
 	//TODO-NICE: scroll-to-top for overflowing river
 
 	return (
 		<Accordion
+			expanded
 			defaultExpanded={true}
 			style={{
 				overflow: "auto",

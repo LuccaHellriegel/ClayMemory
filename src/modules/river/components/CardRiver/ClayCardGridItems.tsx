@@ -11,13 +11,13 @@ const GridItemDivider = () => (
 	</Grid>
 );
 
-export const toCardGridItemsWithDividers = (cards: CardConfig[], riverID: string) => {
+export const ClayCardGridItems = (cards: CardConfig[]) => {
 	const increment = incrementer();
 
 	return cards.reduce((prev, currentCard, index, arr) => {
 		prev.push(
 			<Grid item key={increment()}>
-				<ClayCard config={currentCard} riverID={riverID} key={increment()}></ClayCard>
+				<ClayCard config={currentCard} key={increment()}></ClayCard>
 			</Grid>
 		);
 

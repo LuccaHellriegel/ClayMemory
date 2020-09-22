@@ -1,5 +1,5 @@
 import { CreateModify, changeCardObject, createReplace } from "./permutation";
-import { UpdateType } from "./config";
+import { NoteConfig, QAConfig, UpdateType } from "./config";
 
 export type QACardField = "q" | "a";
 export type CardField = "note" | QACardField;
@@ -28,7 +28,8 @@ export const noteContentIsEmpty = (content: string) => content === "";
 export const qaContentIsNotFull = (content: QACardContent) =>
 	(content as QACardContent).q === "" || (content as QACardContent).a === "";
 
-const createAppendStr: CreateModify = (inputValue: string) => (oldValue: string) => oldValue + " " + inputValue;
+const createAppendStr: CreateModify = (inputValue: string) => (oldValue: string) =>
+	(oldValue + " " + inputValue).trim();
 const UpdateTypeCreateModifyMap: { [updateType in UpdateType]: CreateModify } = {
 	APPEND: createAppendStr,
 	REPLACE: createReplace,
@@ -59,3 +60,12 @@ export const strToNewCardContent = (contentStr: string, outputField: CardField) 
 	const empty = emptyContent(outputField);
 	return strToCardContent(contentStr, outputField, "REPLACE", empty);
 };
+
+export const noteContentContainsStringOrEmpty = (noteConfig: NoteConfig, str: string) =>
+	noteConfig.content === "" || noteConfig.content.includes(str);
+
+export const qaContentContainsStringOrEmpty = (qaConfig: QAConfig, str: string) =>
+	qaConfig.content.a === "" ||
+	qaConfig.content.q === "" ||
+	qaConfig.content.a.includes(str) ||
+	qaConfig.content.q.includes(str);

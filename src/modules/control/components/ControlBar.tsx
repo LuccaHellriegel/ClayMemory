@@ -24,30 +24,51 @@ export const ControlBar = () => {
 
 	return (
 		<display.components.PageKeyboardControl>
-			<AppBar ref={ref} position="sticky" style={{ width: "100%" }}>
-				<Toolbar variant="regular">
-					<Grid item>
-						<Grid container spacing={1} direction="row" alignItems="center" justify="flex-start">
-							<Grid item style={{ width: "20%" }}>
-								<display.components.PageChooser></display.components.PageChooser>
-							</Grid>
+			<AppBar ref={ref} position="sticky">
+				<Toolbar variant="regular" disableGutters>
+					<Grid container direction="row" alignItems="center" justify="space-between">
+						<Grid item xs={6}>
+							<Grid container direction="row" alignItems="center" spacing={1} style={{ paddingLeft: "4px" }}>
+								<Grid item style={{ maxWidth: "15%" }}>
+									<display.components.PageChooser></display.components.PageChooser>
+								</Grid>
 
-							<Grid item>
-								<display.components.PageNavigation></display.components.PageNavigation>
-							</Grid>
+								<Grid item>
+									<display.components.PageNavigation></display.components.PageNavigation>
+								</Grid>
 
-							<Grid item>
-								<UndoRedoCard></UndoRedoCard>
+								<Grid item>
+									<UndoRedoCard></UndoRedoCard>
+								</Grid>
+
+								<Grid item>
+									<display.components.ViewTabs></display.components.ViewTabs>
+								</Grid>
+							</Grid>
+						</Grid>
+
+						<Grid item xs={2}>
+							<Grid container justify="center">
+								<Grid item style={{ overflowX: "auto" }}>
+									<Typography variant="subtitle1">{materialName?.replace(".pdf", "")}</Typography>
+								</Grid>
+							</Grid>
+						</Grid>
+
+						<Grid item xs={4}>
+							<Grid container direction="row" justify="flex-start" alignItems="center">
+								<Grid item>
+									<ClayMemorySearchBar></ClayMemorySearchBar>
+								</Grid>
+								<Grid item>
+									<ShowHideButton></ShowHideButton>
+								</Grid>
+								<Grid item>
+									<Options></Options>
+								</Grid>
 							</Grid>
 						</Grid>
 					</Grid>
-
-					<Typography style={{ flexGrow: 1 }}>{materialName?.replace(".pdf", "")}</Typography>
-					<Grid item>
-						<ClayMemorySearchBar></ClayMemorySearchBar>
-					</Grid>
-					<ShowHideButton></ShowHideButton>
-					<Options></Options>
 				</Toolbar>
 			</AppBar>
 		</display.components.PageKeyboardControl>

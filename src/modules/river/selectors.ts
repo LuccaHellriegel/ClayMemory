@@ -1,12 +1,37 @@
 import { NAME } from "./constants";
 import { createSelector } from "reselect";
-import { CardRiverState } from "./model";
+import { CardRiverState, riverMakeUpIDToPageNumber } from "./model";
 import cards from "../cards";
 import { CardID } from "../cards/model/config";
 
 export const getAll = (state: any): CardRiverState => state[NAME].present;
 
 export const getRiverMakeUps = createSelector(getAll, (state: CardRiverState) => state.riverMakeUps);
+
+export const getNonEmptyRiverIDs = createSelector(getRiverMakeUps, (makeUps) => Object.keys(makeUps));
+
+export const getNonEmptyRiverIDsSorted = createSelector(getNonEmptyRiverIDs, (ids) =>
+	ids.sort((a, b) => riverMakeUpIDToPageNumber(a) - riverMakeUpIDToPageNumber(b))
+);
+
+export const getNonEmptyRiverMakeUpsSorted = createSelector(getRiverMakeUps, (makeUps) =>
+	Object.values(makeUps).sort((a, b) => riverMakeUpIDToPageNumber(a.riverID) - riverMakeUpIDToPageNumber(b.riverID))
+);
+
+export const getNonEmptyRiverCardsSorted = createSelector(
+	getNonEmptyRiverMakeUpsSorted,
+	cards.selectors.getCards,
+	(makeUps, cards) => {
+		const cardObjects = [];
+		for (const makeUp of makeUps) {
+			for (const id of makeUp.cardIDs) {
+				cardObjects.push(cards[id]);
+			}
+		}
+
+		return cardObjects;
+	}
+);
 
 export const getActiveRiverMakeUpID = createSelector(getAll, (state: CardRiverState) => state.activeRiverMakeUpID);
 

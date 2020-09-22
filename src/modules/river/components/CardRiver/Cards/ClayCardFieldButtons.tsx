@@ -8,8 +8,6 @@ import selection from "../../../../selection";
 import { SingleOrigin } from "../../../../cards/model/origin";
 
 export const ClayCardFieldButtons = ({ config, cardField }: { config: CardConfig; cardField: CardField }) => {
-	//TODO-RC: make CardExplorer
-
 	const origin: SingleOrigin | null = config.origin
 		? cards.model.permutation.toFieldValue(cardField, config.origin)
 		: null;
