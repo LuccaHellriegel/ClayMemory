@@ -1,7 +1,7 @@
 import { CardField } from "./content";
 import { createReplace, changeCardObject } from "./permutation";
 
-export type SingleOrigin = { spanIndex: number; page: number };
+export type SingleOrigin = { spanIndexStart: number; spanIndexEnd: number; page: number };
 export type QOnlyQAOrigin = { q: SingleOrigin; a: {} };
 export type AOnlyQAOrigin = { q: {}; a: SingleOrigin };
 export type PartialQAOrigin = QOnlyQAOrigin | AOnlyQAOrigin;

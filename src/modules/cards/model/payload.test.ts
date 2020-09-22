@@ -57,13 +57,19 @@ test("output qa correctly", () => {
 	const expectedAPayloadWithOrigin = {
 		type: "Q-A" as CardType,
 		content: { q: "test too", a: "1" },
-		origin: { a: { spanIndex: 1, page: 3 }, q: { spanIndex: 51, page: 300 } } as QAOrigin,
+		origin: {
+			a: { spanIndexStart: 1, spanIndexEnd: 1, page: 3 },
+			q: { spanIndexStart: 51, spanIndexEnd: 51, page: 300 },
+		} as QAOrigin,
 	};
 	expect(
 		contentStringToPayload(contentString, "a", "REPLACE", {
 			type: "Q-A" as CardType,
 			content: { q: "test too", a: "really not one" },
-			origin: { a: { spanIndex: 1, page: 3 }, q: { spanIndex: 51, page: 300 } } as QAOrigin,
+			origin: {
+				a: { spanIndexStart: 1, spanIndexEnd: 1, page: 3 },
+				q: { spanIndexStart: 51, spanIndexEnd: 51, page: 300 },
+			} as QAOrigin,
 		})
 	).toEqual(expectedAPayloadWithOrigin);
 });

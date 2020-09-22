@@ -3,12 +3,27 @@ import { Page } from "react-pdf";
 import { PageKeyboardControl } from "./PageKeyboardControl";
 import selection from "../../../selection";
 import { useSelector } from "react-redux";
-import { getDocumentSearch, getWindowMeasurements } from "../../selectors";
+import { getDocumentSearch, getSpanOrigin, getWindowMeasurements } from "../../selectors";
 import { MaterialMultiplier } from "./RiverMaterialPairList";
-import { PageSpanControl } from "./PageSpanControl";
+import { PageSpanControl } from "../PageSpanControl";
 import { TextLayerItemInternal } from "react-pdf/dist/Page";
+import { SingleOrigin } from "../../../cards/model/origin";
 
-// highlight what is in searchbox
+const highlightOrigin = (textItem: TextLayerItemInternal, origin: SingleOrigin) => {
+	const itemIndex = textItem.itemIndex;
+	if (!(itemIndex >= origin.spanIndexStart && itemIndex <= origin.spanIndexEnd)) {
+		return textItem.str;
+	}
+
+	// does not really make sense to make more fine-grained mark if the TextLayer is off anyways
+	return <mark style={backgroundStyle}>{textItem.str}</mark>;
+};
+
+const makeOriginHighlighter = (origin: SingleOrigin) => {
+	return (textItem: TextLayerItemInternal) => {
+		return highlightOrigin(textItem, origin);
+	};
+};
 
 export const backgroundStyle = { backgroundColor: "blue" };
 
@@ -110,8 +125,14 @@ export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 	//assumption is that the list checks for width before rendering
 	const materialWidth = useSelector(getWindowMeasurements)?.width as number;
 	const documentSearch = useSelector(getDocumentSearch);
+	const spanOrigin = useSelector(getSpanOrigin);
 
-	const textRenderer = documentSearch !== "" ? makeTextRenderer(documentSearch) : undefined;
+	//TODO-RC: if I remove search, remember this pos
+	const textRenderer = spanOrigin
+		? makeOriginHighlighter(spanOrigin)
+		: documentSearch !== ""
+		? makeTextRenderer(documentSearch)
+		: undefined;
 
 	const pageRef = useRef<null | HTMLDivElement>(null);
 

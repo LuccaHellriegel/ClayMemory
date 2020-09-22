@@ -40,19 +40,31 @@ const materialSelectionDataToSourceConfig = (
 	//TODO-NICE: this also depends on the rendering order of the spans to be the same, might not be a good idea
 	//TODO-NICE: maybe can do this async if it gets more complex?
 
-	const selectedParent = selectionData.selection.focusNode?.parentNode as HTMLSpanElement;
-	if (!!!selectedParent || selectedParent.nodeName !== "SPAN") return false;
+	const selection = selectionData.selection;
+	const selectedParentStart = selection.anchorNode?.parentNode as HTMLSpanElement;
+	const selectedParentEnd = selection.focusNode?.parentNode as HTMLSpanElement;
+	if (
+		!selectedParentStart ||
+		!selectedParentEnd ||
+		selectedParentStart.nodeName !== "SPAN" ||
+		selectedParentEnd.nodeName !== "SPAN"
+	)
+		return false;
 
-	const divTextLayerParent = selectedParent.parentNode;
+	const divTextLayerParent = selectedParentStart.parentNode;
 	if (!!!divTextLayerParent || divTextLayerParent.nodeName !== "DIV") return false;
 
 	const spanChildren = Array.from(divTextLayerParent.children);
 	if (spanChildren.length === 0) return false;
 
-	const index = spanChildren.indexOf(selectedParent);
-	if (index < 0) return false;
+	const startIndex = spanChildren.indexOf(selectedParentStart);
+	const endIndex = spanChildren.indexOf(selectedParentEnd);
+	if (startIndex === -1 || endIndex === -1) return false;
 
-	return { contentStr: selectionData.text, contentOrigin: { spanIndex: index, page } };
+	return {
+		contentStr: selectionData.text,
+		contentOrigin: { spanIndexStart: startIndex, spanIndexEnd: endIndex, page },
+	};
 };
 
 export const getSelectionSourceFromMaterial = (page: number): SelectionSourceConfig | false => {

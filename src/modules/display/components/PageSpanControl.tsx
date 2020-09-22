@@ -1,15 +1,13 @@
 import { RefObject, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSpanOrigin } from "../../selectors";
-import { resetSpanOrigin } from "../../actions";
-import { SingleOrigin } from "../../../cards/model/origin";
+import { getSpanOrigin } from "../selectors";
+import { resetSpanOrigin } from "../actions";
+import { SingleOrigin } from "../../cards/model/origin";
 
 export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefObject<null | HTMLDivElement> }) => {
 	const spanOrigin = useSelector(getSpanOrigin);
 	const count = useRef(0);
 
-	//TODO-RC: color origin somehow, use my custom renderer, split up Material Module?
-	// mark Origin-Span or maybe rect over whole page-section?
 	const dispatch = useDispatch();
 
 	// it is not guaranteed that the effect fires after the page was fully rendered
@@ -30,10 +28,9 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 
 			const textLayer = pageRef.current?.children.item(1);
 			if (textLayer) {
-				const originSpan = textLayer.children.item((spanOrigin as SingleOrigin).spanIndex);
+				const originSpan = textLayer.children.item((spanOrigin as SingleOrigin).spanIndexStart);
 				if (originSpan) {
 					originSpan.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
-					dispatch(resetSpanOrigin());
 					count.current = 0;
 					clearInterval(intervalID);
 					return;
@@ -48,10 +45,9 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 			// assumption of fixed order
 			const textLayer = pageRef.current.children.item(1);
 			if (textLayer) {
-				const originSpan = textLayer.children.item(spanOrigin.spanIndex);
+				const originSpan = textLayer.children.item(spanOrigin.spanIndexStart);
 				if (originSpan) {
 					originSpan.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
-					dispatch(resetSpanOrigin());
 					count.current = 0;
 				} else {
 					trier();

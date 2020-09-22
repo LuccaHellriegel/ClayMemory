@@ -27,7 +27,9 @@ export const ClayCardField = ({
 	return (
 		<selection.components.CardFieldMouseUp
 			fieldOrigin={
-				fieldOrigin && (fieldOrigin as SingleOrigin).spanIndex !== undefined ? (fieldOrigin as SingleOrigin) : undefined
+				fieldOrigin && (fieldOrigin as SingleOrigin).spanIndexStart !== undefined
+					? (fieldOrigin as SingleOrigin)
+					: undefined
 			}
 		>
 			<TextField
