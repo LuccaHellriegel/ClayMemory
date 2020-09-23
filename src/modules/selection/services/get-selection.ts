@@ -41,20 +41,29 @@ const materialSelectionDataToSourceConfig = (
 	//TODO-NICE: maybe can do this async if it gets more complex?
 
 	const selection = selectionData.selection;
-	const selectedParentStart = selection.anchorNode?.parentNode as HTMLSpanElement;
-	const selectedParentEnd = selection.focusNode?.parentNode as HTMLSpanElement;
-	if (
-		!selectedParentStart ||
-		!selectedParentEnd ||
-		selectedParentStart.nodeName !== "SPAN" ||
-		selectedParentEnd.nodeName !== "SPAN"
-	)
+	let selectedParentStart = selection.anchorNode?.parentNode as Node | null;
+	let selectedParentEnd = selection.focusNode?.parentNode as Node | null;
+
+	if (!selectedParentStart || !selectedParentEnd) {
 		return false;
+	}
+
+	if (selectedParentStart.nodeName === "MARK") {
+		selectedParentStart = selectedParentStart.parentNode;
+		if (!selectedParentStart) return false;
+	}
+
+	if (selectedParentEnd.nodeName === "MARK") {
+		selectedParentEnd = selectedParentEnd.parentNode;
+		if (!selectedParentEnd) return false;
+	}
+
+	if (selectedParentStart.nodeName !== "SPAN" || selectedParentEnd.nodeName !== "SPAN") return false;
 
 	const divTextLayerParent = selectedParentStart.parentNode;
 	if (!!!divTextLayerParent || divTextLayerParent.nodeName !== "DIV") return false;
 
-	const spanChildren = Array.from(divTextLayerParent.children);
+	const spanChildren = Array.from(divTextLayerParent.childNodes) as Node[];
 	if (spanChildren.length === 0) return false;
 
 	const startIndex = spanChildren.indexOf(selectedParentStart);
@@ -80,3 +89,5 @@ export const getSelectionSourceFromCard = (contentOrigin?: SingleOrigin): Select
 
 	return { contentStr: selectionData.text, contentOrigin };
 };
+
+//TODO-RC: cant undo replace without deleting the card?
