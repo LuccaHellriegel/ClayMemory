@@ -11,34 +11,39 @@ import { persistConfig } from "./persist";
 import db from "./modules/db";
 import selection from "./modules/selection";
 import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProduction";
+import control from "./modules/control";
+import { cardsShield, dbShield, riverShield, selectionShield } from "./modules/control/model";
 
 //TODO-NICE: make limit for undo (right now its fine, if we reset on document-upload / reload)
 //TODO-NICE: make snackbar for which action is undone/redone
-//TODO-NICE: this undo-buisness is not very transparent, I just list each action that is state-relevant and not view, make action list in constants.ts?
 
 const rootReducer = combineReducers({
-	[selection.constants.NAME]: undoable(selection.reducer, {
-		filter: includeAction([selection.actionTypes.SELECTION_GOAL, selection.actionTypes.SELECTION_SOURCE]),
-	}),
-	[river.constants.NAME]: undoable(river.reducer, {
-		filter: includeAction([
-			cards.actionTypes.CARD_PUSH,
-			cards.actionTypes.CARD_REMOVE,
-			db.actionTypes.LOAD_DOCUMENT_DATA_SETS,
-		]),
-	}),
+	[control.constants.NAME]: control.reducer,
+	[selection.constants.NAME]: selectionShield(
+		undoable(selection.reducer, {
+			filter: includeAction(control.model.selectionActions),
+			limit: 15,
+		})
+	),
+	[river.constants.NAME]: riverShield(
+		undoable(river.reducer, {
+			filter: includeAction(control.model.riverActions),
+			limit: 15,
+		})
+	),
 	[display.constants.NAME]: display.reducer,
-	[cards.constants.NAME]: undoable(cards.reducer, {
-		filter: includeAction([
-			db.actionTypes.LOAD_DOCUMENT_DATA_SETS,
-			cards.actionTypes.CARD_PUSH,
-			cards.actionTypes.CARD_REPLACE,
-			cards.actionTypes.CARD_REMOVE,
-		]),
-	}),
-	[db.constants.NAME]: undoable(db.reducer, {
-		filter: includeAction([db.actionTypes.LOAD_DOCUMENT_DATA_SETS]),
-	}),
+	[cards.constants.NAME]: cardsShield(
+		undoable(cards.reducer, {
+			filter: includeAction(control.model.cardActions),
+			limit: 15,
+		})
+	),
+	[db.constants.NAME]: dbShield(
+		undoable(db.reducer, {
+			filter: includeAction(control.model.dbActions),
+			limit: 15,
+		})
+	),
 });
 
 const stateSanitizer = (state: any) => {

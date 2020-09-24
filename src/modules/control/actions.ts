@@ -4,6 +4,7 @@ import { ActionCreators } from "redux-undo";
 import db from "../db";
 import { collectCurrentDBData } from "./selectors";
 import { DocumentData } from "../db/model";
+import * as t from "./actionTypes";
 
 export const archiveCurrentDBData = () => {
 	return (dispatch: Dispatch, getState: Function) => {
@@ -27,6 +28,19 @@ export const downloadDBData = () => {
 		const localString = new Date().toLocaleString();
 		fileDownload(JSON.stringify(documentDataSets), localString + " ClayMemory.txt");
 	};
+};
+
+export const undoActionHistory = (action: string) => {
+	return { type: t.UNDO_ACTION_HISTORY, payload: action };
+};
+
+export const redoActionHistory = (action: string) => {
+	return { type: t.REDO_ACTION_HISTORY, payload: action };
+};
+
+export const removeActionHistory = (dispatch: Dispatch) => {
+	dispatch(ActionCreators.clearHistory());
+	dispatch({ type: t.REMOVE_ACTION_HISTORY });
 };
 
 export const changeDocument = (pdf: File) => {
@@ -61,7 +75,7 @@ export const changeDocument = (pdf: File) => {
 		}
 
 		// no undo-redo across documents
-		dispatch(ActionCreators.clearHistory());
+		removeActionHistory(dispatch);
 	};
 };
 
@@ -84,7 +98,7 @@ export const loadSavedDocument = (document: string) => {
 		dispatch({ type: db.actionTypes.DOCUMENT_CHANGE, payload: newDocumentData });
 
 		// no undo-redo across documents
-		dispatch(ActionCreators.clearHistory());
+		removeActionHistory(dispatch);
 	};
 };
 
@@ -97,7 +111,7 @@ export const deleteDocument = (document: string) => {
 			dispatch({ type: db.actionTypes.DOCUMENT_CHANGE });
 
 			// keeping the undo history leads to weird edge cases and makes no sense
-			dispatch(ActionCreators.clearHistory());
+			removeActionHistory(dispatch);
 		}
 
 		// note: no undo of this

@@ -1,18 +1,16 @@
 import React from "react";
 import { IconButton, Card, Divider, Grid, Tooltip } from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UndoIcon from "@material-ui/icons/Undo";
 import RedoIcon from "@material-ui/icons/Redo";
-import { ActionCreators } from "redux-undo";
 import text from "../../text";
-
-//TODO-NICE: disable undo/redo buttons if no undo/redo possible, tried custom hook but didnt work,
-// need to check all store-objects which have future/past because they have different undo/redo
+import { getLastUndoableAction, getLastRedoableAction } from "../selectors";
+import { redoActionHistory, undoActionHistory } from "../actions";
 
 // we support undo/redo instead of lengthy confirmation (see The Humane Interface)
 const UndoButton = () => {
 	const dispatch = useDispatch();
-
+	const lastUndoableAction = useSelector(getLastUndoableAction);
 	//tooltip needs non-disabled child component
 	return (
 		<Tooltip
@@ -24,8 +22,9 @@ const UndoButton = () => {
 				<IconButton
 					type="button"
 					onClick={() => {
-						dispatch(ActionCreators.undo());
+						dispatch(undoActionHistory(lastUndoableAction as string));
 					}}
+					disabled={!!!lastUndoableAction}
 				>
 					<UndoIcon></UndoIcon>
 				</IconButton>
@@ -35,20 +34,24 @@ const UndoButton = () => {
 };
 const RedoButton = () => {
 	const dispatch = useDispatch();
+	const lastRedoableAction = useSelector(getLastRedoableAction);
 	return (
 		<Tooltip
 			title={text.constants.redoTooltip}
 			enterDelay={text.constants.defaultEnterDelay}
 			enterNextDelay={text.constants.defaultEnterNextDelay}
 		>
-			<IconButton
-				type="button"
-				onClick={() => {
-					dispatch(ActionCreators.redo());
-				}}
-			>
-				<RedoIcon></RedoIcon>
-			</IconButton>
+			<span>
+				<IconButton
+					type="button"
+					onClick={() => {
+						dispatch(redoActionHistory(lastRedoableAction as string));
+					}}
+					disabled={!!!lastRedoableAction}
+				>
+					<RedoIcon></RedoIcon>
+				</IconButton>
+			</span>
 		</Tooltip>
 	);
 };

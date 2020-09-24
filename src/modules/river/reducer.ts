@@ -84,7 +84,6 @@ const cardRiverState = (state = initialState, { type, payload }: { type: string;
 			return { ...state, contentFilter: payload };
 		case t.ORIGIN_REQUEST:
 			return { ...state, requestedOrigin: payload };
-
 		default:
 			return state;
 	}

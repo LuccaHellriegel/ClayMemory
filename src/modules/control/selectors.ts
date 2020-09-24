@@ -3,6 +3,8 @@ import display from "../display";
 import river from "../river";
 import cards from "../cards";
 import { DocumentData } from "../db/model";
+import { NAME } from "./constants";
+import { Model } from "./model";
 
 export const collectCurrentDBData: (state: any) => DocumentData | null = createSelector(
 	display.selectors.getPDFName,
@@ -25,4 +27,12 @@ export const collectCurrentDBData: (state: any) => DocumentData | null = createS
 			lastCardIDNumber,
 		};
 	}
+);
+
+export const getAll = (state: any): Model => state[NAME];
+
+export const getLastUndoableAction = createSelector(getAll, (state) => state.present);
+
+export const getLastRedoableAction = createSelector(getAll, (state) =>
+	state.future.length > 0 ? state.future[0] : null
 );

@@ -33,11 +33,7 @@ const cards = (state = intialState, { type, payload }: { type: string; payload?:
 			const lastCardIDNumber = cardIDToNumber(payload.cardID) + 1;
 			return { ...state, cards: addCardToCards(state.cards, payload), lastCardIDNumber };
 		case t.CARD_REPLACE:
-			// either the update was for a goalCard, then we want to reset it
-			// or the update was not for a goalCard, then there should not be a goalCard anyways
-			const goalCard = null;
-
-			return { ...state, cards: updateCardInCards(state.cards, payload), goalCard };
+			return { ...state, cards: updateCardInCards(state.cards, payload) };
 		case t.CARD_REMOVE:
 			return removeCardFromCardsState(state, payload as string);
 		case db.actionTypes.DOCUMENT_CHANGE:
