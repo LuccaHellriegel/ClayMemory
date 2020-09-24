@@ -9,6 +9,10 @@ import { PageSpanControl } from "../PageSpanControl";
 import { TextLayerItemInternal } from "react-pdf/dist/Page";
 import { SingleOrigin } from "../../../cards/model/origin";
 
+type Renderer = (
+	textItem: TextLayerItemInternal | (TextLayerItemInternal & { str: string | JSX.Element })
+) => JSX.Element | string;
+
 const highlightOrigin = (textItem: TextLayerItemInternal, origin: SingleOrigin) => {
 	const itemIndex = textItem.itemIndex;
 	if (!(itemIndex >= origin.spanIndexStart && itemIndex <= origin.spanIndexEnd)) {
@@ -16,7 +20,7 @@ const highlightOrigin = (textItem: TextLayerItemInternal, origin: SingleOrigin) 
 	}
 
 	// does not really make sense to make more fine-grained mark if the TextLayer is off anyways
-	return <mark style={backgroundStyle}>{textItem.str}</mark>;
+	return <mark style={{ backgroundColor: "red" }}>{textItem.str}</mark>;
 };
 
 const makeOriginHighlighter = (origin: SingleOrigin) => {
@@ -121,18 +125,22 @@ function makeTextRenderer(searchText: string) {
 	};
 }
 
+const combineRenderers = (searchRenderer?: Renderer, originRenderer?: Renderer) => {
+	if (!searchRenderer) return originRenderer;
+	if (!originRenderer) return searchRenderer;
+	return (textItem: TextLayerItemInternal) => originRenderer({ ...textItem, str: searchRenderer(textItem) as any });
+};
+
 export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 	//assumption is that the list checks for width before rendering
 	const materialWidth = useSelector(getWindowMeasurements)?.width as number;
 	const documentSearch = useSelector(getDocumentSearch);
 	const spanOrigin = useSelector(getSpanOrigin);
 
-	//TODO-RC: if I remove search, remember this pos
-	const textRenderer = spanOrigin
-		? makeOriginHighlighter(spanOrigin)
-		: documentSearch !== ""
-		? makeTextRenderer(documentSearch)
-		: undefined;
+	const originHighlighter = spanOrigin ? makeOriginHighlighter(spanOrigin) : undefined;
+	const searchRenderer = documentSearch !== "" ? makeTextRenderer(documentSearch) : undefined;
+
+	const textRenderer = combineRenderers(searchRenderer, originHighlighter);
 
 	const pageRef = useRef<null | HTMLDivElement>(null);
 
@@ -146,7 +154,7 @@ export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 						}}
 						pageNumber={pageNumber}
 						width={materialWidth * MaterialMultiplier}
-						customTextRenderer={textRenderer}
+						customTextRenderer={textRenderer as any}
 					/>
 				</PageKeyboardControl>
 			</selection.components.MaterialMouseUp>
