@@ -8,6 +8,8 @@
 		"@types/react-redux": "^7.1.9",
 		"@types/react-window": "^1.8.2",
 		"@types/throttle-debounce": "^2.1.0",
+		"cypress-file-upload": "^4.1.1",
+		"cypress": "^5.2.0",
 		"dependency-cruiser": "^9.12.0"
 	},
 	"dependencies": {
@@ -44,11 +46,14 @@
 		"xhr2": "^0.2.0"
 	},
 	"scripts": {
+		"cypress-ci": "./node_modules/.bin/cypress run",
+		"cypress": "./node_modules/.bin/cypress open",
 		"analyze": "source-map-explorer 'build/static/js/*.js'",
 		"start": "react-scripts start",
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d build",
 		"build": "react-scripts build",
+		"test-ci": "CI=true npm run test",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"graph": "npx depcruise --config ./.dependency-cruiser.js --output-type dot src/index.tsx | dot -T svg > dependency-graph.svg",
@@ -69,6 +74,12 @@
 			"last 1 chrome version",
 			"last 1 firefox version",
 			"last 1 safari version"
+		]
+	},
+	"jest": {
+		"coveragePathIgnorePatterns": [
+			"/node_modules/",
+			"/cypress/"
 		]
 	}
 }

@@ -29,7 +29,7 @@ export const AppendButton = ({ cardField, cardID }: { cardField: CreationType; c
 	} else {
 		if (outlined) setOutlined(false);
 	}
-	//TODO-RC: test all variations of origin  (setting/copying) again (how to automate the test?)
+	//TODO-NICE: test all variations of origin  (setting/copying) again (how to automate the test?)
 
 	return (
 		<Tooltip

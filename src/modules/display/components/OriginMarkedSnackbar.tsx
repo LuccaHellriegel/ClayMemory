@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSpanOrigin } from "../selectors";
 import { resetSpanOrigin } from "../actions";
 
-//TODO-RC: remove this snackbar if search is activated / deactivate document search if this is active
 //TODO-NICE: think about that SelectionSnackbar and this both are dismissed via Esc
 
 export const OriginMarkedSnackbar = () => {

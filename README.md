@@ -12,10 +12,10 @@ ClayMemory tries to explore a better alternative to using multiple programs and 
 
 ### Mouse controls
 
-- Selecting in the PDF (and letting the left mouse-button go) triggers the Extraction-UI for creating flash cards
-  - Known issue: text selection behavior in Chrome is (generally?) weird, Firefox is fine
-- Right-click in a card text-field while having something selected (see Current Selection-Overlay) triggers the Extraction-UI for the river
-  - It could not be the same as in the PDF, because in the text you might want to select for other reasons than just extraction
+- Selecting in the PDF or in the card-fields (and letting the left mouse-button go) captures the selected text (and additional context like the origin)
+- Right-click allows fast creation of new cards from the selection
+- Using the Add / Replace buttons on card-fields leads to the selection being added / replacing the respective card-fields
+  - the origin of the selection overwrites the existing one
 
 ## Overview
 
@@ -32,22 +32,29 @@ Issues, PRs and general suggestions welcome.
 
 ## Features
 
-- Multiple views:
-  - ActiveRiver: view the document page and all the corresponding flash cards in parallel
-  - SummaryRiver: view all your flash cards
-- Extraction-context menu for documents and cards for fast and easy flash card creation
-- Origin-System: jump to the place in the document where you got the material for your flash card from
-  - Origin gets preserved when copying between cards
-- Customize the layout to always have access to the correct information
-  - Hide/show cards or document
-  - Filter your cards by type
-  - Search your cards
-- Handle multiple documents and their corresponding cards
-- Download or upload the document data sets
-- Basic PDF navigation
-- Undo/redo for all card-related operations
-- Local persistence in your browser, no cloud or additional download necessary
-  - Known issue: PDFs are not saved
+- easy flash card creation / modification via automatic capture of text selection
+  - working with selection: extraction-context menu for documents and cards for fast and easy flash card creation
+  - working with selection: add / replace buttons for easy modification of existing cards
+  - cross-card copying / replacing!
+- multiple views:
+  - River+Material: view the document/material and all the corresponding flash cards/CardRiver in parallel
+  - River Explorer: view all your flash cards sorted by River/Page
+  - Card Explorer: view all your flash cards
+- origin-system: jump to the place in the document where you got the material for your flash card from
+  - origin gets preserved when copying between cards
+- customize the layout to always have access to the correct information
+  - hide/show cards or document
+  - filter your cards by type
+  - search your cards
+- handle multiple documents and their corresponding cards
+- download or upload the document data sets
+- basic PDF navigation
+  - jump to page
+  - highlight a search term
+  - scroll trough the document
+- undo/redo for all card-related operations
+- local persistence in your browser, no cloud or additional download necessary
+  - known issue: PDFs are not saved
 
 ## Tech Stack
 
@@ -60,14 +67,17 @@ Issues, PRs and general suggestions welcome.
   - redux-undo
   - redux-thunk
   - reselect
+- Testing
+  - Jest for Unit Tests
+  - Cypress for End-To-End Testing
+    - some of the tests are flaky when run in headless-mode
 - [Architecture inspiration](https://jaysoo.ca/2016/02/28/organizing-redux-application/)
-  - Boundary enforcement with dependency-cruiser
+  - Boundary enforcement/testing via dependency-cruiser
 
 ## TODO Types
 
 - RC: release candidate, need this to be feature complete
-- NICE: nice to have
-- PERF: performance optimization possible if I notice it during testing
+- NICE: nice to have / not in the scope of the prototype / marginal bugs
 
 ## Available Scripts
 

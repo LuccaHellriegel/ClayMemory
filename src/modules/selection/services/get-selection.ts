@@ -89,7 +89,3 @@ export const getSelectionSourceFromCard = (contentOrigin?: SingleOrigin): Select
 
 	return { contentStr: selectionData.text, contentOrigin };
 };
-
-//TODO-RC: cant undo replace/append without deleting the card?
-// but if I do double undo and the redo the empty cards appears
-// some combination of that corrupts the store!
