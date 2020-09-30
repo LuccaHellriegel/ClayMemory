@@ -6,6 +6,8 @@ import { SingleOrigin } from "./modules/cards/model/origin";
 import { CardRiverState } from "./modules/river/model";
 import river from "./modules/river";
 
+// TODO-NICE: undo/redo seems to have some issues after loading? or maybe just my local state? disable for study
+
 // to get the correct object with reselect, I added .present to all getAll that belong do undoable modules
 
 //TODO-NICE: find way to save PDF in browser, maybe manually use indexeddb and use that in transform?

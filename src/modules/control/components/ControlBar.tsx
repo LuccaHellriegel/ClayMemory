@@ -56,7 +56,7 @@ export const ControlBar = () => {
 						</Grid>
 
 						<Grid item xs={4}>
-							<Grid container direction="row" justify="flex-start" alignItems="center">
+							<Grid container direction="row" justify="flex-end" alignItems="center">
 								<Grid item>
 									<ClayMemorySearchBar></ClayMemorySearchBar>
 								</Grid>

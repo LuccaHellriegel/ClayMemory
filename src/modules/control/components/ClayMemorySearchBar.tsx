@@ -73,7 +73,7 @@ export const ClayMemorySearchBar = () => {
 	//TODO-NICE: change the color / border or something to indicate when a filter is active
 	return (
 		<Grid container direction="row" alignItems="center" spacing={1}>
-			<Grid item>
+			{/* <Grid item>
 				<Select
 					variant="outlined"
 					color="secondary"
@@ -91,7 +91,7 @@ export const ClayMemorySearchBar = () => {
 					<option>Filter cards</option>
 					<option>Search document</option>
 				</Select>
-			</Grid>
+			</Grid> */}
 			<Grid item>
 				<SearchBar
 					value={state}
