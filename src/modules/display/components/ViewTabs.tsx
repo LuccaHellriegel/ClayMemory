@@ -17,7 +17,7 @@ export const ViewTabs = () => {
 			<Tabs value={currentView} onChange={handleChange}>
 				<Tab label="River-Material" />
 				<Tab label="River Explorer" />
-				<Tab label="Card Explorer" />
+				{/* <Tab label="Card Explorer" /> */}
 			</Tabs>
 		</Card>
 	);

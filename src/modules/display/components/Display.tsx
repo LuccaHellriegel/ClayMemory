@@ -13,6 +13,7 @@ export const Display = () => {
 	// TODO-NICE: cant hide the CardExplorer because the Material UI TextField does not render correctly
 	// after hidding
 
+	// TODO-NICE: disable CardExplorer until I fix the "which River is active" problem for that view
 	return (
 		<Fragment>
 			<div hidden={currentView !== View.RiverMaterial} style={{ width: "100%", height: "100%" }}>
@@ -24,7 +25,7 @@ export const Display = () => {
 				<RiverExplorer></RiverExplorer>
 			</div>
 
-			{currentView === View.CardExplorer && <CardExplorer></CardExplorer>}
+			{/* {currentView === View.CardExplorer && <CardExplorer></CardExplorer>} */}
 		</Fragment>
 	);
 };
