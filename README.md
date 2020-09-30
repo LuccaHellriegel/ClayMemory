@@ -2,7 +2,7 @@
 
 React-based reader and editor for creating notes and flash cards directly from PDF documents.
 
-Try it: [https://luccahellriegel.github.io/ClayMemory](https://luccahellriegel.github.io/ClayMemory)
+Try the prototype: [https://luccahellriegel.github.io/ClayMemory](https://luccahellriegel.github.io/ClayMemory)
 
 Only tested on Firefox and Chromium.
 
