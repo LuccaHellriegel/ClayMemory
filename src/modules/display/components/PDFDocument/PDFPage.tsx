@@ -31,7 +31,7 @@ const makeOriginHighlighter = (origin: SingleOrigin) => {
 
 export const backgroundStyle = { backgroundColor: "blue" };
 
-// TODO-NICE: this could be made clearer and cleaner
+// TODO: this could be made clearer and cleaner
 export const highlightPattern = (text: string, pattern: string) => {
 	// the idea is that:
 	// no matches are most likely
@@ -131,7 +131,7 @@ const combineRenderers = (searchRenderer?: Renderer, originRenderer?: Renderer) 
 	return (textItem: TextLayerItemInternal) => originRenderer({ ...textItem, str: searchRenderer(textItem) as any });
 };
 
-//TODO-NICE: when switching from a small page to big, the ControlBar does not size back
+//TODO: when switching from a small page to big, the ControlBar does not size back
 
 export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 	//assumption is that the list checks for width before rendering

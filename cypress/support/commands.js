@@ -1,8 +1,8 @@
 import "cypress-file-upload";
 
-//TODO-NICE: make them really chainable, I suspect it is not actually chained even if I return it
+//TODO: make them really chainable, I suspect it is not actually chained even if I return it
 // (e.g. getTextLayer does not seem to work, spans are collected from the whole page)
-//TODO-NICE: I am sure the spec files could be cleaner, but for now they work
+//TODO: I am sure the spec files could be cleaner, but for now they work
 
 Cypress.Commands.add("visitGitHubPage", () => {
 	return cy.visit("https://luccahellriegel.github.io/ClayMemory").clearLocalStorage().reload();

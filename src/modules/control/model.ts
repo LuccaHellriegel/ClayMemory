@@ -23,10 +23,10 @@ export const undoableActions = [dbActions, cardActions, riverActions, selectionA
 
 export type Model = { past: string[]; present: string | null; future: string[] };
 
-//TODO-NICE: this is NOT bugfree, somehow I got the present to be erased
+//TODO: this is NOT bugfree, somehow I got the present to be erased
 // deletion bug? cant undo some deletions?
 
-//TODO-NICE: where to put it instead of model?
+//TODO: where to put it instead of model?
 export const undoRedoActionShield = (reducer: Reducer<any, any>, actionList: string[]) => (state: any, action: any) => {
 	switch (action.type) {
 		case UNDO_ACTION_HISTORY:

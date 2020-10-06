@@ -27,8 +27,6 @@ const initialState: CardRiverState = {
 	contentFilter: "",
 };
 
-// TODO-NICE: adding to one river forces all of them to update, should not be a problem, because we only render 2-3 rivers,
-// but memo just in case?
 const cardRiverState = (state = initialState, { type, payload }: ClayMemoryPayloadAction): CardRiverState => {
 	let riverMakeUp;
 	let riverMakeUps;
@@ -39,6 +37,10 @@ const cardRiverState = (state = initialState, { type, payload }: ClayMemoryPaylo
 			return { ...state, riverShowState: payload as RiverShowState };
 		case t.RIVER_CONTENT_STATE:
 			return { ...state, riverContentState: payload as RiverContentState };
+		case t.RIVER_CONTENT_FILTER:
+			return { ...state, contentFilter: payload };
+		case t.ORIGIN_REQUEST:
+			return { ...state, requestedOrigin: payload };
 		case cards.actionTypes.CARD_PUSH:
 			if (state.riverMakeUps[state.activeRiverMakeUpID]) {
 				riverMakeUp = {
@@ -81,10 +83,6 @@ const cardRiverState = (state = initialState, { type, payload }: ClayMemoryPaylo
 			} else {
 				return state;
 			}
-		case t.RIVER_CONTENT_FILTER:
-			return { ...state, contentFilter: payload };
-		case t.ORIGIN_REQUEST:
-			return { ...state, requestedOrigin: payload };
 		default:
 			return state;
 	}

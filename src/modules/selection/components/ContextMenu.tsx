@@ -88,4 +88,4 @@ export const ContextMenu = () => {
 	);
 };
 
-//TODO-NICE: delete extracted str in source
+//TODO: delete extracted str in source

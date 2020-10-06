@@ -6,11 +6,11 @@ import { SingleOrigin } from "./modules/cards/model/origin";
 import { CardRiverState } from "./modules/river/model";
 import river from "./modules/river";
 
-// TODO-NICE: undo/redo seems to have some issues after loading? or maybe just my local state? disable for study
+// TODO: undo/redo seems to have some issues after loading? or maybe just my local state? disable for study
 
 // to get the correct object with reselect, I added .present to all getAll that belong do undoable modules
 
-//TODO-NICE: find way to save PDF in browser, maybe manually use indexeddb and use that in transform?
+//TODO: find way to save PDF in browser, maybe manually use indexeddb and use that in transform?
 // idea: make store-field pdfAsBase64 and use thunk for async-filling the field, then when reloading, use thunk to format
 // const reader = new FileReaderSync();
 
@@ -34,7 +34,7 @@ const removeDOMObjectsFromDisplayData = (inboundState: DisplayData) => {
 	return result;
 };
 
-//TODO-NICE: create persistable type for the state in model
+//TODO: create persistable type for the state in model
 
 const addDOMObjectsToDisplayData = (outboundState: {
 	pdf: null;

@@ -8,7 +8,7 @@ const initialState: Model = {
 	future: [],
 };
 
-//TODO-NICE: need to reset this sometime (same point as with redux-undo history)
+//TODO: need to reset this sometime (same point as with redux-undo history)
 
 const control = (state = initialState, { type }: ClayMemoryPayloadAction): Model => {
 	if (undoableActions.includes(type)) {

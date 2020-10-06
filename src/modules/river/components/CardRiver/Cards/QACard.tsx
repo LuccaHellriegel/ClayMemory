@@ -9,7 +9,7 @@ import text from "../../../../text";
 import { ClayCardFieldButtons } from "./ClayCardFieldButtons";
 import { QAConfig } from "../../../../cards/model/config";
 
-//TODO-NICE: use dark color pallet (theme?)
+//TODO: use dark color pallet (theme?)
 
 export const QACard = ({ config }: { config: QAConfig }) => {
 	const dispatch = useDispatch();

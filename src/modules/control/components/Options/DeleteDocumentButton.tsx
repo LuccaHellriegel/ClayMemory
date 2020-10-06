@@ -55,7 +55,7 @@ const DeleteDocumentDialogAlert = ({
 	);
 };
 
-//TODO-NICE: deleting the active document leads only to reset it, not really delete it
+//TODO: deleting the active document leads only to reset it, not really delete it
 export const DeleteDocumentButton = ({ document }: { document: string }) => {
 	const [open, setOpen] = useState(false);
 

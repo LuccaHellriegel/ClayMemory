@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Grid, Select } from "@material-ui/core";
 import display from "../../display";
 
-//TODO-NICE: react-pdf alignment is broken for some pdfs and generally for non-body text,
+//TODO: react-pdf alignment is broken for some pdfs and generally for non-body text,
 // seems to be connected to choosing the wrong font
 // font is chosen per page not per item (e.g. body-font for heading/cursive)
 // needs to be fixed before making search
 // otherwise coloring findings not possible / good enough
 
-//TODO-NICE: make search for PDF (right now this would need some work to find the correct text-node and partially color it)
+//TODO: make search for PDF (right now this would need some work to find the correct text-node and partially color it)
 // https://github.com/wojtekmaj/react-pdf/issues/212
 // counter of found words
 // count also in PDF
@@ -69,8 +69,7 @@ export const ClayMemorySearchBar = () => {
 		setState("");
 	};
 
-	//TODO-NICE: search in other rivers/same river when composing to show similar cards (like in the Anki Addon)
-	//TODO-NICE: change the color / border or something to indicate when a filter is active
+	//TODO: search in other rivers/same river when composing to show similar cards (like in the Anki Addon)
 	return (
 		<Grid container direction="row" alignItems="center" spacing={1}>
 			{/* <Grid item>

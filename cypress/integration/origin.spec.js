@@ -58,7 +58,7 @@ describe("main functionality: jump to origin", () => {
 	});
 });
 
-//TODO-NICE: setSelection does not work correctly with the TextArea
+//TODO: setSelection does not work correctly with the TextArea
 // describe("main functionality: copy origin from card", () => {
 // 	it("copy origin from a to another cards q", () => {
 // 		cy.visitGitHubPage()

@@ -3,9 +3,6 @@ import { useDispatch } from "react-redux";
 import { widthPixels } from "../../actions";
 import { debounce } from "throttle-debounce";
 
-//TODO-NICE: make PR to react-pdf-sample or make my own, because the Memory/height bug makes his unusable
-// height = real total height = render everything = can not scroll, because we are "showing" everything already
-
 export const HTMLElementMeasurer = () => {
 	const dispatch = useDispatch();
 

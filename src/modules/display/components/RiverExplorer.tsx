@@ -35,4 +35,4 @@ export const RiverExplorer = () => {
 		</Grid>
 	);
 };
-//TODO-NICE: make error-message if jump to is executed without uploading a pdf
+//TODO: make error-message if jump to is executed without uploading a pdf

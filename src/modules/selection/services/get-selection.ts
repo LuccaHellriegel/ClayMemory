@@ -36,9 +36,9 @@ const materialSelectionDataToSourceConfig = (
 	selectionData: SelectionData,
 	page: number
 ): SelectionSourceConfig | false => {
-	//TODO-NICE: think about race-conditions for the delayed rendering, this might mess up the index
-	//TODO-NICE: this also depends on the rendering order of the spans to be the same, might not be a good idea
-	//TODO-NICE: maybe can do this async if it gets more complex?
+	//TODO: think about race-conditions for the delayed rendering, this might mess up the index
+	//TODO: this also depends on the rendering order of the spans to be the same, might not be a good idea
+	//TODO: maybe can do this async if it gets more complex?
 
 	const selection = selectionData.selection;
 	let selectedParentStart = selection.anchorNode?.parentNode as Node | null;

@@ -14,8 +14,8 @@ import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProductio
 import control from "./modules/control";
 import { cardsShield, dbShield, riverShield, selectionShield } from "./modules/control/model";
 
-//TODO-NICE: make limit for undo (right now its fine, if we reset on document-upload / reload)
-//TODO-NICE: make snackbar for which action is undone/redone
+//TODO: make limit for undo (right now its fine, if we reset on document-upload / reload)
+//TODO: make snackbar for which action is undone/redone
 
 const rootReducer = combineReducers({
 	[control.constants.NAME]: control.reducer,

@@ -10,10 +10,10 @@ import { RiverExplorer } from "./RiverExplorer";
 export const Display = () => {
 	const currentView = useSelector(getCurrentView);
 
-	// TODO-NICE: cant hide the CardExplorer because the Material UI TextField does not render correctly
+	// TODO: cant hide the CardExplorer because the Material UI TextField does not render correctly
 	// after hidding
 
-	// TODO-NICE: disable CardExplorer until I fix the "which River is active" problem for that view
+	// TODO: disable CardExplorer until I fix the "which River is active" problem for that view
 	return (
 		<Fragment>
 			<div hidden={currentView !== View.RiverMaterial} style={{ width: "100%", height: "100%" }}>

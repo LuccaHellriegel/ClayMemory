@@ -7,7 +7,7 @@ import { ClayMemorySearchBar } from "./ClayMemorySearchBar";
 import { UndoRedoCard } from "./UndoRedoButtons";
 import { ShowHideButton } from "./ShowHideButton";
 
-//TODO-NICE: download/load csv for Anki
+//TODO: download/load csv for Anki
 export const ControlBar = () => {
 	const materialName = useSelector(display.selectors.getPDFName);
 	const offset = useSelector(display.selectors.getTopOffset);

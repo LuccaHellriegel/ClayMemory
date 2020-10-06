@@ -17,10 +17,6 @@ const options = {
 	cMapPacked: true,
 };
 
-//TODO-NICE: implement more pdf-reader functionality, like zoom
-// make pdf zoomable, right now it just sizes with the screen (can be too small)
-// good enough right now because one can hide the river if one needs more space
-
 export const PDFDocument = () => {
 	const pdf = useSelector(getPDF);
 

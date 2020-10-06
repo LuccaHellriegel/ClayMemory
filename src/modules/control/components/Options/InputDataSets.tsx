@@ -35,9 +35,9 @@ export const InputDataSets = ({ handleClose, label }: any) => {
 						const reader = new FileReader();
 						reader.readAsText(file);
 						reader.onload = () => {
-							//TODO-NICE: sanitize, escape os new line difference, prepare multimedia cards
-							//TODO-NICE: merge same name-pdfs and think about collision in general
-							//TODO-NICE: merge uploaded state with current-one and dont overwrite
+							//TODO: sanitize, escape os new line difference, prepare multimedia cards
+							//TODO: merge same name-pdfs and think about collision in general
+							//TODO: merge uploaded state with current-one and dont overwrite
 							const uploadedDataSets = JSON.parse(reader.result as string);
 							// if the uploaded dataset corresponds to the current document, overwrite current with uploaded
 							const foundDataSet = (uploadedDataSets as DocumentData[]).find(

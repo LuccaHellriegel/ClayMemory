@@ -63,7 +63,7 @@ export const changeDocument = (pdf: File) => {
 
 		// if the uploaded pdf is the same as the active one, then we just reloaded the app (lost the pdf)
 		// and dont need load data (loading data would lead to overwrite because of the syncing order)
-		//TODO-NICE: make the sync between documentDB and active document more explicit, right now I just sync when a PDF is uploaded
+		//TODO: make the sync between documentDB and active document more explicit, right now I just sync when a PDF is uploaded
 		if (newPDFName === currentPDFName) {
 			return;
 		}
@@ -80,7 +80,6 @@ export const changeDocument = (pdf: File) => {
 	};
 };
 
-//TODO-NICE: remove save redundancy
 export const loadSavedDocument = (document: string) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();

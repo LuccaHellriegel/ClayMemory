@@ -74,11 +74,6 @@ Issues, PRs and general suggestions welcome.
 - [Architecture inspiration](https://jaysoo.ca/2016/02/28/organizing-redux-application/)
   - Boundary enforcement/testing via dependency-cruiser
 
-## TODO Types
-
-- RC: release candidate, need this to be feature complete
-- NICE: nice to have / not in the scope of the prototype / marginal bugs
-
 ## Available Scripts
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

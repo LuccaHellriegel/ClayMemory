@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPage } from "../../actions";
 import { PageScrollControl } from "./PageScrollControl";
 
-//TODO-NICE: replace this with Material-UI breakpoints
+//TODO: replace this with Material-UI breakpoints
 export const MaterialMultiplier = 0.63;
 export const RiverMultiplier = 0.35;
 
@@ -59,7 +59,6 @@ export const RiverMaterialPairList = ({
 	const listRef = useRef<VariableSizeList>();
 
 	const windowMeasurements = useSelector(getWindowMeasurements);
-	//TODO-PERF: check if this needs to be memoized
 	const materialHeights = windowMeasurements
 		? Array.from(cachedPageDimensions.keys()).reduce((prev, pageNumber) => {
 				prev.set(pageNumber, calculateMaterialHeight(pageNumber, cachedPageDimensions, windowMeasurements.width));
@@ -83,7 +82,7 @@ export const RiverMaterialPairList = ({
 					ref={listRef as RefObject<VariableSizeList>}
 					width="100%"
 					onItemsRendered={(props) => {
-						//TODO-NICE: find way to switch the page if it is halfway in sight
+						//TODO: find way to switch the page if it is halfway in sight
 						dispatch(setPage(props.visibleStopIndex + 1, false));
 					}}
 				>

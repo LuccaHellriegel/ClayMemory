@@ -24,7 +24,7 @@ export const CardExplorer = () => {
 	const cardObjects = useSelector(river.selectors.getNonEmptyRiverCardsSorted);
 	const riverContentState = useSelector(river.selectors.getRiverContentState);
 
-	//TODO-NICE: use regex for upper/lower-case
+	//TODO: use regex for upper/lower-case
 	const contentFilter = useSelector(river.selectors.getRiverContentFilter);
 
 	const gridItems = useMemo(() => {
@@ -42,7 +42,7 @@ export const CardExplorer = () => {
 				inputCards = cardObjects.filter((config) => config.type === "Note");
 			}
 		}
-		//TODO-NICE: optimize this waste, move this out of the memo as it changes more rapidly
+		//TODO: optimize this waste, move this out of the memo as it changes more rapidly
 		if (contentFilter !== "")
 			inputCards = inputCards.filter((card) => {
 				switch (card.type) {

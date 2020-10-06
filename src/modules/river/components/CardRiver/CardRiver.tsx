@@ -10,8 +10,8 @@ import cards from "../../../cards";
 import { NoteConfig, QAConfig } from "../../../cards/model/config";
 import { ClayCardGridItems } from "./ClayCardGridItems";
 
-//TODO-NICE: make it not be accordion but closeable?
-//TODO-NICE: make local show / hide notes
+//TODO: make it not be accordion but closeable?
+//TODO: make local show / hide notes
 
 export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materialHeight: number }) => {
 	const cardConfigs = useSelector(cards.selectors.getCards);
@@ -20,7 +20,7 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 	const riverCards = riverMakeUp ? riverMakeUp.cardIDs.map((id) => cardConfigs[id]) : [];
 	const riverContentState = useSelector(getRiverContentState);
 
-	//TODO-NICE: use regex for upper/lower-case
+	//TODO: use regex for upper/lower-case
 	const contentFilter = useSelector(getRiverContentFilter);
 
 	// this should only change if the store values change
@@ -39,7 +39,7 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 				inputCards = riverCards.filter((config) => config.type === "Note");
 			}
 		}
-		//TODO-NICE: optimize this waste, move this out of the memo as it changes more rapidly
+		//TODO: optimize this waste, move this out of the memo as it changes more rapidly
 		if (contentFilter !== "")
 			inputCards = inputCards.filter((card) => {
 				switch (card.type) {
@@ -54,8 +54,8 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 		return ClayCardGridItems(inputCards);
 	}, [riverCards, riverContentState, contentFilter]);
 
-	//TODO-NICE: if you start without any document and then load one, the current cards should be merged into that one
-	//TODO-NICE: scroll-to-top for overflowing river
+	//TODO: if you start without any document and then load one, the current cards should be merged into that one
+	//TODO: scroll-to-top for overflowing river
 
 	return (
 		<Accordion
