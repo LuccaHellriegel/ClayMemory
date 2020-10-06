@@ -16,3 +16,7 @@ export const loadDocumentDataSets = (
 export const deleteDocumentDataSet = (document: string): ClayMemoryPayloadAction => {
 	return { type: t.DELETE_DOCUMENT_DATA_SET, payload: document };
 };
+
+export const changeDocument = (payload?: DocumentData): ClayMemoryPayloadAction => {
+	return { type: t.DOCUMENT_CHANGE, payload };
+};
