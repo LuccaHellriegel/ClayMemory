@@ -25,8 +25,6 @@ export const cardIsNotFull = (config: CardConfig) => CardIsFullMap[config.type](
 
 export type UpdateType = "REPLACE" | "APPEND";
 
-export type CreationType = "note" | "q" | "a";
-
 export const strToCardConfig = (
 	contentStr: string,
 	outputField: CardField,
@@ -44,5 +42,3 @@ const CardFieldToTypeMap: { [field in CardField]: CardType } = {
 };
 
 export const cardFieldToType = (field: CardField) => CardFieldToTypeMap[field];
-
-export type CardFieldIdentifier = { cardID: CardID; cardField: CardField };

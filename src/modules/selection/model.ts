@@ -1,9 +1,10 @@
 import { SingleOrigin } from "../cards/model/origin";
 import { CardField } from "../cards/model/content";
-import { CardFieldIdentifier, UpdateType } from "../cards/model/config";
+import { CardID, UpdateType } from "../cards/model/config";
 
 export type SelectionSourceConfig = { contentStr: string; contentOrigin?: SingleOrigin };
 
+export type CardFieldIdentifier = { cardID: CardID; cardField: CardField };
 export type SelectionExistingCardGoalConfig = CardFieldIdentifier & { updateType: UpdateType };
 export type SelectionGoalConfig = SelectionExistingCardGoalConfig | { cardField: CardField };
 export const goalIsCreation = (goalConfig: SelectionGoalConfig) => {

@@ -10,6 +10,7 @@ import {
 import { ArchiveCards } from "../db/model";
 import db from "../db";
 import { ClayMemoryPayloadAction } from "../../shared/utils";
+import { cardPayloadToCardConfig } from "./model/payload";
 
 const intialState: CardsState = {
 	cards: {
@@ -31,8 +32,9 @@ const intialState: CardsState = {
 const cards = (state = intialState, { type, payload }: ClayMemoryPayloadAction) => {
 	switch (type) {
 		case t.CARD_PUSH:
+			const cardConfig = cardPayloadToCardConfig(payload, state);
 			const lastCardIDNumber = cardIDToNumber(payload.cardID) + 1;
-			return { ...state, cards: addCardToCards(state.cards, payload), lastCardIDNumber };
+			return { ...state, cards: addCardToCards(state.cards, cardConfig), lastCardIDNumber };
 		case t.CARD_REPLACE:
 			return { ...state, cards: updateCardInCards(state.cards, payload) };
 		case t.CARD_REMOVE:

@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import text from "../../text";
-import { CreationType, CardFieldIdentifier } from "../../cards/model/config";
 import { getGoalConfig, getSourceConfig } from "../selectors";
 import { addCardAppendSelectionGoal, resetSelectionGoal } from "../actions";
-import { SelectionExistingCardGoalConfig } from "../model";
+import { SelectionExistingCardGoalConfig, CardFieldIdentifier } from "../model";
+import { CardField } from "../../cards/model/content";
 
-export const AppendButton = ({ cardField, cardID }: { cardField: CreationType; cardID: string }) => {
+export const AppendButton = ({ cardField, cardID }: { cardField: CardField; cardID: string }) => {
 	const dispatch = useDispatch();
 
 	const sourceConfig = useSelector(getSourceConfig);
