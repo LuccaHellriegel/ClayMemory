@@ -5,6 +5,7 @@ import db from "../db";
 import { collectCurrentDBData } from "./selectors";
 import { DocumentData } from "../db/model";
 import * as t from "./actionTypes";
+import { ClayMemoryAction, ClayMemoryPayloadAction } from "../../shared/utils";
 
 export const archiveCurrentDBData = () => {
 	return (dispatch: Dispatch, getState: Function) => {
@@ -30,11 +31,11 @@ export const downloadDBData = () => {
 	};
 };
 
-export const undoActionHistory = (action: string) => {
+export const undoActionHistory = (action: string): ClayMemoryPayloadAction => {
 	return { type: t.UNDO_ACTION_HISTORY, payload: action };
 };
 
-export const redoActionHistory = (action: string) => {
+export const redoActionHistory = (action: string): ClayMemoryPayloadAction => {
 	return { type: t.REDO_ACTION_HISTORY, payload: action };
 };
 
@@ -69,9 +70,9 @@ export const changeDocument = (pdf: File) => {
 		// load new data or reset
 		const newDocumentData = documentDB[newPDFName];
 		if (newDocumentData) {
-			dispatch({ type: db.actionTypes.DOCUMENT_CHANGE, payload: newDocumentData });
+			dispatch({ type: db.actionTypes.DOCUMENT_CHANGE, payload: newDocumentData } as ClayMemoryPayloadAction);
 		} else {
-			dispatch({ type: db.actionTypes.DOCUMENT_CHANGE });
+			dispatch({ type: db.actionTypes.DOCUMENT_CHANGE } as ClayMemoryAction);
 		}
 
 		// no undo-redo across documents
@@ -95,7 +96,7 @@ export const loadSavedDocument = (document: string) => {
 
 		// load new data
 		const newDocumentData = documentDB[document];
-		dispatch({ type: db.actionTypes.DOCUMENT_CHANGE, payload: newDocumentData });
+		dispatch({ type: db.actionTypes.DOCUMENT_CHANGE, payload: newDocumentData } as ClayMemoryPayloadAction);
 
 		// no undo-redo across documents
 		removeActionHistory(dispatch);
@@ -108,7 +109,7 @@ export const deleteDocument = (document: string) => {
 		const activeDocument = display.selectors.getPDFName(state);
 		if (activeDocument && activeDocument === document) {
 			// reset data
-			dispatch({ type: db.actionTypes.DOCUMENT_CHANGE });
+			dispatch({ type: db.actionTypes.DOCUMENT_CHANGE } as ClayMemoryAction);
 
 			// keeping the undo history leads to weird edge cases and makes no sense
 			removeActionHistory(dispatch);

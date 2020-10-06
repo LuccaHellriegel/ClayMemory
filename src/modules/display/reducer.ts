@@ -1,6 +1,7 @@
 import * as t from "./actionTypes";
 import { DisplayData, DisplayStatus, View } from "./model";
 import db from "../db";
+import { ClayMemoryPayloadAction } from "../../shared/utils";
 
 const initialState: DisplayData = {
 	displayStatus: "SHOW",
@@ -14,7 +15,7 @@ const initialState: DisplayData = {
 	currentView: View.RiverMaterial,
 };
 
-const displayData = (state = initialState, { type, payload }: { type: string; payload: any }): DisplayData => {
+const displayData = (state = initialState, { type, payload }: ClayMemoryPayloadAction): DisplayData => {
 	switch (type) {
 		case t.PDF_UPLOADED:
 			return { ...state, pdf: payload as File, pdfName: (payload as File).name };

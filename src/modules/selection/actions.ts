@@ -7,17 +7,18 @@ import { selectionToCard } from "./services/use-selection";
 import { getSelectionSourceFromMaterial, getSelectionSourceFromCard } from "./services/get-selection";
 import { CardID } from "../cards/model/config";
 import { CardField } from "../cards/model/content";
+import { ClayMemoryPayloadAction } from "../../shared/utils";
 
-const setSelectionSource = (config: SelectionSourceConfig) => {
+const setSelectionSource = (config: SelectionSourceConfig): ClayMemoryPayloadAction => {
 	return { type: t.SELECTION_SOURCE, payload: config };
 };
-export const resetSelectionSource = () => {
+export const resetSelectionSource = (): ClayMemoryPayloadAction => {
 	return { type: t.SELECTION_SOURCE, payload: null };
 };
-const setSelectionGoal = (config: SelectionGoalConfig) => {
+const setSelectionGoal = (config: SelectionGoalConfig): ClayMemoryPayloadAction => {
 	return { type: t.SELECTION_GOAL, payload: config };
 };
-export const resetSelectionGoal = () => {
+export const resetSelectionGoal = (): ClayMemoryPayloadAction => {
 	return { type: t.SELECTION_GOAL, payload: null };
 };
 

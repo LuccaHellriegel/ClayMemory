@@ -10,6 +10,7 @@ import cards from "../cards";
 import * as t from "./actionTypes";
 import { ArchiveRiver } from "../db/model";
 import db from "../db";
+import { ClayMemoryPayloadAction } from "../../shared/utils";
 
 const initialState: CardRiverState = {
 	requestedOrigin: null,
@@ -28,7 +29,7 @@ const initialState: CardRiverState = {
 
 // TODO-NICE: adding to one river forces all of them to update, should not be a problem, because we only render 2-3 rivers,
 // but memo just in case?
-const cardRiverState = (state = initialState, { type, payload }: { type: string; payload: any }): CardRiverState => {
+const cardRiverState = (state = initialState, { type, payload }: ClayMemoryPayloadAction): CardRiverState => {
 	let riverMakeUp;
 	let riverMakeUps;
 	switch (type) {

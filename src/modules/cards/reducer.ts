@@ -9,6 +9,7 @@ import {
 } from "./model/state";
 import { ArchiveCards } from "../db/model";
 import db from "../db";
+import { ClayMemoryPayloadAction } from "../../shared/utils";
 
 const intialState: CardsState = {
 	cards: {
@@ -27,7 +28,7 @@ const intialState: CardsState = {
 	lastCardIDNumber: 2,
 };
 
-const cards = (state = intialState, { type, payload }: { type: string; payload?: any }) => {
+const cards = (state = intialState, { type, payload }: ClayMemoryPayloadAction) => {
 	switch (type) {
 		case t.CARD_PUSH:
 			const lastCardIDNumber = cardIDToNumber(payload.cardID) + 1;

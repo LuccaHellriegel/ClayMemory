@@ -1,3 +1,4 @@
+import { ClayMemoryPayloadAction } from "../../shared/utils";
 import * as t from "./actionTypes";
 import { SelectionData } from "./model";
 
@@ -6,7 +7,7 @@ const initialState: SelectionData = {
 	goalConfig: null,
 };
 
-const selectionData = (state = initialState, { type, payload }: { type: string; payload: any }): SelectionData => {
+const selectionData = (state = initialState, { type, payload }: ClayMemoryPayloadAction): SelectionData => {
 	switch (type) {
 		case t.SELECTION_SOURCE:
 			return { ...state, sourceConfig: payload };

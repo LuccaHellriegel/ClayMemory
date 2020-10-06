@@ -1,3 +1,4 @@
+import { ClayMemoryPayloadAction } from "../../shared/utils";
 import * as t from "./actionTypes";
 import { Model, undoableActions } from "./model";
 
@@ -9,7 +10,7 @@ const initialState: Model = {
 
 //TODO-NICE: need to reset this sometime (same point as with redux-undo history)
 
-const control = (state = initialState, { type }: { type: string; payload?: any }): Model => {
+const control = (state = initialState, { type }: ClayMemoryPayloadAction): Model => {
 	if (undoableActions.includes(type)) {
 		// only keep full history up to 15
 		let past = state.past.length === 15 ? state.past.slice(1) : state.past;

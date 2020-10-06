@@ -23,3 +23,6 @@ export const keyEventDispatcherCreator = (keyMap: KeyActionMap): KeyEventDispatc
 		dispatch(action);
 	}
 };
+
+export type ClayMemoryAction = { type: string };
+export type ClayMemoryPayloadAction = { type: string; payload: any };
