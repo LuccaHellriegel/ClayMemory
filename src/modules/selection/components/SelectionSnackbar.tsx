@@ -1,5 +1,5 @@
-import React, { useState, Fragment, useEffect } from "react";
-import { Snackbar, IconButton } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { Snackbar, IconButton, Typography, Card, Grid, Divider } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { resetSelectionSource } from "../actions";
@@ -29,14 +29,6 @@ export const SelectionSnackbar = () => {
 		dispatch(resetSelectionSource());
 	};
 
-	const message = (
-		<Fragment>
-			<div>{"Current Selection: "}</div>
-			<div style={{ color: "green" }}> {sourceConfig?.contentStr}</div>
-			{sourceConfig?.contentOrigin && <div style={{ color: "red" }}> From Page {sourceConfig.contentOrigin.page}</div>}
-		</Fragment>
-	);
-
 	const escPress = (event: KeyboardEvent) => {
 		if (open && (event.key === "Escape" || event.key === "Esc")) {
 			handleDismiss();
@@ -55,7 +47,45 @@ export const SelectionSnackbar = () => {
 			anchorOrigin={{ vertical: "top", horizontal: "center" }}
 			open={open}
 			onClose={handleClose}
-			message={message}
+			message={
+				<Grid container direction="row" spacing={1}>
+					<Grid item>
+						<Card
+							variant="outlined"
+							color="secondary"
+							style={{ padding: "4px", color: "white", backgroundColor: "#3f51b5" }}
+							square={true}
+						>
+							<Typography variant="h4">{"Selection:"}</Typography>
+						</Card>
+
+						<Card variant="outlined" style={{ padding: "4px", color: "black", backgroundColor: "white" }} square={true}>
+							<Typography variant="body1">{sourceConfig?.contentStr}</Typography>
+						</Card>
+					</Grid>
+
+					{sourceConfig?.contentOrigin && (
+						<Grid item>
+							<Card
+								variant="outlined"
+								color="secondary"
+								style={{ padding: "4px", color: "black", backgroundColor: "white" }}
+								square={true}
+							>
+								<Typography variant="h4">{"Origin:"}</Typography>
+							</Card>
+
+							<Card
+								variant="outlined"
+								style={{ padding: "4px", color: "white", backgroundColor: "#3f51b5" }}
+								square={true}
+							>
+								<Typography variant="body1">Page {sourceConfig.contentOrigin.page}</Typography>
+							</Card>
+						</Grid>
+					)}
+				</Grid>
+			}
 			action={
 				<IconButton size="small" aria-label="close" color="inherit" onClick={handleDismiss}>
 					<CloseIcon fontSize="small" />
