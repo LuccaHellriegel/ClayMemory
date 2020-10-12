@@ -157,6 +157,7 @@ export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
 						pageNumber={pageNumber}
 						width={materialWidth * MaterialMultiplier}
 						customTextRenderer={textRenderer as any}
+						renderAnnotationLayer={false}
 					/>
 				</PageKeyboardControl>
 			</selection.components.MaterialMouseUp>
