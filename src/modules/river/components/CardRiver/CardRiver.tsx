@@ -19,7 +19,6 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 	const riverMakeUp = useSelector(getRiverMakeUps)[riverID];
 	const riverCards = riverMakeUp ? riverMakeUp.cardIDs.map((id) => cardConfigs[id]) : [];
 	const riverContentState = useSelector(getRiverContentState);
-
 	//TODO: use regex for upper/lower-case
 	const contentFilter = useSelector(getRiverContentFilter);
 
@@ -50,7 +49,6 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 				}
 				return false;
 			});
-
 		return ClayCardGridItems(inputCards);
 	}, [riverCards, riverContentState, contentFilter]);
 

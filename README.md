@@ -1,5 +1,7 @@
 # ClayMemory - sculpt your mind
 
+STATUS: prototype for research purposes.
+
 React-based reader and editor for creating notes and flash cards directly from PDF documents.
 
 Try the prototype: [https://luccahellriegel.github.io/ClayMemory](https://luccahellriegel.github.io/ClayMemory)

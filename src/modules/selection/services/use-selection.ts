@@ -41,7 +41,7 @@ export const selectionToCard = (
 	sourceConfig: SelectionSourceConfig,
 	goalConfig: SelectionGoalConfig,
 	dispatch: any,
-	state?: any
+	state: any
 ) => {
 	const isCreation = goalIsCreation(goalConfig);
 	if (isCreation) {

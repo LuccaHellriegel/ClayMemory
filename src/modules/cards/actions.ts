@@ -1,13 +1,16 @@
 import { CardConfig, CardID, strToCardConfig } from "./model/config";
-import { CardPayload, emptyNotePayload, emptyQAPayload } from "./model/payload";
+import { CardPayload, cardPayloadToCardConfig, emptyNotePayload, emptyQAPayload } from "./model/payload";
 import * as t from "./actionTypes";
 import { CardField } from "./model/content";
 import { ClayMemoryPayloadAction } from "../../shared/utils";
+import { Dispatch } from "redux";
 
-export const cardPush = (payload: CardPayload): ClayMemoryPayloadAction => {
-	return {
-		type: t.CARD_PUSH,
-		payload,
+export const cardPush = (cardPayload: CardPayload) => {
+	return (dispatch: Dispatch, getState: Function) => {
+		dispatch({
+			type: t.CARD_PUSH,
+			payload: cardPayloadToCardConfig(cardPayload, getState()),
+		} as ClayMemoryPayloadAction);
 	};
 };
 export const emptyNoteCard = () => cardPush(emptyNotePayload());
