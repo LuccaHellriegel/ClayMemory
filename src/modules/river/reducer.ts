@@ -17,11 +17,10 @@ const initialState: CardRiverState = {
 	riverMakeUps: {
 		[pageNumberToRiverMakeUpID(1)]: {
 			riverID: pageNumberToRiverMakeUpID(1),
-			cardIDs: ["2", "0", "1"],
+			cardIDs: [],
 		},
 	},
 	activeRiverMakeUpID: pageNumberToRiverMakeUpID(1),
-	lastRiverIDNumber: 1,
 	riverShowState: "SHOW",
 	riverContentState: "ALL",
 	contentFilter: "",
@@ -65,7 +64,6 @@ const cardRiverState = (state = initialState, { type, payload }: ClayMemoryPaylo
 				return {
 					...initialState,
 					riverMakeUps: (payload as ArchiveRiver).riverMakeUps,
-					lastRiverIDNumber: (payload as ArchiveRiver).lastRiverIDNumber,
 				};
 			} else {
 				return initialState;
@@ -78,7 +76,6 @@ const cardRiverState = (state = initialState, { type, payload }: ClayMemoryPaylo
 				return {
 					...initialState,
 					riverMakeUps: (payload.newActiveDataSet as ArchiveRiver).riverMakeUps,
-					lastRiverIDNumber: (payload.newActiveDataSet as ArchiveRiver).lastRiverIDNumber,
 				};
 			} else {
 				return state;

@@ -23,7 +23,6 @@ export type CardRiverState = {
 	requestedOrigin: SingleOrigin | null;
 	riverMakeUps: RiverMakeUps;
 	activeRiverMakeUpID: string;
-	lastRiverIDNumber: number;
 	// show/hide river
 	riverShowState: RiverShowState;
 	// filter content

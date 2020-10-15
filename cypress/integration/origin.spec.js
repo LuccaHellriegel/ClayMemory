@@ -6,7 +6,6 @@ describe("main functionality: jump to origin", () => {
 			.setTextAsSelection("A Simple PDF")
 			.openContextMenu()
 			.aFromContextMenu()
-			.removeInitialCardRiver1Cards()
 			.reload()
 			.uploadPDFtoAppSecondTime("sample.pdf")
 			.get(
@@ -24,7 +23,6 @@ describe("main functionality: jump to origin", () => {
 			.setTextAsSelection("A Simple PDF")
 			.openContextMenu()
 			.qFromContextMenu()
-			.removeInitialCardRiver1Cards()
 			.reload()
 			.uploadPDFtoAppSecondTime("sample.pdf")
 			.get(
@@ -42,7 +40,6 @@ describe("main functionality: jump to origin", () => {
 			.setTextAsSelection("A Simple PDF")
 			.openContextMenu()
 			.aFromContextMenu()
-			.removeInitialCardRiver1Cards()
 			.reload()
 			.uploadPDFtoAppSecondTime("sample.pdf")
 			.setPage(2)
@@ -68,7 +65,7 @@ describe("main functionality: jump to origin", () => {
 // 			.openContextMenu()
 // 			.noteFromContextMenu()
 // 			.emptyQA()
-// 			.removeInitialCardRiver1Cards()
+//
 // 			.reload()
 // 			.uploadPDFtoAppSecondTime("sample.pdf")
 // 			.get(

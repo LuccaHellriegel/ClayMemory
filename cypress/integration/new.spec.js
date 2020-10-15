@@ -6,7 +6,6 @@ describe("main functionality: new card from ContextMenu", () => {
 			.setTextAsSelection("A Simple PDF")
 			.openContextMenu()
 			.aFromContextMenu()
-			.removeInitialCardRiver1Cards()
 			.reload()
 			.uploadPDFtoAppSecondTime("sample.pdf")
 			.get(
@@ -21,7 +20,6 @@ describe("main functionality: new card from ContextMenu", () => {
 			.setTextAsSelection("A Simple PDF")
 			.openContextMenu()
 			.qFromContextMenu()
-			.removeInitialCardRiver1Cards()
 			.reload()
 			.uploadPDFtoAppSecondTime("sample.pdf")
 			.get(
@@ -36,7 +34,6 @@ describe("main functionality: new card from ContextMenu", () => {
 			.setTextAsSelection("A Simple PDF")
 			.openContextMenu()
 			.noteFromContextMenu()
-			.removeInitialCardRiver1Cards()
 			.reload()
 			.uploadPDFtoAppSecondTime("sample.pdf")
 			.get(

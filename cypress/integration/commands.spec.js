@@ -40,7 +40,4 @@ describe("test ClayMemory-commands", () => {
 	it("emptyQA", () => {
 		cy.visitGitHubPage().uploadPDFtoApp("sample.pdf").emptyQA();
 	});
-	it("removeInitialCardRiver1Cards", () => {
-		cy.visitGitHubPage().uploadPDFtoApp("sample.pdf").removeInitialCardRiver1Cards();
-	});
 });

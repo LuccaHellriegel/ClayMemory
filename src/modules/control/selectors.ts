@@ -12,17 +12,15 @@ export const collectCurrentDBData: (state: any) => DocumentData | null = createS
 	display.selectors.getCurrentPage,
 	river.selectors.getRiverMakeUps,
 	river.selectors.getActiveRiverMakeUpID,
-	river.selectors.getLastRiverIDNumber,
 	cards.selectors.getCards,
 	cards.selectors.getLastCardIDNumber,
-	(pdfName, totalPages, currentPage, riverMakeUps, activeRiverMakeUpID, lastRiverIDNumber, cards, lastCardIDNumber) => {
+	(pdfName, totalPages, currentPage, riverMakeUps, activeRiverMakeUpID, cards, lastCardIDNumber) => {
 		return {
 			name: pdfName as string,
 			totalPages,
 			currentPage,
 			riverMakeUps,
 			activeRiverMakeUpID,
-			lastRiverIDNumber,
 			cards,
 			lastCardIDNumber,
 		};
