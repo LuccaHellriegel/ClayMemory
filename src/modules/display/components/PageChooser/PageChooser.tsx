@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography, TextField, Card, Grid } from "@material-ui/core";
 import { setPage } from "../../actions";
-import { getPageControlData } from "../../selectors";
+import { getCurrentPage, getTotalPages } from "../../selectors";
 
 const nonDigitRegEx = /(\D)/;
 
@@ -15,9 +15,9 @@ export const validatePageChoice = (possiblePage: string, totalPages: number) => 
 	return true;
 };
 
-export const PageChooser = () => {
+const PageNumberTextField = ({ totalPages }: { totalPages: number }) => {
 	const dispatch = useDispatch();
-	const { currentPage, totalPages } = useSelector(getPageControlData);
+	const currentPage = useSelector(getCurrentPage);
 
 	const [state, setState] = useState({
 		error: false,
@@ -32,48 +32,60 @@ export const PageChooser = () => {
 	}
 
 	return (
+		<TextField
+			inputProps={{
+				style: {
+					padding: "0px",
+					//h6 Typography style
+					fontSize: "1.25rem",
+					fontFamily: '"Roboto", "Helvetica", "Arial", sansSerif',
+					fontWeight: 500,
+					lineHeight: 1.6,
+					letterSpacing: "0.0075em",
+				},
+			}}
+			type="text"
+			variant="filled"
+			value={state.userInput}
+			onKeyDown={(event) => {
+				if (event.key === "Enter") {
+					event.preventDefault();
+					const submittedValue = (event.target as HTMLFormElement).value;
+					if (!state.error) {
+						dispatch(setPage(parseInt(submittedValue), true));
+					}
+				}
+			}}
+			onChange={(event) => {
+				const submittedValue = (event.target as HTMLTextAreaElement).value;
+				if (validatePageChoice(submittedValue, totalPages as number)) {
+					setState({ ...state, error: false, userInput: submittedValue });
+				} else {
+					setState({ ...state, error: true, userInput: submittedValue });
+				}
+			}}
+			error={state.error}
+		/>
+	);
+};
+
+const TotalPagesIndicator = ({ totalPages }: { totalPages: number }) => (
+	<Typography variant="h6">of {totalPages}</Typography>
+);
+
+export const PageChooser = () => {
+	const totalPages = useSelector(getTotalPages);
+
+	return (
 		<Card variant="outlined">
 			<Grid item>
 				<Grid container direction="row" alignItems="center" justify="space-between">
 					<Grid item style={{ width: "37%" }}>
-						<TextField
-							inputProps={{
-								style: {
-									padding: "0px",
-									//h6 Typography style
-									fontSize: "1.25rem",
-									fontFamily: '"Roboto", "Helvetica", "Arial", sansSerif',
-									fontWeight: 500,
-									lineHeight: 1.6,
-									letterSpacing: "0.0075em",
-								},
-							}}
-							type="text"
-							variant="filled"
-							value={state.userInput}
-							onKeyDown={(event) => {
-								if (event.key === "Enter") {
-									event.preventDefault();
-									const submittedValue = (event.target as HTMLFormElement).value;
-									if (!state.error) {
-										dispatch(setPage(parseInt(submittedValue), true));
-									}
-								}
-							}}
-							onChange={(event) => {
-								const submittedValue = (event.target as HTMLTextAreaElement).value;
-								if (validatePageChoice(submittedValue, totalPages as number)) {
-									setState({ ...state, error: false, userInput: submittedValue });
-								} else {
-									setState({ ...state, error: true, userInput: submittedValue });
-								}
-							}}
-							error={state.error}
-						/>
+						<PageNumberTextField totalPages={totalPages}></PageNumberTextField>
 					</Grid>
 
 					<Grid item style={{ width: "61%" }}>
-						<Typography variant="h6">of {totalPages}</Typography>
+						<TotalPagesIndicator totalPages={totalPages}></TotalPagesIndicator>
 					</Grid>
 				</Grid>
 			</Grid>
