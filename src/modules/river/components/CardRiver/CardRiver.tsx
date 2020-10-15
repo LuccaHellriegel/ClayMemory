@@ -3,7 +3,7 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Grid from "@material-ui/core/Grid";
-import React, { useMemo } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { getRiverContentState, getRiverContentFilter, getRiverMakeUps } from "../../selectors";
 import cards from "../../../cards";
@@ -23,7 +23,7 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 	const contentFilter = useSelector(getRiverContentFilter);
 
 	// this should only change if the store values change
-	const gridItems = useMemo(() => {
+	const gridItems = (() => {
 		let inputCards = riverCards;
 
 		if (riverContentState === "NONE") {
@@ -50,7 +50,7 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 				return false;
 			});
 		return ClayCardGridItems(inputCards);
-	}, [riverCards, riverContentState, contentFilter]);
+	})();
 
 	//TODO: if you start without any document and then load one, the current cards should be merged into that one
 	//TODO: scroll-to-top for overflowing river

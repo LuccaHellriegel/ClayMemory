@@ -1,6 +1,5 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
-import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { incrementer } from "../../../shared/utils";
 import cards from "../../cards";
@@ -27,7 +26,7 @@ export const CardExplorer = () => {
 	//TODO: use regex for upper/lower-case
 	const contentFilter = useSelector(river.selectors.getRiverContentFilter);
 
-	const gridItems = useMemo(() => {
+	const gridItems = (() => {
 		let inputCards = cardObjects;
 
 		if (riverContentState === "NONE") {
@@ -55,7 +54,7 @@ export const CardExplorer = () => {
 			});
 
 		return ClayCardExplorerGridItems(inputCards);
-	}, [cardObjects, riverContentState, contentFilter]);
+	})();
 
 	return (
 		<Grid
