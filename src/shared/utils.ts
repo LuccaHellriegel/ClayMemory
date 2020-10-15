@@ -26,3 +26,6 @@ export const keyEventDispatcherCreator = (keyMap: KeyActionMap): KeyEventDispatc
 
 export type ClayMemoryAction = { type: string };
 export type ClayMemoryPayloadAction = { type: string; payload: any };
+
+export type Filter = (element: any) => boolean;
+export const combineFilterArr = (filters: Filter[]) => (x: any) => filters.reduce((b, f) => b || f(x), false);

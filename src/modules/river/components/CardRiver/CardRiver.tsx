@@ -7,11 +7,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { getRiverContentState, getRiverContentFilter, getRiverMakeUps } from "../../selectors";
 import cards from "../../../cards";
-import { NoteConfig, QAConfig } from "../../../cards/model/config";
 import { ClayCardGridItems } from "./ClayCardGridItems";
-
-//TODO: make it not be accordion but closeable?
-//TODO: make local show / hide notes
+import { filterCardConfigs } from "../../services/filterCardConfigs";
 
 export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materialHeight: number }) => {
 	const cardConfigs = useSelector(cards.selectors.getCards);
@@ -22,35 +19,8 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 	//TODO: use regex for upper/lower-case
 	const contentFilter = useSelector(getRiverContentFilter);
 
-	// this should only change if the store values change
-	const gridItems = (() => {
-		let inputCards = riverCards;
-
-		if (riverContentState === "NONE") {
-			return [];
-		}
-
-		if (riverContentState !== "ALL") {
-			if (riverContentState === "QAS") {
-				inputCards = riverCards.filter((config) => config.type === "Q-A");
-			}
-			if (riverContentState === "NOTES") {
-				inputCards = riverCards.filter((config) => config.type === "Note");
-			}
-		}
-		//TODO: optimize this waste, move this out of the memo as it changes more rapidly
-		if (contentFilter !== "")
-			inputCards = inputCards.filter((card) => {
-				switch (card.type) {
-					case "Note":
-						return cards.model.content.noteContentContainsStringOrEmpty(card as NoteConfig, contentFilter);
-					case "Q-A":
-						return cards.model.content.qaContentContainsStringOrEmpty(card as QAConfig, contentFilter);
-				}
-				return false;
-			});
-		return ClayCardGridItems(inputCards);
-	})();
+	const filteredConfigs = filterCardConfigs(riverCards, riverContentState, contentFilter);
+	const gridItems = ClayCardGridItems(filteredConfigs);
 
 	//TODO: if you start without any document and then load one, the current cards should be merged into that one
 	//TODO: scroll-to-top for overflowing river
