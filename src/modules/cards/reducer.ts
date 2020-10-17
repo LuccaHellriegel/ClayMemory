@@ -1,7 +1,6 @@
 import * as t from "./actionTypes";
 import { cardIDToNumber } from "./model/config";
 import { CardsState, removeCardFromCardsState, updateCardInCards } from "./model/state";
-import { ArchiveCards } from "../db/model";
 import db from "../db";
 import { ClayMemoryPayloadAction } from "../../shared/utils";
 
@@ -19,16 +18,10 @@ const cards = (state = intialState, { type, payload }: ClayMemoryPayloadAction) 
 			return { ...state, cards: updateCardInCards(state.cards, payload) };
 		case t.CARD_REMOVE:
 			return removeCardFromCardsState(state, payload as string);
-		case db.actionTypes.DOCUMENT_CHANGE:
-			if (payload) {
-				return {
-					...intialState,
-					cards: (payload as ArchiveCards).cards,
-					lastCardIDNumber: (payload as ArchiveCards).lastCardIDNumber,
-				};
-			} else {
-				return intialState;
-			}
+		case t.CARDS_REPLACE:
+			return payload as CardsState;
+		case t.CARDS_RESET:
+			return intialState;
 		case db.actionTypes.LOAD_DOCUMENT_DATA_SETS:
 			// basically the same as DOCUMENT_CHANGE, just only triggered
 			// when uploading data that corresponds to current document
@@ -36,8 +29,8 @@ const cards = (state = intialState, { type, payload }: ClayMemoryPayloadAction) 
 			if (payload.newActiveDataSet) {
 				return {
 					...intialState,
-					cards: (payload as ArchiveCards).cards,
-					lastCardIDNumber: (payload as ArchiveCards).lastCardIDNumber,
+					cards: (payload as CardsState).cards,
+					lastCardIDNumber: (payload as CardsState).lastCardIDNumber,
 				};
 			} else {
 				return state;

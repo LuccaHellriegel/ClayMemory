@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import React, { ChangeEvent, Fragment, useRef, MutableRefObject } from "react";
 import { MenuItem, Button } from "@material-ui/core";
-import { changeDocument } from "../../actions";
+import { loadPDF } from "../../actions";
 import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
 //TODO: have way to merge two document-workspaces
 export const InputDocument = ({ handleClose, label }: any) => {
@@ -32,7 +32,7 @@ export const InputDocument = ({ handleClose, label }: any) => {
 					const files = event.target.files;
 					const pdf = files ? files[0] : null;
 					if (pdf) {
-						dispatch(changeDocument(pdf));
+						dispatch(loadPDF(pdf));
 					}
 					handleClose();
 				}}

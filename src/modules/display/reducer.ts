@@ -1,7 +1,7 @@
 import * as t from "./actionTypes";
 import { DisplayData, DisplayStatus, View } from "./model";
-import db from "../db";
 import { ClayMemoryPayloadAction } from "../../shared/utils";
+import { ExistingDocumentPayload } from "./actions";
 
 const initialState: DisplayData = {
 	displayStatus: "SHOW",
@@ -38,23 +38,12 @@ const displayData = (state = initialState, { type, payload }: ClayMemoryPayloadA
 			};
 		case t.VIEW_CHANGE:
 			return { ...state, currentView: payload };
-		case db.actionTypes.DOCUMENT_CHANGE:
-			if (payload) {
-				// this means the pdf has been already uploaded (Load Document) and this was not triggered not via options
-				if (payload.name === state.pdfName) {
-					return state;
-				}
-				return {
-					...initialState,
-					pdf: undefined,
-					pdfName: payload.name,
-					totalPages: payload.totalPages,
-					currentPage: payload.currentPage,
-				};
-			} else {
-				// dont need to reset here because when loading pdf we set automatically via other actions
-				return state;
-			}
+		case t.LOAD_EXISTING_DOCUMENT:
+			return {
+				...initialState,
+				pdf: undefined,
+				...(payload as ExistingDocumentPayload),
+			};
 		default:
 			return state;
 	}

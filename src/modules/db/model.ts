@@ -4,15 +4,13 @@ import { DisplayData } from "../display/model";
 
 export type ArchiveRiver = Pick<CardRiverState, "riverMakeUps">;
 
-export type ArchiveCards = Pick<CardsState, "cards" | "lastCardIDNumber">;
-
 type ArchiveDisplay = Pick<DisplayData, "currentPage" | "totalPages">;
 
 export type DocumentData = {
 	name: string;
 } & ArchiveDisplay &
 	ArchiveRiver &
-	ArchiveCards;
+	CardsState;
 
 export type DocumentDB = { [name: string]: DocumentData };
 

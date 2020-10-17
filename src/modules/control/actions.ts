@@ -6,6 +6,8 @@ import { collectCurrentDBData } from "./selectors";
 import { DocumentData } from "../db/model";
 import * as t from "./actionTypes";
 import { ClayMemoryPayloadAction } from "../../shared/utils";
+import cards from "../cards";
+import river from "../river";
 
 export const archiveCurrentDBData = () => {
 	return (dispatch: Dispatch, getState: Function) => {
@@ -44,7 +46,28 @@ export const removeActionHistory = (dispatch: Dispatch) => {
 	dispatch({ type: t.REMOVE_ACTION_HISTORY });
 };
 
-export const changeDocument = (pdf: File) => {
+export const resetActiveAppState = (dispatch: Dispatch) => {
+	dispatch(cards.actions.resetCards());
+	dispatch(river.actions.resetRivers());
+};
+
+export const replaceActiveAppState = (dispatch: Dispatch, newDocumentData: DocumentData, currentPDFName?: string) => {
+	dispatch(
+		cards.actions.replaceCards({ cards: newDocumentData.cards, lastCardIDNumber: newDocumentData.lastCardIDNumber })
+	);
+	dispatch(river.actions.replaceRivers(newDocumentData.riverMakeUps));
+	if (currentPDFName && newDocumentData.name !== currentPDFName) {
+		//existing pdf is unequal to loaded data, so need to replace
+		//pdf is not replaced, because when we load only data, the pdf is not yet uploaded
+		dispatch(
+			display.actions.loadExistingDocument(
+				(({ name, currentPage, totalPages }) => ({ pdfName: name, currentPage, totalPages }))(newDocumentData)
+			)
+		);
+	}
+};
+
+export const loadPDF = (pdf: File) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const newPDFName = pdf.name;
 
@@ -67,12 +90,11 @@ export const changeDocument = (pdf: File) => {
 		if (newPDFName === currentPDFName) {
 			return;
 		}
-		// load new data or reset
 		const newDocumentData = documentDB[newPDFName];
 		if (newDocumentData) {
-			dispatch(db.actions.changeDocument(newDocumentData));
+			replaceActiveAppState(dispatch, newDocumentData);
 		} else {
-			dispatch(db.actions.changeDocument());
+			resetActiveAppState(dispatch);
 		}
 
 		// no undo-redo across documents
@@ -93,9 +115,8 @@ export const loadSavedDocument = (document: string) => {
 			dispatch(db.actions.archiveDBData(dbData));
 		}
 
-		// load new data
 		const newDocumentData = documentDB[document];
-		dispatch(db.actions.changeDocument(newDocumentData));
+		replaceActiveAppState(dispatch, newDocumentData, currentPDFName);
 
 		// no undo-redo across documents
 		removeActionHistory(dispatch);
@@ -107,8 +128,7 @@ export const deleteDocument = (document: string) => {
 		const state = getState();
 		const activeDocument = display.selectors.getPDFName(state);
 		if (activeDocument && activeDocument === document) {
-			// reset data
-			dispatch(db.actions.changeDocument());
+			resetActiveAppState(dispatch);
 
 			// keeping the undo history leads to weird edge cases and makes no sense
 			removeActionHistory(dispatch);

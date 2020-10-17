@@ -1,9 +1,10 @@
 import * as t from "./actionTypes";
 import { riverShowStateIsShow, getActiveRiverMakeUpID } from "./selectors";
 import { Dispatch } from "redux";
-import { RiverContentState, ContentFilter } from "./model";
+import { RiverContentState, ContentFilter, RiverMakeUps } from "./model";
 import { SingleOrigin } from "../cards/model/origin";
 import { ClayMemoryPayloadAction } from "../../shared/utils";
+import { createAction } from "@reduxjs/toolkit";
 
 export const toggleRiverShowState = () => (dispatch: Dispatch, getState: Function) => {
 	dispatch({
@@ -40,4 +41,9 @@ export const setOriginRequest = (origin: SingleOrigin | null): ClayMemoryPayload
 
 export const resetOriginRequest = () => {
 	return setOriginRequest(null);
+};
+
+export const resetRivers = createAction(t.RIVER_RESET);
+export const replaceRivers = (makeUps: RiverMakeUps) => {
+	return { type: t.RIVER_REPLACE, payload: makeUps };
 };

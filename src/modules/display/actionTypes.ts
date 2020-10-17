@@ -13,3 +13,5 @@ export const WINDOW_LAYOUT = NAME + "/WINDOW_LAYOUT";
 export const TOP_OFFSET = NAME + "/TOP_OFFSET";
 
 export const VIEW_CHANGE = NAME + "/VIEW_CHANGE";
+
+export const LOAD_EXISTING_DOCUMENT = NAME + "/LOAD_EXISTING_DOCUMENT";

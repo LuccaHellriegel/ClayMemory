@@ -4,6 +4,8 @@ import * as t from "./actionTypes";
 import { CardField } from "./model/content";
 import { ClayMemoryPayloadAction } from "../../shared/utils";
 import { Dispatch } from "redux";
+import { createAction } from "@reduxjs/toolkit";
+import { CardsState } from "./model/state";
 
 export const cardPush = (cardPayload: CardPayload) => {
 	return (dispatch: Dispatch, getState: Function) => {
@@ -25,4 +27,9 @@ export const replaceCardFieldContent = (cardField: CardField, cardConfig: CardCo
 
 export const removeCard = (cardID: CardID): ClayMemoryPayloadAction => {
 	return { type: t.CARD_REMOVE, payload: cardID };
+};
+
+export const resetCards = createAction(t.CARDS_RESET);
+export const replaceCards = (cardsState: CardsState) => {
+	return { type: t.CARDS_REPLACE, payload: cardsState };
 };

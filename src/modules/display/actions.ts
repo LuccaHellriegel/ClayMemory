@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import * as t from "./actionTypes";
-import { PageMove, pageCorrections, View } from "./model";
+import { PageMove, pageCorrections, View, DisplayData } from "./model";
 import { getPageControlData, getDisplayStatus } from "./selectors";
 import { keyEventDispatcherCreator, KeyActionMap, ClayMemoryPayloadAction } from "../../shared/utils";
 import { SingleOrigin } from "../cards/model/origin";
@@ -72,4 +72,10 @@ export const setTopOffset = (offset: number): ClayMemoryPayloadAction => {
 
 export const setView = (view: View): ClayMemoryPayloadAction => {
 	return { type: t.VIEW_CHANGE, payload: view };
+};
+
+export type ExistingDocumentPayload = Pick<DisplayData, "pdfName" | "currentPage" | "totalPages">;
+
+export const loadExistingDocument = (payload: ExistingDocumentPayload) => {
+	return { type: t.LOAD_EXISTING_DOCUMENT, payload };
 };

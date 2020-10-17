@@ -4,6 +4,7 @@ import {
 	pageNumberToRiverMakeUpID,
 	RiverContentState,
 	removeCardFromRivers,
+	RiverMakeUps,
 } from "./model";
 import { CardConfig } from "../cards/model/config";
 import cards from "../cards";
@@ -59,15 +60,15 @@ const cardRiverState = (state = initialState, { type, payload }: ClayMemoryPaylo
 			return { ...state, riverMakeUps: riverMakeUps };
 		case cards.actionTypes.CARD_REMOVE:
 			return removeCardFromRivers(state, payload as string);
-		case db.actionTypes.DOCUMENT_CHANGE:
-			if (payload) {
-				return {
-					...initialState,
-					riverMakeUps: (payload as ArchiveRiver).riverMakeUps,
-				};
-			} else {
-				return initialState;
-			}
+
+		case t.RIVER_RESET:
+			return initialState;
+		case t.RIVER_REPLACE:
+			return {
+				...initialState,
+				riverMakeUps: payload as RiverMakeUps,
+			};
+
 		case db.actionTypes.LOAD_DOCUMENT_DATA_SETS:
 			// basically the same as DOCUMENT_CHANGE, just only triggered
 			//when uploading data that corresponds to current document
