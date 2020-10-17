@@ -1,5 +1,0 @@
-import { NAME } from "./constants";
-
-export const REDO_ACTION_HISTORY = NAME + "/REDO_ACTION_HISTORY";
-export const UNDO_ACTION_HISTORY = NAME + "/UNDO_ACTION_HISTORY";
-export const REMOVE_ACTION_HISTORY = NAME + "/REMOVE_ACTION_HISTORY";

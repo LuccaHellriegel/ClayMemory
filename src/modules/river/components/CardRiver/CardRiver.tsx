@@ -49,7 +49,13 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 			<AccordionDetails>
 				<Grid container direction="column" spacing={2} justify="center" alignItems="stretch">
 					<Grid item>
-						<cards.components.AddQAButton></cards.components.AddQAButton>
+						<span
+							onClick={() => {
+								console.log("here");
+							}}
+						>
+							<cards.components.AddQAButton></cards.components.AddQAButton>
+						</span>
 						<cards.components.AddNoteButton></cards.components.AddNoteButton>
 						<Divider></Divider>
 					</Grid>

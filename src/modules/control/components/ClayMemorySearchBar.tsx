@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SearchBar from "material-ui-search-bar";
 import river from "../../river";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Select } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import display from "../../display";
 
 //TODO: react-pdf alignment is broken for some pdfs and generally for non-body text,

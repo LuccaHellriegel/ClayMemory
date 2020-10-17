@@ -1,17 +1,31 @@
 import { useSelector, useDispatch } from "react-redux";
-import React, { ChangeEvent, Fragment, useRef, MutableRefObject } from "react";
-import { MenuItem, Button } from "@material-ui/core";
+import React, { ChangeEvent, Fragment, useRef, MutableRefObject, useState } from "react";
+import {
+	MenuItem,
+	Button,
+	DialogActions,
+	Dialog,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+} from "@material-ui/core";
 import display from "../../../display";
-import db from "../../../db";
 import { DocumentData } from "../../../db/model";
 import PublishIcon from "@material-ui/icons/Publish";
+import river from "../../../river";
+import cards from "../../../cards";
+import db from "../../../db";
+import { ActionCreators } from "redux-undo";
 
 export const InputDataSets = ({ handleClose, label }: any) => {
-	const dispatch = useDispatch();
-
-	const activeDocument = useSelector(display.selectors.getPDFName);
-
 	const ref: MutableRefObject<null | HTMLInputElement> = useRef(null);
+
+	const [file, setFile] = useState<File | undefined>();
+
+	const handleDialogClose = () => {
+		handleClose();
+		setFile(undefined);
+	};
 
 	return (
 		<Fragment>
@@ -32,6 +46,52 @@ export const InputDataSets = ({ handleClose, label }: any) => {
 					const files = event.target.files;
 					const file = files ? files[0] : null;
 					if (file) {
+						setFile(file);
+					}
+				}}
+				type="file"
+				accept=".txt"
+			/>
+			<LoadDataSetsDialogAlert
+				handleClose={handleDialogClose}
+				open={!!file}
+				file={(file as unknown) as File}
+			></LoadDataSetsDialogAlert>
+		</Fragment>
+	);
+};
+
+const LoadDataSetsDialogAlert = ({
+	handleClose,
+	open,
+	file,
+}: {
+	handleClose: () => void;
+	open: boolean;
+	file: File;
+}) => {
+	const dispatch = useDispatch();
+	const activeDocument = useSelector(display.selectors.getPDFName);
+	console.log(open, file);
+	return (
+		<Dialog
+			open={open}
+			onClose={handleClose}
+			aria-labelledby="alert-dialog-title"
+			aria-describedby="alert-dialog-description"
+		>
+			<DialogTitle id="alert-dialog-title">{"Load the uploaded dataset?"}</DialogTitle>
+			<DialogContent>
+				<DialogContentText id="alert-dialog-description">
+					This overwrites existing data of the uploaded document-datasets and can not be undone.
+				</DialogContentText>
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={handleClose} color="primary">
+					Abort
+				</Button>
+				<Button
+					onClick={() => {
 						const reader = new FileReader();
 						reader.readAsText(file);
 						reader.onload = () => {
@@ -43,14 +103,27 @@ export const InputDataSets = ({ handleClose, label }: any) => {
 							const foundDataSet = (uploadedDataSets as DocumentData[]).find(
 								(dbData) => dbData.name === activeDocument
 							);
-							dispatch(db.actions.loadDocumentDataSets(uploadedDataSets, foundDataSet));
+
+							dispatch(db.actions.loadDocumentDataSets(uploadedDataSets));
+							if (foundDataSet) {
+								dispatch(ActionCreators.clearHistory());
+								dispatch(river.actions.replaceRivers(foundDataSet.riverMakeUps));
+								dispatch(
+									cards.actions.replaceCards({
+										cards: foundDataSet.cards,
+										lastCardIDNumber: foundDataSet.lastCardIDNumber,
+									})
+								);
+							}
+							handleClose();
 						};
-					}
-					handleClose();
-				}}
-				type="file"
-				accept=".txt"
-			/>
-		</Fragment>
+					}}
+					color="primary"
+					autoFocus
+				>
+					Load datasets and possibly overwrite existing data
+				</Button>
+			</DialogActions>
+		</Dialog>
 	);
 };

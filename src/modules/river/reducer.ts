@@ -9,8 +9,6 @@ import {
 import { CardConfig } from "../cards/model/config";
 import cards from "../cards";
 import * as t from "./actionTypes";
-import { ArchiveRiver } from "../db/model";
-import db from "../db";
 import { ClayMemoryPayloadAction } from "../../shared/utils";
 
 const initialState: CardRiverState = {
@@ -25,6 +23,7 @@ const initialState: CardRiverState = {
 	riverShowState: "SHOW",
 	riverContentState: "ALL",
 	contentFilter: "",
+	count_DONT_USE: 0,
 };
 
 const cardRiverState = (state = initialState, { type, payload }: ClayMemoryPayloadAction): CardRiverState => {
@@ -41,7 +40,16 @@ const cardRiverState = (state = initialState, { type, payload }: ClayMemoryPaylo
 			return { ...state, contentFilter: payload };
 		case t.ORIGIN_REQUEST:
 			return { ...state, requestedOrigin: payload };
+		case t.RIVER_RESET:
+			return initialState;
+		case t.RIVER_REPLACE:
+			return {
+				...initialState,
+				riverMakeUps: payload as RiverMakeUps,
+			};
 		case cards.actionTypes.CARD_PUSH:
+			// make this unchained
+			// then make clean up action?
 			if (state.riverMakeUps[state.activeRiverMakeUpID]) {
 				riverMakeUp = {
 					...state.riverMakeUps[state.activeRiverMakeUpID],
@@ -57,30 +65,14 @@ const cardRiverState = (state = initialState, { type, payload }: ClayMemoryPaylo
 			riverMakeUps = { ...state.riverMakeUps };
 			riverMakeUps[state.activeRiverMakeUpID] = riverMakeUp;
 
-			return { ...state, riverMakeUps: riverMakeUps };
+			return { ...state, riverMakeUps: riverMakeUps, count_DONT_USE: 0 };
 		case cards.actionTypes.CARD_REMOVE:
-			return removeCardFromRivers(state, payload as string);
+			return { ...removeCardFromRivers(state, payload as string), count_DONT_USE: 0 };
+		case cards.actionTypes.CARD_REPLACE:
+			// a new state is necessary for the undo/redo to be able to sync river and cards
+			// by resetting this to 0 via the other card-action, we avoid a (unlikely) too high number
+			return { ...state, count_DONT_USE: state.count_DONT_USE + 1 };
 
-		case t.RIVER_RESET:
-			return initialState;
-		case t.RIVER_REPLACE:
-			return {
-				...initialState,
-				riverMakeUps: payload as RiverMakeUps,
-			};
-
-		case db.actionTypes.LOAD_DOCUMENT_DATA_SETS:
-			// basically the same as DOCUMENT_CHANGE, just only triggered
-			//when uploading data that corresponds to current document
-			// and if not, we dont reset
-			if (payload.newActiveDataSet) {
-				return {
-					...initialState,
-					riverMakeUps: (payload.newActiveDataSet as ArchiveRiver).riverMakeUps,
-				};
-			} else {
-				return state;
-			}
 		default:
 			return state;
 	}

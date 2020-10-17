@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import UndoIcon from "@material-ui/icons/Undo";
 import RedoIcon from "@material-ui/icons/Redo";
 import text from "../../text";
-import { getLastUndoableActionComb, getLastRedoableActionComb } from "../selectors";
-import { redoActionHistory, undoActionHistory } from "../actions";
+import { ActionCreators } from "redux-undo";
+import cards from "../../cards";
 
-// we support undo/redo instead of lengthy confirmation (see The Humane Interface)
 const UndoButton = () => {
 	const dispatch = useDispatch();
-	const lastUndoableActionComb = useSelector(getLastUndoableActionComb);
+	const cardsHasPast = useSelector(cards.selectors.hasPast);
+
 	//tooltip needs non-disabled child component
 	return (
 		<Tooltip
@@ -22,11 +22,9 @@ const UndoButton = () => {
 				<IconButton
 					type="button"
 					onClick={() => {
-						for (let actionStr of lastUndoableActionComb as string[]) {
-							dispatch(undoActionHistory(actionStr));
-						}
+						dispatch(ActionCreators.undo());
 					}}
-					disabled={!!!lastUndoableActionComb}
+					disabled={!cardsHasPast}
 				>
 					<UndoIcon></UndoIcon>
 				</IconButton>
@@ -36,7 +34,7 @@ const UndoButton = () => {
 };
 const RedoButton = () => {
 	const dispatch = useDispatch();
-	const lastRedoableActionComb = useSelector(getLastRedoableActionComb);
+	const cardsHasFuture = useSelector(cards.selectors.hasFuture);
 	return (
 		<Tooltip
 			title={text.constants.redoTooltip}
@@ -47,11 +45,9 @@ const RedoButton = () => {
 				<IconButton
 					type="button"
 					onClick={() => {
-						for (let actionStr of lastRedoableActionComb as string[]) {
-							dispatch(redoActionHistory(actionStr));
-						}
+						dispatch(ActionCreators.redo());
 					}}
-					disabled={!!!lastRedoableActionComb}
+					disabled={!cardsHasFuture}
 				>
 					<RedoIcon></RedoIcon>
 				</IconButton>

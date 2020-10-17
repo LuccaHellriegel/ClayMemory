@@ -29,7 +29,7 @@ export const removeCard = (cardID: CardID): ClayMemoryPayloadAction => {
 	return { type: t.CARD_REMOVE, payload: cardID };
 };
 
-export const resetCards = createAction(t.CARDS_RESET);
+export const resetCards = createAction(t.ALL_CARDS_RESET);
 export const replaceCards = (cardsState: CardsState) => {
-	return { type: t.CARDS_REPLACE, payload: cardsState };
+	return { type: t.ALL_CARDS_REPLACE, payload: cardsState };
 };

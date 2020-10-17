@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { View } from "../model";
 import { getCurrentView } from "../selectors";
-import { CardExplorer } from "./CardExplorer";
 import { OriginMarkedSnackbar } from "./OriginMarkedSnackbar";
 import { PDFDocument } from "./PDFDocument/PDFDocument";
 import { RiverExplorer } from "./RiverExplorer";

@@ -4,8 +4,6 @@ import { ActionCreators } from "redux-undo";
 import db from "../db";
 import { collectCurrentDBData } from "./selectors";
 import { DocumentData } from "../db/model";
-import * as t from "./actionTypes";
-import { ClayMemoryPayloadAction } from "../../shared/utils";
 import cards from "../cards";
 import river from "../river";
 
@@ -33,19 +31,6 @@ export const downloadDBData = () => {
 	};
 };
 
-export const undoActionHistory = (action: string): ClayMemoryPayloadAction => {
-	return { type: t.UNDO_ACTION_HISTORY, payload: action };
-};
-
-export const redoActionHistory = (action: string): ClayMemoryPayloadAction => {
-	return { type: t.REDO_ACTION_HISTORY, payload: action };
-};
-
-export const removeActionHistory = (dispatch: Dispatch) => {
-	dispatch(ActionCreators.clearHistory());
-	dispatch({ type: t.REMOVE_ACTION_HISTORY });
-};
-
 export const resetActiveAppState = (dispatch: Dispatch) => {
 	dispatch(cards.actions.resetCards());
 	dispatch(river.actions.resetRivers());
@@ -56,7 +41,7 @@ export const replaceActiveAppState = (dispatch: Dispatch, newDocumentData: Docum
 		cards.actions.replaceCards({ cards: newDocumentData.cards, lastCardIDNumber: newDocumentData.lastCardIDNumber })
 	);
 	dispatch(river.actions.replaceRivers(newDocumentData.riverMakeUps));
-	if (currentPDFName && newDocumentData.name !== currentPDFName) {
+	if (currentPDFName !== undefined && newDocumentData.name !== currentPDFName) {
 		//existing pdf is unequal to loaded data, so need to replace
 		//pdf is not replaced, because when we load only data, the pdf is not yet uploaded
 		dispatch(
@@ -98,7 +83,7 @@ export const loadPDF = (pdf: File) => {
 		}
 
 		// no undo-redo across documents
-		removeActionHistory(dispatch);
+		dispatch(ActionCreators.clearHistory());
 	};
 };
 
@@ -106,6 +91,7 @@ export const loadSavedDocument = (document: string) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
 		const currentPDFName = display.selectors.getPDFName(state);
+		const pdf = display.selectors.getPDF(state);
 
 		const documentDB = db.selectors.getAll(state);
 
@@ -116,25 +102,39 @@ export const loadSavedDocument = (document: string) => {
 		}
 
 		const newDocumentData = documentDB[document];
-		replaceActiveAppState(dispatch, newDocumentData, currentPDFName);
+		// if no pdf exists and no current pdf name then the document dataset was loaded into an empty ClayMemory,
+		// then we need to set the name
+		const inputName = !!!pdf && !!!currentPDFName ? "" : currentPDFName;
+		replaceActiveAppState(dispatch, newDocumentData, inputName);
 
 		// no undo-redo across documents
-		removeActionHistory(dispatch);
+		dispatch(ActionCreators.clearHistory());
+	};
+};
+
+export const deleteActiveDocument = () => {
+	return (dispatch: Dispatch, getState: Function) => {
+		resetActiveAppState(dispatch);
+
+		// keeping the undo history leads to weird edge cases and makes no sense
+		dispatch(ActionCreators.clearHistory());
+
+		const state = getState();
+		const activeDocument = display.selectors.getPDFName(state);
+		// note: no undo of this
+		dispatch(db.actions.deleteDocumentDataSet(activeDocument as string));
 	};
 };
 
 export const deleteDocument = (document: string) => {
-	return (dispatch: Dispatch, getState: Function) => {
+	return (dispatch: any, getState: Function) => {
 		const state = getState();
 		const activeDocument = display.selectors.getPDFName(state);
 		if (activeDocument && activeDocument === document) {
-			resetActiveAppState(dispatch);
-
-			// keeping the undo history leads to weird edge cases and makes no sense
-			removeActionHistory(dispatch);
+			dispatch(deleteActiveDocument());
+		} else {
+			// note: no undo of this
+			dispatch(db.actions.deleteDocumentDataSet(document));
 		}
-
-		// note: no undo of this
-		dispatch(db.actions.deleteDocumentDataSet(document));
 	};
 };

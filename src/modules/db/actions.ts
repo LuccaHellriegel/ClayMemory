@@ -6,11 +6,8 @@ export const archiveDBData = (dbData: DocumentData): ClayMemoryPayloadAction => 
 	return { type: t.ARCHIVE_CURRENT_DATA, payload: dbData };
 };
 
-export const loadDocumentDataSets = (
-	dbData: DocumentData[],
-	newActiveDataSet?: DocumentData
-): ClayMemoryPayloadAction => {
-	return { type: t.LOAD_DOCUMENT_DATA_SETS, payload: { dbData, newActiveDataSet } };
+export const loadDocumentDataSets = (dbData: DocumentData[]): ClayMemoryPayloadAction => {
+	return { type: t.LOAD_DOCUMENT_DATA_SETS, payload: { dbData } };
 };
 
 export const deleteDocumentDataSet = (document: string): ClayMemoryPayloadAction => {

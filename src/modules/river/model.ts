@@ -28,6 +28,7 @@ export type CardRiverState = {
 	// filter content
 	riverContentState: RiverContentState;
 	contentFilter: ContentFilter | "";
+	count_DONT_USE: number;
 };
 
 export const pageNumberToRiverMakeUpID = (page: number) => "CardRiver " + page;
