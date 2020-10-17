@@ -44,6 +44,7 @@ export const SelectionSnackbar = () => {
 
 	return (
 		<Snackbar
+			style={{ maxWidth: "400px", overflowX: "auto" }}
 			anchorOrigin={{ vertical: "top", horizontal: "center" }}
 			open={open}
 			onClose={handleClose}
@@ -53,7 +54,13 @@ export const SelectionSnackbar = () => {
 						<Card
 							variant="outlined"
 							color="secondary"
-							style={{ padding: "4px", color: "white", backgroundColor: "#3f51b5" }}
+							style={{
+								padding: "4px",
+								color: "white",
+								backgroundColor: "#3f51b5",
+								maxWidth: "400px",
+								overflowX: "auto",
+							}}
 							square={true}
 						>
 							<Typography variant="h4">{"Selection:"}</Typography>
