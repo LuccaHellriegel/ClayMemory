@@ -29,8 +29,8 @@ export const collectCurrentDBData: (state: any) => DocumentData | null = createS
 
 export const getAll = (state: any): Model => state[NAME];
 
-export const getLastUndoableAction = createSelector(getAll, (state) => state.present);
+export const getLastUndoableActionComb = createSelector(getAll, (state) => state.present);
 
-export const getLastRedoableAction = createSelector(getAll, (state) =>
+export const getLastRedoableActionComb = createSelector(getAll, (state) =>
 	state.future.length > 0 ? state.future[0] : null
 );

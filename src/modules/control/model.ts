@@ -21,7 +21,7 @@ export const dbActions = [db.actionTypes.LOAD_DOCUMENT_DATA_SETS];
 
 export const undoableActions = [dbActions, cardActions, riverActions, selectionActions].flat();
 
-export type Model = { past: string[]; present: string | null; future: string[] };
+export type Model = { past: string[][]; present: string[] | null; future: string[][] };
 
 //TODO: this is NOT bugfree, somehow I got the present to be erased
 // deletion bug? cant undo some deletions?

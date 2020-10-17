@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import UndoIcon from "@material-ui/icons/Undo";
 import RedoIcon from "@material-ui/icons/Redo";
 import text from "../../text";
-import { getLastUndoableAction, getLastRedoableAction } from "../selectors";
+import { getLastUndoableActionComb, getLastRedoableActionComb } from "../selectors";
 import { redoActionHistory, undoActionHistory } from "../actions";
 
 // we support undo/redo instead of lengthy confirmation (see The Humane Interface)
 const UndoButton = () => {
 	const dispatch = useDispatch();
-	const lastUndoableAction = useSelector(getLastUndoableAction);
+	const lastUndoableActionComb = useSelector(getLastUndoableActionComb);
 	//tooltip needs non-disabled child component
 	return (
 		<Tooltip
@@ -22,9 +22,11 @@ const UndoButton = () => {
 				<IconButton
 					type="button"
 					onClick={() => {
-						dispatch(undoActionHistory(lastUndoableAction as string));
+						for (let actionStr of lastUndoableActionComb as string[]) {
+							dispatch(undoActionHistory(actionStr));
+						}
 					}}
-					disabled={!!!lastUndoableAction}
+					disabled={!!!lastUndoableActionComb}
 				>
 					<UndoIcon></UndoIcon>
 				</IconButton>
@@ -34,7 +36,7 @@ const UndoButton = () => {
 };
 const RedoButton = () => {
 	const dispatch = useDispatch();
-	const lastRedoableAction = useSelector(getLastRedoableAction);
+	const lastRedoableActionComb = useSelector(getLastRedoableActionComb);
 	return (
 		<Tooltip
 			title={text.constants.redoTooltip}
@@ -45,9 +47,11 @@ const RedoButton = () => {
 				<IconButton
 					type="button"
 					onClick={() => {
-						dispatch(redoActionHistory(lastRedoableAction as string));
+						for (let actionStr of lastRedoableActionComb as string[]) {
+							dispatch(redoActionHistory(actionStr));
+						}
 					}}
-					disabled={!!!lastRedoableAction}
+					disabled={!!!lastRedoableActionComb}
 				>
 					<RedoIcon></RedoIcon>
 				</IconButton>

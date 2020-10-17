@@ -10,11 +10,16 @@ const initialState: Model = {
 
 //TODO: need to reset this sometime (same point as with redux-undo history)
 
+const actionCombinations = [[]];
+const combineActions = (actionHistory: string[][], action: string[]) => {
+	// const curCombinations =
+};
+
 const control = (state = initialState, { type }: ClayMemoryPayloadAction): Model => {
 	if (undoableActions.includes(type)) {
 		// only keep full history up to 15
 		let past = state.past.length === 15 ? state.past.slice(1) : state.past;
-		return { past: state.present ? past.concat(state.present) : past, present: type, future: [] };
+		return { past: state.present ? past.concat(state.present) : past, present: [type], future: [] };
 	}
 	let present;
 	switch (type) {
