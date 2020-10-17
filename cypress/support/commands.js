@@ -31,6 +31,26 @@ Cypress.Commands.add("uploadPDFtoApp", (fileName) => {
 		});
 });
 
+Cypress.Commands.add("uploadPDFWithExistingDatatoApp", (fileName) => {
+	return cy
+		.get(
+			".MuiGrid-justify-xs-flex-end > :nth-child(3) > div > .MuiButtonBase-root > .MuiIconButton-label > .MuiSvgIcon-root"
+		)
+		.click()
+		.fixture(fileName)
+		.then((fileContent) => {
+			// Load Document Button
+			cy.get(":nth-child(7) > .MuiButtonBase-root").get('input[type="file"]').attachFile(
+				{
+					fileContent: fileContent,
+					fileName: fileName,
+					mimeType: "application/pdf",
+				},
+				{ force: true }
+			);
+		});
+});
+
 Cypress.Commands.add("uploadPDFtoAppSecondTime", (fileName) => {
 	return cy
 		.getOptionsMenu()
