@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/ClayMemory/precache-manifest.f335c63845418db9f480c7e24cd25f6c.js"
+  "/ClayMemory/precache-manifest.30d4eb6392ddc4561a18edc1c72a8727.js"
 );
 
 self.addEventListener('message', (event) => {
