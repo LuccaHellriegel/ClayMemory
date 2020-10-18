@@ -28,8 +28,7 @@ const removeDOMObjectsFromDisplayData = (inboundState: DisplayData) => {
 	// if (inboundState.pdf) {
 	// 	pdf = await readFileAsync(inboundState.pdf);
 	// }
-	const result = { ...inboundState, documentRef: null, materialData: null, pdf };
-	return result;
+	return { ...inboundState, documentRef: null, materialData: null, pdf };
 };
 
 //TODO: create persistable type for the state in model

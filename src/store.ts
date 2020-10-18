@@ -15,25 +15,27 @@ import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProductio
 //TODO: make limit for undo (right now its fine, if we reset on document-upload / reload)
 //TODO: make snackbar for which action is undone/redone
 
+const undoableCardActions = [
+	cards.actionTypes.CARD_PUSH,
+	cards.actionTypes.CARD_REMOVE,
+	cards.actionTypes.CARD_REPLACE,
+];
+
 const rootReducer = combineReducers({
-	[db.constants.NAME]: db.reducer,
+	[db.name]: db.reducer,
 	[selection.constants.NAME]: selection.reducer,
 	[river.constants.NAME]: undoable(river.reducer, {
-		filter: includeAction([cards.actionTypes.CARD_PUSH, cards.actionTypes.CARD_REMOVE, cards.actionTypes.CARD_REPLACE]),
+		filter: includeAction(undoableCardActions),
 	}),
 	[cards.constants.NAME]: undoable(cards.reducer, {
-		filter: includeAction([cards.actionTypes.CARD_PUSH, cards.actionTypes.CARD_REMOVE, cards.actionTypes.CARD_REPLACE]),
+		filter: includeAction(undoableCardActions),
 	}),
 	[display.constants.NAME]: display.reducer,
 });
 
-const stateSanitizer = (state: any) => {
-	return state.displayData.pdf ? { ...state, displayData: { ...state.displayData, pdf: "PDF_FILE_IS_HERE" } } : state;
-};
-
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const composeEnhancers = composeWithDevTools({ stateSanitizer });
+const composeEnhancers = composeWithDevTools({});
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
 export const store = createStore(persistedReducer, enhancer);

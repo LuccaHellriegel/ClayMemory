@@ -5,7 +5,6 @@ import { RiverContentState, ContentFilter, RiverMakeUps } from "./model";
 import { SingleOrigin } from "../cards/model/origin";
 import { ClayMemoryPayloadAction } from "../../shared/utils";
 import { createAction } from "@reduxjs/toolkit";
-import cards from "../cards";
 
 export const toggleRiverShowState = () => (dispatch: Dispatch, getState: Function) => {
 	dispatch({
