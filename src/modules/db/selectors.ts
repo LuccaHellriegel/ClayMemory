@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
-import { DocumentDB } from "./model";
 import { NAME } from "./constants";
+import { DocumentDB } from "./model";
 
 export const getAll = (state: any): DocumentDB => state[NAME];
 

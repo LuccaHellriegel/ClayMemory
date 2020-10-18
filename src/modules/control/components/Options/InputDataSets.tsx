@@ -10,12 +10,12 @@ import {
 	DialogTitle,
 } from "@material-ui/core";
 import display from "../../../display";
-import { DocumentData } from "../../../db/model";
 import PublishIcon from "@material-ui/icons/Publish";
 import river from "../../../river";
 import cards from "../../../cards";
 import db from "../../../db";
 import { ActionCreators } from "redux-undo";
+import { DocumentData } from "../../../db/model";
 
 export const InputDataSets = ({ handleClose, label }: any) => {
 	const ref: MutableRefObject<null | HTMLInputElement> = useRef(null);
@@ -98,13 +98,13 @@ const LoadDataSetsDialogAlert = ({
 							//TODO: sanitize, escape os new line difference, prepare multimedia cards
 							//TODO: merge same name-pdfs and think about collision in general
 							//TODO: merge uploaded state with current-one and dont overwrite
-							const uploadedDataSets = JSON.parse(reader.result as string);
+							const uploadedDataSets = JSON.parse(reader.result as string) as DocumentData[];
 							// if the uploaded dataset corresponds to the current document, overwrite current with uploaded
 							const foundDataSet = (uploadedDataSets as DocumentData[]).find(
 								(dbData) => dbData.name === activeDocument
 							);
 
-							dispatch(db.actions.loadDocumentDataSets(uploadedDataSets));
+							dispatch(db.actions.updateDocumentDB(uploadedDataSets));
 							if (foundDataSet) {
 								dispatch(ActionCreators.clearHistory());
 								dispatch(river.actions.replaceRivers(foundDataSet.riverMakeUps));

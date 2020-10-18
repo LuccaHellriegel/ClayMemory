@@ -1,7 +1,7 @@
-import * as actions from "./actions";
-import * as actionTypes from "./actionTypes";
-import * as constants from "./constants";
-import reducer from "./reducer";
+import * as model from "./model";
 import * as selectors from "./selectors";
+import slice from "./slice";
 
-export default { actions, actionTypes, constants, reducer, selectors };
+const { actions, reducer, name } = slice;
+
+export default { actions, name, reducer, selectors, model };

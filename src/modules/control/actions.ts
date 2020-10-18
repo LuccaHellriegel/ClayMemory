@@ -1,11 +1,11 @@
 import { Dispatch } from "redux";
 import display from "../display";
 import { ActionCreators } from "redux-undo";
-import db from "../db";
 import { collectCurrentDBData } from "./selectors";
-import { DocumentData } from "../db/model";
 import cards from "../cards";
 import river from "../river";
+import db from "../db";
+import { DocumentData } from "../db/model";
 
 export const archiveCurrentDBData = () => {
 	return (dispatch: Dispatch, getState: Function) => {
@@ -14,7 +14,7 @@ export const archiveCurrentDBData = () => {
 
 		if (currentPDFName !== undefined) {
 			const dbData = collectCurrentDBData(state) as DocumentData;
-			dispatch(db.actions.archiveDBData(dbData));
+			dispatch(db.actions.storeInDocumentDB(dbData));
 		}
 	};
 };
@@ -64,7 +64,7 @@ export const loadPDF = (pdf: File) => {
 		// save current data only if pdf has been uploaded / there is an active document
 		if (currentPDFName !== undefined) {
 			const dbData = collectCurrentDBData(state) as DocumentData;
-			dispatch(db.actions.archiveDBData(dbData));
+			dispatch(db.actions.storeInDocumentDB(dbData));
 		}
 
 		dispatch(display.actions.pdfUpload(pdf));
@@ -98,7 +98,7 @@ export const loadSavedDocument = (document: string) => {
 		// save current data only if pdf has been uploaded / there is an active document
 		if (currentPDFName !== undefined) {
 			const dbData = collectCurrentDBData(state) as DocumentData;
-			dispatch(db.actions.archiveDBData(dbData));
+			dispatch(db.actions.storeInDocumentDB(dbData));
 		}
 
 		const newDocumentData = documentDB[document];
@@ -122,7 +122,7 @@ export const deleteActiveDocument = () => {
 		const state = getState();
 		const activeDocument = display.selectors.getPDFName(state);
 		// note: no undo of this
-		dispatch(db.actions.deleteDocumentDataSet(activeDocument as string));
+		dispatch(db.actions.removeFromDocumentDB(activeDocument as string));
 	};
 };
 
@@ -134,7 +134,7 @@ export const deleteDocument = (document: string) => {
 			dispatch(deleteActiveDocument());
 		} else {
 			// note: no undo of this
-			dispatch(db.actions.deleteDocumentDataSet(document));
+			dispatch(db.actions.removeFromDocumentDB(document));
 		}
 	};
 };
