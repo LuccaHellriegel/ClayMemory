@@ -107,7 +107,7 @@ const LoadDataSetsDialogAlert = ({
 							dispatch(db.actions.updateDocumentDB(uploadedDataSets));
 							if (foundDataSet) {
 								dispatch(ActionCreators.clearHistory());
-								dispatch(river.actions.replaceRivers(foundDataSet.riverMakeUps));
+								dispatch(river.actions.allRiversReplace(foundDataSet.riverMakeUps));
 								dispatch(
 									cards.actions.allCardsReplace({
 										cards: foundDataSet.cards,

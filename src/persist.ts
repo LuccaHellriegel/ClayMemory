@@ -66,7 +66,7 @@ const displayTransform = createTransform(
 );
 
 const removeContentFilter = (state: CardRiverState): CardRiverState => {
-	return { ...state, contentFilter: "" };
+	return { ...state, riverContentFilter: "" };
 };
 
 const riverTransform = createTransform(

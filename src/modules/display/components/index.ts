@@ -4,5 +4,14 @@ import { PageKeyboardControl } from "./PDFDocument/PageKeyboardControl";
 import { HTMLElementMeasurer } from "./PDFDocument/HTMLElementMeasurer";
 import { Display } from "./Display";
 import { ViewTabs } from "./ViewTabs";
+import { ShowMaterialCheckbox } from "./ShowMaterialCheckbox";
 
-export { PageChooser, PageNavigation, PageKeyboardControl, HTMLElementMeasurer, Display, ViewTabs };
+export {
+	PageChooser,
+	PageNavigation,
+	PageKeyboardControl,
+	HTMLElementMeasurer,
+	Display,
+	ViewTabs,
+	ShowMaterialCheckbox,
+};

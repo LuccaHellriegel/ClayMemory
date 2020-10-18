@@ -1,3 +1,4 @@
+import { CaseReducer, PayloadAction } from "@reduxjs/toolkit";
 import { KeyboardEvent } from "react";
 
 export const incrementer = () => {
@@ -29,3 +30,16 @@ export type ClayMemoryPayloadAction = { type: string; payload: any };
 
 export type Filter = (element: any) => boolean;
 export const combineFilterArr = (filters: Filter[]) => (x: any) => filters.reduce((b, f) => b || f(x), false);
+
+export type AnyPayloadCaseReducer = CaseReducer<any, PayloadAction<any>>;
+export const simpleReducer = (field: string): AnyPayloadCaseReducer => (state: any, { payload }: any) => {
+	return { ...state, [field]: payload };
+};
+
+export const simpleReducerMap = (fields: string[]) => {
+	const map: { [key: string]: AnyPayloadCaseReducer } = {};
+	for (let field of fields) {
+		map[field] = simpleReducer(field);
+	}
+	return map;
+};

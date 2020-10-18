@@ -33,14 +33,14 @@ export const downloadDBData = () => {
 
 export const resetActiveAppState = (dispatch: Dispatch) => {
 	dispatch(cards.actions.allCardsReset());
-	dispatch(river.actions.resetRivers());
+	dispatch(river.actions.allRiversReset());
 };
 
 export const replaceActiveAppState = (dispatch: Dispatch, newDocumentData: DocumentData, currentPDFName?: string) => {
 	dispatch(
 		cards.actions.allCardsReplace({ cards: newDocumentData.cards, lastCardIDNumber: newDocumentData.lastCardIDNumber })
 	);
-	dispatch(river.actions.replaceRivers(newDocumentData.riverMakeUps));
+	dispatch(river.actions.allRiversReplace(newDocumentData.riverMakeUps));
 	if (currentPDFName !== undefined && newDocumentData.name !== currentPDFName) {
 		//existing pdf is unequal to loaded data, so need to replace
 		//pdf is not replaced, because when we load only data, the pdf is not yet uploaded

@@ -1,4 +1,5 @@
 import { CaseReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { simpleReducer } from "../../shared/utils";
 import { NAME } from "./constants";
 import { SelectionData, SelectionGoalConfig, SelectionSourceConfig } from "./model";
 
@@ -7,16 +8,12 @@ const initialState: SelectionData = {
 	goalConfig: null,
 };
 
-const selectionSource: CaseReducer<SelectionData, PayloadAction<SelectionSourceConfig | null>> = (
-	state,
-	{ payload }
-) => {
-	return { ...state, sourceConfig: payload };
-};
-
-const selectionGoal: CaseReducer<SelectionData, PayloadAction<SelectionGoalConfig | null>> = (state, { payload }) => {
-	return { ...state, goalConfig: payload };
-};
+const selectionSource: CaseReducer<SelectionData, PayloadAction<SelectionSourceConfig | null>> = simpleReducer(
+	"sourceConfig"
+);
+const selectionGoal: CaseReducer<SelectionData, PayloadAction<SelectionGoalConfig | null>> = simpleReducer(
+	"goalConfig"
+);
 
 const selectionSlice = createSlice({
 	name: NAME,

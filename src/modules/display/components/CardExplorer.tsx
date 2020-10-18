@@ -23,9 +23,9 @@ export const CardExplorer = () => {
 	const riverContentState = useSelector(river.selectors.getRiverContentState);
 
 	//TODO: use regex for upper/lower-case
-	const contentFilter = useSelector(river.selectors.getRiverContentFilter);
+	const riverContentFilter = useSelector(river.selectors.getRiverContentFilter);
 
-	const filteredConfigs = river.services.filterCardConfigs(cardObjects, riverContentState, contentFilter);
+	const filteredConfigs = river.services.filterCardConfigs(cardObjects, riverContentState, riverContentFilter);
 	const gridItems = ClayCardExplorerGridItems(filteredConfigs);
 
 	return (

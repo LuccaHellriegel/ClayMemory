@@ -1,52 +1,8 @@
-import display from "../../display";
 import river from "../../river";
 import React from "react";
-import { IconButton, Menu, Typography, Grid, Card, Button, FormControlLabel } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
+import { IconButton, Menu, Typography, Grid, Card } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import { GreenCheckbox } from "../../../shared/GreenCheckbox";
-
-const ShowRiverCheckbox = () => {
-	const dispatch = useDispatch();
-	const riverShowState = useSelector(river.selectors.getRiverShowState);
-
-	return (
-		<Button
-			startIcon={
-				<FormControlLabel
-					label="River"
-					control={<GreenCheckbox checked={riverShowState === "SHOW"} />}
-				></FormControlLabel>
-			}
-			variant="contained"
-			color="primary"
-			onClick={() => {
-				dispatch(river.actions.toggleRiverShowState());
-			}}
-		></Button>
-	);
-};
-
-const ShowMaterialCheckbox = () => {
-	const dispatch = useDispatch();
-	const displayShowState = useSelector(display.selectors.getDisplayStatus);
-
-	return (
-		<Button
-			startIcon={
-				<FormControlLabel
-					label="Material"
-					control={<GreenCheckbox checked={displayShowState === "SHOW"} />}
-				></FormControlLabel>
-			}
-			variant="contained"
-			color="primary"
-			onClick={() => {
-				dispatch(display.actions.toggleDisplayState());
-			}}
-		></Button>
-	);
-};
+import display from "../../display";
 
 export const ShowHideButton = () => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -83,10 +39,10 @@ export const ShowHideButton = () => {
 						<Card variant="outlined" style={{ padding: "4px" }}>
 							<Grid container direction="column" spacing={1}>
 								<Grid item>
-									<ShowRiverCheckbox></ShowRiverCheckbox>
+									<river.components.ShowRiverCheckbox></river.components.ShowRiverCheckbox>
 								</Grid>
 								<Grid item>
-									<ShowMaterialCheckbox></ShowMaterialCheckbox>
+									<display.components.ShowMaterialCheckbox></display.components.ShowMaterialCheckbox>
 								</Grid>
 							</Grid>
 						</Card>

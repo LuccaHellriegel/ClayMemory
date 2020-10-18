@@ -7,19 +7,19 @@ import { combineFilterArr, Filter } from "../../../shared/utils";
 //TODO: make local show / hide notes
 const qaFilter: Filter = (config: CardConfig) => config.type === "Q-A";
 const noteFilter: Filter = (config: CardConfig) => config.type === "Note";
-const contentFilter: (contentStr: string) => Filter = (contentFilterStr: string) => (config: CardConfig) => {
+const riverContentFilter: (contentStr: string) => Filter = (riverContentFilterStr: string) => (config: CardConfig) => {
 	switch (config.type) {
 		case "Note":
-			return cards.model.content.noteContentContainsStringOrEmpty(config as NoteConfig, contentFilterStr);
+			return cards.model.content.noteContentContainsStringOrEmpty(config as NoteConfig, riverContentFilterStr);
 		case "Q-A":
-			return cards.model.content.qaContentContainsStringOrEmpty(config as QAConfig, contentFilterStr);
+			return cards.model.content.qaContentContainsStringOrEmpty(config as QAConfig, riverContentFilterStr);
 	}
 };
 
 export const filterCardConfigs = (
 	inputCards: CardConfig[],
 	riverContentState: RiverContentState,
-	contentFilterStr: string
+	riverContentFilterStr: string
 ): CardConfig[] => {
 	if (riverContentState === "NONE") {
 		return [];
@@ -34,8 +34,8 @@ export const filterCardConfigs = (
 			filters.push(noteFilter);
 		}
 	}
-	if (contentFilterStr !== "") {
-		filters.push(contentFilter(contentFilterStr));
+	if (riverContentFilterStr !== "") {
+		filters.push(riverContentFilter(riverContentFilterStr));
 	}
 
 	return filters.length > 0 ? inputCards.filter(combineFilterArr(filters)) : inputCards;

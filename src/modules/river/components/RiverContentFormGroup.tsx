@@ -3,8 +3,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getRiverContentState } from "../selectors";
 import { RiverContentState } from "../model";
-import { setRiverContentState } from "../actions";
 import { GreenCheckbox } from "../../../shared/GreenCheckbox";
+import { actions } from "../slice";
 
 export const RiverContentFormGroup = () => {
 	const riverContentState = useSelector(getRiverContentState);
@@ -16,36 +16,36 @@ export const RiverContentFormGroup = () => {
 	const changeContentState = (clickedState: RiverContentState) => {
 		if (!showQAs && clickedState === "QAS") {
 			if (showNotes) {
-				dispatch(setRiverContentState("ALL"));
+				dispatch(actions.riverContentState("ALL"));
 			} else {
-				dispatch(setRiverContentState("QAS"));
+				dispatch(actions.riverContentState("QAS"));
 			}
 			return;
 		}
 
 		if (!showNotes && clickedState === "NOTES") {
 			if (showQAs) {
-				dispatch(setRiverContentState("ALL"));
+				dispatch(actions.riverContentState("ALL"));
 			} else {
-				dispatch(setRiverContentState("NOTES"));
+				dispatch(actions.riverContentState("NOTES"));
 			}
 			return;
 		}
 
 		if (showQAs && clickedState === "QAS") {
 			if (!showNotes) {
-				dispatch(setRiverContentState("NONE"));
+				dispatch(actions.riverContentState("NONE"));
 			} else {
-				dispatch(setRiverContentState("NOTES"));
+				dispatch(actions.riverContentState("NOTES"));
 			}
 			return;
 		}
 
 		if (showNotes && clickedState === "NOTES") {
 			if (!showQAs) {
-				dispatch(setRiverContentState("NONE"));
+				dispatch(actions.riverContentState("NONE"));
 			} else {
-				dispatch(setRiverContentState("QAS"));
+				dispatch(actions.riverContentState("QAS"));
 			}
 			return;
 		}

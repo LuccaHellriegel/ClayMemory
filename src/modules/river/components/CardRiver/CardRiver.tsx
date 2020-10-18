@@ -17,9 +17,9 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 	const riverCards = riverMakeUp ? riverMakeUp.cardIDs.map((id) => cardConfigs[id]) : [];
 	const riverContentState = useSelector(getRiverContentState);
 	//TODO: use regex for upper/lower-case
-	const contentFilter = useSelector(getRiverContentFilter);
+	const riverContentFilter = useSelector(getRiverContentFilter);
 
-	const filteredConfigs = filterCardConfigs(riverCards, riverContentState, contentFilter);
+	const filteredConfigs = filterCardConfigs(riverCards, riverContentState, riverContentFilter);
 	const gridItems = ClayCardGridItems(filteredConfigs);
 
 	//TODO: if you start without any document and then load one, the current cards should be merged into that one

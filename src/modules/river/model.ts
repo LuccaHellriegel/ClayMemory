@@ -20,14 +20,14 @@ export type CardRiverState = {
 	// move this somehow to display?
 	// problem is that we depend on the display components (list-ref)
 	// for scrolling
-	requestedOrigin: SingleOrigin | null;
+	riverOriginRequest: SingleOrigin | null;
 	riverMakeUps: RiverMakeUps;
-	activeRiverMakeUpID: string;
+	riverActiveID: string;
 	// show/hide river
 	riverShowState: RiverShowState;
 	// filter content
 	riverContentState: RiverContentState;
-	contentFilter: ContentFilter | "";
+	riverContentFilter: ContentFilter | "";
 	count_DONT_USE: number;
 };
 

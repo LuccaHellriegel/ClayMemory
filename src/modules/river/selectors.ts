@@ -33,7 +33,7 @@ export const getNonEmptyRiverCardsSorted = createSelector(
 	}
 );
 
-export const getActiveRiverMakeUpID = createSelector(getAll, (state: CardRiverState) => state.activeRiverMakeUpID);
+export const getActiveRiverMakeUpID = createSelector(getAll, (state: CardRiverState) => state.riverActiveID);
 
 export const getActiveRiverMakeUp = createSelector(getRiverMakeUps, getActiveRiverMakeUpID, (makeUps, id) => {
 	const makeUp = makeUps[id];
@@ -54,6 +54,6 @@ export const riverShowStateIsShow = createSelector(getRiverShowState, (state) =>
 
 export const getRiverContentState = createSelector(getAll, (state: CardRiverState) => state.riverContentState);
 
-export const getRiverContentFilter = createSelector(getAll, (state: CardRiverState) => state.contentFilter);
+export const getRiverContentFilter = createSelector(getAll, (state: CardRiverState) => state.riverContentFilter);
 
-export const getOriginRequest = createSelector(getAll, (state) => state.requestedOrigin);
+export const getOriginRequest = createSelector(getAll, (state) => state.riverOriginRequest);

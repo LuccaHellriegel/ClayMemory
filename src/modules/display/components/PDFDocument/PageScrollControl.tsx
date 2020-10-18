@@ -11,7 +11,7 @@ export const PageScrollControl = ({ listRef }: { listRef: RefObject<VariableSize
 
 	const scrollToPage = useSelector(getScrollToPage);
 	const currentPage = useSelector(getCurrentPage);
-	const requestedOrigin = useSelector(river.selectors.getOriginRequest);
+	const riverOriginRequest = useSelector(river.selectors.getOriginRequest);
 	useEffect(() => {
 		listRef.current?.scrollToItem(currentPage - 1, "start");
 	}, []);
@@ -19,15 +19,15 @@ export const PageScrollControl = ({ listRef }: { listRef: RefObject<VariableSize
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if ((requestedOrigin || scrollToPage) && currentView !== View.RiverMaterial) {
+		if ((riverOriginRequest || scrollToPage) && currentView !== View.RiverMaterial) {
 			dispatch(setView(View.RiverMaterial));
 		}
 
-		if (requestedOrigin) {
-			listRef.current?.scrollToItem(requestedOrigin.page - 1, "auto");
-			dispatch(setSpanOrigin(requestedOrigin));
-			dispatch(setPage(requestedOrigin.page, false));
-			dispatch(river.actions.resetOriginRequest());
+		if (riverOriginRequest) {
+			listRef.current?.scrollToItem(riverOriginRequest.page - 1, "auto");
+			dispatch(setSpanOrigin(riverOriginRequest));
+			dispatch(setPage(riverOriginRequest.page, false));
+			dispatch(river.actions.riverOriginRequest(null));
 			return;
 		}
 
@@ -35,7 +35,7 @@ export const PageScrollControl = ({ listRef }: { listRef: RefObject<VariableSize
 			listRef.current?.scrollToItem(scrollToPage - 1, "start");
 			dispatch(setPage(scrollToPage, false));
 		}
-	}, [dispatch, listRef, scrollToPage, requestedOrigin, currentView]);
+	}, [dispatch, listRef, scrollToPage, riverOriginRequest, currentView]);
 
 	return null;
 };
