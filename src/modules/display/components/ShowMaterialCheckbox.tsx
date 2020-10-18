@@ -3,7 +3,7 @@ import { Button, FormControlLabel } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { GreenCheckbox } from "../../../shared/GreenCheckbox";
 import { getDisplayStatus } from "../selectors";
-import { toggleDisplayState } from "../actions";
+import { actions } from "../slice";
 
 export const ShowMaterialCheckbox = () => {
 	const dispatch = useDispatch();
@@ -20,7 +20,7 @@ export const ShowMaterialCheckbox = () => {
 			variant="contained"
 			color="primary"
 			onClick={() => {
-				dispatch(toggleDisplayState());
+				dispatch(actions.displayStatus(displayShowState === "SHOW" ? "HIDE" : "SHOW"));
 			}}
 		></Button>
 	);

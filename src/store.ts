@@ -31,7 +31,7 @@ const rootReducer = combineReducers({
 	[cards.name]: undoable(cards.reducer, {
 		filter: includeAction(undoableCardActions),
 	}),
-	[display.constants.NAME]: display.reducer,
+	[display.name]: display.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

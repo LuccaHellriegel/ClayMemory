@@ -1,15 +1,15 @@
 import { Card, Tab, Tabs } from "@material-ui/core";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setView } from "../actions";
 import { getCurrentView } from "../selectors";
+import { actions } from "../slice";
 
 export const ViewTabs = () => {
 	const currentView = useSelector(getCurrentView);
 	const dispatch = useDispatch();
 
 	const handleChange = (_: any, newValue: number) => {
-		dispatch(setView(newValue));
+		dispatch(actions.currentView(newValue));
 	};
 
 	return (

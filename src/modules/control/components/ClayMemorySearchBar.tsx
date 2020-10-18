@@ -47,13 +47,13 @@ export const ClayMemorySearchBar = () => {
 
 	const onChangeDocument = (newValue: string) => {
 		// auto-reset on empty
-		if (newValue === "") dispatch(display.actions.resetDocumentSearch());
+		if (newValue === "") dispatch(display.actions.documentSearch(""));
 		setState(newValue);
 	};
 	const onCancelSearchDocument = () => {
-		dispatch(display.actions.resetDocumentSearch());
+		dispatch(display.actions.documentSearch(""));
 	};
-	const onRequestSearchDocument = () => dispatch(display.actions.setDocumentSearch(state));
+	const onRequestSearchDocument = () => dispatch(display.actions.documentSearch(state));
 
 	const onChange = searchFocus === "cards" ? onChangeCards : onChangeDocument;
 	const onCancelSearch = searchFocus === "cards" ? onCancelSearchCards : onCancelSearchDocument;

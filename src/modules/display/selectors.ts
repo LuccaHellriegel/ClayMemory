@@ -8,7 +8,7 @@ export const getPDF = createSelector(getAll, (state: DisplayData) => state.pdf);
 
 export const getWindowMeasurements = createSelector(getAll, (state) => state.windowMeasurements);
 
-export const getPDFName = createSelector(getAll, (state) => state.pdfName);
+export const getPDFName = createSelector(getPDF, (pdf) => (pdf ? pdf.name : undefined));
 
 export const getTotalPages = createSelector(getAll, (state: DisplayData) => state.totalPages);
 

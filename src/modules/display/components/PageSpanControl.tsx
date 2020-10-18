@@ -1,8 +1,8 @@
 import { RefObject, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpanOrigin } from "../selectors";
-import { resetSpanOrigin } from "../actions";
 import { SingleOrigin } from "../../cards/model/origin";
+import { actions } from "../slice";
 
 export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefObject<null | HTMLDivElement> }) => {
 	const spanOrigin = useSelector(getSpanOrigin);
@@ -22,7 +22,7 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 				count.current = 0;
 				clearInterval(intervalID);
 				console.log("invalid origin clicked", spanOrigin);
-				dispatch(resetSpanOrigin());
+				dispatch(actions.spanOrigin(null));
 				return;
 			}
 

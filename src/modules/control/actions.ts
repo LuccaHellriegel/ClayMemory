@@ -45,7 +45,7 @@ export const replaceActiveAppState = (dispatch: Dispatch, newDocumentData: Docum
 		//existing pdf is unequal to loaded data, so need to replace
 		//pdf is not replaced, because when we load only data, the pdf is not yet uploaded
 		dispatch(
-			display.actions.loadExistingDocument(
+			display.actions.existingDocumentPayload(
 				(({ name, currentPage, totalPages }) => ({ pdfName: name, currentPage, totalPages }))(newDocumentData)
 			)
 		);

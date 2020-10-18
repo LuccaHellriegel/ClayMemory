@@ -5,8 +5,8 @@ import { RiverMaterialPair } from "./RiverMaterialPair";
 import { CachedPageDimensions } from "./PDFDocument";
 import { getTopOffset, getWindowMeasurements } from "../../selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { setPage } from "../../actions";
 import { PageScrollControl } from "./PageScrollControl";
+import { actions } from "../../slice";
 
 //TODO: replace this with Material-UI breakpoints
 export const MaterialMultiplier = 0.63;
@@ -83,7 +83,7 @@ export const RiverMaterialPairList = ({
 					width="100%"
 					onItemsRendered={(props) => {
 						//TODO: find way to switch the page if it is halfway in sight
-						dispatch(setPage(props.visibleStopIndex + 1, false));
+						dispatch(actions.pageUpdate({ page: props.visibleStopIndex + 1, shouldScroll: false }));
 					}}
 				>
 					{RiverMaterialPair}

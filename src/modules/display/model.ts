@@ -10,7 +10,6 @@ export enum View {
 
 export type DisplayData = {
 	pdf?: File;
-	pdfName?: string;
 	displayStatus: DisplayStatus;
 	currentPage: number;
 	scrollToPage: number | null;

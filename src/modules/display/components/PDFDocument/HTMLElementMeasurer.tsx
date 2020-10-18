@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
-import { widthPixels } from "../../actions";
 import { debounce } from "throttle-debounce";
+import { actions } from "../../slice";
 
 export const HTMLElementMeasurer = () => {
 	const dispatch = useDispatch();
@@ -10,7 +10,7 @@ export const HTMLElementMeasurer = () => {
 		const htmlElement = document.documentElement;
 		const currentWidth = htmlElement.clientWidth;
 		const currentHeight = htmlElement.clientHeight;
-		dispatch(widthPixels({ width: currentWidth, height: currentHeight }));
+		dispatch(actions.windowMeasurements({ width: currentWidth, height: currentHeight }));
 	});
 
 	useLayoutEffect(() => {

@@ -3,11 +3,12 @@ import { useDispatch } from "react-redux";
 import { IconButton, Card, Grid, Divider, Tooltip } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { nextPage, previousPage } from "../actions";
 import text from "../../text";
+import { actions } from "../slice";
 
 const PreviousButton = () => {
 	const dispatch = useDispatch();
+
 	return (
 		<Tooltip
 			title={text.constants.previousPageTooltip}
@@ -17,7 +18,7 @@ const PreviousButton = () => {
 			<IconButton
 				type="button"
 				onClick={() => {
-					dispatch(previousPage());
+					dispatch(actions.previousPage());
 				}}
 			>
 				<ArrowBackIosIcon></ArrowBackIosIcon>
@@ -37,7 +38,7 @@ const NextButton = () => {
 			<IconButton
 				type="button"
 				onClick={() => {
-					dispatch(nextPage());
+					dispatch(actions.nextPage());
 				}}
 			>
 				<ArrowForwardIosIcon></ArrowForwardIosIcon>

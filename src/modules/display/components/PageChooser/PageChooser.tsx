@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography, TextField, Card, Grid } from "@material-ui/core";
-import { setPage } from "../../actions";
 import { getCurrentPage, getTotalPages } from "../../selectors";
+import { actions } from "../../slice";
 
 const nonDigitRegEx = /(\D)/;
 
@@ -52,7 +52,7 @@ const PageNumberTextField = ({ totalPages }: { totalPages: number }) => {
 					event.preventDefault();
 					const submittedValue = (event.target as HTMLFormElement).value;
 					if (!state.error) {
-						dispatch(setPage(parseInt(submittedValue), true));
+						dispatch(actions.pageUpdate({ page: parseInt(submittedValue), shouldScroll: true }));
 					}
 				}
 			}}

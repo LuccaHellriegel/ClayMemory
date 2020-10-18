@@ -2,7 +2,7 @@ import { Button, Snackbar } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpanOrigin } from "../selectors";
-import { resetSpanOrigin } from "../actions";
+import { actions } from "../slice";
 
 //TODO: think about that SelectionSnackbar and this both are dismissed via Esc
 
@@ -21,13 +21,13 @@ export const OriginMarkedSnackbar = () => {
 			event.preventDefault();
 		} else {
 			setOpen(false);
-			dispatch(resetSpanOrigin());
+			dispatch(actions.spanOrigin(null));
 		}
 	};
 
 	const handleDismiss = () => {
 		setOpen(false);
-		dispatch(resetSpanOrigin());
+		dispatch(actions.spanOrigin(null));
 	};
 
 	const escPress = (event: KeyboardEvent) => {

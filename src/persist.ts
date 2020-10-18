@@ -62,7 +62,7 @@ const displayTransform = createTransform(
 	(outboundState): DisplayData => {
 		return addDOMObjectsToDisplayData(outboundState);
 	},
-	{ whitelist: [display.constants.NAME] }
+	{ whitelist: [display.name] }
 );
 
 const removeContentFilter = (state: CardRiverState): CardRiverState => {

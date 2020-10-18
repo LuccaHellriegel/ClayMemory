@@ -18,7 +18,7 @@ export const ControlBar = () => {
 	useLayoutEffect(() => {
 		if (ref.current) {
 			const currentBottom = ref.current.getBoundingClientRect().bottom;
-			if (currentBottom !== offset) dispatch(display.actions.setTopOffset(currentBottom));
+			if (currentBottom !== offset) dispatch(display.actions.topOffset(currentBottom));
 		}
 	}, [ref, dispatch, offset]);
 
