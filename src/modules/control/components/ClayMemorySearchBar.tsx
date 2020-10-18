@@ -3,7 +3,7 @@ import SearchBar from "material-ui-search-bar";
 import river from "../../river";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
-import display from "../../display";
+import pdf from "../../pdf";
 
 //TODO: react-pdf alignment is broken for some pdfs and generally for non-body text,
 // seems to be connected to choosing the wrong font
@@ -47,13 +47,13 @@ export const ClayMemorySearchBar = () => {
 
 	const onChangeDocument = (newValue: string) => {
 		// auto-reset on empty
-		if (newValue === "") dispatch(display.actions.documentSearch(""));
+		if (newValue === "") dispatch(pdf.actions.documentSearch(""));
 		setState(newValue);
 	};
 	const onCancelSearchDocument = () => {
-		dispatch(display.actions.documentSearch(""));
+		dispatch(pdf.actions.documentSearch(""));
 	};
-	const onRequestSearchDocument = () => dispatch(display.actions.documentSearch(state));
+	const onRequestSearchDocument = () => dispatch(pdf.actions.documentSearch(state));
 
 	const onChange = searchFocus === "cards" ? onChangeCards : onChangeDocument;
 	const onCancelSearch = searchFocus === "cards" ? onCancelSearchCards : onCancelSearchDocument;

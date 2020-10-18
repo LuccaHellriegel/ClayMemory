@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { debounce } from "throttle-debounce";
-import { actions } from "../../slice";
+import { actions } from "../slice";
 
 export const HTMLElementMeasurer = () => {
 	const dispatch = useDispatch();

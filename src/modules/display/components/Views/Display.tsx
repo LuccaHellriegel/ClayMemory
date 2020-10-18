@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
-import { View } from "../model";
-import { getCurrentView } from "../selectors";
-import { OriginMarkedSnackbar } from "./OriginMarkedSnackbar";
-import { PDFDocument } from "./PDFDocument/PDFDocument";
+import pdf from "../../../pdf";
+import { View } from "../../model";
+import { getCurrentView } from "../../selectors";
+import { RiverMaterialPairList } from "../RiverMaterialPairList/RiverMaterialPairList";
 import { RiverExplorer } from "./RiverExplorer";
 
 export const Display = () => {
@@ -16,8 +16,8 @@ export const Display = () => {
 	return (
 		<Fragment>
 			<div hidden={currentView !== View.RiverMaterial} style={{ width: "100%", height: "100%" }}>
-				<PDFDocument></PDFDocument>
-				<OriginMarkedSnackbar></OriginMarkedSnackbar>
+				<pdf.components.PDFDocument ChildComponent={RiverMaterialPairList}></pdf.components.PDFDocument>
+				<pdf.components.OriginMarkedSnackbar></pdf.components.OriginMarkedSnackbar>
 			</div>
 
 			<div hidden={currentView !== View.RiverExplorer} style={{ width: "100%", height: "100%" }}>

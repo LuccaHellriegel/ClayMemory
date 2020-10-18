@@ -1,16 +1,22 @@
 import React from "react";
 import { Divider, Grid } from "@material-ui/core";
 import river from "../../../river";
-import { PDFPage } from "./PDFPage";
 import { useSelector } from "react-redux";
-import { getDisplayStatus, getWindowMeasurements } from "../../selectors";
+import { getWindowMeasurements } from "../../selectors";
 import { pairTopBottomPadding, RiverMultiplier } from "./RiverMaterialPairList";
+import pdf from "../../../pdf";
 
-const RiverPairItem = ({ riverID, materialHeight }: { riverID: string; materialHeight: number }) => {
-	const width = useSelector(getWindowMeasurements)?.width as number;
-
+const RiverPairItem = ({
+	riverID,
+	materialHeight,
+	materialWidth,
+}: {
+	riverID: string;
+	materialHeight: number;
+	materialWidth: number;
+}) => {
 	return (
-		<div style={{ maxWidth: width * RiverMultiplier }}>
+		<div style={{ maxWidth: materialWidth * RiverMultiplier }}>
 			<river.components.CardRiver riverID={riverID} materialHeight={materialHeight}></river.components.CardRiver>
 		</div>
 	);
@@ -31,18 +37,24 @@ export const RiverMaterialPair = ({
 	const riverID = river.model.pageNumberToRiverMakeUpID(pageNumber);
 	const { materialHeights } = data;
 	const showRiver = useSelector(river.selectors.getRiverShowState);
-	const showMaterial = useSelector(getDisplayStatus);
+	const showMaterial = useSelector(pdf.selectors.getPDFShowStatus);
+
+	const width = useSelector(getWindowMeasurements)?.width as number;
 
 	return (
 		<div style={{ ...style }}>
 			<river.components.SwitchActiveRiver riverID={riverID}>
 				<Grid container justify="space-between" direction="row" alignItems="flex-start">
 					<Grid item hidden={showRiver === "HIDE"}>
-						<RiverPairItem riverID={riverID} materialHeight={materialHeights.get(pageNumber) as number}></RiverPairItem>
+						<RiverPairItem
+							riverID={riverID}
+							materialHeight={materialHeights.get(pageNumber) as number}
+							materialWidth={width}
+						></RiverPairItem>
 					</Grid>
 
 					<Grid item hidden={showMaterial === "HIDE"}>
-						<PDFPage pageNumber={pageNumber}></PDFPage>
+						<pdf.components.PDFPage pageNumber={pageNumber} materialWidth={width}></pdf.components.PDFPage>
 					</Grid>
 				</Grid>
 			</river.components.SwitchActiveRiver>

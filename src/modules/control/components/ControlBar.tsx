@@ -6,10 +6,11 @@ import { Options } from "./Options/Options";
 import { ClayMemorySearchBar } from "./ClayMemorySearchBar";
 import { UndoRedoCard } from "./UndoRedoButtons";
 import { ShowHideButton } from "./ShowHideButton";
+import pdf from "../../pdf";
 
 //TODO: download/load csv for Anki
 export const ControlBar = () => {
-	const materialName = useSelector(display.selectors.getPDFName);
+	const materialName = useSelector(pdf.selectors.getPDFName);
 	const offset = useSelector(display.selectors.getTopOffset);
 	const ref = useRef<null | HTMLDivElement>(null);
 
@@ -23,18 +24,18 @@ export const ControlBar = () => {
 	}, [ref, dispatch, offset]);
 
 	return (
-		<display.components.PageKeyboardControl>
+		<pdf.components.PageKeyboardControl>
 			<AppBar ref={ref} position="sticky">
 				<Toolbar variant="regular" disableGutters>
 					<Grid container direction="row" alignItems="center" justify="space-between">
 						<Grid item xs={6}>
 							<Grid container direction="row" alignItems="center" spacing={1} style={{ paddingLeft: "4px" }}>
 								<Grid item style={{ maxWidth: "15%" }}>
-									<display.components.PageChooser></display.components.PageChooser>
+									<pdf.components.PageChooser></pdf.components.PageChooser>
 								</Grid>
 
 								<Grid item>
-									<display.components.PageNavigation></display.components.PageNavigation>
+									<pdf.components.PageNavigation></pdf.components.PageNavigation>
 								</Grid>
 
 								<Grid item>
@@ -71,6 +72,6 @@ export const ControlBar = () => {
 					</Grid>
 				</Toolbar>
 			</AppBar>
-		</display.components.PageKeyboardControl>
+		</pdf.components.PageKeyboardControl>
 	);
 };

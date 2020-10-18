@@ -9,13 +9,13 @@ import {
 	DialogContentText,
 	DialogTitle,
 } from "@material-ui/core";
-import display from "../../../display";
 import PublishIcon from "@material-ui/icons/Publish";
 import river from "../../../river";
 import cards from "../../../cards";
 import db from "../../../db";
 import { ActionCreators } from "redux-undo";
 import { DocumentData } from "../../../db/model";
+import pdf from "../../../pdf";
 
 export const InputDataSets = ({ handleClose, label }: any) => {
 	const ref: MutableRefObject<null | HTMLInputElement> = useRef(null);
@@ -71,7 +71,7 @@ const LoadDataSetsDialogAlert = ({
 	file: File;
 }) => {
 	const dispatch = useDispatch();
-	const activeDocument = useSelector(display.selectors.getPDFName);
+	const activeDocument = useSelector(pdf.selectors.getPDFName);
 	console.log(open, file);
 	return (
 		<Dialog

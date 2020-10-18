@@ -1,10 +1,10 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
-import { incrementer } from "../../../shared/utils";
-import river from "../../river";
-import { getNonEmptyRiverIDsSorted } from "../../river/selectors";
-import { getTopOffset, getWindowMeasurements } from "../selectors";
+import { incrementer } from "../../../../shared/utils";
+import river from "../../../river";
+import { getNonEmptyRiverIDsSorted } from "../../../river/selectors";
+import { getWindowMeasurements, getTopOffset } from "../../selectors";
 
 const ExplorerRiver = ({ riverID }: { riverID: string }) => {
 	const windowMeasurements = useSelector(getWindowMeasurements);

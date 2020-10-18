@@ -1,12 +1,11 @@
 import "./PDFDocument.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, FunctionComponent, RefObject } from "react";
 import { pdfjs, Document } from "react-pdf";
 import { useDispatch, useSelector } from "react-redux";
-import { getPDF } from "../../selectors";
 import text from "../../../text";
 import { cachePageDimensions } from "./cachePageDimensions";
-import { RiverMaterialPairList } from "./RiverMaterialPairList";
+import { getPDF } from "../../selectors";
 import { actions } from "../../slice";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -17,7 +16,14 @@ const options = {
 	cMapPacked: true,
 };
 
-export const PDFDocument = () => {
+type PDFProxyRef = RefObject<pdfjs.PDFDocumentProxy | undefined>;
+
+export type PDFDocumentChild = FunctionComponent<{
+	pdfProxyRef: PDFProxyRef;
+	cachedPageDimensions: CachedPageDimensions;
+}>;
+
+export const PDFDocument = ({ ChildComponent }: { ChildComponent: PDFDocumentChild }) => {
 	const pdf = useSelector(getPDF);
 
 	const [cachedPageDimensions, setPageDimensions] = useState<CachedPageDimensions | undefined>();
@@ -50,10 +56,7 @@ export const PDFDocument = () => {
 			}}
 		>
 			{cachedPageDimensions && pdfNameRef.current === pdfName && (
-				<RiverMaterialPairList
-					pdfProxyRef={pdfProxyRef}
-					cachedPageDimensions={cachedPageDimensions}
-				></RiverMaterialPairList>
+				<ChildComponent pdfProxyRef={pdfProxyRef} cachedPageDimensions={cachedPageDimensions}></ChildComponent>
 			)}
 		</Document>
 	);

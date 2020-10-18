@@ -2,7 +2,7 @@ import river from "../../river";
 import React from "react";
 import { IconButton, Menu, Typography, Grid, Card } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import display from "../../display";
+import pdf from "../../pdf";
 
 export const ShowHideButton = () => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -42,7 +42,7 @@ export const ShowHideButton = () => {
 									<river.components.ShowRiverCheckbox></river.components.ShowRiverCheckbox>
 								</Grid>
 								<Grid item>
-									<display.components.ShowMaterialCheckbox></display.components.ShowMaterialCheckbox>
+									<pdf.components.ShowMaterialCheckbox></pdf.components.ShowMaterialCheckbox>
 								</Grid>
 							</Grid>
 						</Card>

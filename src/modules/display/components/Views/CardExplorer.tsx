@@ -1,9 +1,9 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
-import { incrementer } from "../../../shared/utils";
-import { CardConfig } from "../../cards/model/config";
-import river from "../../river";
+import { incrementer } from "../../../../shared/utils";
+import { CardConfig } from "../../../cards/model/config";
+import river from "../../../river";
 
 const ClayCardExplorerGridItems = (cards: CardConfig[]) => {
 	const increment = incrementer();

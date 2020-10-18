@@ -1,13 +1,13 @@
 import React, { useRef } from "react";
 import { Page } from "react-pdf";
-import { PageKeyboardControl } from "./PageKeyboardControl";
-import selection from "../../../selection";
-import { useSelector } from "react-redux";
-import { getDocumentSearch, getSpanOrigin, getWindowMeasurements } from "../../selectors";
-import { MaterialMultiplier } from "./RiverMaterialPairList";
-import { PageSpanControl } from "../PageSpanControl";
 import { TextLayerItemInternal } from "react-pdf/dist/Page";
+import { useSelector } from "react-redux";
 import { SingleOrigin } from "../../../cards/model/origin";
+import { PageSpanControl } from "../Origin/PageSpanControl";
+import selection from "../../../selection";
+import { getDocumentSearch, getSpanOrigin } from "../../selectors";
+import { MaterialMultiplier } from "../../constants";
+import { PageKeyboardControl } from "../Navigation/PageKeyboardControl";
 
 type Renderer = (
 	textItem: TextLayerItemInternal | (TextLayerItemInternal & { str: string | JSX.Element })
@@ -133,9 +133,8 @@ const combineRenderers = (searchRenderer?: Renderer, originRenderer?: Renderer) 
 
 //TODO: when switching from a small page to big, the ControlBar does not size back
 
-export const PDFPage = ({ pageNumber }: { pageNumber: number }) => {
+export const PDFPage = ({ pageNumber, materialWidth }: { pageNumber: number; materialWidth: number }) => {
 	//assumption is that the list checks for width before rendering
-	const materialWidth = useSelector(getWindowMeasurements)?.width as number;
 	const documentSearch = useSelector(getDocumentSearch);
 	const spanOrigin = useSelector(getSpanOrigin);
 

@@ -1,16 +1,16 @@
 import { Dispatch } from "redux";
-import display from "../display";
 import { ActionCreators } from "redux-undo";
 import { collectCurrentDBData } from "./selectors";
 import cards from "../cards";
 import river from "../river";
 import db from "../db";
 import { DocumentData } from "../db/model";
+import pdf from "../pdf";
 
 export const archiveCurrentDBData = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
-		const currentPDFName = display.selectors.getPDFName(state);
+		const currentPDFName = pdf.selectors.getPDFName(state);
 
 		if (currentPDFName !== undefined) {
 			const dbData = collectCurrentDBData(state) as DocumentData;
@@ -45,19 +45,21 @@ export const replaceActiveAppState = (dispatch: Dispatch, newDocumentData: Docum
 		//existing pdf is unequal to loaded data, so need to replace
 		//pdf is not replaced, because when we load only data, the pdf is not yet uploaded
 		dispatch(
-			display.actions.existingDocumentPayload(
-				(({ name, currentPage, totalPages }) => ({ pdfName: name, currentPage, totalPages }))(newDocumentData)
+			pdf.actions.existingDocumentPayload(
+				(({ currentPage, totalPages }: { currentPage: number; totalPages: number }) => ({ currentPage, totalPages }))(
+					newDocumentData
+				)
 			)
 		);
 	}
 };
 
-export const loadPDF = (pdf: File) => {
+export const loadPDF = (pdfFile: File) => {
 	return (dispatch: Dispatch, getState: Function) => {
-		const newPDFName = pdf.name;
+		const newPDFName = pdfFile.name;
 
 		const state = getState();
-		const currentPDFName = display.selectors.getPDFName(state);
+		const currentPDFName = pdf.selectors.getPDFName(state);
 
 		const documentDB = db.selectors.getAll(state);
 
@@ -67,7 +69,7 @@ export const loadPDF = (pdf: File) => {
 			dispatch(db.actions.storeInDocumentDB(dbData));
 		}
 
-		dispatch(display.actions.pdfUpload(pdf));
+		dispatch(pdf.actions.pdfUpload(pdfFile));
 
 		// if the uploaded pdf is the same as the active one, then we just reloaded the app (lost the pdf)
 		// and dont need load data (loading data would lead to overwrite because of the syncing order)
@@ -90,8 +92,8 @@ export const loadPDF = (pdf: File) => {
 export const loadSavedDocument = (document: string) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
-		const currentPDFName = display.selectors.getPDFName(state);
-		const pdf = display.selectors.getPDF(state);
+		const currentPDFName = pdf.selectors.getPDFName(state);
+		const pdfFile = pdf.selectors.getPDF(state);
 
 		const documentDB = db.selectors.getAll(state);
 
@@ -104,7 +106,7 @@ export const loadSavedDocument = (document: string) => {
 		const newDocumentData = documentDB[document];
 		// if no pdf exists and no current pdf name then the document dataset was loaded into an empty ClayMemory,
 		// then we need to set the name
-		const inputName = !!!pdf && !!!currentPDFName ? "" : currentPDFName;
+		const inputName = !!!pdfFile && !!!currentPDFName ? "" : currentPDFName;
 		replaceActiveAppState(dispatch, newDocumentData, inputName);
 
 		// no undo-redo across documents
@@ -120,7 +122,7 @@ export const deleteActiveDocument = () => {
 		dispatch(ActionCreators.clearHistory());
 
 		const state = getState();
-		const activeDocument = display.selectors.getPDFName(state);
+		const activeDocument = pdf.selectors.getPDFName(state);
 		// note: no undo of this
 		dispatch(db.actions.removeFromDocumentDB(activeDocument as string));
 	};
@@ -129,7 +131,7 @@ export const deleteActiveDocument = () => {
 export const deleteDocument = (document: string) => {
 	return (dispatch: any, getState: Function) => {
 		const state = getState();
-		const activeDocument = display.selectors.getPDFName(state);
+		const activeDocument = pdf.selectors.getPDFName(state);
 		if (activeDocument && activeDocument === document) {
 			dispatch(deleteActiveDocument());
 		} else {

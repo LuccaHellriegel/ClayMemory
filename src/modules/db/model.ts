@@ -1,14 +1,14 @@
 import { CardRiverState } from "../river/model";
 import { CardsState } from "../cards/model/state";
-import { DisplayData } from "../display/model";
+import { PDFState } from "../pdf/model";
 
 export type ArchiveRiver = Pick<CardRiverState, "riverMakeUps">;
 
-type ArchiveDisplay = Pick<DisplayData, "currentPage" | "totalPages">;
+type ArchivePDF = Pick<PDFState, "currentPage" | "totalPages">;
 
 export type DocumentData = {
 	name: string;
-} & ArchiveDisplay &
+} & ArchivePDF &
 	ArchiveRiver &
 	CardsState;
 

@@ -2,14 +2,13 @@ import React, { RefObject, useRef, Fragment, useEffect } from "react";
 import { pdfjs } from "react-pdf";
 import { VariableSizeList } from "react-window";
 import { RiverMaterialPair } from "./RiverMaterialPair";
-import { CachedPageDimensions } from "./PDFDocument";
+import { CachedPageDimensions } from "../../../pdf/components/Document/PDFDocument";
 import { getTopOffset, getWindowMeasurements } from "../../selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { PageScrollControl } from "./PageScrollControl";
-import { actions } from "../../slice";
+import { ListScrollControl } from "./ListScrollControl";
+import pdf from "../../../pdf";
 
 //TODO: replace this with Material-UI breakpoints
-export const MaterialMultiplier = 0.63;
 export const RiverMultiplier = 0.35;
 
 const calculateMaterialHeight = (
@@ -18,7 +17,7 @@ const calculateMaterialHeight = (
 	windowWidth: number
 ) => {
 	const pageDims = cachedPageDimensions.get(pageNumber) as [number, number];
-	const materialWidth = windowWidth * MaterialMultiplier;
+	const materialWidth = windowWidth * pdf.constants.MaterialMultiplier;
 
 	const userSpaceUnitWidth = pageDims[0];
 	const pixelPerUserSpaceUnit = materialWidth / userSpaceUnitWidth;
@@ -83,7 +82,7 @@ export const RiverMaterialPairList = ({
 					width="100%"
 					onItemsRendered={(props) => {
 						//TODO: find way to switch the page if it is halfway in sight
-						dispatch(actions.pageUpdate({ page: props.visibleStopIndex + 1, shouldScroll: false }));
+						dispatch(pdf.actions.pageUpdate({ page: props.visibleStopIndex + 1, shouldScroll: false }));
 					}}
 				>
 					{RiverMaterialPair}
@@ -92,7 +91,7 @@ export const RiverMaterialPairList = ({
 			{materialHeights && (
 				<Resetter listRef={listRef as RefObject<VariableSizeList>} materialHeights={materialHeights}></Resetter>
 			)}
-			<PageScrollControl listRef={listRef as RefObject<VariableSizeList>}></PageScrollControl>
+			<ListScrollControl listRef={listRef as RefObject<VariableSizeList>}></ListScrollControl>
 		</Fragment>
 	);
 };

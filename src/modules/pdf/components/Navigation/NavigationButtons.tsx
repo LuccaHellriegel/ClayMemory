@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { IconButton, Card, Grid, Divider, Tooltip } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import text from "../../text";
-import { actions } from "../slice";
+import { actions } from "../../slice";
+import text from "../../../text";
 
 const PreviousButton = () => {
 	const dispatch = useDispatch();

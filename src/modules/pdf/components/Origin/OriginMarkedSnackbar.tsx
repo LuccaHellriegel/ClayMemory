@@ -1,8 +1,8 @@
 import { Button, Snackbar } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSpanOrigin } from "../selectors";
-import { actions } from "../slice";
+import { getSpanOrigin } from "../../selectors";
+import { actions } from "../../slice";
 
 //TODO: think about that SelectionSnackbar and this both are dismissed via Esc
 

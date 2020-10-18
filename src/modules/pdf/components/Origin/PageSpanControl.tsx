@@ -1,8 +1,8 @@
 import { RefObject, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSpanOrigin } from "../selectors";
-import { SingleOrigin } from "../../cards/model/origin";
-import { actions } from "../slice";
+import { SingleOrigin } from "../../../cards/model/origin";
+import { getSpanOrigin } from "../../selectors";
+import { actions } from "../../slice";
 
 export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefObject<null | HTMLDivElement> }) => {
 	const spanOrigin = useSelector(getSpanOrigin);

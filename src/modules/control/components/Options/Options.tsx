@@ -3,7 +3,7 @@ import React from "react";
 import { Divider, Menu, MenuItem, IconButton, Typography, Card, Button, Grid } from "@material-ui/core";
 import { downloadDBData } from "../../actions";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import display from "../../../display";
+import pdf from "../../../pdf";
 import db from "../../../db";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { DeleteDocumentButton } from "./DeleteDocumentButton";
@@ -28,7 +28,7 @@ const ActiveDocumentOptionItem = ({ document }: { document: string }) => {
 };
 
 export const Options = () => {
-	const activeDocument = useSelector(display.selectors.getPDFName);
+	const activeDocument = useSelector(pdf.selectors.getPDFName);
 	const documents = useSelector(db.selectors.getDocumentNames).filter((doc) => doc !== activeDocument);
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
