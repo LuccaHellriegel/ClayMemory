@@ -42,3 +42,12 @@ const CardFieldToTypeMap: { [field in CardField]: CardType } = {
 };
 
 export const cardFieldToType = (field: CardField) => CardFieldToTypeMap[field];
+
+export const emptyNote = (cardID: CardID): CardConfig => {
+	return { type: "Note", content: "", cardID };
+};
+export const emptyQA = (cardID: CardID): CardConfig => {
+	return { type: "Q-A", content: { q: "", a: "" }, cardID };
+};
+
+export type CardPayload = Omit<CardConfig, "cardID">;

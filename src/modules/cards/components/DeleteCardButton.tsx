@@ -4,7 +4,7 @@ import { IconButton } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { CardID } from "../model/config";
 import text from "../../text";
-import { removeCard } from "../actions";
+import { actions } from "../slice";
 
 export const DeleteCardButton = ({ cardID }: { cardID: CardID }) => {
 	const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export const DeleteCardButton = ({ cardID }: { cardID: CardID }) => {
 			<IconButton
 				type="button"
 				onClick={() => {
-					dispatch(removeCard(cardID));
+					dispatch(actions.cardRemove(cardID));
 				}}
 			>
 				<DeleteForeverIcon fontSize="small"></DeleteForeverIcon>

@@ -16,9 +16,10 @@ import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProductio
 //TODO: make snackbar for which action is undone/redone
 
 const undoableCardActions = [
-	cards.actionTypes.CARD_PUSH,
-	cards.actionTypes.CARD_REMOVE,
-	cards.actionTypes.CARD_REPLACE,
+	cards.actions.cardPush.type,
+	cards.actions.cardRemove.type,
+	cards.actions.cardReplace.type,
+	cards.actions.cardFieldReplace.type,
 ];
 
 const rootReducer = combineReducers({
@@ -27,7 +28,7 @@ const rootReducer = combineReducers({
 	[river.constants.NAME]: undoable(river.reducer, {
 		filter: includeAction(undoableCardActions),
 	}),
-	[cards.constants.NAME]: undoable(cards.reducer, {
+	[cards.name]: undoable(cards.reducer, {
 		filter: includeAction(undoableCardActions),
 	}),
 	[display.constants.NAME]: display.reducer,

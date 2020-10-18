@@ -32,13 +32,13 @@ export const downloadDBData = () => {
 };
 
 export const resetActiveAppState = (dispatch: Dispatch) => {
-	dispatch(cards.actions.resetCards());
+	dispatch(cards.actions.allCardsReset());
 	dispatch(river.actions.resetRivers());
 };
 
 export const replaceActiveAppState = (dispatch: Dispatch, newDocumentData: DocumentData, currentPDFName?: string) => {
 	dispatch(
-		cards.actions.replaceCards({ cards: newDocumentData.cards, lastCardIDNumber: newDocumentData.lastCardIDNumber })
+		cards.actions.allCardsReplace({ cards: newDocumentData.cards, lastCardIDNumber: newDocumentData.lastCardIDNumber })
 	);
 	dispatch(river.actions.replaceRivers(newDocumentData.riverMakeUps));
 	if (currentPDFName !== undefined && newDocumentData.name !== currentPDFName) {

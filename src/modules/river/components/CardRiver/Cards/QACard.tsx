@@ -24,7 +24,7 @@ export const QACard = ({ config }: { config: QAConfig }) => {
 								<Grid item>
 									<ClayCardField
 										saveChanges={(value) => {
-											dispatch(cards.actions.replaceCardFieldContent("q", config, value));
+											dispatch(cards.actions.cardFieldReplace({ cardField: "q", cardConfig: config, newValue: value }));
 										}}
 										storeValue={(config.content as QACardContent).q}
 										label={text.constants.questionText}
@@ -45,7 +45,7 @@ export const QACard = ({ config }: { config: QAConfig }) => {
 								<Grid item>
 									<ClayCardField
 										saveChanges={(value) => {
-											dispatch(cards.actions.replaceCardFieldContent("a", config, value));
+											dispatch(cards.actions.cardFieldReplace({ cardField: "a", cardConfig: config, newValue: value }));
 										}}
 										storeValue={(config.content as QACardContent).a}
 										label={text.constants.answerText}

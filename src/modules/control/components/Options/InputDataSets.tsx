@@ -109,7 +109,7 @@ const LoadDataSetsDialogAlert = ({
 								dispatch(ActionCreators.clearHistory());
 								dispatch(river.actions.replaceRivers(foundDataSet.riverMakeUps));
 								dispatch(
-									cards.actions.replaceCards({
+									cards.actions.allCardsReplace({
 										cards: foundDataSet.cards,
 										lastCardIDNumber: foundDataSet.lastCardIDNumber,
 									})
