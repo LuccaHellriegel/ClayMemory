@@ -1,15 +1,12 @@
 import React, { RefObject, useRef, Fragment, useEffect } from "react";
 import { pdfjs } from "react-pdf";
 import { VariableSizeList } from "react-window";
-import { RiverMaterialPair } from "./RiverMaterialPair";
+import { pairTopBottomPadding, RiverMaterialPair } from "./RiverMaterialPair";
 import { CachedPageDimensions } from "../../../pdf/components/Document/PDFDocument";
 import { getTopOffset, getWindowMeasurements } from "../../selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { ListScrollControl } from "./ListScrollControl";
 import pdf from "../../../pdf";
-
-//TODO: replace this with Material-UI breakpoints
-export const RiverMultiplier = 0.35;
 
 const calculateMaterialHeight = (
 	pageNumber: number,
@@ -26,8 +23,6 @@ const calculateMaterialHeight = (
 	const extraSpaceBetweenMaterialPages = 20;
 	return materialHeight + extraSpaceBetweenMaterialPages;
 };
-
-export const pairTopBottomPadding = 20;
 
 const Resetter = ({
 	listRef,

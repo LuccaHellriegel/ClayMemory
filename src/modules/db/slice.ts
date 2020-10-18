@@ -34,4 +34,6 @@ const dbSlice = createSlice({
 	},
 });
 
+export const { actions } = dbSlice;
+
 export default dbSlice;

@@ -6,7 +6,7 @@ export const getAll = (state: any): PDFState => state[NAME];
 
 export const getPDF = createSelector(getAll, (state: PDFState) => state.pdf);
 
-export const getPDFName = createSelector(getPDF, (pdf) => (pdf ? pdf.name : undefined));
+export const getPDFName = createSelector(getAll, (state) => state.pdfName);
 
 export const getTotalPages = createSelector(getAll, (state: PDFState) => state.totalPages);
 

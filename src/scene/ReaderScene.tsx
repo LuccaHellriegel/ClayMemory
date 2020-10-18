@@ -1,7 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import control from "../modules/control";
-import selection from "../modules/selection";
 import display from "../modules/display";
 
 export function ReaderScene() {
@@ -23,8 +22,6 @@ export function ReaderScene() {
 					<display.components.Display></display.components.Display>
 				</Grid>
 			</Grid>
-			<selection.components.ContextMenu></selection.components.ContextMenu>
-			<selection.components.SelectionSnackbar></selection.components.SelectionSnackbar>
 		</div>
 	);
 }

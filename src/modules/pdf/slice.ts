@@ -13,11 +13,14 @@ const initialState: PDFState = {
 	documentSearch: "",
 };
 
-const pdfUpload: CaseReducer<PDFState, PayloadAction<File>> = simpleReducer("pdf");
 const totalPages: CaseReducer<PDFState, PayloadAction<number>> = simpleReducer("totalPages");
 const pdfShowStatus: CaseReducer<PDFState, PayloadAction<PDFStatus>> = simpleReducer("pdfShowStatus");
 const spanOrigin: CaseReducer<PDFState, PayloadAction<SingleOrigin | null>> = simpleReducer("spanOrigin");
 const documentSearch: CaseReducer<PDFState, PayloadAction<string>> = simpleReducer("documentSearch");
+
+const pdfUpload: CaseReducer<PDFState, PayloadAction<File>> = (state, { payload }) => {
+	return { ...state, pdf: payload, pdfName: payload.name };
+};
 
 const pageUpdate: CaseReducer<PDFState, PayloadAction<{ page: number; shouldScroll: boolean }>> = (
 	state,

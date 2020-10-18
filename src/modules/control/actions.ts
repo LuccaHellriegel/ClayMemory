@@ -1,42 +1,17 @@
 import { Dispatch } from "redux";
 import { ActionCreators } from "redux-undo";
-import { collectCurrentDBData } from "./selectors";
 import cards from "../cards";
 import river from "../river";
 import db from "../db";
 import { DocumentData } from "../db/model";
 import pdf from "../pdf";
 
-export const archiveCurrentDBData = () => {
-	return (dispatch: Dispatch, getState: Function) => {
-		const state = getState();
-		const currentPDFName = pdf.selectors.getPDFName(state);
-
-		if (currentPDFName !== undefined) {
-			const dbData = collectCurrentDBData(state) as DocumentData;
-			dispatch(db.actions.storeInDocumentDB(dbData));
-		}
-	};
-};
-
-const fileDownload = require("js-file-download");
-export const downloadDBData = () => {
-	return (dispatch: any, getState: Function) => {
-		//actualize the db before downloading
-		dispatch(archiveCurrentDBData());
-
-		const documentDataSets = db.selectors.getDocumentDataSets(getState());
-		const localString = new Date().toLocaleString();
-		fileDownload(JSON.stringify(documentDataSets), localString + " ClayMemory.txt");
-	};
-};
-
-export const resetActiveAppState = (dispatch: Dispatch) => {
+const resetActiveAppState = (dispatch: Dispatch) => {
 	dispatch(cards.actions.allCardsReset());
 	dispatch(river.actions.allRiversReset());
 };
 
-export const replaceActiveAppState = (dispatch: Dispatch, newDocumentData: DocumentData, currentPDFName?: string) => {
+const replaceActiveAppState = (dispatch: Dispatch, newDocumentData: DocumentData, currentPDFName?: string) => {
 	dispatch(
 		cards.actions.allCardsReplace({ cards: newDocumentData.cards, lastCardIDNumber: newDocumentData.lastCardIDNumber })
 	);
@@ -45,11 +20,10 @@ export const replaceActiveAppState = (dispatch: Dispatch, newDocumentData: Docum
 		//existing pdf is unequal to loaded data, so need to replace
 		//pdf is not replaced, because when we load only data, the pdf is not yet uploaded
 		dispatch(
-			pdf.actions.existingDocumentPayload(
-				(({ currentPage, totalPages }: { currentPage: number; totalPages: number }) => ({ currentPage, totalPages }))(
-					newDocumentData
-				)
-			)
+			pdf.actions.existingDocumentPayload({
+				currentPage: newDocumentData.currentPage,
+				totalPages: newDocumentData.totalPages,
+			})
 		);
 	}
 };
@@ -63,11 +37,7 @@ export const loadPDF = (pdfFile: File) => {
 
 		const documentDB = db.selectors.getAll(state);
 
-		// save current data only if pdf has been uploaded / there is an active document
-		if (currentPDFName !== undefined) {
-			const dbData = collectCurrentDBData(state) as DocumentData;
-			dispatch(db.actions.storeInDocumentDB(dbData));
-		}
+		db.actions.refreshDB(dispatch, state);
 
 		dispatch(pdf.actions.pdfUpload(pdfFile));
 
@@ -97,11 +67,7 @@ export const loadSavedDocument = (document: string) => {
 
 		const documentDB = db.selectors.getAll(state);
 
-		// save current data only if pdf has been uploaded / there is an active document
-		if (currentPDFName !== undefined) {
-			const dbData = collectCurrentDBData(state) as DocumentData;
-			dispatch(db.actions.storeInDocumentDB(dbData));
-		}
+		db.actions.refreshDB(dispatch, state);
 
 		const newDocumentData = documentDB[document];
 		// if no pdf exists and no current pdf name then the document dataset was loaded into an empty ClayMemory,
@@ -118,7 +84,7 @@ export const deleteActiveDocument = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		resetActiveAppState(dispatch);
 
-		// keeping the undo history leads to weird edge cases and makes no sense
+		// keeping the undo history leads to weird edge cases
 		dispatch(ActionCreators.clearHistory());
 
 		const state = getState();

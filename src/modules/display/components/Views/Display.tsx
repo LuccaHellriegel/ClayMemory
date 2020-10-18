@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import pdf from "../../../pdf";
+import selection from "../../../selection";
 import { View } from "../../model";
 import { getCurrentView } from "../../selectors";
 import { RiverMaterialPairList } from "../RiverMaterialPairList/RiverMaterialPairList";
@@ -25,6 +26,9 @@ export const Display = () => {
 			</div>
 
 			{/* {currentView === View.CardExplorer && <CardExplorer></CardExplorer>} */}
+
+			<selection.components.ContextMenu></selection.components.ContextMenu>
+			<selection.components.SelectionSnackbar></selection.components.SelectionSnackbar>
 		</Fragment>
 	);
 };
