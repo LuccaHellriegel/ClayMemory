@@ -24,7 +24,7 @@ const undoableCardActions = [
 
 const rootReducer = combineReducers({
 	[db.name]: db.reducer,
-	[selection.constants.NAME]: selection.reducer,
+	[selection.name]: selection.reducer,
 	[river.constants.NAME]: undoable(river.reducer, {
 		filter: includeAction(undoableCardActions),
 	}),

@@ -1,4 +1,3 @@
-import * as t from "./actionTypes";
 import { SingleOrigin } from "../cards/model/origin";
 import { SelectionSourceConfig, SelectionGoalConfig, SelectionExistingCardGoalConfig } from "./model";
 import { Dispatch } from "redux";
@@ -7,20 +6,12 @@ import { selectionToCard } from "./services/use-selection";
 import { getSelectionSourceFromMaterial, getSelectionSourceFromCard } from "./services/get-selection";
 import { CardID } from "../cards/model/config";
 import { CardField } from "../cards/model/content";
-import { ClayMemoryPayloadAction } from "../../shared/utils";
+import { actions } from "./slice";
 
-const setSelectionSource = (config: SelectionSourceConfig): ClayMemoryPayloadAction => {
-	return { type: t.SELECTION_SOURCE, payload: config };
-};
-export const resetSelectionSource = (): ClayMemoryPayloadAction => {
-	return { type: t.SELECTION_SOURCE, payload: null };
-};
-const setSelectionGoal = (config: SelectionGoalConfig): ClayMemoryPayloadAction => {
-	return { type: t.SELECTION_GOAL, payload: config };
-};
-export const resetSelectionGoal = (): ClayMemoryPayloadAction => {
-	return { type: t.SELECTION_GOAL, payload: null };
-};
+const selectionSource = actions.selectionSource;
+export const resetSelectionSource = () => selectionSource(null);
+const selectionGoal = actions.selectionGoal;
+export const resetSelectionGoal = () => selectionGoal(null);
 
 // we want to support either direction, first adding Goal or first adding Source
 export const addSelectionSource = (config: SelectionSourceConfig) => {
@@ -28,7 +19,7 @@ export const addSelectionSource = (config: SelectionSourceConfig) => {
 		const state = getState();
 		const goalConfig = getGoalConfig(state);
 		if (!goalConfig) {
-			dispatch(setSelectionSource(config));
+			dispatch(selectionSource(config));
 			return;
 		}
 		selectionToCard(config, goalConfig as SelectionGoalConfig, dispatch, state);
@@ -57,7 +48,7 @@ export const addSelectionGoal = (config: SelectionGoalConfig) => {
 		const state = getState();
 		const sourceConfig = getSourceConfig(state);
 		if (!sourceConfig) {
-			dispatch(setSelectionGoal(config));
+			dispatch(selectionGoal(config));
 			return;
 		}
 		selectionToCard(sourceConfig as SelectionSourceConfig, config, dispatch, state);

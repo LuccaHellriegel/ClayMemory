@@ -1,9 +1,9 @@
 import * as actions from "./actions";
-import * as constants from "./constants";
-import * as actionTypes from "./actionTypes";
-import reducer from "./reducer";
+import slice from "./slice";
 import * as selectors from "./selectors";
 import * as components from "./components";
 import * as services from "./services";
 
-export default { actions, actionTypes, constants, components, reducer, selectors, services };
+const { reducer, name } = slice;
+
+export default { actions, name, components, reducer, selectors, services };
