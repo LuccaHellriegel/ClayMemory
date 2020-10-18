@@ -20,7 +20,7 @@ Cypress.Commands.add("uploadPDFtoApp", (fileName) => {
 		.fixture(fileName)
 		.then((fileContent) => {
 			// Load Document Button
-			cy.get(":nth-child(4) > .MuiButtonBase-root").get('input[type="file"]').attachFile(
+			cy.get(":nth-child(3) > .MuiButtonBase-root > .MuiButton-label").get('input[type="file"]').attachFile(
 				{
 					fileContent: fileContent,
 					fileName: fileName,
@@ -40,7 +40,7 @@ Cypress.Commands.add("uploadPDFWithExistingDatatoApp", (fileName) => {
 		.fixture(fileName)
 		.then((fileContent) => {
 			// Load Document Button
-			cy.get(":nth-child(7) > .MuiButtonBase-root").get('input[type="file"]').attachFile(
+			cy.get(".MuiList-root > :nth-child(3) > .MuiButtonBase-root").get('input[type="file"]').attachFile(
 				{
 					fileContent: fileContent,
 					fileName: fileName,
@@ -58,7 +58,7 @@ Cypress.Commands.add("uploadPDFtoAppSecondTime", (fileName) => {
 		.fixture(fileName)
 		.then((fileContent) => {
 			// Load Document Button
-			cy.get(":nth-child(4) > .MuiButtonBase-root > .MuiButton-label").get('input[type="file"]').attachFile(
+			cy.get(".MuiList-root > :nth-child(3) > .MuiButtonBase-root").get('input[type="file"]').attachFile(
 				{
 					fileContent: fileContent,
 					fileName: fileName,
@@ -115,7 +115,7 @@ Cypress.Commands.add("emptyNote", () => {
 Cypress.Commands.add("emptyQA", () => {
 	return cy
 		.get(
-			'[style="position: absolute; left: 0px; top: 0px; height: 1018.35px; width: 100%;"] > :nth-child(1) > .MuiGrid-align-items-xs-flex-start > :nth-child(1) > [style="max-width: 420px;"] > .MuiAccordion-root > .MuiCollapse-container > .MuiCollapse-wrapper > .MuiCollapse-wrapperInner > [role="region"] > .MuiAccordionDetails-root > :nth-child(1) > :nth-child(1) > :nth-child(1) > .MuiIconButton-label > .MuiSvgIcon-root > path'
+			'[style="position: absolute; left: 0px; top: 0px; height: 1018.35px; width: 100%;"] > :nth-child(1) > .MuiGrid-align-items-xs-flex-start > :nth-child(1) > [style="max-width: 420px;"] > .MuiPaper-root > .MuiCollapse-container > .MuiCollapse-wrapper > .MuiCollapse-wrapperInner > [role="region"] > .MuiAccordionDetails-root > :nth-child(1) > :nth-child(1) > :nth-child(1) > .MuiButtonBase-root > .MuiIconButton-label > .MuiSvgIcon-root > path'
 		)
 		.click();
 });

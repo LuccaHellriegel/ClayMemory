@@ -10,12 +10,10 @@ import {
 	DialogTitle,
 } from "@material-ui/core";
 import PublishIcon from "@material-ui/icons/Publish";
-import river from "../../../river";
-import cards from "../../../cards";
 import db from "../../../db";
-import { ActionCreators } from "redux-undo";
 import { DocumentData } from "../../../db/model";
 import pdf from "../../../pdf";
+import { replaceActiveAppState } from "../../actions";
 
 export const InputDataSets = ({ handleClose, label }: any) => {
 	const ref: MutableRefObject<null | HTMLInputElement> = useRef(null);
@@ -106,14 +104,7 @@ const LoadDataSetsDialogAlert = ({
 
 							dispatch(db.actions.updateDocumentDB(uploadedDataSets));
 							if (foundDataSet) {
-								dispatch(ActionCreators.clearHistory());
-								dispatch(river.actions.allRiversReplace(foundDataSet.riverMakeUps));
-								dispatch(
-									cards.actions.allCardsReplace({
-										cards: foundDataSet.cards,
-										lastCardIDNumber: foundDataSet.lastCardIDNumber,
-									})
-								);
+								replaceActiveAppState(dispatch, foundDataSet);
 							}
 							handleClose();
 						};

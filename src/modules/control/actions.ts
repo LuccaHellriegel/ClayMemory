@@ -7,11 +7,15 @@ import { DocumentData } from "../db/model";
 import pdf from "../pdf";
 
 const resetActiveAppState = (dispatch: Dispatch) => {
-	dispatch(cards.actions.allCardsReset());
+	// reset river first, otherwise it might not find cards which where deleted
 	dispatch(river.actions.allRiversReset());
+	dispatch(cards.actions.allCardsReset());
+	// no undo-redo across documents or when uploading a dataset
+	dispatch(ActionCreators.clearHistory());
 };
 
-const replaceActiveAppState = (dispatch: Dispatch, newDocumentData: DocumentData, currentPDFName?: string) => {
+export const replaceActiveAppState = (dispatch: Dispatch, newDocumentData: DocumentData, currentPDFName?: string) => {
+	// this order is critical, otherwise river cant find cards
 	dispatch(
 		cards.actions.allCardsReplace({ cards: newDocumentData.cards, lastCardIDNumber: newDocumentData.lastCardIDNumber })
 	);
@@ -26,6 +30,8 @@ const replaceActiveAppState = (dispatch: Dispatch, newDocumentData: DocumentData
 			})
 		);
 	}
+	// no undo-redo across documents or when uploading a dataset
+	dispatch(ActionCreators.clearHistory());
 };
 
 export const loadPDF = (pdfFile: File) => {
@@ -53,9 +59,6 @@ export const loadPDF = (pdfFile: File) => {
 		} else {
 			resetActiveAppState(dispatch);
 		}
-
-		// no undo-redo across documents
-		dispatch(ActionCreators.clearHistory());
 	};
 };
 
@@ -74,22 +77,14 @@ export const loadSavedDocument = (document: string) => {
 		// then we need to set the name
 		const inputName = !!!pdfFile && !!!currentPDFName ? "" : currentPDFName;
 		replaceActiveAppState(dispatch, newDocumentData, inputName);
-
-		// no undo-redo across documents
-		dispatch(ActionCreators.clearHistory());
 	};
 };
 
 export const deleteActiveDocument = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		resetActiveAppState(dispatch);
-
-		// keeping the undo history leads to weird edge cases
-		dispatch(ActionCreators.clearHistory());
-
 		const state = getState();
 		const activeDocument = pdf.selectors.getPDFName(state);
-		// note: no undo of this
 		dispatch(db.actions.removeFromDocumentDB(activeDocument as string));
 	};
 };
@@ -101,7 +96,6 @@ export const deleteDocument = (document: string) => {
 		if (activeDocument && activeDocument === document) {
 			dispatch(deleteActiveDocument());
 		} else {
-			// note: no undo of this
 			dispatch(db.actions.removeFromDocumentDB(document));
 		}
 	};
