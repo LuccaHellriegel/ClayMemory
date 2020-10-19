@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d6192f70577a380142943ad0d2d2a5b9",
+    "revision": "7489669f6be87b9096c6b43659d13adb",
     "url": "/ClayMemory/index.html"
   },
   {
