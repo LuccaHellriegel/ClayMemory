@@ -1,10 +1,9 @@
 # ClayMemory - sculpt your mind
 
-STATUS: prototype for research purposes.
-
 React-based reader and editor for creating notes and flash cards directly from PDF documents.
 
-Try the prototype: [https://luccahellriegel.github.io/ClayMemory](https://luccahellriegel.github.io/ClayMemory)
+STATUS: prototype for HCI research into flash card creation.
+Try it here: [https://luccahellriegel.github.io/ClayMemory](https://luccahellriegel.github.io/ClayMemory)
 
 Only tested on Firefox and Chromium.
 
@@ -75,6 +74,12 @@ Issues, PRs and general suggestions welcome.
     - some of the tests are flaky when run in headless-mode
 - [Architecture inspiration](https://jaysoo.ca/2016/02/28/organizing-redux-application/)
   - Boundary enforcement/testing via dependency-cruiser
+
+## License
+
+My custom code is licensed under Apache 2.0 (see LICENSE file).
+
+The favicon builds upon the Twemojii project and is copyright of Twitter, Inc and other contributors, and licensed under CC-BY 4.0.
 
 ## Available Scripts
 

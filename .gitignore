@@ -28,3 +28,5 @@ settings.json
 
 /cypress/videos
 /cypress/screenshots
+
+.vscode
