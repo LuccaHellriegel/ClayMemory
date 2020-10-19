@@ -9,6 +9,7 @@ import { getRiverContentState, getRiverContentFilter, getRiverMakeUps } from "..
 import cards from "../../../cards";
 import { ClayCardGridItems } from "./ClayCardGridItems";
 import { filterCardConfigs } from "../../services/filterCardConfigs";
+import { UnhideCardsButton } from "./UnhideCardsButton";
 
 export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materialHeight: number }) => {
 	const cardConfigs = useSelector(cards.selectors.getCards);
@@ -24,6 +25,8 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 
 	//TODO: if you start without any document and then load one, the current cards should be merged into that one
 	//TODO: scroll-to-top for overflowing river
+
+	const containsFilteredCards = riverCards.length !== filteredConfigs.length;
 
 	return (
 		<Accordion
@@ -49,15 +52,17 @@ export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materi
 			<AccordionDetails>
 				<Grid container direction="column" spacing={2} justify="center" alignItems="stretch">
 					<Grid item>
-						<span
-							onClick={() => {
-								console.log("here");
-							}}
-						>
-							<cards.components.AddQAButton></cards.components.AddQAButton>
-						</span>
-						<cards.components.AddNoteButton></cards.components.AddNoteButton>
-						<Divider></Divider>
+						<Grid container direction="row">
+							<Grid item>
+								<cards.components.AddQAButton></cards.components.AddQAButton>
+							</Grid>
+							<Grid item>
+								<cards.components.AddNoteButton></cards.components.AddNoteButton>
+							</Grid>
+							<Grid item>{containsFilteredCards && <Divider orientation="vertical"></Divider>}</Grid>
+							<Grid item>{containsFilteredCards && <UnhideCardsButton></UnhideCardsButton>}</Grid>
+						</Grid>
+						<Divider style={{ marginTop: "4px" }}></Divider>
 					</Grid>
 
 					<Grid item>

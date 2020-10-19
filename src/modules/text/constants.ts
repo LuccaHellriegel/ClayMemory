@@ -22,6 +22,7 @@ export const CardIsReplaceGoalTooltip = "The next selection will replace this ca
 
 export const newQACardTooltip = "Create new QA-card";
 export const newNoteCardTooltip = "Create new Note-card";
+export const unhideCardsTooltip = "This river contains hidden cards. Click to show.";
 
 export const deleteDocumentTooltip = "Delete this document and all its corresponding cards";
 export const loadSavedDocumentTooltip = "Load the card data of this document";

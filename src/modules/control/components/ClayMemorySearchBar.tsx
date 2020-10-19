@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "material-ui-search-bar";
 import river from "../../river";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +32,12 @@ export const ClayMemorySearchBar = () => {
 	const contentString = useSelector(river.selectors.getRiverContentFilter);
 
 	const [state, setState] = useState(contentString);
+
+	useEffect(() => {
+		if (state !== contentString) {
+			setState(contentString);
+		}
+	}, [contentString]);
 
 	const [searchFocus, setSearchFocus] = useState("cards");
 

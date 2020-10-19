@@ -15,12 +15,7 @@ import { simpleReducer } from "../../shared/utils";
 
 const initialState: CardRiverState = {
 	riverOriginRequest: null,
-	riverMakeUps: {
-		[pageNumberToRiverMakeUpID(1)]: {
-			riverID: pageNumberToRiverMakeUpID(1),
-			cardIDs: [],
-		},
-	},
+	riverMakeUps: {},
 	riverActiveID: pageNumberToRiverMakeUpID(1),
 	riverShowState: "SHOW",
 	riverContentState: "ALL",
@@ -37,6 +32,10 @@ const riverContentFilter: CaseReducer<CardRiverState, PayloadAction<string>> = s
 const riverOriginRequest: CaseReducer<CardRiverState, PayloadAction<SingleOrigin | null>> = simpleReducer(
 	"riverOriginRequest"
 );
+
+const riverUnhide: CaseReducer<CardRiverState> = (state) => {
+	return { ...state, riverContentState: "ALL", riverContentFilter: "" };
+};
 
 const allRiversReset: CaseReducer<CardRiverState> = (_) => {
 	return initialState;
@@ -91,6 +90,7 @@ const riverSlice = createSlice({
 		riverContentState,
 		riverContentFilter,
 		riverOriginRequest,
+		riverUnhide,
 		allRiversReset,
 		allRiversReplace,
 	},
