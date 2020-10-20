@@ -58,7 +58,23 @@ const materialSelectionDataToSourceConfig = (
 		if (!selectedParentEnd) return false;
 	}
 
-	if (selectedParentStart.nodeName !== "SPAN" || selectedParentEnd.nodeName !== "SPAN") return false;
+	if (selectedParentStart.nodeName !== "SPAN") {
+		// sometimes the parent div gets selected
+		if (selectedParentStart.nodeName === "DIV" && selection.anchorNode?.nodeName === "SPAN") {
+			selectedParentStart = selection.anchorNode;
+		} else {
+			return false;
+		}
+	}
+
+	if (selectedParentEnd.nodeName !== "SPAN") {
+		// sometimes the parent div gets selected
+		if (selectedParentEnd.nodeName === "DIV" && selection.focusNode?.nodeName === "SPAN") {
+			selectedParentEnd = selection.focusNode;
+		} else {
+			return false;
+		}
+	}
 
 	const divTextLayerParent = selectedParentStart.parentNode;
 	if (!!!divTextLayerParent || divTextLayerParent.nodeName !== "DIV") return false;
