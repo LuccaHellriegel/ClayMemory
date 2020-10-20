@@ -1,8 +1,7 @@
 import { CaseReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DocumentData, DocumentDB } from "./model";
 import { NAME } from "./constants";
-
-const initialState: DocumentDB = {};
+import { initialStateArr } from "./research";
 
 //TODO: PDF-data gets saved with name, better use some hash or something (rename of document file is likely) -> use size or last-modified or smth like that instead of name
 
@@ -23,6 +22,11 @@ const updateDocumentDB: CaseReducer<DocumentDB, PayloadAction<DocumentData[]>> =
 const removeFromDocumentDB: CaseReducer<DocumentDB, PayloadAction<string>> = (state, { payload }) => {
 	return Object.fromEntries(Object.entries(state).filter((arr) => arr[0] !== payload));
 };
+
+const initialState: DocumentDB = updateDocumentDB(
+	{},
+	{ payload: initialStateArr, type: updateDocumentDB.toString() }
+) as DocumentDB;
 
 const dbSlice = createSlice({
 	name: NAME,

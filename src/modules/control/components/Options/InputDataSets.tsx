@@ -70,7 +70,6 @@ const LoadDataSetsDialogAlert = ({
 }) => {
 	const dispatch = useDispatch();
 	const activeDocument = useSelector(pdf.selectors.getPDFName);
-	console.log(open, file);
 	return (
 		<Dialog
 			open={open}

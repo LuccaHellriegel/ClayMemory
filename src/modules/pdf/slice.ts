@@ -43,7 +43,7 @@ const previousPage: CaseReducer<PDFState> = (state) => {
 	return { ...state, currentPage: page, scrollToPage: page };
 };
 
-type ExistingDocumentPayload = Pick<PDFState, "currentPage" | "totalPages">;
+type ExistingDocumentPayload = Pick<PDFState, "pdfName" | "currentPage" | "totalPages">;
 const existingDocumentPayload: CaseReducer<PDFState, PayloadAction<ExistingDocumentPayload>> = (_, { payload }) => {
 	return {
 		...initialState,
