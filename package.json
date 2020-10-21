@@ -29,6 +29,7 @@
 		"material-ui-search-bar": "^1.0.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
+		"react-draggable": "^4.4.3",
 		"react-pdf": "git+https://github.com/LuccaHellriegel/react-pdf.git",
 		"react-redux": "^7.2.0",
 		"react-scripts": "3.4.1",

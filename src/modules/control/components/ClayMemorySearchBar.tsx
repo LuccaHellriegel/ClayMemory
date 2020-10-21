@@ -37,7 +37,7 @@ export const ClayMemorySearchBar = () => {
 		if (state !== contentString) {
 			setState(contentString);
 		}
-	}, [contentString]);
+	}, [contentString, state, setState]);
 
 	const [searchFocus, setSearchFocus] = useState("cards");
 
