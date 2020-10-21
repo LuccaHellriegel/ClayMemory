@@ -44,7 +44,7 @@ export const SelectionSnackbar = () => {
 	});
 
 	return (
-		<Draggable positionOffset={{ x: "-50%", y: "0%" }}>
+		<Draggable positionOffset={{ x: "-50%", y: "0%" }} axis="x">
 			<Snackbar
 				style={{ maxWidth: "400px", overflowX: "auto" }}
 				anchorOrigin={{ vertical: "top", horizontal: "center" }}
