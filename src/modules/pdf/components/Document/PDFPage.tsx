@@ -138,7 +138,8 @@ export const PDFPage = ({ pageNumber, materialWidth }: { pageNumber: number; mat
 	const documentSearch = useSelector(getDocumentSearch);
 	const spanOrigin = useSelector(getSpanOrigin);
 
-	const originHighlighter = spanOrigin ? makeOriginHighlighter(spanOrigin) : undefined;
+	const originHighlighter =
+		spanOrigin && spanOrigin.page === pageNumber ? makeOriginHighlighter(spanOrigin) : undefined;
 	const searchRenderer = documentSearch !== "" ? makeTextRenderer(documentSearch) : undefined;
 
 	const textRenderer = combineRenderers(searchRenderer, originHighlighter);

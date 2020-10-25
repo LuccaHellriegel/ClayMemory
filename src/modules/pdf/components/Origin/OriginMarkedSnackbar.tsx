@@ -43,6 +43,7 @@ export const OriginMarkedSnackbar = () => {
 		};
 	});
 
+	//TODO: if scrolling wildly accross the document this automatically unmarks, but it should not
 	return (
 		<Snackbar
 			anchorOrigin={{
