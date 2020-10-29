@@ -12,16 +12,18 @@ export const getSelectionWorkaround = (): SelectionData | null => {
 		var activeElement = document.activeElement;
 		if (activeElement && (activeElement as HTMLInputElement).value) {
 			// firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=85686
-			const str = (activeElement as HTMLInputElement).value.substring(
-				(activeElement as HTMLInputElement).selectionStart as number,
-				(activeElement as HTMLInputElement).selectionEnd as number
-			);
+			const str = (activeElement as HTMLInputElement).value
+				.substring(
+					(activeElement as HTMLInputElement).selectionStart as number,
+					(activeElement as HTMLInputElement).selectionEnd as number
+				)
+				.trim();
 
 			if (str === "") return null;
 
 			return { text: str, selection };
 		} else {
-			const selStr = selection.toString();
+			const selStr = selection.toString().trim();
 
 			if (selStr === "") return null;
 
