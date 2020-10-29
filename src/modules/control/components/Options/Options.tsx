@@ -38,7 +38,9 @@ const ActiveDocumentOptionItem = ({ afterClick }: { afterClick: () => void }) =>
 
 const DocumentOptionList = ({ afterClick }: { afterClick: () => void }) => {
 	const activeDocument = useSelector(pdf.selectors.getPDFName);
-	const documents = useSelector(db.selectors.getDocumentNames).filter((doc) => doc !== activeDocument);
+	const documents = useSelector(db.selectors.getDocumentNames)
+		.filter((doc) => doc !== activeDocument)
+		.sort();
 	const increment = incrementer();
 
 	return (
