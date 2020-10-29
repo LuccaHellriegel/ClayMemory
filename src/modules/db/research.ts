@@ -36,28 +36,7 @@ export const initialStateArr: DocumentData[] = [
 		lastCardIDNumber: 2,
 	},
 	{
-		name: "3_Zapfen.pdf",
-		totalPages: 8,
-		currentPage: 1,
-		riverMakeUps: { "CardRiver 2": { riverID: "CardRiver 2", cardIDs: ["1"] } },
-		cards: {
-			"1": {
-				type: "Q-A",
-				content: {
-					q: "Warum wird der L-Zapfen als Rotrezeptor bezeichnet?",
-					a: "Er übernimmt die Hauptleistung für die Wahrnehmung von rotem Licht.",
-				},
-				origin: {
-					q: { spanIndexStart: 93, spanIndexEnd: 93, page: 2 },
-					a: { spanIndexStart: 94, spanIndexEnd: 97, page: 2 },
-				},
-				cardID: "1",
-			},
-		},
-		lastCardIDNumber: 4,
-	},
-	{
-		name: "4_Platon.pdf",
+		name: "3_Platon.pdf",
 		totalPages: 45,
 		currentPage: 3,
 		riverMakeUps: {
@@ -153,7 +132,7 @@ export const initialStateArr: DocumentData[] = [
 		lastCardIDNumber: 20,
 	},
 	{
-		name: "5_Nervenzelle.pdf",
+		name: "4_Nervenzelle.pdf",
 		totalPages: 12,
 		currentPage: 4,
 		riverMakeUps: {

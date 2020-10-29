@@ -9,6 +9,8 @@ import { getPDF } from "../../selectors";
 import { actions } from "../../slice";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+//TODO: make the worker file permanent, sometimes cloudflare is down or internet might go down when reloading
+
 export type CachedPageDimensions = Map<number, [number, number]>;
 
 const options = {
