@@ -75,6 +75,12 @@ Issues, PRs and general suggestions welcome.
 - [Architecture inspiration](https://jaysoo.ca/2016/02/28/organizing-redux-application/)
   - Boundary enforcement/testing via dependency-cruiser
 
+## Temporary changes for research purposes
+
+- Default data
+- Deactivated show options / search document box
+- order in options-menu / deactivated download / upload dataset
+
 ## License
 
 My custom code is licensed under Apache 2.0 (see LICENSE file).
