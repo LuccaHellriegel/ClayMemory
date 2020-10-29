@@ -55,7 +55,7 @@ const DeleteDocumentDialogAlert = ({
 };
 
 //TODO: deleting the active document leads only to reset it, not really delete it
-export const DeleteDocumentButton = ({ document }: { document: string }) => {
+export const DeleteDocumentButton = ({ document, afterClick }: { document: string; afterClick: () => void }) => {
 	const [open, setOpen] = useState(false);
 
 	const handleClose = () => {
@@ -77,7 +77,14 @@ export const DeleteDocumentButton = ({ document }: { document: string }) => {
 					<DeleteIcon fontSize="small"></DeleteIcon>
 				</IconButton>
 			</text.components.BiggerTooltip>
-			<DeleteDocumentDialogAlert document={document} open={open} handleClose={handleClose}></DeleteDocumentDialogAlert>
+			<DeleteDocumentDialogAlert
+				document={document}
+				open={open}
+				handleClose={() => {
+					handleClose();
+					afterClick();
+				}}
+			></DeleteDocumentDialogAlert>
 		</div>
 	);
 };

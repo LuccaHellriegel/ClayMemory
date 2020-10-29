@@ -3,11 +3,11 @@ import { Divider, Card, Grid } from "@material-ui/core";
 import { DeleteDocumentButton } from "./DeleteDocumentButton";
 import { LoadDocumentDataButton } from "./LoadDocumentDataButton";
 
-const DocumentOptionItemButtonRow = ({ document }: { document: string }) => {
+const DocumentOptionItemButtonRow = ({ document, afterClick }: { document: string; afterClick: () => void }) => {
 	return (
 		<Grid container direction="row">
 			<Grid item>
-				<LoadDocumentDataButton document={document}></LoadDocumentDataButton>
+				<LoadDocumentDataButton document={document} afterClick={afterClick}></LoadDocumentDataButton>
 			</Grid>
 
 			<Grid item>
@@ -15,20 +15,20 @@ const DocumentOptionItemButtonRow = ({ document }: { document: string }) => {
 			</Grid>
 
 			<Grid item>
-				<DeleteDocumentButton document={document}></DeleteDocumentButton>
+				<DeleteDocumentButton document={document} afterClick={afterClick}></DeleteDocumentButton>
 			</Grid>
 		</Grid>
 	);
 };
 
-export const DocumentOptionItem = ({ document }: { document: string }) => {
+export const DocumentOptionItem = ({ document, afterClick }: { document: string; afterClick: () => void }) => {
 	return (
 		<Grid container direction="row" justify="space-between" alignItems="center" spacing={1}>
 			<Grid item>{document.replace(".pdf", "")}</Grid>
 
 			<Grid item>
 				<Card variant="outlined">
-					<DocumentOptionItemButtonRow document={document}></DocumentOptionItemButtonRow>
+					<DocumentOptionItemButtonRow document={document} afterClick={afterClick}></DocumentOptionItemButtonRow>
 				</Card>
 			</Grid>
 		</Grid>

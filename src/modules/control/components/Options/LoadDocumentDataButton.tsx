@@ -5,7 +5,7 @@ import ImportContactsIcon from "@material-ui/icons/ImportContacts";
 import { loadSavedDocument } from "../../actions";
 import text from "../../../text";
 
-export const LoadDocumentDataButton = ({ document }: { document: string }) => {
+export const LoadDocumentDataButton = ({ document, afterClick }: { document: string; afterClick: () => void }) => {
 	const dispatch = useDispatch();
 	return (
 		<text.components.BiggerTooltip
@@ -17,6 +17,7 @@ export const LoadDocumentDataButton = ({ document }: { document: string }) => {
 				type="button"
 				onClick={() => {
 					dispatch(loadSavedDocument(document));
+					afterClick();
 				}}
 			>
 				<ImportContactsIcon fontSize="small"></ImportContactsIcon>

@@ -11,7 +11,7 @@ import { InputDataSets } from "./InputDataSets";
 import { InputDocument } from "./InputDocument";
 import { DocumentOptionItem } from "./DocumentOptionItem";
 
-const ActiveDocumentOptionItem = () => {
+const ActiveDocumentOptionItem = ({ afterClick }: { afterClick: () => void }) => {
 	const activeDocument = useSelector(pdf.selectors.getPDFName);
 	const increment = incrementer();
 
@@ -26,7 +26,7 @@ const ActiveDocumentOptionItem = () => {
 
 					<Grid item>
 						<Card variant="outlined">
-							<DeleteDocumentButton document={activeDocument}></DeleteDocumentButton>
+							<DeleteDocumentButton document={activeDocument} afterClick={afterClick}></DeleteDocumentButton>
 						</Card>
 					</Grid>
 				</Grid>,
@@ -36,7 +36,7 @@ const ActiveDocumentOptionItem = () => {
 	);
 };
 
-const DocumentOptionList = () => {
+const DocumentOptionList = ({ afterClick }: { afterClick: () => void }) => {
 	const activeDocument = useSelector(pdf.selectors.getPDFName);
 	const documents = useSelector(db.selectors.getDocumentNames).filter((doc) => doc !== activeDocument);
 	const increment = incrementer();
@@ -52,7 +52,11 @@ const DocumentOptionList = () => {
 						{documents.map((document) =>
 							document ? (
 								<li key={increment()}>
-									<DocumentOptionItem document={document} key={increment()}></DocumentOptionItem>
+									<DocumentOptionItem
+										document={document}
+										afterClick={afterClick}
+										key={increment()}
+									></DocumentOptionItem>
 								</li>
 							) : null
 						)}
@@ -75,6 +79,8 @@ export const Options = () => {
 		setAnchorEl(null);
 	};
 
+	//TODO: snackbar for loading documents etc. needs some thought for state to avoid prop drilling like with afterClick
+
 	return (
 		<div>
 			<IconButton type="button" onClick={handleClick}>
@@ -90,8 +96,8 @@ export const Options = () => {
 			>
 				<InputDocument handleClose={handleClose} label={"Load document"}></InputDocument>
 				<Divider />
-				<ActiveDocumentOptionItem></ActiveDocumentOptionItem>
-				<DocumentOptionList></DocumentOptionList>
+				<ActiveDocumentOptionItem afterClick={handleClose}></ActiveDocumentOptionItem>
+				<DocumentOptionList afterClick={handleClose}></DocumentOptionList>
 				{/* <MenuItem
 					onClick={() => {
 						handleClose();
