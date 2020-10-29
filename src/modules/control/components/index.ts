@@ -1,3 +1,4 @@
 import { ControlBar } from "./ControlBar";
+import { UndoRedoKeyListener } from "./UndoRedoKeyListener";
 
-export { ControlBar };
+export { ControlBar, UndoRedoKeyListener };

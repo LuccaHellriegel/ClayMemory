@@ -5,23 +5,25 @@ import display from "../modules/display";
 
 export function ReaderScene() {
 	return (
-		<div>
-			<display.components.HTMLElementMeasurer></display.components.HTMLElementMeasurer>
-			<Grid
-				container
-				justify="center"
-				direction="column"
-				alignItems="stretch"
-				style={{ height: "100%", width: "100%" }}
-			>
-				<Grid item>
-					<control.components.ControlBar></control.components.ControlBar>
-				</Grid>
+		<control.components.UndoRedoKeyListener>
+			<div>
+				<display.components.HTMLElementMeasurer></display.components.HTMLElementMeasurer>
+				<Grid
+					container
+					justify="center"
+					direction="column"
+					alignItems="stretch"
+					style={{ height: "100%", width: "100%" }}
+				>
+					<Grid item>
+						<control.components.ControlBar></control.components.ControlBar>
+					</Grid>
 
-				<Grid item>
-					<display.components.Display></display.components.Display>
+					<Grid item>
+						<display.components.Display></display.components.Display>
+					</Grid>
 				</Grid>
-			</Grid>
-		</div>
+			</div>
+		</control.components.UndoRedoKeyListener>
 	);
 }
