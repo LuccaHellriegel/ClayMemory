@@ -5,6 +5,8 @@ import river from "../river";
 import db from "../db";
 import { DocumentData } from "../db/model";
 import pdf from "../pdf";
+import display from "../display";
+import { View } from "../display/model";
 
 const resetActiveAppState = (dispatch: Dispatch) => {
 	// reset river first, otherwise it might not find cards which where deleted
@@ -78,6 +80,7 @@ export const loadSavedDocument = (document: string) => {
 		// then we need to set the name
 		const inputName = !!!pdfFile && !!!currentPDFName ? "" : currentPDFName;
 		replaceActiveAppState(dispatch, newDocumentData, inputName);
+		dispatch(display.actions.currentView(View.RiverExplorer));
 	};
 };
 
