@@ -1,11 +1,11 @@
 import React, { ReactElement } from "react";
-import { Tooltip } from "@material-ui/core";
 import { newNoteCardTooltip, defaultEnterDelay, defaultEnterNextDelay } from "../constants";
+import { BiggerTooltip } from "./BiggerTooltip";
 
 export const NewNoteCardTooltip = ({ children }: { children: ReactElement }) => {
 	return (
-		<Tooltip title={newNoteCardTooltip} enterDelay={defaultEnterDelay} enterNextDelay={defaultEnterNextDelay}>
+		<BiggerTooltip title={newNoteCardTooltip} enterDelay={defaultEnterDelay} enterNextDelay={defaultEnterNextDelay}>
 			{children}
-		</Tooltip>
+		</BiggerTooltip>
 	);
 };

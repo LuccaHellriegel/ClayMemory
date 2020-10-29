@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux";
 import React, { useState } from "react";
 import {
 	IconButton,
-	Tooltip,
 	Dialog,
 	DialogTitle,
 	DialogContent,
@@ -64,7 +63,7 @@ export const DeleteDocumentButton = ({ document }: { document: string }) => {
 	};
 	return (
 		<div>
-			<Tooltip
+			<text.components.BiggerTooltip
 				title={text.constants.deleteDocumentTooltip}
 				enterDelay={text.constants.defaultEnterDelay}
 				enterNextDelay={text.constants.defaultEnterNextDelay}
@@ -77,7 +76,7 @@ export const DeleteDocumentButton = ({ document }: { document: string }) => {
 				>
 					<DeleteIcon fontSize="small"></DeleteIcon>
 				</IconButton>
-			</Tooltip>
+			</text.components.BiggerTooltip>
 			<DeleteDocumentDialogAlert document={document} open={open} handleClose={handleClose}></DeleteDocumentDialogAlert>
 		</div>
 	);

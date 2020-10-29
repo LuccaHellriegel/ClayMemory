@@ -61,9 +61,9 @@ export const ControlBar = () => {
 								<Grid item>
 									<ClayMemorySearchBar></ClayMemorySearchBar>
 								</Grid>
-								<Grid item>
+								{/* <Grid item>
 									<ShowHideButton></ShowHideButton>
-								</Grid>
+								</Grid> */}
 								<Grid item>
 									<Options></Options>
 								</Grid>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { IconButton, Card, Grid, Divider, Tooltip } from "@material-ui/core";
+import { IconButton, Card, Grid, Divider } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { actions } from "../../slice";
@@ -10,7 +10,7 @@ const PreviousButton = () => {
 	const dispatch = useDispatch();
 
 	return (
-		<Tooltip
+		<text.components.BiggerTooltip
 			title={text.constants.previousPageTooltip}
 			enterDelay={text.constants.defaultEnterDelay}
 			enterNextDelay={text.constants.defaultEnterNextDelay}
@@ -23,14 +23,14 @@ const PreviousButton = () => {
 			>
 				<ArrowBackIosIcon></ArrowBackIosIcon>
 			</IconButton>
-		</Tooltip>
+		</text.components.BiggerTooltip>
 	);
 };
 
 const NextButton = () => {
 	const dispatch = useDispatch();
 	return (
-		<Tooltip
+		<text.components.BiggerTooltip
 			title={text.constants.nextPageTooltip}
 			enterDelay={text.constants.defaultEnterDelay}
 			enterNextDelay={text.constants.defaultEnterNextDelay}
@@ -43,7 +43,7 @@ const NextButton = () => {
 			>
 				<ArrowForwardIosIcon></ArrowForwardIosIcon>
 			</IconButton>
-		</Tooltip>
+		</text.components.BiggerTooltip>
 	);
 };
 

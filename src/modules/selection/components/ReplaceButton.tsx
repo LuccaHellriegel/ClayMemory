@@ -1,7 +1,7 @@
 import RestorePageIcon from "@material-ui/icons/RestorePage";
 import RestorePageOutlinedIcon from "@material-ui/icons/RestorePageOutlined";
 import React, { useState } from "react";
-import { IconButton, Tooltip } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import text from "../../text";
 import { getGoalConfig, getSourceConfig } from "../selectors";
@@ -31,7 +31,7 @@ export const ReplaceButton = ({ cardField, cardID }: { cardField: CardField; car
 	}
 
 	return (
-		<Tooltip
+		<text.components.BiggerTooltip
 			title={
 				isGoal
 					? text.constants.CardIsReplaceGoalTooltip
@@ -58,6 +58,6 @@ export const ReplaceButton = ({ cardField, cardID }: { cardField: CardField; car
 					<RestorePageOutlinedIcon fontSize="small"></RestorePageOutlinedIcon>
 				)}
 			</IconButton>
-		</Tooltip>
+		</text.components.BiggerTooltip>
 	);
 };

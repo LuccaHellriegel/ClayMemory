@@ -1,5 +1,5 @@
 import React from "react";
-import { IconButton, Card, Divider, Grid, Tooltip } from "@material-ui/core";
+import { IconButton, Card, Divider, Grid } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import UndoIcon from "@material-ui/icons/Undo";
 import RedoIcon from "@material-ui/icons/Redo";
@@ -13,7 +13,7 @@ const UndoButton = () => {
 
 	//tooltip needs non-disabled child component
 	return (
-		<Tooltip
+		<text.components.BiggerTooltip
 			title={text.constants.undoTooltip}
 			enterDelay={text.constants.defaultEnterDelay}
 			enterNextDelay={text.constants.defaultEnterNextDelay}
@@ -29,14 +29,14 @@ const UndoButton = () => {
 					<UndoIcon></UndoIcon>
 				</IconButton>
 			</span>
-		</Tooltip>
+		</text.components.BiggerTooltip>
 	);
 };
 const RedoButton = () => {
 	const dispatch = useDispatch();
 	const cardsHasFuture = useSelector(cards.selectors.hasFuture);
 	return (
-		<Tooltip
+		<text.components.BiggerTooltip
 			title={text.constants.redoTooltip}
 			enterDelay={text.constants.defaultEnterDelay}
 			enterNextDelay={text.constants.defaultEnterNextDelay}
@@ -52,7 +52,7 @@ const RedoButton = () => {
 					<RedoIcon></RedoIcon>
 				</IconButton>
 			</span>
-		</Tooltip>
+		</text.components.BiggerTooltip>
 	);
 };
 

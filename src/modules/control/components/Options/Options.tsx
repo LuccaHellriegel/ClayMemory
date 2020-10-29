@@ -58,7 +58,7 @@ const DocumentOptionList = () => {
 						)}
 					</ul>
 				</Typography>,
-				<Divider key={increment()} style={{ marginTop: "6px" }} />,
+				// <Divider key={increment()} style={{ marginTop: "6px" }} />,
 			]}
 		</span>
 	);
@@ -88,11 +88,11 @@ export const Options = () => {
 				onClose={handleClose}
 				MenuListProps={{ style: { paddingLeft: "8px", paddingRight: "8px" } }}
 			>
-				<ActiveDocumentOptionItem></ActiveDocumentOptionItem>
-				<DocumentOptionList></DocumentOptionList>
 				<InputDocument handleClose={handleClose} label={"Load document"}></InputDocument>
 				<Divider />
-				<MenuItem
+				<ActiveDocumentOptionItem></ActiveDocumentOptionItem>
+				<DocumentOptionList></DocumentOptionList>
+				{/* <MenuItem
 					onClick={() => {
 						handleClose();
 					}}
@@ -100,7 +100,7 @@ export const Options = () => {
 					<db.components.DownloadDBDataButton></db.components.DownloadDBDataButton>
 				</MenuItem>
 				<Divider />
-				<InputDataSets handleClose={handleClose} label={text.constants.uploadDatasetsText}></InputDataSets>
+				<InputDataSets handleClose={handleClose} label={text.constants.uploadDatasetsText}></InputDataSets> */}
 			</Menu>
 		</div>
 	);

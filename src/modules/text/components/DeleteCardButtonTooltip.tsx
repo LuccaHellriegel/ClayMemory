@@ -1,11 +1,11 @@
 import React, { ReactElement } from "react";
-import { Tooltip } from "@material-ui/core";
 import { defaultEnterDelay, defaultEnterNextDelay, deleteCardTooltip } from "../constants";
+import { BiggerTooltip } from "./BiggerTooltip";
 
 export const DeleteCardButtonTooltip = ({ children }: { children: ReactElement }) => {
 	return (
-		<Tooltip title={deleteCardTooltip} enterDelay={defaultEnterDelay} enterNextDelay={defaultEnterNextDelay}>
+		<BiggerTooltip title={deleteCardTooltip} enterDelay={defaultEnterDelay} enterNextDelay={defaultEnterNextDelay}>
 			{children}
-		</Tooltip>
+		</BiggerTooltip>
 	);
 };

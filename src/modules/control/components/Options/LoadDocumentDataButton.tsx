@@ -1,13 +1,14 @@
 import { useDispatch } from "react-redux";
 import React from "react";
-import { IconButton, Tooltip } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import ImportContactsIcon from "@material-ui/icons/ImportContacts";
 import { loadSavedDocument } from "../../actions";
 import text from "../../../text";
+
 export const LoadDocumentDataButton = ({ document }: { document: string }) => {
 	const dispatch = useDispatch();
 	return (
-		<Tooltip
+		<text.components.BiggerTooltip
 			title={text.constants.loadSavedDocumentTooltip}
 			enterDelay={text.constants.defaultEnterDelay}
 			enterNextDelay={text.constants.defaultEnterNextDelay}
@@ -20,6 +21,6 @@ export const LoadDocumentDataButton = ({ document }: { document: string }) => {
 			>
 				<ImportContactsIcon fontSize="small"></ImportContactsIcon>
 			</IconButton>
-		</Tooltip>
+		</text.components.BiggerTooltip>
 	);
 };

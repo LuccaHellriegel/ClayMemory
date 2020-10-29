@@ -1,7 +1,7 @@
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import AddCircleOutlinedIcon from "@material-ui/icons/AddCircleOutlined";
 import React, { useState } from "react";
-import { IconButton, Tooltip } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import text from "../../text";
 import { getGoalConfig, getSourceConfig } from "../selectors";
@@ -32,7 +32,7 @@ export const AppendButton = ({ cardField, cardID }: { cardField: CardField; card
 	//TODO: test all variations of origin  (setting/copying) again (how to automate the test?)
 
 	return (
-		<Tooltip
+		<text.components.BiggerTooltip
 			title={
 				isGoal
 					? text.constants.CardIsAppendGoalTooltip
@@ -59,6 +59,6 @@ export const AppendButton = ({ cardField, cardID }: { cardField: CardField; card
 					<AddCircleOutlineIcon fontSize="small"></AddCircleOutlineIcon>
 				)}
 			</IconButton>
-		</Tooltip>
+		</text.components.BiggerTooltip>
 	);
 };
