@@ -33,11 +33,13 @@ export const ClayMemorySearchBar = () => {
 
 	const [state, setState] = useState(contentString);
 
+	// need this for disambiguation between typing in the searchbar and having an active search
+	// dont add state to the array
 	useEffect(() => {
 		if (state !== contentString) {
 			setState(contentString);
 		}
-	}, [contentString, state, setState]);
+	}, [contentString]);
 
 	const [searchFocus, setSearchFocus] = useState("cards");
 
