@@ -3,6 +3,11 @@ import { TextField, TextFieldProps } from "@material-ui/core";
 import selection from "../../../../selection";
 import { SingleOrigin } from "../../../../cards/model/origin";
 
+// TODO: when creating a new empty card, the "typing focus" should jump to Q of the card
+// same when creating a card from context-menu (e.g. q), jump "typing focus" to empty field (e.g. a)
+
+// TODO: foucs the card-field visually (green?) that you are working on right now
+
 export const ClayCardField = ({
 	storeValue = "",
 	saveChanges,

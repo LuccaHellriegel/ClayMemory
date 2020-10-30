@@ -9,6 +9,9 @@ import { getDocumentSearch, getSpanOrigin } from "../../selectors";
 import { MaterialMultiplier } from "../../constants";
 import { PageKeyboardControl } from "../Navigation/PageKeyboardControl";
 
+// TODO: zoom, too much zoom right now?
+// "I dont know what I am searching and need an overview"
+
 type Renderer = (
 	textItem: TextLayerItemInternal | (TextLayerItemInternal & { str: string | JSX.Element })
 ) => JSX.Element | string;

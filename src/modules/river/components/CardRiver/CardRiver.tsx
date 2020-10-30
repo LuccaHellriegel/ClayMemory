@@ -11,6 +11,11 @@ import { ClayCardGridItems } from "./ClayCardGridItems";
 import { filterCardConfigs } from "../../services/filterCardConfigs";
 import { UnhideCardsButton } from "./UnhideCardsButton";
 
+//TODO: make card rivers individually hideable
+
+// TODO: make CardRiver sticky, so that you can move it without moving pdf
+// e.g. when the paragraph is at the bottom and the new card is at the beginning of the river
+
 export const CardRiver = ({ riverID, materialHeight }: { riverID: string; materialHeight: number }) => {
 	const cardConfigs = useSelector(cards.selectors.getCards);
 

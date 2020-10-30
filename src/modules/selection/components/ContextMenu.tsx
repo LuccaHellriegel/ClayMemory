@@ -5,6 +5,14 @@ import { Divider, MenuItem } from "@material-ui/core";
 import { addSelectionGoal } from "../actions";
 import { sourceConfigExists } from "../selectors";
 
+// TODO: be able to directly fill empty field of newly created card
+// (only one, so that it does not take up so much space?)
+// e.g. created Q from selection and then want to do A -> need to do it with buttons now
+
+// TODO: be able to completly fill card in contextmenu (have card in contextmenu), then send with ok
+
+// TODO: be able to create empty card from context-menu, maybe if no selection, then it is an empty card?
+
 // the root div for the menu invisibly covers the whole screen
 // the actual div that is visible is this
 const baseContextMenuSelector = "div.MuiPaper-root";

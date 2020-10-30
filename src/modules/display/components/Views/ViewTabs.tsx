@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrentView } from "../../selectors";
 import { actions } from "../../slice";
 
+//TODO: Canvas view / Code Bubbles / Unreal Engine
+// http://www.andrewbragdon.com/codebubbles_site.asp
+
 export const ViewTabs = () => {
 	const currentView = useSelector(getCurrentView);
 	const dispatch = useDispatch();
