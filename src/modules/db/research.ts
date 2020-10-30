@@ -142,34 +142,45 @@ export const initialStateArr: DocumentData[] = [
 			"CardRiver 4": { riverID: "CardRiver 4", cardIDs: ["13", "15"] },
 		},
 		cards: {
-			"1": { type: "Q-A", content: { q: "Worauf ist eine Nervenzelle spezialisiert? (Seite 1)", a: "" }, cardID: "1" },
+			"1": {
+				type: "Q-A",
+				content: { q: "Worauf ist eine Nervenzelle spezialisiert? (Seite 1, Absatz 1)", a: "" },
+				cardID: "1",
+			},
 			"3": {
 				type: "Q-A",
-				content: { q: "Wie viele Nervenzellen hat das Gehirn Schätzungen zufolge? (Seite 1)", a: "" },
+				content: { q: "Wie viele Nervenzellen hat das Gehirn Schätzungen zufolge? (Seite 1, Absatz 4)", a: "" },
 				cardID: "3",
 			},
 			"5": {
 				type: "Q-A",
-				content: { q: "Wie wird der Körper der Nervenzelle bezeichnet? (Seite 2)", a: "" },
+				content: { q: "Wie wird der Körper der Nervenzelle bezeichnet? (Seite 2, Absatz 1)", a: "" },
 				cardID: "5",
 			},
 			"7": { type: "Q-A", content: { q: "", a: "" }, cardID: "7" },
 			"9": {
 				type: "Q-A",
-				content: { q: "Wovon hängt es ab ob ein Aktionspotential gebildet wird oder nicht? (Seite 3)", a: "" },
+				content: {
+					q: "Wovon hängt es ab ob ein Aktionspotential gebildet wird oder nicht? (Seite 3, Absatz 2)",
+					a: "",
+				},
 				cardID: "9",
 			},
-			"11": { type: "Q-A", content: { q: "Was sind Dendriten? (Seite 3)", a: "" }, cardID: "11" },
+			"11": { type: "Q-A", content: { q: "Was sind Dendriten? (Seite 3, Absatz 3)", a: "" }, cardID: "11" },
 			"13": {
 				type: "Q-A",
 				content: {
 					q:
-						"Wie wird im Falle einer Erregung der Nervenzelle sichergestellt, dass Aktionspotentiale am Axonhügel entstehen und über deren Axon weitergeleitet werden? (Seite 4)",
+						"Wie wird im Falle einer Erregung der Nervenzelle sichergestellt, dass Aktionspotentiale am Axonhügel entstehen und über deren Axon weitergeleitet werden? (Seite 4, Absatz 1)",
 					a: "",
 				},
 				cardID: "13",
 			},
-			"15": { type: "Q-A", content: { q: "Was ist das Axon einer Nervenzelle? (Seite 4)", a: "" }, cardID: "15" },
+			"15": {
+				type: "Q-A",
+				content: { q: "Was ist das Axon einer Nervenzelle? (Seite 4, Absatz 2)", a: "" },
+				cardID: "15",
+			},
 		},
 		lastCardIDNumber: 16,
 	},
