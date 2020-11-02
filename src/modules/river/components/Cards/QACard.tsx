@@ -1,13 +1,13 @@
 import Grid from "@material-ui/core/Grid";
 import React from "react";
 import { ClayCardField } from "./ClayCardField";
-import { QACardContent } from "../../../../cards/model/content";
+import { QACardContent } from "../../../cards/model/content";
 import { useDispatch } from "react-redux";
-import cards from "../../../../cards";
+import cards from "../../../cards";
 import { Card } from "@material-ui/core";
-import text from "../../../../text";
+import text from "../../../text";
 import { ClayCardFieldButtons } from "./ClayCardFieldButtons";
-import { QAConfig } from "../../../../cards/model/config";
+import { QAConfig } from "../../../cards/model/config";
 
 //TODO: use dark color pallet (theme?)
 

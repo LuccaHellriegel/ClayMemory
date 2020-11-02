@@ -1,10 +1,10 @@
 import { FormGroup, FormControlLabel } from "@material-ui/core";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getRiverContentState } from "../selectors";
-import { RiverContentState } from "../model";
-import { GreenCheckbox } from "../../../shared/GreenCheckbox";
-import { actions } from "../slice";
+import { getRiverContentState } from "../../selectors";
+import { RiverContentState } from "../../model";
+import { GreenCheckbox } from "../../../../shared/GreenCheckbox";
+import { actions } from "../../slice";
 
 export const RiverContentFormGroup = () => {
 	const riverContentState = useSelector(getRiverContentState);

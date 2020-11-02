@@ -1,11 +1,11 @@
 import React from "react";
-import cards from "../../../../cards";
+import cards from "../../../cards";
 import { JumpToOriginButton } from "./JumpToOriginButton";
 import { Paper, Grid } from "@material-ui/core";
-import { CardConfig } from "../../../../cards/model/config";
-import { CardField } from "../../../../cards/model/content";
-import selection from "../../../../selection";
-import { SingleOrigin } from "../../../../cards/model/origin";
+import { CardConfig } from "../../../cards/model/config";
+import { CardField } from "../../../cards/model/content";
+import selection from "../../../selection";
+import { SingleOrigin } from "../../../cards/model/origin";
 
 export const ClayCardFieldButtons = ({ config, cardField }: { config: CardConfig; cardField: CardField }) => {
 	const origin: SingleOrigin | null = config.origin

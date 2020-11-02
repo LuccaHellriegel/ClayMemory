@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Snackbar, IconButton, Typography, Card, Grid } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
-import { resetSelectionSource } from "../actions";
-import { getSourceConfig } from "../selectors";
+import { resetSelectionSource } from "../../actions";
+import { getSourceConfig } from "../../selectors";
 import Draggable from "react-draggable";
 
 export const SelectionSnackbar = () => {

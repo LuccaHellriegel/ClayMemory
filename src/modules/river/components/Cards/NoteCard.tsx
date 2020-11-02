@@ -1,10 +1,10 @@
 import React from "react";
 import { ClayCardField } from "./ClayCardField";
 import { useDispatch } from "react-redux";
-import cards from "../../../../cards";
+import cards from "../../../cards";
 import { Card, Grid } from "@material-ui/core";
-import text from "../../../../text";
-import { NoteConfig } from "../../../../cards/model/config";
+import text from "../../../text";
+import { NoteConfig } from "../../../cards/model/config";
 import { ClayCardFieldButtons } from "./ClayCardFieldButtons";
 
 export const NoteCard = ({ config }: { config: NoteConfig }) => {

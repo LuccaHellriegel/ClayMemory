@@ -2,8 +2,8 @@ import React, { RefObject, useCallback, useEffect, useRef, useState } from "reac
 import Menu from "@material-ui/core/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { Divider, MenuItem } from "@material-ui/core";
-import { addSelectionGoal } from "../actions";
-import { sourceConfigExists } from "../selectors";
+import { addSelectionGoal } from "../../actions";
+import { sourceConfigExists } from "../../selectors";
 
 // TODO: be able to directly fill empty field of newly created card
 // (only one, so that it does not take up so much space?)

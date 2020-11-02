@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, FormControlLabel } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import { GreenCheckbox } from "../../../shared/GreenCheckbox";
-import { getRiverShowState } from "../selectors";
-import { actions } from "../slice";
+import { GreenCheckbox } from "../../../../shared/GreenCheckbox";
+import { getRiverShowState } from "../../selectors";
+import { actions } from "../../slice";
 
 export const ShowRiverCheckbox = () => {
 	const dispatch = useDispatch();

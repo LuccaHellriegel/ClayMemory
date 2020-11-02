@@ -1,6 +1,6 @@
-import { AddNoteButton } from "./AddNoteButton";
-import { AddQAButton } from "./AddQAButton";
-import { DeleteCardButton } from "./DeleteCardButton";
+import { AddNoteButton } from "./Data/AddNoteButton";
+import { AddQAButton } from "./Data/AddQAButton";
+import { DeleteCardButton } from "./Data/DeleteCardButton";
 import { UndoRedoCard } from "./Control/UndoRedoButtons";
 import { UndoRedoKeyListener } from "./Control/UndoRedoKeyListener";
 

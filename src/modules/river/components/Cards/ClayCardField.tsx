@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextField, TextFieldProps } from "@material-ui/core";
-import selection from "../../../../selection";
-import { SingleOrigin } from "../../../../cards/model/origin";
+import selection from "../../../selection";
+import { SingleOrigin } from "../../../cards/model/origin";
 
 // TODO: when creating a new empty card, the "typing focus" should jump to Q of the card
 // same when creating a card from context-menu (e.g. q), jump "typing focus" to empty field (e.g. a)

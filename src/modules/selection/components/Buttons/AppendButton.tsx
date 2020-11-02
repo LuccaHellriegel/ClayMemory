@@ -1,15 +1,15 @@
-import RestorePageIcon from "@material-ui/icons/RestorePage";
-import RestorePageOutlinedIcon from "@material-ui/icons/RestorePageOutlined";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import AddCircleOutlinedIcon from "@material-ui/icons/AddCircleOutlined";
 import React, { useState } from "react";
 import { IconButton } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import text from "../../text";
-import { getGoalConfig, getSourceConfig } from "../selectors";
-import { addCardReplaceSelectionGoal, resetSelectionGoal } from "../actions";
-import { SelectionExistingCardGoalConfig, CardFieldIdentifier } from "../model";
-import { CardField } from "../../cards/model/content";
+import text from "../../../text";
+import { getGoalConfig, getSourceConfig } from "../../selectors";
+import { addCardAppendSelectionGoal, resetSelectionGoal } from "../../actions";
+import { SelectionExistingCardGoalConfig, CardFieldIdentifier } from "../../model";
+import { CardField } from "../../../cards/model/content";
 
-export const ReplaceButton = ({ cardField, cardID }: { cardField: CardField; cardID: string }) => {
+export const AppendButton = ({ cardField, cardID }: { cardField: CardField; cardID: string }) => {
 	const dispatch = useDispatch();
 
 	const sourceConfig = useSelector(getSourceConfig);
@@ -22,22 +22,23 @@ export const ReplaceButton = ({ cardField, cardID }: { cardField: CardField; car
 		!!(goalConfig as CardFieldIdentifier).cardID &&
 		(goalConfig as CardFieldIdentifier).cardID === cardID &&
 		goalConfig.cardField === cardField &&
-		(goalConfig as SelectionExistingCardGoalConfig).updateType === "REPLACE";
+		(goalConfig as SelectionExistingCardGoalConfig).updateType === "APPEND";
 
 	if (isGoal) {
 		if (!outlined) setOutlined(true);
 	} else {
 		if (outlined) setOutlined(false);
 	}
+	//TODO: test all variations of origin  (setting/copying) again (how to automate the test?)
 
 	return (
 		<text.components.BiggerTooltip
 			title={
 				isGoal
-					? text.constants.CardIsReplaceGoalTooltip
+					? text.constants.CardIsAppendGoalTooltip
 					: !!sourceConfig
-					? text.constants.ReplaceCardTooltip
-					: text.constants.ChoiceCardAsReplaceGoal
+					? text.constants.AppendToCardTooltip
+					: text.constants.ChoiceCardAsAppendGoal
 			}
 			enterDelay={text.constants.defaultEnterDelay}
 			enterNextDelay={text.constants.defaultEnterNextDelay}
@@ -46,16 +47,16 @@ export const ReplaceButton = ({ cardField, cardID }: { cardField: CardField; car
 				type="button"
 				onClick={() => {
 					if (!outlined && !!!goalConfig) {
-						dispatch(addCardReplaceSelectionGoal(cardID, cardField));
+						dispatch(addCardAppendSelectionGoal(cardID, cardField));
 					} else if (isGoal) {
 						dispatch(resetSelectionGoal());
 					}
 				}}
 			>
 				{outlined ? (
-					<RestorePageIcon fontSize="small"></RestorePageIcon>
+					<AddCircleOutlinedIcon fontSize="small"></AddCircleOutlinedIcon>
 				) : (
-					<RestorePageOutlinedIcon fontSize="small"></RestorePageOutlinedIcon>
+					<AddCircleOutlineIcon fontSize="small"></AddCircleOutlineIcon>
 				)}
 			</IconButton>
 		</text.components.BiggerTooltip>

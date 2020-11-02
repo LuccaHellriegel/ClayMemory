@@ -5,7 +5,7 @@ import pdf from "../../../pdf";
 import db from "../../../data";
 import cards from "../../../cards";
 import { ClayMemorySearchBar } from "./ClayMemorySearchBar";
-import { ViewTabs } from "../Views/ViewTabs";
+import { ViewTabs } from "./ViewTabs";
 import { getTopOffset } from "../../selectors";
 import { actions } from "../../slice";
 

@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { useDispatch } from "react-redux";
-import { addCardSelectionSource } from "../actions";
-import { SingleOrigin } from "../../cards/model/origin";
+import { addCardSelectionSource } from "../../actions";
+import { SingleOrigin } from "../../../cards/model/origin";
 
 export const CardFieldMouseUp = ({ children, fieldOrigin }: { children: ReactNode; fieldOrigin?: SingleOrigin }) => {
 	const dispatch = useDispatch();

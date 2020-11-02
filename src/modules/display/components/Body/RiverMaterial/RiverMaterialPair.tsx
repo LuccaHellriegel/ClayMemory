@@ -1,9 +1,9 @@
 import React from "react";
 import { Divider, Grid } from "@material-ui/core";
-import river from "../../../river";
 import { useSelector } from "react-redux";
-import { getWindowMeasurements } from "../../selectors";
-import pdf from "../../../pdf";
+import pdf from "../../../../pdf";
+import river from "../../../../river";
+import { getWindowMeasurements } from "../../../selectors";
 
 //TODO: replace this with Material-UI breakpoints
 export const RiverMultiplier = 0.35;

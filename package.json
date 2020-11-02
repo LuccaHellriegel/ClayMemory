@@ -25,7 +25,6 @@
 		"@types/react-dom": "^16.9.8",
 		"gh-pages": "^3.1.0",
 		"js-file-download": "^0.4.12",
-		"material-ui-nested-menu-item": "^1.0.2",
 		"material-ui-search-bar": "^1.0.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",

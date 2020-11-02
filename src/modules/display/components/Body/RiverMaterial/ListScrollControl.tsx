@@ -1,11 +1,11 @@
 import { RefObject, useEffect } from "react";
 import { VariableSizeList } from "react-window";
-import { getCurrentView } from "../../selectors";
+import { getCurrentView } from "../../../selectors";
 import { useDispatch, useSelector } from "react-redux";
-import river from "../../../river";
-import { View } from "../../model";
-import { actions } from "../../slice";
-import pdf from "../../../pdf";
+import river from "../../../../river";
+import { View } from "../../../model";
+import { actions } from "../../../slice";
+import pdf from "../../../../pdf";
 
 export const ListScrollControl = ({ listRef }: { listRef: RefObject<VariableSizeList> }) => {
 	const currentView = useSelector(getCurrentView);
