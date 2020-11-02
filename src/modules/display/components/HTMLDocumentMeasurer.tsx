@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { debounce } from "throttle-debounce";
 import { actions } from "../slice";
 
-export const HTMLElementMeasurer = () => {
+export const HTMLDocumentMeasurer = () => {
 	const dispatch = useDispatch();
 
 	const measure = debounce(50, () => {

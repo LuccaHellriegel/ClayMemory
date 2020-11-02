@@ -2,14 +2,14 @@ import { Grid } from "@material-ui/core";
 import React from "react";
 import cards from "../../cards";
 import { ControlBar } from "./ControlBar/ControlBar";
-import { HTMLElementMeasurer } from "./HTMLElementMeasurer";
+import { HTMLDocumentMeasurer } from "./HTMLDocumentMeasurer";
 import { Body } from "./Body/Body";
 
 export const Display = () => {
 	return (
 		<cards.components.UndoRedoKeyListener>
 			<div>
-				<HTMLElementMeasurer></HTMLElementMeasurer>
+				<HTMLDocumentMeasurer></HTMLDocumentMeasurer>
 				<Grid
 					container
 					justify="center"
