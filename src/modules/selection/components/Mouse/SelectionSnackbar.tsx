@@ -17,8 +17,7 @@ export const SelectionSnackbar = () => {
 
 	const handleClose = (event: any, reason: string) => {
 		if (reason === "clickaway") {
-			// do not close on clickaway
-			event.preventDefault();
+			return;
 		} else {
 			setOpen(false);
 			dispatch(resetSelectionSource());
