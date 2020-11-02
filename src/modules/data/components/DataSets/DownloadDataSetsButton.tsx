@@ -1,11 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { downloadDBData } from "../actions";
+import { downloadDBData } from "../../actions";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { Button } from "@material-ui/core";
-import text from "../../text";
+import text from "../../../text";
 
-export const DownloadDBDataButton = () => {
+export const DownloadDataSetsButton = () => {
 	const dispatch = useDispatch();
 
 	return (

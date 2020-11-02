@@ -2,6 +2,7 @@ import { DisplayData, View } from "./model";
 import { simpleReducer } from "../../shared/utils";
 import { CaseReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { NAME } from "./constants";
+import cards from "../cards";
 
 const initialState: DisplayData = {
 	windowMeasurements: null,
@@ -15,6 +16,9 @@ const windowMeasurements: CaseReducer<
 	PayloadAction<{ width: number; height: number } | null>
 > = simpleReducer("windowMeasurements");
 const currentView: CaseReducer<DisplayData, PayloadAction<View>> = simpleReducer("currentView");
+const explorerView: CaseReducer<DisplayData> = (state) => {
+	return { ...state, currentView: View.RiverExplorer };
+};
 
 const displaySlice = createSlice({
 	name: NAME,
@@ -23,6 +27,9 @@ const displaySlice = createSlice({
 		topOffset,
 		windowMeasurements,
 		currentView,
+	},
+	extraReducers: {
+		[cards.actions.allCardsReplace.type]: explorerView,
 	},
 });
 

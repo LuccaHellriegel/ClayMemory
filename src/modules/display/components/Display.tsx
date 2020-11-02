@@ -1,13 +1,17 @@
+import { Grid } from "@material-ui/core";
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
-import pdf from "../../../pdf";
-import selection from "../../../selection";
-import { View } from "../../model";
-import { getCurrentView } from "../../selectors";
-import { RiverMaterialPairList } from "../RiverMaterialPairList/RiverMaterialPairList";
-import { RiverExplorer } from "./RiverExplorer";
+import cards from "../../cards";
+import pdf from "../../pdf";
+import selection from "../../selection";
+import { View } from "../model";
+import { getCurrentView } from "../selectors";
+import { ControlBar } from "./Control/ControlBar";
+import { HTMLElementMeasurer } from "./HTMLElementMeasurer";
+import { RiverMaterialPairList } from "./RiverMaterialPairList/RiverMaterialPairList";
+import { RiverExplorer } from "./Views/RiverExplorer";
 
-export const Display = () => {
+const Body = () => {
 	const currentView = useSelector(getCurrentView);
 
 	// TODO: cant hide the CardExplorer because the Material UI TextField does not render correctly
@@ -30,5 +34,30 @@ export const Display = () => {
 			<selection.components.ContextMenu></selection.components.ContextMenu>
 			<selection.components.SelectionSnackbar></selection.components.SelectionSnackbar>
 		</Fragment>
+	);
+};
+
+export const Display = () => {
+	return (
+		<cards.components.UndoRedoKeyListener>
+			<div>
+				<HTMLElementMeasurer></HTMLElementMeasurer>
+				<Grid
+					container
+					justify="center"
+					direction="column"
+					alignItems="stretch"
+					style={{ height: "100%", width: "100%" }}
+				>
+					<Grid item>
+						<ControlBar></ControlBar>
+					</Grid>
+
+					<Grid item>
+						<Body></Body>
+					</Grid>
+				</Grid>
+			</div>
+		</cards.components.UndoRedoKeyListener>
 	);
 };

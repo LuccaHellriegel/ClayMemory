@@ -1,8 +1,8 @@
-import river from "../../river";
 import React from "react";
 import { IconButton, Menu, Typography, Grid, Card } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import pdf from "../../pdf";
+import river from "../../../river";
+import pdf from "../../../pdf";
 
 export const ShowHideButton = () => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

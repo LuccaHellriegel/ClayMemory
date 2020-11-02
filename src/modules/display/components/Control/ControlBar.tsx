@@ -1,17 +1,18 @@
-import display from "../../display";
 import React, { useLayoutEffect, useRef } from "react";
 import { AppBar, Toolbar, Grid, Typography } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { Options } from "./Options/Options";
+import pdf from "../../../pdf";
+import db from "../../../data";
+import cards from "../../../cards";
 import { ClayMemorySearchBar } from "./ClayMemorySearchBar";
-import { UndoRedoCard } from "./UndoRedoButtons";
-import { ShowHideButton } from "./ShowHideButton";
-import pdf from "../../pdf";
+import { ViewTabs } from "../Views/ViewTabs";
+import { getTopOffset } from "../../selectors";
+import { actions } from "../../slice";
 
-//TODO: download/load csv for Anki
+//TODO: download/load/sync csv for Anki
 export const ControlBar = () => {
 	const materialName = useSelector(pdf.selectors.getPDFName);
-	const offset = useSelector(display.selectors.getTopOffset);
+	const offset = useSelector(getTopOffset);
 	const ref = useRef<null | HTMLDivElement>(null);
 
 	const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export const ControlBar = () => {
 	useLayoutEffect(() => {
 		if (ref.current) {
 			const currentBottom = ref.current.getBoundingClientRect().bottom;
-			if (currentBottom !== offset) dispatch(display.actions.topOffset(currentBottom));
+			if (currentBottom !== offset) dispatch(actions.topOffset(currentBottom));
 		}
 	}, [ref, dispatch, offset]);
 
@@ -39,11 +40,11 @@ export const ControlBar = () => {
 								</Grid>
 
 								<Grid item>
-									<UndoRedoCard></UndoRedoCard>
+									<cards.components.UndoRedoCard></cards.components.UndoRedoCard>
 								</Grid>
 
 								<Grid item>
-									<display.components.ViewTabs></display.components.ViewTabs>
+									<ViewTabs></ViewTabs>
 								</Grid>
 							</Grid>
 						</Grid>
@@ -65,7 +66,7 @@ export const ControlBar = () => {
 									<ShowHideButton></ShowHideButton>
 								</Grid> */}
 								<Grid item>
-									<Options></Options>
+									<db.components.DataOptions></db.components.DataOptions>
 								</Grid>
 							</Grid>
 						</Grid>

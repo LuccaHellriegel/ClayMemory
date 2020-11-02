@@ -1,5 +1,3 @@
-import { HTMLElementMeasurer } from "./HTMLElementMeasurer";
-import { Display } from "./Views/Display";
-import { ViewTabs } from "./Views/ViewTabs";
+import { Display } from "./Display";
 
-export { HTMLElementMeasurer, Display, ViewTabs };
+export { Display };

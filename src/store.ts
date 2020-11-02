@@ -8,7 +8,7 @@ import cards from "./modules/cards";
 import { persistStore, persistReducer } from "redux-persist";
 import undoable, { includeAction } from "redux-undo";
 import { persistConfig } from "./persist";
-import db from "./modules/db";
+import db from "./modules/data";
 import selection from "./modules/selection";
 import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProduction";
 import pdf from "./modules/pdf";

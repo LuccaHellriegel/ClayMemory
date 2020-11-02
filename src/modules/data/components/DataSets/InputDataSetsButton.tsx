@@ -10,12 +10,12 @@ import {
 	DialogTitle,
 } from "@material-ui/core";
 import PublishIcon from "@material-ui/icons/Publish";
-import db from "../../../db";
-import { DocumentData } from "../../../db/model";
 import pdf from "../../../pdf";
 import { replaceActiveAppState } from "../../actions";
+import { DocumentData } from "../../model";
+import { actions } from "../../slice";
 
-export const InputDataSets = ({ handleClose, label }: any) => {
+export const InputDataSetsButton = ({ handleClose, label }: any) => {
 	const ref: MutableRefObject<null | HTMLInputElement> = useRef(null);
 
 	const [file, setFile] = useState<File | undefined>();
@@ -101,7 +101,7 @@ const LoadDataSetsDialogAlert = ({
 								(dbData) => dbData.name === activeDocument
 							);
 
-							dispatch(db.actions.updateDocumentDB(uploadedDataSets));
+							dispatch(actions.updateDocumentDB(uploadedDataSets));
 							if (foundDataSet) {
 								replaceActiveAppState(dispatch, foundDataSet);
 							}

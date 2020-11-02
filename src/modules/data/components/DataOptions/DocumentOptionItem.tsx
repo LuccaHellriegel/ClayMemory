@@ -1,7 +1,7 @@
 import React from "react";
 import { Divider, Card, Grid } from "@material-ui/core";
-import { DeleteDocumentButton } from "./DeleteDocumentButton";
-import { LoadDocumentDataButton } from "./LoadDocumentDataButton";
+import { LoadDocumentDataButton } from "../DocumentData/LoadDocumentDataButton";
+import { DeleteDocumentButton } from "../DocumentData/DeleteDocumentButton";
 
 const DocumentOptionItemButtonRow = ({ document, afterClick }: { document: string; afterClick: () => void }) => {
 	return (

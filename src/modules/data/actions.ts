@@ -1,12 +1,36 @@
 import { Dispatch } from "redux";
+import { DocumentData } from "./model";
+import { collectCurrentDBData, getAll, getDocumentDataSets } from "./selectors";
+import { actions } from "./slice";
 import { ActionCreators } from "redux-undo";
+import pdf from "../pdf";
 import cards from "../cards";
 import river from "../river";
-import db from "../db";
-import { DocumentData } from "../db/model";
-import pdf from "../pdf";
-import display from "../display";
-import { View } from "../display/model";
+
+const refreshData = (dispatch: Dispatch, state: any) => {
+	// note: need to getState again after this to make sure refreshed state is used
+	const currentPDFName = pdf.selectors.getPDFName(state);
+	if (currentPDFName !== undefined) {
+		const dbData = collectCurrentDBData(state) as DocumentData;
+		dispatch(actions.storeInDocumentDB(dbData));
+	}
+};
+
+const fileDownload = require("js-file-download");
+export const downloadDBData = () => {
+	return (dispatch: Dispatch, getState: Function) => {
+		let state = getState();
+
+		//actualize the db before downloading
+		refreshData(dispatch, state);
+		// get actualized state
+		state = getState();
+
+		const documentDataSets = getDocumentDataSets(state);
+		const localString = new Date().toLocaleString();
+		fileDownload(JSON.stringify(documentDataSets), localString + " ClayMemory.txt");
+	};
+};
 
 const resetActiveAppState = (dispatch: Dispatch) => {
 	// reset river first, otherwise it might not find cards which where deleted
@@ -44,9 +68,9 @@ export const loadPDF = (pdfFile: File) => {
 		const state = getState();
 		const currentPDFName = pdf.selectors.getPDFName(state);
 
-		const documentDB = db.selectors.getAll(state);
+		const documentDB = getAll(state);
 
-		db.actions.refreshDB(dispatch, state);
+		refreshData(dispatch, state);
 
 		dispatch(pdf.actions.pdfUpload(pdfFile));
 
@@ -71,16 +95,15 @@ export const loadSavedDocument = (document: string) => {
 		const currentPDFName = pdf.selectors.getPDFName(state);
 		const pdfFile = pdf.selectors.getPDF(state);
 
-		const documentDB = db.selectors.getAll(state);
+		const documentDB = getAll(state);
 
-		db.actions.refreshDB(dispatch, state);
+		refreshData(dispatch, state);
 
 		const newDocumentData = documentDB[document];
 		// if no pdf exists and no current pdf name then the document dataset was loaded into an empty ClayMemory,
 		// then we need to set the name
 		const inputName = !!!pdfFile && !!!currentPDFName ? "" : currentPDFName;
 		replaceActiveAppState(dispatch, newDocumentData, inputName);
-		dispatch(display.actions.currentView(View.RiverExplorer));
 	};
 };
 
@@ -89,7 +112,7 @@ export const deleteActiveDocument = () => {
 		resetActiveAppState(dispatch);
 		const state = getState();
 		const activeDocument = pdf.selectors.getPDFName(state);
-		dispatch(db.actions.removeFromDocumentDB(activeDocument as string));
+		dispatch(actions.removeFromDocumentDB(activeDocument as string));
 	};
 };
 
@@ -100,7 +123,7 @@ export const deleteDocument = (document: string) => {
 		if (activeDocument && activeDocument === document) {
 			dispatch(deleteActiveDocument());
 		} else {
-			dispatch(db.actions.removeFromDocumentDB(document));
+			dispatch(actions.removeFromDocumentDB(document));
 		}
 	};
 };
