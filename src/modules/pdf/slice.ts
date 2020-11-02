@@ -19,7 +19,12 @@ const spanOrigin: CaseReducer<PDFState, PayloadAction<SingleOrigin | null>> = si
 const documentSearch: CaseReducer<PDFState, PayloadAction<string>> = simpleReducer("documentSearch");
 
 const pdfUpload: CaseReducer<PDFState, PayloadAction<File>> = (state, { payload }) => {
-	return { ...state, pdf: payload, pdfName: payload.name };
+	return {
+		...state,
+		pdf: payload,
+		pdfName: payload.name,
+		currentPage: state.pdfName === payload.name ? state.currentPage : initialState.currentPage,
+	};
 };
 
 const pageUpdate: CaseReducer<PDFState, PayloadAction<{ page: number; shouldScroll: boolean }>> = (
