@@ -1480,24 +1480,24 @@
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M367.15,-208.8C401.37,-208.8 452,-208.8 452,-208.8 452,-208.8 452,-319 452,-319"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="449.9,-319 452,-325 454.1,-319 449.9,-319"/>
 </g>
-<!-- src/modules/display/components/HTMLElementMeasurer.tsx -->
+<!-- src/modules/display/components/HTMLDocumentMeasurer.tsx -->
 <g id="node50" class="node">
-<title>src/modules/display/components/HTMLElementMeasurer.tsx</title>
-<g id="a_node50"><a xlink:href="src/modules/display/components/HTMLElementMeasurer.tsx" xlink:title="HTMLElementMeasurer.tsx">
+<title>src/modules/display/components/HTMLDocumentMeasurer.tsx</title>
+<g id="a_node50"><a xlink:href="src/modules/display/components/HTMLDocumentMeasurer.tsx" xlink:title="HTMLDocumentMeasurer.tsx">
 <path fill="#bbfeff" stroke="black" d="M542,-144C542,-144 426,-144 426,-144 423,-144 420,-141 420,-138 420,-138 420,-132 420,-132 420,-129 423,-126 426,-126 426,-126 542,-126 542,-126 545,-126 548,-129 548,-132 548,-132 548,-138 548,-138 548,-141 545,-144 542,-144"/>
-<text text-anchor="middle" x="484" y="-132.8" font-family="Helvetica,sans-Serif" font-size="9.00">HTMLElementMeasurer.tsx</text>
+<text text-anchor="middle" x="484" y="-132.8" font-family="Helvetica,sans-Serif" font-size="9.00">HTMLDocumentMeasurer.tsx</text>
 </a>
 </g>
 </g>
-<!-- src/modules/display/components/Display.tsx&#45;&gt;src/modules/display/components/HTMLElementMeasurer.tsx -->
+<!-- src/modules/display/components/Display.tsx&#45;&gt;src/modules/display/components/HTMLDocumentMeasurer.tsx -->
 <g id="edge97" class="edge">
-<title>src/modules/display/components/Display.tsx&#45;&gt;src/modules/display/components/HTMLElementMeasurer.tsx</title>
+<title>src/modules/display/components/Display.tsx&#45;&gt;src/modules/display/components/HTMLDocumentMeasurer.tsx</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M367.2,-201.6C396.75,-201.6 437,-201.6 437,-201.6 437,-201.6 437,-150.26 437,-150.26"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="439.1,-150.26 437,-144.26 434.9,-150.26 439.1,-150.26"/>
 </g>
-<!-- src/modules/display/components/HTMLElementMeasurer.tsx&#45;&gt;src/modules/display/slice.ts -->
+<!-- src/modules/display/components/HTMLDocumentMeasurer.tsx&#45;&gt;src/modules/display/slice.ts -->
 <g id="edge98" class="edge">
-<title>src/modules/display/components/HTMLElementMeasurer.tsx&#45;&gt;src/modules/display/slice.ts</title>
+<title>src/modules/display/components/HTMLDocumentMeasurer.tsx&#45;&gt;src/modules/display/slice.ts</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M484,-125.7C484,-117.08 484,-105.6 484,-105.6 484,-105.6 992.75,-105.6 992.75,-105.6"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="992.75,-107.7 998.75,-105.6 992.75,-103.5 992.75,-107.7"/>
 </g>
