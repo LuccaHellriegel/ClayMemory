@@ -54,7 +54,7 @@ export const PDFDocument = ({ ChildComponent }: { ChildComponent: PDFDocumentChi
 				pdfProxyRef.current = pdfProxy;
 			}}
 			onItemClick={({ pageNumber }) => {
-				dispatch(actions.pageUpdate({ page: parseInt(pageNumber), shouldScroll: true }));
+				dispatch(actions.pageUpdate(parseInt(pageNumber)));
 			}}
 		>
 			{cachedPageDimensions && pdfNameRef.current === pdfName && (

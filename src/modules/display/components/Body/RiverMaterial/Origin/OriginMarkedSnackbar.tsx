@@ -1,14 +1,13 @@
 import { Button, Snackbar } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSpanOrigin } from "../../selectors";
-import { actions } from "../../slice";
+import pdf from "../../../../../pdf";
 
 //TODO: think about that SelectionSnackbar and this both are dismissed via Esc
 
 export const OriginMarkedSnackbar = () => {
 	const [open, setOpen] = useState(false);
-	const spanOrigin = useSelector(getSpanOrigin);
+	const spanOrigin = useSelector(pdf.selectors.getSpanOrigin);
 	const dispatch = useDispatch();
 
 	if (!!!spanOrigin && open) setOpen(false);
@@ -20,13 +19,13 @@ export const OriginMarkedSnackbar = () => {
 			return;
 		} else {
 			setOpen(false);
-			dispatch(actions.spanOrigin(null));
+			dispatch(pdf.actions.spanOrigin(null));
 		}
 	};
 
 	const handleDismiss = () => {
 		setOpen(false);
-		dispatch(actions.spanOrigin(null));
+		dispatch(pdf.actions.spanOrigin(null));
 	};
 
 	const escPress = (event: KeyboardEvent) => {

@@ -1,9 +1,8 @@
-import React, { useRef } from "react";
+import React, { MutableRefObject } from "react";
 import { Page } from "react-pdf";
 import { TextLayerItemInternal } from "react-pdf/dist/Page";
 import { useSelector } from "react-redux";
 import { SingleOrigin } from "../../../cards/model/origin";
-import { PageSpanControl } from "../Origin/PageSpanControl";
 import selection from "../../../selection";
 import { getDocumentSearch, getSpanOrigin } from "../../selectors";
 import { MaterialMultiplier } from "../../constants";
@@ -136,7 +135,15 @@ const combineRenderers = (searchRenderer?: Renderer, originRenderer?: Renderer) 
 
 //TODO: when switching from a small page to big, the ControlBar does not size back
 
-export const PDFPage = ({ pageNumber, materialWidth }: { pageNumber: number; materialWidth: number }) => {
+export const PDFPage = ({
+	pageNumber,
+	pageRef,
+	materialWidth,
+}: {
+	pageNumber: number;
+	pageRef: MutableRefObject<null | HTMLDivElement>;
+	materialWidth: number;
+}) => {
 	//assumption is that the list checks for width before rendering
 	const documentSearch = useSelector(getDocumentSearch);
 	const spanOrigin = useSelector(getSpanOrigin);
@@ -146,8 +153,6 @@ export const PDFPage = ({ pageNumber, materialWidth }: { pageNumber: number; mat
 	const searchRenderer = documentSearch !== "" ? makeTextRenderer(documentSearch) : undefined;
 
 	const textRenderer = combineRenderers(searchRenderer, originHighlighter);
-
-	const pageRef = useRef<null | HTMLDivElement>(null);
 
 	return (
 		<div style={{ overflow: "auto" }}>
@@ -164,7 +169,6 @@ export const PDFPage = ({ pageNumber, materialWidth }: { pageNumber: number; mat
 					/>
 				</PageKeyboardControl>
 			</selection.components.MaterialMouseUp>
-			<PageSpanControl page={pageNumber} pageRef={pageRef}></PageSpanControl>
 		</div>
 	);
 };

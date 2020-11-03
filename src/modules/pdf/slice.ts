@@ -8,7 +8,6 @@ const initialState: PDFState = {
 	pdfShowStatus: "SHOW",
 	totalPages: 1000,
 	currentPage: 1,
-	scrollToPage: null,
 	spanOrigin: null,
 	documentSearch: "",
 };
@@ -27,12 +26,7 @@ const pdfUpload: CaseReducer<PDFState, PayloadAction<File>> = (state, { payload 
 	};
 };
 
-const pageUpdate: CaseReducer<PDFState, PayloadAction<{ page: number; shouldScroll: boolean }>> = (
-	state,
-	{ payload }
-) => {
-	return { ...state, currentPage: payload.page, scrollToPage: payload.shouldScroll ? payload.page : null };
-};
+const pageUpdate: CaseReducer<PDFState, PayloadAction<number>> = simpleReducer("currentPage");
 
 const pageCorrections = {
 	ADD: (newPage: number, totalPages: number) => (newPage === totalPages + 1 ? 1 : newPage),

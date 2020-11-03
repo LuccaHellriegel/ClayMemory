@@ -6,8 +6,10 @@ export enum View {
 	CardExplorer,
 }
 
-export type DisplayData = {
+export type DisplayState = {
 	windowMeasurements: { width: number; height: number } | null;
 	topOffset: number;
 	currentView: View;
+	listIndex: number;
+	scrollToIndex: boolean;
 };

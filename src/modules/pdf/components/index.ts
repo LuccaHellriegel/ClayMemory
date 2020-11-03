@@ -1,4 +1,3 @@
-import { OriginMarkedSnackbar } from "./Origin/OriginMarkedSnackbar";
 import { PageChooser } from "./Navigation/PageChooser";
 import { PageKeyboardControl } from "./Navigation/PageKeyboardControl";
 import { PDFDocument } from "./Document/PDFDocument";
@@ -6,12 +5,4 @@ import { PDFPage } from "./Document/PDFPage";
 import { ShowMaterialCheckbox } from "./ShowMaterialCheckbox";
 import { PageNavigation } from "./Navigation/NavigationButtons";
 
-export {
-	PageChooser,
-	PageNavigation,
-	PageKeyboardControl,
-	ShowMaterialCheckbox,
-	PDFDocument,
-	PDFPage,
-	OriginMarkedSnackbar,
-};
+export { PageChooser, PageNavigation, PageKeyboardControl, ShowMaterialCheckbox, PDFDocument, PDFPage };

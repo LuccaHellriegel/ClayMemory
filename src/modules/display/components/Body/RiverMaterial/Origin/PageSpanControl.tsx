@@ -1,11 +1,10 @@
 import { RefObject, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SingleOrigin } from "../../../cards/model/origin";
-import { getSpanOrigin } from "../../selectors";
-import { actions } from "../../slice";
+import pdf from "../../../../../pdf";
+import { SingleOrigin } from "../../../../../cards/model/origin";
 
 export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefObject<null | HTMLDivElement> }) => {
-	const spanOrigin = useSelector(getSpanOrigin);
+	const spanOrigin = useSelector(pdf.selectors.getSpanOrigin);
 	const count = useRef(0);
 
 	const dispatch = useDispatch();
@@ -22,7 +21,7 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 				count.current = 0;
 				clearInterval(intervalID);
 				console.log("invalid origin clicked", spanOrigin);
-				dispatch(actions.spanOrigin(null));
+				dispatch(pdf.actions.spanOrigin(null));
 				return;
 			}
 
@@ -49,12 +48,6 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 			if (textLayer) {
 				const originSpan = textLayer.children.item(spanOrigin.spanIndexStart);
 				if (originSpan) {
-					// TODO: this is a hack to make sure the origin is in view when we are already on the page
-					// (e.g. we request origin on page 1 and currentPage is page 1)
-					// scrollIntoView seems not to work then
-					dispatch(actions.nextPage());
-					dispatch(actions.previousPage());
-
 					originSpan.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
 					count.current = 0;
 				} else {

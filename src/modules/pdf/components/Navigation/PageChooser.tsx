@@ -52,7 +52,7 @@ const PageNumberTextField = ({ totalPages }: { totalPages: number }) => {
 					event.preventDefault();
 					const submittedValue = (event.target as HTMLFormElement).value;
 					if (!state.error) {
-						dispatch(actions.pageUpdate({ page: parseInt(submittedValue), shouldScroll: true }));
+						dispatch(actions.pageUpdate(parseInt(submittedValue)));
 					}
 				}
 			}}

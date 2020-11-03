@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Divider, Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import pdf from "../../../../pdf";
 import river from "../../../../river";
 import { getWindowMeasurements } from "../../../selectors";
+import { PageSpanControl } from "./Origin/PageSpanControl";
 
 //TODO: replace this with Material-UI breakpoints
 export const RiverMultiplier = 0.35;
@@ -44,8 +45,11 @@ export const RiverMaterialPair = ({
 
 	const width = useSelector(getWindowMeasurements)?.width as number;
 
+	const pageRef = useRef<null | HTMLDivElement>(null);
+
 	return (
 		<div style={{ ...style }}>
+			<PageSpanControl page={pageNumber} pageRef={pageRef}></PageSpanControl>
 			<river.components.SwitchActiveRiver riverID={riverID}>
 				<Grid container justify="space-between" direction="row" alignItems="flex-start">
 					<Grid item hidden={showRiver === "HIDE"}>
@@ -57,7 +61,11 @@ export const RiverMaterialPair = ({
 					</Grid>
 
 					<Grid item hidden={showMaterial === "HIDE"}>
-						<pdf.components.PDFPage pageNumber={pageNumber} materialWidth={width}></pdf.components.PDFPage>
+						<pdf.components.PDFPage
+							pageNumber={pageNumber}
+							pageRef={pageRef}
+							materialWidth={width}
+						></pdf.components.PDFPage>
 					</Grid>
 				</Grid>
 			</river.components.SwitchActiveRiver>

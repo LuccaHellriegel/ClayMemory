@@ -7,6 +7,7 @@ import { getTopOffset, getWindowMeasurements } from "../../../selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { ListScrollControl } from "./ListScrollControl";
 import pdf from "../../../../pdf";
+import { actions } from "../../../slice";
 
 const calculateMaterialHeight = (
 	pageNumber: number,
@@ -77,7 +78,7 @@ export const RiverMaterialPairList = ({
 					width="100%"
 					onItemsRendered={(props) => {
 						//TODO: find way to switch the page if it is halfway in sight
-						dispatch(pdf.actions.pageUpdate({ page: props.visibleStopIndex + 1, shouldScroll: false }));
+						dispatch(actions.listIndex(props.visibleStopIndex));
 					}}
 				>
 					{RiverMaterialPair}

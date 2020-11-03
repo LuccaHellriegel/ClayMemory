@@ -7,7 +7,6 @@ export type PDFState = {
 	pdfName?: string;
 	pdfShowStatus: PDFStatus;
 	currentPage: number;
-	scrollToPage: number | null;
 	totalPages: number;
 	documentSearch: string | "";
 	spanOrigin: SingleOrigin | null;

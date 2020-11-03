@@ -12,8 +12,6 @@ export const getTotalPages = createSelector(getAll, (state: PDFState) => state.t
 
 export const getCurrentPage = createSelector(getAll, (state: PDFState) => state.currentPage);
 
-export const getScrollToPage = createSelector(getAll, (state) => state.scrollToPage);
-
 export const getPageControlData = createSelector(getTotalPages, getCurrentPage, (totalPages, currentPage) => {
 	return { currentPage, totalPages };
 });
