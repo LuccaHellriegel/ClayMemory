@@ -94,9 +94,13 @@ const materialSelectionDataToSourceConfig = (
 	};
 };
 
+//TODO: this is to prevent the Snackbar from overflowing and the Close-Icon being off the screen
+// however, this should dynamically depend on if it is really overflowing (or different solution for snackbar)
+const maxSelectionLength = 400;
 export const getSelectionSourceFromMaterial = (page: number): SelectionSourceConfig | false => {
 	const selectionData = getSelectionWorkaround();
-	if (!selectionData) return false;
+
+	if (!selectionData || selectionData.text.length > maxSelectionLength) return false;
 
 	return materialSelectionDataToSourceConfig(selectionData, page);
 };
