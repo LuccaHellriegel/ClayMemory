@@ -2,7 +2,7 @@ import React, { RefObject, useCallback, useEffect, useRef, useState } from "reac
 import Menu from "@material-ui/core/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { Divider, MenuItem } from "@material-ui/core";
-import { addSelectionGoal } from "../../actions";
+import { addSelectionTarget } from "../../actions";
 import { sourceConfigExists } from "../../selectors";
 
 // TODO: be able to directly fill empty field of newly created card
@@ -68,7 +68,7 @@ export const ContextMenu = () => {
 		<Menu ref={ref} keepMounted open={openState} anchorReference="anchorPosition" anchorPosition={menuPosition}>
 			<MenuItem
 				onClick={() => {
-					dispatch(addSelectionGoal({ cardField: "note", updateType: "REPLACE" }));
+					dispatch(addSelectionTarget({ cardField: "note", updateType: "REPLACE" }));
 					setMenuPosition(undefined);
 				}}
 			>
@@ -78,7 +78,7 @@ export const ContextMenu = () => {
 			<Divider></Divider>
 			<MenuItem
 				onClick={() => {
-					dispatch(addSelectionGoal({ cardField: "q", updateType: "REPLACE" }));
+					dispatch(addSelectionTarget({ cardField: "q", updateType: "REPLACE" }));
 					setMenuPosition(undefined);
 				}}
 			>
@@ -86,7 +86,7 @@ export const ContextMenu = () => {
 			</MenuItem>
 			<MenuItem
 				onClick={() => {
-					dispatch(addSelectionGoal({ cardField: "a", updateType: "REPLACE" }));
+					dispatch(addSelectionTarget({ cardField: "a", updateType: "REPLACE" }));
 					setMenuPosition(undefined);
 				}}
 			>

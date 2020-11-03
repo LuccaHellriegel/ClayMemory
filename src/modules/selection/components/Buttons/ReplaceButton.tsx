@@ -4,27 +4,27 @@ import React, { useState } from "react";
 import { IconButton } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import text from "../../../text";
-import { getGoalConfig, getSourceConfig } from "../../selectors";
-import { addCardReplaceSelectionGoal, resetSelectionGoal } from "../../actions";
-import { SelectionExistingCardGoalConfig, CardFieldIdentifier } from "../../model";
+import { getTargetConfig, getSourceConfig } from "../../selectors";
+import { addCardReplaceSelectionTarget, resetSelectionTarget } from "../../actions";
+import { SelectionExistingCardTargetConfig, CardFieldIdentifier } from "../../model";
 import { CardField } from "../../../cards/model/content";
 
 export const ReplaceButton = ({ cardField, cardID }: { cardField: CardField; cardID: string }) => {
 	const dispatch = useDispatch();
 
 	const sourceConfig = useSelector(getSourceConfig);
-	const goalConfig = useSelector(getGoalConfig);
+	const goalConfig = useSelector(getTargetConfig);
 	// outlined means this is the goal
 	const [outlined, setOutlined] = useState(false);
 
-	const isGoal =
+	const isTarget =
 		!!goalConfig &&
 		!!(goalConfig as CardFieldIdentifier).cardID &&
 		(goalConfig as CardFieldIdentifier).cardID === cardID &&
 		goalConfig.cardField === cardField &&
-		(goalConfig as SelectionExistingCardGoalConfig).updateType === "REPLACE";
+		(goalConfig as SelectionExistingCardTargetConfig).updateType === "REPLACE";
 
-	if (isGoal) {
+	if (isTarget) {
 		if (!outlined) setOutlined(true);
 	} else {
 		if (outlined) setOutlined(false);
@@ -33,11 +33,11 @@ export const ReplaceButton = ({ cardField, cardID }: { cardField: CardField; car
 	return (
 		<text.components.BiggerTooltip
 			title={
-				isGoal
-					? text.constants.CardIsReplaceGoalTooltip
+				isTarget
+					? text.constants.CardIsReplaceTargetTooltip
 					: !!sourceConfig
 					? text.constants.ReplaceCardTooltip
-					: text.constants.ChoiceCardAsReplaceGoal
+					: text.constants.ChoiceCardAsReplaceTarget
 			}
 			enterDelay={text.constants.defaultEnterDelay}
 			enterNextDelay={text.constants.defaultEnterNextDelay}
@@ -46,9 +46,9 @@ export const ReplaceButton = ({ cardField, cardID }: { cardField: CardField; car
 				type="button"
 				onClick={() => {
 					if (!outlined && !!!goalConfig) {
-						dispatch(addCardReplaceSelectionGoal(cardID, cardField));
-					} else if (isGoal) {
-						dispatch(resetSelectionGoal());
+						dispatch(addCardReplaceSelectionTarget(cardID, cardField));
+					} else if (isTarget) {
+						dispatch(resetSelectionTarget());
 					}
 				}}
 			>

@@ -1,7 +1,7 @@
 import { SingleOrigin } from "../cards/model/origin";
-import { SelectionSourceConfig, SelectionGoalConfig, SelectionExistingCardGoalConfig } from "./model";
+import { SelectionSourceConfig, SelectionTargetConfig, SelectionExistingCardTargetConfig } from "./model";
 import { Dispatch } from "redux";
-import { getGoalConfig, getSourceConfig } from "./selectors";
+import { getTargetConfig, getSourceConfig } from "./selectors";
 import { selectionToCard } from "./services/use-selection";
 import { getSelectionSourceFromMaterial, getSelectionSourceFromCard } from "./services/get-selection";
 import { CardID } from "../cards/model/config";
@@ -10,20 +10,20 @@ import { actions } from "./slice";
 
 const selectionSource = actions.selectionSource;
 export const resetSelectionSource = () => selectionSource(null);
-const selectionGoal = actions.selectionGoal;
-export const resetSelectionGoal = () => selectionGoal(null);
+const selectionTarget = actions.selectionTarget;
+export const resetSelectionTarget = () => selectionTarget(null);
 
-// we want to support either direction, first adding Goal or first adding Source
+// we want to support either direction, first adding Target or first adding Source
 export const addSelectionSource = (config: SelectionSourceConfig) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
-		const goalConfig = getGoalConfig(state);
+		const goalConfig = getTargetConfig(state);
 		if (!goalConfig) {
 			dispatch(selectionSource(config));
 			return;
 		}
-		selectionToCard(config, goalConfig as SelectionGoalConfig, dispatch, state);
-		dispatch(resetSelectionGoal());
+		selectionToCard(config, goalConfig as SelectionTargetConfig, dispatch, state);
+		dispatch(resetSelectionTarget());
 	};
 };
 
@@ -43,12 +43,12 @@ export const addCardSelectionSource = (contentOrigin?: SingleOrigin) => {
 	return false;
 };
 
-export const addSelectionGoal = (config: SelectionGoalConfig) => {
+export const addSelectionTarget = (config: SelectionTargetConfig) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
 		const sourceConfig = getSourceConfig(state);
 		if (!sourceConfig) {
-			dispatch(selectionGoal(config));
+			dispatch(selectionTarget(config));
 			return;
 		}
 		selectionToCard(sourceConfig as SelectionSourceConfig, config, dispatch, state);
@@ -56,12 +56,12 @@ export const addSelectionGoal = (config: SelectionGoalConfig) => {
 	};
 };
 
-export const addCardAppendSelectionGoal = (cardID: CardID, cardField: CardField) => {
-	const config: SelectionExistingCardGoalConfig = { cardID, cardField, updateType: "APPEND" };
-	return addSelectionGoal(config);
+export const addCardAppendSelectionTarget = (cardID: CardID, cardField: CardField) => {
+	const config: SelectionExistingCardTargetConfig = { cardID, cardField, updateType: "APPEND" };
+	return addSelectionTarget(config);
 };
 
-export const addCardReplaceSelectionGoal = (cardID: CardID, cardField: CardField) => {
-	const config: SelectionExistingCardGoalConfig = { cardID, cardField, updateType: "REPLACE" };
-	return addSelectionGoal(config);
+export const addCardReplaceSelectionTarget = (cardID: CardID, cardField: CardField) => {
+	const config: SelectionExistingCardTargetConfig = { cardID, cardField, updateType: "REPLACE" };
+	return addSelectionTarget(config);
 };

@@ -1,9 +1,14 @@
 import { CardConfig, CardPayload } from "../../cards/model/config";
 import cards from "../../cards";
-import { SelectionGoalConfig, SelectionSourceConfig, goalIsCreation, SelectionExistingCardGoalConfig } from "../model";
+import {
+	SelectionTargetConfig,
+	SelectionSourceConfig,
+	goalIsCreation,
+	SelectionExistingCardTargetConfig,
+} from "../model";
 import { getNextCardID } from "../../cards/selectors";
 
-const selectionConfigToCardPayload = (sourceConfig: SelectionSourceConfig, goalConfig: SelectionGoalConfig) => {
+const selectionConfigToCardPayload = (sourceConfig: SelectionSourceConfig, goalConfig: SelectionTargetConfig) => {
 	const inputOrigin = sourceConfig.contentOrigin;
 	const inputValue = sourceConfig.contentStr;
 
@@ -18,7 +23,7 @@ const selectionConfigToCardPayload = (sourceConfig: SelectionSourceConfig, goalC
 
 const selectionConfigToActualizedCardConfig = (
 	sourceConfig: SelectionSourceConfig,
-	goalConfig: SelectionExistingCardGoalConfig,
+	goalConfig: SelectionExistingCardTargetConfig,
 	state: any
 ): CardConfig => {
 	const existingCard = cards.selectors.getCardByID(state, goalConfig.cardID);
@@ -39,7 +44,7 @@ const selectionConfigToActualizedCardConfig = (
 
 export const selectionToCard = (
 	sourceConfig: SelectionSourceConfig,
-	goalConfig: SelectionGoalConfig,
+	goalConfig: SelectionTargetConfig,
 	dispatch: any,
 	state: any
 ) => {
@@ -51,7 +56,7 @@ export const selectionToCard = (
 	} else {
 		const cardConfig = selectionConfigToActualizedCardConfig(
 			sourceConfig,
-			goalConfig as SelectionExistingCardGoalConfig,
+			goalConfig as SelectionExistingCardTargetConfig,
 			state
 		);
 		dispatch(cards.actions.cardReplace(cardConfig));

@@ -5,9 +5,9 @@ import { CardID, UpdateType } from "../cards/model/config";
 export type SelectionSourceConfig = { contentStr: string; contentOrigin?: SingleOrigin };
 
 export type CardFieldIdentifier = { cardID: CardID; cardField: CardField };
-export type SelectionExistingCardGoalConfig = CardFieldIdentifier & { updateType: UpdateType };
-export type SelectionGoalConfig = SelectionExistingCardGoalConfig | { cardField: CardField };
-export const goalIsCreation = (goalConfig: SelectionGoalConfig) => {
+export type SelectionExistingCardTargetConfig = CardFieldIdentifier & { updateType: UpdateType };
+export type SelectionTargetConfig = SelectionExistingCardTargetConfig | { cardField: CardField };
+export const goalIsCreation = (goalConfig: SelectionTargetConfig) => {
 	// each existing card has an ID
 	const idExists = !!(goalConfig as CardFieldIdentifier).cardID;
 	return !idExists;
@@ -22,5 +22,5 @@ export const goalIsCreation = (goalConfig: SelectionGoalConfig) => {
 
 export type SelectionData = {
 	sourceConfig: SelectionSourceConfig | null;
-	goalConfig: SelectionGoalConfig | null;
+	goalConfig: SelectionTargetConfig | null;
 };
