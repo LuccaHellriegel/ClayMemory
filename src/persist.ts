@@ -9,6 +9,8 @@ const removePDF = (state: any) => {
 	return { ...state, pdf: null };
 };
 
+// TODO: dont persist selection or mark for now (does not work)
+
 const pdfTransform = createTransform(
 	(inboundState: PDFState) => {
 		return inboundState;

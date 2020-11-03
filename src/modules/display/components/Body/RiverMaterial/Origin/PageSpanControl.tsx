@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useEffect, useRef } from "react";
+import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import pdf from "../../../../../pdf";
 import { SingleOrigin } from "../../../../../cards/model/origin";
@@ -6,6 +6,10 @@ import { SingleOrigin } from "../../../../../cards/model/origin";
 export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefObject<null | HTMLDivElement> }) => {
 	const spanOrigin = useSelector(pdf.selectors.getSpanOrigin);
 	const count = useRef(0);
+
+	// if this component is mounted again after scrolling away
+	// by using the spanOrigin here we prevent double scrolling
+	const [scrolledSpan, setScrolledSpan] = useState(spanOrigin);
 
 	const dispatch = useDispatch();
 
@@ -22,6 +26,7 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 				clearInterval(intervalID);
 				console.log("invalid origin clicked", spanOrigin);
 				dispatch(pdf.actions.spanOrigin(null));
+				setScrolledSpan(spanOrigin);
 				return;
 			}
 
@@ -31,6 +36,7 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 				if (originSpan) {
 					originSpan.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
 					count.current = 0;
+					setScrolledSpan(spanOrigin);
 					clearInterval(intervalID);
 					return;
 				}
@@ -42,7 +48,14 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 	//TODO: SelectionSnackbar should not overlap origin, maybe move it automatically
 
 	useEffect(() => {
-		if (spanOrigin && spanOrigin.page === page && pageRef.current) {
+		if (
+			spanOrigin &&
+			spanOrigin.page === page &&
+			pageRef.current &&
+			// this is only not the same if this component was mounted and a new one arrives
+			// then it only executes once and then it is the same
+			scrolledSpan !== spanOrigin
+		) {
 			// assumption of fixed order
 			const textLayer = pageRef.current.children.item(1);
 			if (textLayer) {
@@ -50,6 +63,7 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 				if (originSpan) {
 					originSpan.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
 					count.current = 0;
+					setScrolledSpan(spanOrigin);
 				} else {
 					trier();
 				}
@@ -57,7 +71,7 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 				trier();
 			}
 		}
-	}, [dispatch, page, pageRef, spanOrigin, trier]);
+	}, [dispatch, page, pageRef, spanOrigin, trier, scrolledSpan]);
 
 	return null;
 };
