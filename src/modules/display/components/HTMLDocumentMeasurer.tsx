@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { debounce } from "throttle-debounce";
 import { actions } from "../slice";
 
+//TODO: replace this with vw / vh css values
+
 export const HTMLDocumentMeasurer = () => {
 	const dispatch = useDispatch();
 

@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
-import selection from "../../../selection";
 import { View } from "../../model";
 import { getCurrentView } from "../../selectors";
 import { RiverMaterial } from "./RiverMaterial/RiverMaterial";
@@ -21,9 +20,6 @@ export const Body = () => {
 			<div hidden={currentView !== View.RiverExplorer} style={{ width: "100%", height: "100%" }}>
 				<RiverExplorer></RiverExplorer>
 			</div>
-
-			<selection.components.ContextMenu></selection.components.ContextMenu>
-			<selection.components.SelectionSnackbar></selection.components.SelectionSnackbar>
 		</Fragment>
 	);
 };

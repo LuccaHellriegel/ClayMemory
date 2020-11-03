@@ -137,7 +137,7 @@ export const initialStateArr: DocumentData[] = [
 		currentPage: 4,
 		riverMakeUps: {
 			"CardRiver 1": { riverID: "CardRiver 1", cardIDs: ["1", "3"] },
-			"CardRiver 2": { riverID: "CardRiver 2", cardIDs: ["5", "7"] },
+			"CardRiver 2": { riverID: "CardRiver 2", cardIDs: ["5"] },
 			"CardRiver 3": { riverID: "CardRiver 3", cardIDs: ["9", "11"] },
 			"CardRiver 4": { riverID: "CardRiver 4", cardIDs: ["13", "15"] },
 		},
@@ -157,7 +157,6 @@ export const initialStateArr: DocumentData[] = [
 				content: { q: "Wie wird der Körper der Nervenzelle bezeichnet? (Seite 2, Absatz 1)", a: "" },
 				cardID: "5",
 			},
-			"7": { type: "Q-A", content: { q: "", a: "" }, cardID: "7" },
 			"9": {
 				type: "Q-A",
 				content: {

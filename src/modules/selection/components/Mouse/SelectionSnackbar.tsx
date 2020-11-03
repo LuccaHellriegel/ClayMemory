@@ -42,8 +42,10 @@ export const SelectionSnackbar = () => {
 		};
 	});
 
+	//TODO: draggable leads to x-axis offset of 50%, but if I set position-offset the bounds dont work
+
 	return (
-		<Draggable positionOffset={{ x: "-50%", y: "0%" }} axis="x">
+		<Draggable positionOffset={{ x: "0%", y: "0%" }} bounds="parent">
 			<Snackbar
 				style={{ maxWidth: "400px", overflowX: "auto" }}
 				anchorOrigin={{ vertical: "top", horizontal: "center" }}
