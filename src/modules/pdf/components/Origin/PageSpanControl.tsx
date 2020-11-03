@@ -40,6 +40,8 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 		}, 10);
 	}, [dispatch, count, spanOrigin, pageRef]);
 
+	//TODO: SelectionSnackbar should not overlap origin, maybe move it automatically
+
 	useEffect(() => {
 		if (spanOrigin && spanOrigin.page === page && pageRef.current) {
 			// assumption of fixed order
@@ -47,6 +49,12 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 			if (textLayer) {
 				const originSpan = textLayer.children.item(spanOrigin.spanIndexStart);
 				if (originSpan) {
+					// TODO: this is a hack to make sure the origin is in view when we are already on the page
+					// (e.g. we request origin on page 1 and currentPage is page 1)
+					// scrollIntoView seems not to work then
+					dispatch(actions.nextPage());
+					dispatch(actions.previousPage());
+
 					originSpan.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
 					count.current = 0;
 				} else {
