@@ -8,6 +8,8 @@ export const MaterialMouseUp = ({ children, page }: { children: ReactNode; page:
 
 	return (
 		<span
+			// TODO: this is not a perfect solution as it should be possible to hold on to the selection while the mouse is out.
+			// same for CardMouseUp
 			onMouseUp={() => {
 				const materialSelectionSourceAction = addMaterialSelectionSource(page);
 				if (materialSelectionSourceAction) dispatch(materialSelectionSourceAction);

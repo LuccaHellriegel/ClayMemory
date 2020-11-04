@@ -3,6 +3,8 @@ import { SingleOrigin } from "../../cards/model/origin";
 
 type SelectionData = { text: string; selection: Selection };
 
+// TODO: multiline selection should keep newlines
+
 export const getSelectionWorkaround = (): SelectionData | null => {
 	const selection = window.getSelection();
 
