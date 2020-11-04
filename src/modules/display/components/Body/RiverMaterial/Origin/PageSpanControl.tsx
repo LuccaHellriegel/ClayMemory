@@ -13,6 +13,11 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 	// by using the spanOrigin here we prevent double scrolling
 	const [scrolledSpan, setScrolledSpan] = useState(spanOrigin);
 
+	// TODO: think if I really want to jump only once?
+	if (spanOrigin === null && scrolledSpan !== null) {
+		setScrolledSpan(null);
+	}
+
 	const dispatch = useDispatch();
 
 	// it is not guaranteed that the effect fires after the page was fully rendered
