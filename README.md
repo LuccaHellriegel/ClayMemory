@@ -80,6 +80,7 @@ Issues, PRs and general suggestions welcome.
 - Default data
 - Deactivated show options / search document box
 - order in options-menu / deactivated download / upload dataset
+- scrollIntoView with center instead of nearest (nearest behavior is not consistent)
 
 ## License
 

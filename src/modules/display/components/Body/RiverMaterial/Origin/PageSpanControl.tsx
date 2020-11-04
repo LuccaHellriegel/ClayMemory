@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import pdf from "../../../../../pdf";
 import { SingleOrigin } from "../../../../../cards/model/origin";
 
+//TODO: same page origin-scrolling still does sometimes do nothing
+
 export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefObject<null | HTMLDivElement> }) => {
 	const spanOrigin = useSelector(pdf.selectors.getSpanOrigin);
 	const count = useRef(0);
@@ -34,7 +36,7 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 			if (textLayer) {
 				const originSpan = textLayer.children.item((spanOrigin as SingleOrigin).spanIndexStart);
 				if (originSpan) {
-					originSpan.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
+					originSpan.scrollIntoView({ behavior: "auto", block: "center", inline: "center" });
 					count.current = 0;
 					setScrolledSpan(spanOrigin);
 					clearInterval(intervalID);
@@ -61,7 +63,7 @@ export const PageSpanControl = ({ page, pageRef }: { page: number; pageRef: RefO
 			if (textLayer) {
 				const originSpan = textLayer.children.item(spanOrigin.spanIndexStart);
 				if (originSpan) {
-					originSpan.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
+					originSpan.scrollIntoView({ behavior: "auto", block: "center", inline: "center" });
 					count.current = 0;
 					setScrolledSpan(spanOrigin);
 				} else {
