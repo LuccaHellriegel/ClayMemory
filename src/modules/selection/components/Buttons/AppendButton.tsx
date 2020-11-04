@@ -17,12 +17,13 @@ export const AppendButton = ({ cardField, cardID }: { cardField: CardField; card
 	// outlined means this is the goal
 	const [outlined, setOutlined] = useState(false);
 
-	const isTarget =
+	const cardIsTarget =
 		!!goalConfig &&
 		!!(goalConfig as CardFieldIdentifier).cardID &&
 		(goalConfig as CardFieldIdentifier).cardID === cardID &&
-		goalConfig.cardField === cardField &&
-		(goalConfig as SelectionExistingCardTargetConfig).updateType === "APPEND";
+		goalConfig.cardField === cardField;
+
+	const isTarget = cardIsTarget && (goalConfig as SelectionExistingCardTargetConfig).updateType === "APPEND";
 
 	if (isTarget) {
 		if (!outlined) setOutlined(true);
@@ -43,22 +44,26 @@ export const AppendButton = ({ cardField, cardID }: { cardField: CardField; card
 			enterDelay={text.constants.defaultEnterDelay}
 			enterNextDelay={text.constants.defaultEnterNextDelay}
 		>
-			<IconButton
-				type="button"
-				onClick={() => {
-					if (!outlined && !!!goalConfig) {
-						dispatch(addCardAppendSelectionTarget(cardID, cardField));
-					} else if (isTarget) {
-						dispatch(resetSelectionTarget());
-					}
-				}}
-			>
-				{outlined ? (
-					<AddCircleOutlinedIcon fontSize="small"></AddCircleOutlinedIcon>
-				) : (
-					<AddCircleOutlineIcon fontSize="small"></AddCircleOutlineIcon>
-				)}
-			</IconButton>
+			<span>
+				<IconButton
+					type="button"
+					onClick={() => {
+						if (!outlined && !!!goalConfig) {
+							dispatch(addCardAppendSelectionTarget(cardID, cardField));
+						} else if (isTarget) {
+							dispatch(resetSelectionTarget());
+						}
+					}}
+					//TODO: global way to deactive field marking (also replace button)
+					disabled={(cardIsTarget && !isTarget) || (!!goalConfig && !cardIsTarget)}
+				>
+					{outlined ? (
+						<AddCircleOutlinedIcon fontSize="small"></AddCircleOutlinedIcon>
+					) : (
+						<AddCircleOutlineIcon fontSize="small"></AddCircleOutlineIcon>
+					)}
+				</IconButton>
+			</span>
 		</text.components.BiggerTooltip>
 	);
 };

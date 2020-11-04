@@ -17,12 +17,13 @@ export const ReplaceButton = ({ cardField, cardID }: { cardField: CardField; car
 	// outlined means this is the goal
 	const [outlined, setOutlined] = useState(false);
 
-	const isTarget =
+	const cardIsTarget =
 		!!goalConfig &&
 		!!(goalConfig as CardFieldIdentifier).cardID &&
 		(goalConfig as CardFieldIdentifier).cardID === cardID &&
-		goalConfig.cardField === cardField &&
-		(goalConfig as SelectionExistingCardTargetConfig).updateType === "REPLACE";
+		goalConfig.cardField === cardField;
+
+	const isTarget = cardIsTarget && (goalConfig as SelectionExistingCardTargetConfig).updateType === "REPLACE";
 
 	if (isTarget) {
 		if (!outlined) setOutlined(true);
@@ -42,22 +43,25 @@ export const ReplaceButton = ({ cardField, cardID }: { cardField: CardField; car
 			enterDelay={text.constants.defaultEnterDelay}
 			enterNextDelay={text.constants.defaultEnterNextDelay}
 		>
-			<IconButton
-				type="button"
-				onClick={() => {
-					if (!outlined && !!!goalConfig) {
-						dispatch(addCardReplaceSelectionTarget(cardID, cardField));
-					} else if (isTarget) {
-						dispatch(resetSelectionTarget());
-					}
-				}}
-			>
-				{outlined ? (
-					<RestorePageIcon fontSize="small"></RestorePageIcon>
-				) : (
-					<RestorePageOutlinedIcon fontSize="small"></RestorePageOutlinedIcon>
-				)}
-			</IconButton>
+			<span>
+				<IconButton
+					type="button"
+					onClick={() => {
+						if (!outlined && !!!goalConfig) {
+							dispatch(addCardReplaceSelectionTarget(cardID, cardField));
+						} else if (isTarget) {
+							dispatch(resetSelectionTarget());
+						}
+					}}
+					disabled={(cardIsTarget && !isTarget) || (!!goalConfig && !cardIsTarget)}
+				>
+					{outlined ? (
+						<RestorePageIcon fontSize="small"></RestorePageIcon>
+					) : (
+						<RestorePageOutlinedIcon fontSize="small"></RestorePageOutlinedIcon>
+					)}
+				</IconButton>
+			</span>
 		</text.components.BiggerTooltip>
 	);
 };
