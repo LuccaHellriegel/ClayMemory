@@ -43,9 +43,13 @@ export const ListScrollControl = ({ listRef }: { listRef: RefObject<VariableSize
 
 	useEffect(() => {
 		// only set spanOrigin once we have arrived at the correct page
-		// this prevents race-conditions
+		// this prevents some race-conditions
 		if (riverOriginRequest && currentPage === currentIndex + 1) {
-			dispatch(pdf.actions.spanOrigin(riverOriginRequest));
+			// TODO: when jumping to a page that is not rendered completly yet (not react issue, but react-pdf)
+			// then it does not scroll at all, so for now just hardcode a delay
+			setTimeout(() => {
+				dispatch(pdf.actions.spanOrigin(riverOriginRequest));
+			}, 100);
 			dispatch(river.actions.riverOriginRequest(null));
 		}
 	}, [dispatch, riverOriginRequest, currentPage, currentIndex]);
