@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/ClayMemory/static/css/main.97762074.chunk.css",
-    "main.js": "/ClayMemory/static/js/main.45c7fb4a.chunk.js",
-    "main.js.map": "/ClayMemory/static/js/main.45c7fb4a.chunk.js.map",
+    "main.js": "/ClayMemory/static/js/main.949fea79.chunk.js",
+    "main.js.map": "/ClayMemory/static/js/main.949fea79.chunk.js.map",
     "runtime-main.js": "/ClayMemory/static/js/runtime-main.5832e919.js",
     "runtime-main.js.map": "/ClayMemory/static/js/runtime-main.5832e919.js.map",
     "static/css/2.ef331865.chunk.css": "/ClayMemory/static/css/2.ef331865.chunk.css",
     "static/js/2.0efe792c.chunk.js": "/ClayMemory/static/js/2.0efe792c.chunk.js",
     "static/js/2.0efe792c.chunk.js.map": "/ClayMemory/static/js/2.0efe792c.chunk.js.map",
     "index.html": "/ClayMemory/index.html",
-    "precache-manifest.0d7e21ed7da01f65448ae643049a212c.js": "/ClayMemory/precache-manifest.0d7e21ed7da01f65448ae643049a212c.js",
+    "precache-manifest.7cae091e5dabd4949872a2b03e10df36.js": "/ClayMemory/precache-manifest.7cae091e5dabd4949872a2b03e10df36.js",
     "service-worker.js": "/ClayMemory/service-worker.js",
     "static/css/2.ef331865.chunk.css.map": "/ClayMemory/static/css/2.ef331865.chunk.css.map",
     "static/css/main.97762074.chunk.css.map": "/ClayMemory/static/css/main.97762074.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.ef331865.chunk.css",
     "static/js/2.0efe792c.chunk.js",
     "static/css/main.97762074.chunk.css",
-    "static/js/main.45c7fb4a.chunk.js"
+    "static/js/main.949fea79.chunk.js"
   ]
 }
