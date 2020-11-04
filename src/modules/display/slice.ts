@@ -5,13 +5,14 @@ import { NAME } from "./constants";
 import cards from "../cards";
 import { CardsState } from "../cards/model/state";
 import pdf from "../pdf";
+import { SingleOrigin } from "../cards/model/origin";
 
 const initialState: DisplayState = {
-	windowMeasurements: null,
 	topOffset: 0,
 	currentView: View.RiverMaterial,
 	listIndex: 0,
-	scrollToIndex: false,
+	scrollToPage: false,
+	scrollToOriginSpan: null,
 };
 
 const topOffset: CaseReducer<DisplayState, PayloadAction<number>> = simpleReducer("topOffset");
@@ -20,10 +21,14 @@ const windowMeasurements: CaseReducer<
 	PayloadAction<{ width: number; height: number } | null>
 > = simpleReducer("windowMeasurements");
 const listIndex: CaseReducer<DisplayState, PayloadAction<number>> = simpleReducer("listIndex");
-const scrollToIndex: CaseReducer<DisplayState, PayloadAction<boolean>> = simpleReducer("scrollToIndex");
+const scrollToPage: CaseReducer<DisplayState, PayloadAction<boolean>> = simpleReducer("scrollToPage");
 const scroll: CaseReducer<DisplayState> = (state) => {
-	return { ...state, scrollToIndex: true };
+	return { ...state, scrollToPage: true };
 };
+const scrollToOriginSpan: CaseReducer<DisplayState, PayloadAction<SingleOrigin | null>> = simpleReducer(
+	"scrollToOriginSpan"
+);
+
 const currentView: CaseReducer<DisplayState, PayloadAction<View>> = simpleReducer("currentView");
 
 //TODO: suboptimal, changes to RiverExplorer also if I upload pdf,
@@ -42,8 +47,9 @@ const displaySlice = createSlice({
 		topOffset,
 		windowMeasurements,
 		listIndex,
-		scrollToIndex,
+		scrollToPage,
 		currentView,
+		scrollToOriginSpan,
 	},
 	extraReducers: {
 		[cards.actions.allCardsReplace.type]: viewForNewCards,
@@ -51,6 +57,7 @@ const displaySlice = createSlice({
 		[pdf.actions.pageUpdate.type]: scroll,
 		[pdf.actions.nextPage.type]: scroll,
 		[pdf.actions.previousPage.type]: scroll,
+		[pdf.actions.spanOrigin.type]: scroll,
 	},
 });
 

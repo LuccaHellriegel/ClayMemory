@@ -14,7 +14,15 @@ const initialState: PDFState = {
 
 const totalPages: CaseReducer<PDFState, PayloadAction<number>> = simpleReducer("totalPages");
 const pdfShowStatus: CaseReducer<PDFState, PayloadAction<PDFStatus>> = simpleReducer("pdfShowStatus");
-const spanOrigin: CaseReducer<PDFState, PayloadAction<SingleOrigin | null>> = simpleReducer("spanOrigin");
+const spanOrigin: CaseReducer<PDFState, PayloadAction<SingleOrigin | null>> = (state, { payload }) => {
+	return {
+		...state,
+		spanOrigin: payload,
+		currentPage: payload ? payload.page : state.currentPage,
+	};
+};
+
+simpleReducer("spanOrigin");
 const documentSearch: CaseReducer<PDFState, PayloadAction<string>> = simpleReducer("documentSearch");
 
 const pdfUpload: CaseReducer<PDFState, PayloadAction<File>> = (state, { payload }) => {

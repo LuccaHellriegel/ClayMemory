@@ -8,6 +8,7 @@ import { actions } from "../../slice";
 
 export const JumpToOriginButton = ({ cardOrigin }: { cardOrigin: SingleOrigin }) => {
 	const dispatch = useDispatch();
+
 	return (
 		<text.components.BiggerTooltip
 			title={text.constants.jumpToOriginTooltip}

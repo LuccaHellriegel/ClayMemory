@@ -1,3 +1,5 @@
+import { SingleOrigin } from "../cards/model/origin";
+
 export type DisplayStatus = "SHOW" | "HIDE";
 
 export enum View {
@@ -7,9 +9,10 @@ export enum View {
 }
 
 export type DisplayState = {
-	windowMeasurements: { width: number; height: number } | null;
+	windowMeasurements?: { width: number; height: number };
 	topOffset: number;
 	currentView: View;
 	listIndex: number;
-	scrollToIndex: boolean;
+	scrollToPage: boolean;
+	scrollToOriginSpan: SingleOrigin | null;
 };

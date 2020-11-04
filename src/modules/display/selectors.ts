@@ -10,6 +10,8 @@ export const getTopOffset = createSelector(getAll, (state) => state.topOffset);
 
 export const getListIndex = createSelector(getAll, (state) => state.listIndex);
 
-export const getScrollToIndex = createSelector(getAll, (state) => state.scrollToIndex);
+export const getScrollToPage = createSelector(getAll, (state) => state.scrollToPage);
+
+export const getScrollToOriginSpan = createSelector(getAll, (state) => state.scrollToOriginSpan);
 
 export const getCurrentView = createSelector(getAll, (state) => state.currentView);
