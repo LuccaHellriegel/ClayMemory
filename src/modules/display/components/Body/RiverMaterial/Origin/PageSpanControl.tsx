@@ -29,6 +29,7 @@ const scrollToOriginSpan = (pageRef: RefObject<HTMLDivElement>, spanOrigin: Sing
 	if (textLayer) {
 		const originSpan = textLayer.children.item(spanOrigin.spanIndexStart);
 		if (originSpan) {
+			// TODO: nearest is buggy that is why its center, but nearest would be smoother
 			originSpan.scrollIntoView({ behavior: "auto", block: "center", inline: "center" });
 			return true;
 		} else {

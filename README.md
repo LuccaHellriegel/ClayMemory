@@ -1,5 +1,7 @@
 # ClayMemory - sculpt your mind
 
+![ClayMemory start screen](./ClayMemory.png)
+
 React-based reader and editor for creating notes and flash cards directly from PDF documents.
 
 STATUS: prototype for HCI research into flash card creation.
@@ -70,8 +72,7 @@ Issues, PRs and general suggestions welcome.
   - reselect
 - Testing
   - Jest for Unit Tests
-  - Cypress for End-To-End Testing
-    - some of the tests are flaky when run in headless-mode
+  - Cypress for End-To-End Testing (outdated)
 - [Architecture inspiration](https://jaysoo.ca/2016/02/28/organizing-redux-application/)
   - Boundary enforcement/testing via dependency-cruiser
 
@@ -87,6 +88,8 @@ Issues, PRs and general suggestions welcome.
 My custom code is licensed under Apache 2.0 (see LICENSE file).
 
 The favicon builds upon the Twemojii project and is copyright of Twitter, Inc and other contributors, and licensed under CC-BY 4.0.
+
+The screenshot at the top contains part of [the german Wikipedia page of Platon.](https://de.wikipedia.org/wiki/Platon)
 
 ## Available Scripts
 
