@@ -8,6 +8,7 @@ import { ClayMemorySearchBar } from "./ClayMemorySearchBar";
 import { ViewTabs } from "./ViewTabs";
 import { getTopOffset } from "../../selectors";
 import { actions } from "../../slice";
+import { ShowHideButton } from "./ShowHideButton";
 
 //TODO: download/load/sync csv for Anki
 export const ControlBar = () => {
@@ -62,9 +63,9 @@ export const ControlBar = () => {
 								<Grid item>
 									<ClayMemorySearchBar></ClayMemorySearchBar>
 								</Grid>
-								{/* <Grid item>
+								<Grid item>
 									<ShowHideButton></ShowHideButton>
-								</Grid> */}
+								</Grid>
 								<Grid item>
 									<db.components.DataOptions></db.components.DataOptions>
 								</Grid>

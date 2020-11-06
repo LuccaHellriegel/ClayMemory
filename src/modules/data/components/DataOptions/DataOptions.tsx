@@ -4,6 +4,9 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { DocumentOptionList } from "./DocumentOptionList";
 import { ActiveDocumentOptionItem } from "./ActiveDocumentOptionItem";
 import { InputDocument } from "../DocumentData/InputDocument";
+import { DownloadDataSetsButton } from "../DataSets/DownloadDataSetsButton";
+import { InputDataSetsButton } from "../DataSets/InputDataSetsButton";
+import text from "../../../text";
 
 export const DataOptions = () => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -31,19 +34,20 @@ export const DataOptions = () => {
 				onClose={handleClose}
 				MenuListProps={{ style: { paddingLeft: "8px", paddingRight: "8px" } }}
 			>
-				<InputDocument handleClose={handleClose} label={"Load document"}></InputDocument>
-				<Divider />
 				<ActiveDocumentOptionItem afterClick={handleClose}></ActiveDocumentOptionItem>
 				<DocumentOptionList afterClick={handleClose}></DocumentOptionList>
-				{/* <MenuItem
+				<Divider />
+				<InputDocument handleClose={handleClose} label={"Load document"}></InputDocument>
+				<Divider />
+				<InputDataSetsButton handleClose={handleClose} label={text.constants.uploadDatasetsText}></InputDataSetsButton>
+				<Divider />
+				<MenuItem
 					onClick={() => {
 						handleClose();
 					}}
 				>
-					<DownloadDataSetsButton></db.components.DownloadDataSetsButton>
+					<DownloadDataSetsButton></DownloadDataSetsButton>
 				</MenuItem>
-				<Divider />
-				<InputDataSetsButton handleClose={handleClose} label={text.constants.uploadDatasetsText}></InputDataSetsButton> */}
 			</Menu>
 		</div>
 	);
