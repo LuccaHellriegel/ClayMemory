@@ -26,6 +26,7 @@ const removeTarget: CaseReducer<SelectionData, PayloadAction<CardID>> = (state, 
 	return {
 		...state,
 		targetConfig:
+			state.targetConfig &&
 			(state.targetConfig as SelectionExistingCardTargetConfig).cardID &&
 			(state.targetConfig as SelectionExistingCardTargetConfig).cardID === payload
 				? null
