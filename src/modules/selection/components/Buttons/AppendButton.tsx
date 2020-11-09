@@ -13,17 +13,17 @@ export const AppendButton = ({ cardField, cardID }: { cardField: CardField; card
 	const dispatch = useDispatch();
 
 	const sourceConfig = useSelector(getSourceConfig);
-	const goalConfig = useSelector(getTargetConfig);
+	const targetConfig = useSelector(getTargetConfig);
 	// outlined means this is the goal
 	const [outlined, setOutlined] = useState(false);
 
 	const cardIsTarget =
-		!!goalConfig &&
-		!!(goalConfig as CardFieldIdentifier).cardID &&
-		(goalConfig as CardFieldIdentifier).cardID === cardID &&
-		goalConfig.cardField === cardField;
+		!!targetConfig &&
+		!!(targetConfig as CardFieldIdentifier).cardID &&
+		(targetConfig as CardFieldIdentifier).cardID === cardID &&
+		targetConfig.cardField === cardField;
 
-	const isTarget = cardIsTarget && (goalConfig as SelectionExistingCardTargetConfig).updateType === "APPEND";
+	const isTarget = cardIsTarget && (targetConfig as SelectionExistingCardTargetConfig).updateType === "APPEND";
 
 	if (isTarget) {
 		if (!outlined) setOutlined(true);
@@ -48,14 +48,14 @@ export const AppendButton = ({ cardField, cardID }: { cardField: CardField; card
 				<IconButton
 					type="button"
 					onClick={() => {
-						if (!outlined && !!!goalConfig) {
+						if (!outlined && !!!targetConfig) {
 							dispatch(addCardAppendSelectionTarget(cardID, cardField));
 						} else if (isTarget) {
 							dispatch(resetSelectionTarget());
 						}
 					}}
 					//TODO: global way to deactive field marking (also replace button)
-					disabled={(cardIsTarget && !isTarget) || (!!goalConfig && !cardIsTarget)}
+					disabled={(cardIsTarget && !isTarget) || (!!targetConfig && !cardIsTarget)}
 				>
 					{outlined ? (
 						<AddCircleOutlinedIcon fontSize="small"></AddCircleOutlinedIcon>

@@ -7,9 +7,9 @@ export type SelectionSourceConfig = { contentStr: string; contentOrigin?: Single
 export type CardFieldIdentifier = { cardID: CardID; cardField: CardField };
 export type SelectionExistingCardTargetConfig = CardFieldIdentifier & { updateType: UpdateType };
 export type SelectionTargetConfig = SelectionExistingCardTargetConfig | { cardField: CardField };
-export const goalIsCreation = (goalConfig: SelectionTargetConfig) => {
+export const goalIsCreation = (targetConfig: SelectionTargetConfig) => {
 	// each existing card has an ID
-	const idExists = !!(goalConfig as CardFieldIdentifier).cardID;
+	const idExists = !!(targetConfig as CardFieldIdentifier).cardID;
 	return !idExists;
 };
 
@@ -22,5 +22,5 @@ export const goalIsCreation = (goalConfig: SelectionTargetConfig) => {
 
 export type SelectionData = {
 	sourceConfig: SelectionSourceConfig | null;
-	goalConfig: SelectionTargetConfig | null;
+	targetConfig: SelectionTargetConfig | null;
 };

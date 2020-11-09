@@ -13,17 +13,17 @@ export const ReplaceButton = ({ cardField, cardID }: { cardField: CardField; car
 	const dispatch = useDispatch();
 
 	const sourceConfig = useSelector(getSourceConfig);
-	const goalConfig = useSelector(getTargetConfig);
+	const targetConfig = useSelector(getTargetConfig);
 	// outlined means this is the goal
 	const [outlined, setOutlined] = useState(false);
 
 	const cardIsTarget =
-		!!goalConfig &&
-		!!(goalConfig as CardFieldIdentifier).cardID &&
-		(goalConfig as CardFieldIdentifier).cardID === cardID &&
-		goalConfig.cardField === cardField;
+		!!targetConfig &&
+		!!(targetConfig as CardFieldIdentifier).cardID &&
+		(targetConfig as CardFieldIdentifier).cardID === cardID &&
+		targetConfig.cardField === cardField;
 
-	const isTarget = cardIsTarget && (goalConfig as SelectionExistingCardTargetConfig).updateType === "REPLACE";
+	const isTarget = cardIsTarget && (targetConfig as SelectionExistingCardTargetConfig).updateType === "REPLACE";
 
 	if (isTarget) {
 		if (!outlined) setOutlined(true);
@@ -47,13 +47,13 @@ export const ReplaceButton = ({ cardField, cardID }: { cardField: CardField; car
 				<IconButton
 					type="button"
 					onClick={() => {
-						if (!outlined && !!!goalConfig) {
+						if (!outlined && !!!targetConfig) {
 							dispatch(addCardReplaceSelectionTarget(cardID, cardField));
 						} else if (isTarget) {
 							dispatch(resetSelectionTarget());
 						}
 					}}
-					disabled={(cardIsTarget && !isTarget) || (!!goalConfig && !cardIsTarget)}
+					disabled={(cardIsTarget && !isTarget) || (!!targetConfig && !cardIsTarget)}
 				>
 					{outlined ? (
 						<RestorePageIcon fontSize="small"></RestorePageIcon>

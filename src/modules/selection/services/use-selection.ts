@@ -8,11 +8,11 @@ import {
 } from "../model";
 import { getNextCardID } from "../../cards/selectors";
 
-const selectionConfigToCardPayload = (sourceConfig: SelectionSourceConfig, goalConfig: SelectionTargetConfig) => {
+const selectionConfigToCardPayload = (sourceConfig: SelectionSourceConfig, targetConfig: SelectionTargetConfig) => {
 	const inputOrigin = sourceConfig.contentOrigin;
 	const inputValue = sourceConfig.contentStr;
 
-	const outputField = goalConfig.cardField;
+	const outputField = targetConfig.cardField;
 
 	return {
 		type: cards.model.config.cardFieldToType(outputField),
@@ -23,19 +23,24 @@ const selectionConfigToCardPayload = (sourceConfig: SelectionSourceConfig, goalC
 
 const selectionConfigToActualizedCardConfig = (
 	sourceConfig: SelectionSourceConfig,
-	goalConfig: SelectionExistingCardTargetConfig,
+	targetConfig: SelectionExistingCardTargetConfig,
 	state: any
 ): CardConfig => {
-	const existingCard = cards.selectors.getCardByID(state, goalConfig.cardID);
+	const existingCard = cards.selectors.getCardByID(state, targetConfig.cardID);
 
 	const inputOrigin = sourceConfig.contentOrigin;
 	const inputValue = sourceConfig.contentStr;
 
-	const outputField = goalConfig.cardField;
+	const outputField = targetConfig.cardField;
 
 	return {
 		...existingCard,
-		content: cards.model.content.strToCardContent(inputValue, outputField, goalConfig.updateType, existingCard.content),
+		content: cards.model.content.strToCardContent(
+			inputValue,
+			outputField,
+			targetConfig.updateType,
+			existingCard.content
+		),
 		origin: inputOrigin
 			? cards.model.origin.singleOriginToCardOrigin(inputOrigin, outputField, existingCard.origin)
 			: existingCard.origin,
@@ -44,19 +49,19 @@ const selectionConfigToActualizedCardConfig = (
 
 export const selectionToCard = (
 	sourceConfig: SelectionSourceConfig,
-	goalConfig: SelectionTargetConfig,
+	targetConfig: SelectionTargetConfig,
 	dispatch: any,
 	state: any
 ) => {
-	const isCreation = goalIsCreation(goalConfig);
+	const isCreation = goalIsCreation(targetConfig);
 	if (isCreation) {
-		const cardPayload: CardPayload = selectionConfigToCardPayload(sourceConfig, goalConfig);
+		const cardPayload: CardPayload = selectionConfigToCardPayload(sourceConfig, targetConfig);
 		const nextID = getNextCardID(state);
 		dispatch(cards.actions.cardPush({ ...cardPayload, cardID: nextID } as CardConfig));
 	} else {
 		const cardConfig = selectionConfigToActualizedCardConfig(
 			sourceConfig,
-			goalConfig as SelectionExistingCardTargetConfig,
+			targetConfig as SelectionExistingCardTargetConfig,
 			state
 		);
 		dispatch(cards.actions.cardReplace(cardConfig));

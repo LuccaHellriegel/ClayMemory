@@ -17,12 +17,12 @@ export const resetSelectionTarget = () => selectionTarget(null);
 export const addSelectionSource = (config: SelectionSourceConfig) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		const state = getState();
-		const goalConfig = getTargetConfig(state);
-		if (!goalConfig) {
+		const targetConfig = getTargetConfig(state);
+		if (!targetConfig) {
 			dispatch(selectionSource(config));
 			return;
 		}
-		selectionToCard(config, goalConfig as SelectionTargetConfig, dispatch, state);
+		selectionToCard(config, targetConfig as SelectionTargetConfig, dispatch, state);
 		dispatch(resetSelectionTarget());
 	};
 };
