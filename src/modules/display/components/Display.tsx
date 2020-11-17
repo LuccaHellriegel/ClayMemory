@@ -5,11 +5,13 @@ import selection from "../../selection";
 import { ControlBar } from "./ControlBar/ControlBar";
 import { HTMLDocumentMeasurer } from "./HTMLDocumentMeasurer";
 import { Body } from "./Body/Body";
+import tutorial from "../../tutorial";
 
 export const Display = () => {
 	return (
 		<cards.components.UndoRedoKeyListener>
 			<div>
+				<tutorial.components.Tutorial></tutorial.components.Tutorial>
 				<selection.components.ContextMenu></selection.components.ContextMenu>
 				<selection.components.SelectionSnackbar></selection.components.SelectionSnackbar>
 				<HTMLDocumentMeasurer></HTMLDocumentMeasurer>

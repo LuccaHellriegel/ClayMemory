@@ -1,5 +1,5 @@
 import { CreateModify, changeCardObject, createReplace } from "./permutation";
-import { NoteConfig, QAConfig, UpdateType } from "./config";
+import { CardConfig, NoteConfig, QAConfig, UpdateType } from "./config";
 
 export type QACardField = "q" | "a";
 export type CardField = "note" | QACardField;
@@ -69,3 +69,8 @@ export const qaContentContainsStringOrEmpty = (qaConfig: QAConfig, str: string) 
 	qaConfig.content.q === "" ||
 	qaConfig.content.a.includes(str) ||
 	qaConfig.content.q.includes(str);
+
+export const cardHasFullAField = (config: CardConfig) => typeof config.content !== "string" && config.content.a !== "";
+
+export const cardHasFullQAFields = (config: CardConfig) =>
+	typeof config.content !== "string" && config.content.a !== "" && config.content.q !== "";
