@@ -7,7 +7,7 @@ React-based reader and editor for creating notes and flash cards directly from P
 STATUS: prototype for HCI research into flash card creation.
 Try it here: [https://luccahellriegel.github.io/ClayMemory](https://luccahellriegel.github.io/ClayMemory)
 
-Only tested on Firefox and Chromium.
+Only tested on Firefox and Chrome/Chromium (Desktop).
 
 ## Controls
 
@@ -66,6 +66,7 @@ Issues, PRs and general suggestions welcome.
   - Material-UI
   - react-pdf / PDF.js
 - Redux
+  - redux-toolkit
   - redux-persist
   - redux-undo
   - redux-thunk
@@ -74,7 +75,19 @@ Issues, PRs and general suggestions welcome.
   - Jest for Unit Tests
   - Cypress for End-To-End Testing (outdated)
 - [Architecture inspiration](https://jaysoo.ca/2016/02/28/organizing-redux-application/)
-  - Boundary enforcement/testing via dependency-cruiser
+  - Boundary enforcement/testing via [dependency-cruiser](https://github.com/sverweij/dependency-cruiser)
+
+## Architecture
+
+Besides the classical React-Redux architecture, the modules are based around [redux-toolkit slices](https://redux-toolkit.js.org/tutorials/basic-tutorial#introducing-createslice) and are arranged according to this structure:
+![Module structure](./architecture.png)
+
+- "cards" contains the fundamental data model and basic components
+- "selection" contains all components and services for capturing and displaying the users text-selection, as well as transforming it into a card
+- "river" contains all components for displaying the cards
+- "pdf" contains all components for displaying the pdf
+- "data" mainly is the in-memory database of inactive pdf documents. It is connected to most components, because it needs to be able to load and save all document/card-data
+- "display" combines all the modules to a working application
 
 ## License
 
@@ -82,7 +95,7 @@ My custom code is licensed under Apache 2.0 (see LICENSE file).
 
 The favicon builds upon the Twemojii project and is copyright of Twitter, Inc and other contributors, and licensed under CC-BY 4.0.
 
-The screenshot at the top contains part of [the german Wikipedia page of Platon.](https://de.wikipedia.org/wiki/Platon)
+The screenshot at the top contains parts of [the german Wikipedia page for crocodiles.](https://de.wikipedia.org/wiki/Krokodile)
 
 ## Available Scripts
 
