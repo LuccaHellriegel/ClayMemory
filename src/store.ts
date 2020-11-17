@@ -23,7 +23,7 @@ const undoableCardActions = [
 	cards.actions.cardFieldReplace.type,
 ];
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
 	[db.name]: db.reducer,
 	[selection.name]: selection.reducer,
 	[river.constants.NAME]: undoable(river.reducer, {
@@ -38,8 +38,10 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+export const applyClayMemoryMiddleware = () => applyMiddleware(thunk);
+
 const composeEnhancers = composeWithDevTools({});
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const enhancer = composeEnhancers(applyClayMemoryMiddleware());
 
 export const store = createStore(persistedReducer, enhancer);
 

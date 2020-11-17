@@ -8,6 +8,7 @@ import { ClayMemorySearchBar } from "./ClayMemorySearchBar";
 import { ViewTabs } from "./ViewTabs";
 import { getTopOffset } from "../../selectors";
 import { actions } from "../../slice";
+import { ShowHideButton } from "./ShowHideButton";
 
 //TODO: download/load/sync csv for Anki
 export const ControlBar = () => {
@@ -49,12 +50,8 @@ export const ControlBar = () => {
 							</Grid>
 						</Grid>
 
-						<Grid item xs={2}>
-							<Grid container justify="center">
-								<Grid item style={{ overflowX: "auto" }}>
-									<Typography variant="subtitle1">{materialName?.replace(".pdf", "")}</Typography>
-								</Grid>
-							</Grid>
+						<Grid item xs={2} style={{ overflowX: "auto" }}>
+							<Typography variant="subtitle1">{materialName?.replace(".pdf", "")}</Typography>
 						</Grid>
 
 						<Grid item xs={4}>
@@ -62,9 +59,9 @@ export const ControlBar = () => {
 								<Grid item>
 									<ClayMemorySearchBar></ClayMemorySearchBar>
 								</Grid>
-								{/* <Grid item>
+								<Grid item>
 									<ShowHideButton></ShowHideButton>
-								</Grid> */}
+								</Grid>
 								<Grid item>
 									<db.components.DataOptions></db.components.DataOptions>
 								</Grid>

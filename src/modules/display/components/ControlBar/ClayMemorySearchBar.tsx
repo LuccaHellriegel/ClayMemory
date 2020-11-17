@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "material-ui-search-bar";
 import river from "../../../river";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid } from "@material-ui/core";
+import { Grid, Select } from "@material-ui/core";
 import pdf from "../../../pdf";
 
 //TODO: react-pdf alignment is broken for some pdfs and generally for non-body text,
@@ -80,7 +80,7 @@ export const ClayMemorySearchBar = () => {
 	//TODO: search in other rivers/same river when composing to show similar cards (like in the Anki Addon)
 	return (
 		<Grid container direction="row" alignItems="center" spacing={1}>
-			{/* <Grid item>
+			<Grid item>
 				<Select
 					variant="outlined"
 					color="secondary"
@@ -98,7 +98,7 @@ export const ClayMemorySearchBar = () => {
 					<option>Filter cards</option>
 					<option>Search document</option>
 				</Select>
-			</Grid> */}
+			</Grid>
 			<Grid item>
 				<SearchBar
 					value={state}
