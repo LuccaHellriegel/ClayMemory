@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetSelectionSource } from "../../actions";
 import { getSourceConfig } from "../../selectors";
 import Draggable from "react-draggable";
+import text from "../../../text";
 
 export const SelectionSnackbar = () => {
 	const [open, setOpen] = useState(false);
@@ -46,71 +47,77 @@ export const SelectionSnackbar = () => {
 
 	return (
 		<Draggable positionOffset={{ x: "0%", y: "0%" }} bounds="parent">
-			<Snackbar
-				style={{ maxWidth: "400px", overflowX: "auto" }}
-				anchorOrigin={{ vertical: "top", horizontal: "center" }}
-				open={open}
-				onClose={handleClose}
-				onContextMenu={(event: React.MouseEvent<HTMLDivElement>) => {
-					event.preventDefault();
-					setOpen(false);
-					dispatch(resetSelectionSource());
-				}}
-				message={
-					<Grid container direction="row" spacing={1}>
-						<Grid item>
-							<Card
-								variant="outlined"
-								color="secondary"
-								style={{
-									padding: "4px",
-									color: "white",
-									backgroundColor: "#3f51b5",
-									maxWidth: "400px",
-									overflowX: "auto",
-								}}
-								square={true}
-							>
-								<Typography variant="h4">{"Selection:"}</Typography>
-							</Card>
-
-							<Card
-								variant="outlined"
-								style={{ padding: "4px", color: "black", backgroundColor: "white" }}
-								square={true}
-							>
-								<Typography variant="body1">{sourceConfig?.contentStr}</Typography>
-							</Card>
-						</Grid>
-
-						{sourceConfig?.contentOrigin && (
+			<text.components.BiggerTooltip
+				title={"Dismiss via X or ESC or right-click on the pop-up."}
+				enterDelay={text.constants.defaultEnterDelay}
+				enterNextDelay={text.constants.defaultEnterNextDelay}
+			>
+				<Snackbar
+					style={{ maxWidth: "400px", overflowX: "auto" }}
+					anchorOrigin={{ vertical: "top", horizontal: "center" }}
+					open={open}
+					onClose={handleClose}
+					onContextMenu={(event: React.MouseEvent<HTMLDivElement>) => {
+						event.preventDefault();
+						setOpen(false);
+						dispatch(resetSelectionSource());
+					}}
+					message={
+						<Grid container direction="row" spacing={1}>
 							<Grid item>
 								<Card
 									variant="outlined"
 									color="secondary"
-									style={{ padding: "4px", color: "black", backgroundColor: "white" }}
+									style={{
+										padding: "4px",
+										color: "white",
+										backgroundColor: "#3f51b5",
+										maxWidth: "400px",
+										overflowX: "auto",
+									}}
 									square={true}
 								>
-									<Typography variant="h4">{"Origin:"}</Typography>
+									<Typography variant="h4">{"Selection:"}</Typography>
 								</Card>
 
 								<Card
 									variant="outlined"
-									style={{ padding: "4px", color: "white", backgroundColor: "#3f51b5" }}
+									style={{ padding: "4px", color: "black", backgroundColor: "white" }}
 									square={true}
 								>
-									<Typography variant="body1">Page {sourceConfig.contentOrigin.page}</Typography>
+									<Typography variant="body1">{sourceConfig?.contentStr}</Typography>
 								</Card>
 							</Grid>
-						)}
-					</Grid>
-				}
-				action={
-					<IconButton size="small" aria-label="close" color="inherit" onClick={handleDismiss}>
-						<CloseIcon fontSize="small" />
-					</IconButton>
-				}
-			/>
+
+							{sourceConfig?.contentOrigin && (
+								<Grid item>
+									<Card
+										variant="outlined"
+										color="secondary"
+										style={{ padding: "4px", color: "black", backgroundColor: "white" }}
+										square={true}
+									>
+										<Typography variant="h4">{"Origin:"}</Typography>
+									</Card>
+
+									<Card
+										variant="outlined"
+										style={{ padding: "4px", color: "white", backgroundColor: "#3f51b5" }}
+										square={true}
+									>
+										<Typography variant="body1">Page {sourceConfig.contentOrigin.page}</Typography>
+									</Card>
+								</Grid>
+							)}
+						</Grid>
+					}
+					action={
+						<IconButton size="small" aria-label="close" color="inherit" onClick={handleDismiss}>
+							<CloseIcon fontSize="small" />
+						</IconButton>
+					}
+				/>
+			</text.components.BiggerTooltip>
 		</Draggable>
 	);
 };
