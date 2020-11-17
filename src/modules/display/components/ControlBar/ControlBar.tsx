@@ -50,12 +50,8 @@ export const ControlBar = () => {
 							</Grid>
 						</Grid>
 
-						<Grid item xs={2}>
-							<Grid container justify="center">
-								<Grid item style={{ overflowX: "auto" }}>
-									<Typography variant="subtitle1">{materialName?.replace(".pdf", "")}</Typography>
-								</Grid>
-							</Grid>
+						<Grid item xs={2} style={{ overflowX: "auto" }}>
+							<Typography variant="subtitle1">{materialName?.replace(".pdf", "")}</Typography>
 						</Grid>
 
 						<Grid item xs={4}>
