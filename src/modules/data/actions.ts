@@ -32,6 +32,30 @@ export const downloadDBData = () => {
 	};
 };
 
+export const downloadActiveData = () => {
+	return (_: Dispatch, getState: Function) => {
+		const state = getState();
+		const activeCards = river.selectors.getNonEmptyRiverCardsSorted(state);
+		let val = "";
+
+		for (let card of activeCards) {
+			if (typeof card.content === "string") {
+				if (card.content !== "") val += card.content + "\n\n";
+			} else {
+				if (card.content.a !== "" || card.content.q !== "") {
+					const qVal = card.content.q;
+					const aVal = card.content.a;
+					val += "Question: " + qVal + "\n";
+					val += "Answer: " + aVal + "\n\n";
+				}
+			}
+		}
+
+		const localString = new Date().toLocaleString();
+		fileDownload(val, localString + " ClayMemoryCards.txt");
+	};
+};
+
 const resetActiveAppState = (dispatch: Dispatch) => {
 	// reset river first, otherwise it might not find cards which where deleted
 	dispatch(river.actions.allRiversReset());

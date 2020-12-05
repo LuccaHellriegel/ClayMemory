@@ -7,6 +7,7 @@ import { InputDocument } from "../DocumentData/InputDocument";
 import { DownloadDataSetsButton } from "../DataSets/DownloadDataSetsButton";
 import { InputDataSetsButton } from "../DataSets/InputDataSetsButton";
 import text from "../../../text";
+import { DownloadActiveDataButton } from "../DataSets/DownloadActiveDataButton";
 
 export const DataOptions = () => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -47,6 +48,14 @@ export const DataOptions = () => {
 					}}
 				>
 					<DownloadDataSetsButton></DownloadDataSetsButton>
+				</MenuItem>
+				<Divider />
+				<MenuItem
+					onClick={() => {
+						handleClose();
+					}}
+				>
+					<DownloadActiveDataButton></DownloadActiveDataButton>
 				</MenuItem>
 			</Menu>
 		</div>

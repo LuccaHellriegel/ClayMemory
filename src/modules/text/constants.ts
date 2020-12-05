@@ -35,6 +35,7 @@ export const loadingMaterialText = "Loading PDF…";
 export const activeDocumentText = "Active Document:";
 export const existingDataText = "Inactive documents with existing data:";
 export const loadMaterialText = "Load document";
+export const downloadActiveCardsText = "Download cards of active document";
 export const downloadDatasetsText = "Download document datasets";
 export const uploadDatasetsText = "Upload document datasets";
 
