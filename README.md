@@ -4,7 +4,7 @@
 
 React-based reader and editor for creating notes and flash cards directly from PDF documents.
 
-STATUS: prototype for HCI research into flash card creation.
+STATUS: prototype for HCI research into flash card creation (no repetition-backend at the moment).
 Try it here: [https://luccahellriegel.github.io/ClayMemory](https://luccahellriegel.github.io/ClayMemory)
 
 Only tested on Firefox and Chrome/Chromium (Desktop).
