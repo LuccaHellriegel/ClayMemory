@@ -1,6 +1,6 @@
 # ClayMemory - sculpt your mind
 
-![ClayMemory start screen](./ClayMemory.png)
+![ClayMemory start screen](./readme/ClayMemory.png)
 
 React-based reader and editor for creating notes and flash cards directly from PDF documents.
 
@@ -8,6 +8,36 @@ STATUS: prototype for HCI research into flash card creation.
 Try it here: [https://luccahellriegel.github.io/ClayMemory](https://luccahellriegel.github.io/ClayMemory)
 
 Only tested on Firefox and Chrome/Chromium (Desktop).
+
+## GIFs to illustrate the most important features
+
+### Load document
+
+![Load Document](./readme/ClayMemory-Load-Document.gif)
+
+### Create card from context-menu
+
+![Create card from context-menu](./readme/ClayMemory-Create-Card-From-ContextMenu.gif)
+
+### Modify card-field via button
+
+![Replace card-field via button](./readme/ClayMemory-Replace-Question-via-Button.gif)
+
+### Mark card-field for modification
+
+![Mark card-field for modification](./readme/ClayMemory-Mark-Card-For-Modification.gif)
+
+### Create card from other card
+
+![Create card from other card](./readme/ClayMemory-Create-Card-From-Card.gif)
+
+### Jump to origin of card-field
+
+![ Jump to origin of card-field](./readme/ClayMemory-Jump-To-Origin.gif)
+
+### Download cards
+
+![Download cards](./readme/ClayMemory-Download-Cards.gif)
 
 ## Controls
 
@@ -80,7 +110,7 @@ Issues, PRs and general suggestions welcome.
 ## Architecture
 
 Besides the classical React-Redux architecture, the modules are based around [redux-toolkit slices](https://redux-toolkit.js.org/tutorials/basic-tutorial#introducing-createslice) and are arranged according to this structure:
-![Module structure](./architecture.png)
+![Module structure](./readme/architecture.png)
 
 - "cards" contains the fundamental data model and basic components
 - "selection" contains all components and services for capturing and displaying the users text-selection, as well as transforming it into a card
@@ -94,8 +124,6 @@ Besides the classical React-Redux architecture, the modules are based around [re
 My custom code is licensed under Apache 2.0 (see LICENSE file).
 
 The favicon builds upon the Twemojii project and is copyright of Twitter, Inc and other contributors, and licensed under CC-BY 4.0.
-
-The screenshot at the top contains parts of [the german Wikipedia page for crocodiles.](https://de.wikipedia.org/wiki/Krokodile)
 
 ## Available Scripts
 
