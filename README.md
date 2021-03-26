@@ -4,7 +4,10 @@
 
 React-based reader and editor for creating notes and flash cards directly from PDF documents.
 
+The main difference between ClayMemory and comparable softwares is that ClayMemory takes into account that the revision and the exact context of cards is important for a holistic learning approach and that if we integrate reader and editor we can automate a lot of steps. For more conceptual background see Overview. 
+
 STATUS: prototype for HCI research into flash card creation (no repetition-backend at the moment).
+
 Try it here: [https://luccahellriegel.github.io/ClayMemory](https://luccahellriegel.github.io/ClayMemory)
 
 Only tested on Firefox and Chrome/Chromium (Desktop).
@@ -59,7 +62,9 @@ Creating digital flash cards, however, can be hard work, especially if huge amou
 One way how this could be simplified dramatically would be if your document-reader included tools to quickly extract information from the documents in a flashcard-ready format, and to allow you to iterate upon your formulations in the context of where you extracted it from in the documents.
 
 ClayMemory is a prototype of this new type of document-reader.
-It is open source and primarily build to research the question of how an integration of flash-card tools with a reader can enhance the usability of creating flash cards and therefore enable an intuitive integration of memory enhancement in the studying or reading process. In the long term, ClayMemory will be expanded to a desktop app which features a connection to Anki, so that the flash cards can be comfortably created in ClayMemory and also use the comfort of Anki-based repetition.
+
+It is open source and primarily build to research the question of how an integration of flash-card tools with a reader can enhance the usability of creating flash cards and therefore enable an intuitive integration of memory enhancement in the studying or reading process. 
+Future development might include a desktop app and a backend-connection to Anki, so that the flash cards can be comfortably created in ClayMemory and also use the comfort of Anki-based repetition.
 
 Issues, PRs and general suggestions welcome.
 
